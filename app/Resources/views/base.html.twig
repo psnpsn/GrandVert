@@ -50,8 +50,8 @@
                         <a data-toggle="dropdown" href="#"><img style="width: 35px; height: 35px; padding-top: 8px;" src="{{ asset('Base/images/user.png') }}" alt="" /></a> <b class="caret"></b>
                         <div class="status green">&nbsp;</div>
                         <ul class="dropdown-menu" role="menu">
-                            <li role="presentation"><a role="menuitem" tabindex="-1" href="{{ path('fos_user_profile_show') }}">Mon compte</a></li>
                             {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="{{ path('fos_user_profile_show') }}">Mon compte</a></li>
                                 <li role="presentation"><a role="menuitem" tabindex="-3" href="{{ path('fos_user_security_logout') }}">Déconnecter</a></li>
                             {% else %}
                                 <li role="presentation"><a role="menuitem" tabindex="-3" href="{{ path('fos_user_security_login') }}">Connecter</a></li>
