@@ -1,0 +1,35 @@
+<html lang="en">
+<head>
+</head>
+<body>
+            
+    <script type="text/javascript" src="ckeditor.js"></script>
+    
+    <p id="demo">Edit Article</p>
+
+    
+        <div>
+            <textarea name="content"  id="content" rows="10" cols="80"></textarea>
+
+            <script type="text/javascript">
+                CKEDITOR.replace('content');
+                
+            </script>
+
+        </div>
+
+        <input type="submit" value="Tester !" onclick="nouveauContenu();" />    
+
+        <script type="text/javascript">
+            function nouveauContenu(){
+                //CKEDITOR.instances.content.updateElement();
+                document.getElementById('demo').innerHTML =CKEDITOR.instances.content.getData();
+                
+            }
+        </script>
+
+
+    
+</body>
+
+</html>

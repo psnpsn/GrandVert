@@ -20,11 +20,27 @@ class User extends BaseUser
     protected $id;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="nom", type="string", length=255)
+     */
+    private $nom='';
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="prenom", type="string", length=255)
+     */
+    private $prenom='';
+
+
+    /**
      * @var int
      *
      * @ORM\Column(name="tel", type="integer")
      */
-    private $tel=00000000;
+    private $tel=0;
+
 
     /**
      * @var int
@@ -45,7 +61,7 @@ class User extends BaseUser
      *
      * @ORM\Column(name="avatar", type="string", length=255)
      */
-    private $avatar=null;
+    private $avatar='';
 
     public function __construct()
     {
@@ -148,5 +164,101 @@ class User extends BaseUser
     public function getAvatar()
     {
         return $this->avatar;
+    }
+
+    /**
+     * Set nom
+     *
+     * @param string $nom
+     *
+     * @return User
+     */
+    public function setNom($nom)
+    {
+        $this->nom = $nom;
+
+        return $this;
+    }
+
+    /**
+     * Get nom
+     *
+     * @return string
+     */
+    public function getNom()
+    {
+        return $this->nom;
+    }
+
+    /**
+     * Set prenom
+     *
+     * @param string $prenom
+     *
+     * @return User
+     */
+    public function setPrenom($prenom)
+    {
+        $this->prenom = $prenom;
+
+        return $this;
+    }
+
+    /**
+     * Get prenom
+     *
+     * @return string
+     */
+    public function getPrenom()
+    {
+        return $this->prenom;
+    }
+
+    /**
+     * Set daten
+     *
+     * @param \DateTime $daten
+     *
+     * @return User
+     */
+    public function setDaten($daten)
+    {
+        $this->daten = $daten;
+
+        return $this;
+    }
+
+    /**
+     * Get daten
+     *
+     * @return \DateTime
+     */
+    public function getDaten()
+    {
+        return $this->daten;
+    }
+
+    /**
+     * Set datenais
+     *
+     * @param \DateTime $datenais
+     *
+     * @return User
+     */
+    public function setDatenais($datenais)
+    {
+        $this->datenais = $datenais;
+
+        return $this;
+    }
+
+    /**
+     * Get datenais
+     *
+     * @return \DateTime
+     */
+    public function getDatenais()
+    {
+        return $this->datenais;
     }
 }

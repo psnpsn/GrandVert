@@ -26,6 +26,14 @@
                 <div class="signup-form">
                     <form method="POST" class="register-form" id="register-form">
                         <div class="form-row">
+                            <div class="form-group" style="width:100%;">
+                                <div class="form-input" >
+                                    <label for="username" class="required">Username</label>
+                                    <input type="text" name="username" id="username" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
                             <div class="form-group">
                                 <div class="form-input" >
                                     <label for="first_name" class="required">Nom</label>
@@ -38,8 +46,8 @@
                                 </div>    
 
                                 <div class="form-input">
-                                    <label for="last_name" class="required">Mot de passe</label>
-                                    <input type="password" name="last_name" id="last_name" />
+                                    <label for="password" class="required">Mot de passe</label>
+                                    <input type="password" name="password" id="password" />
                                 </div>
 
                             </div>
@@ -52,12 +60,12 @@
 
                                     <div class="form-input">
                                         <label for="phone_number" class="required">Télèphone</label>
-                                        <input type="text" name="phone_number" id="phone_number" />
+                                        <input type="number" name="phone_number" id="phone_number" />
                                     </div>
 
                                     <div class="form-input">
-                                        <label for="last_name" class="required">Comfirmer mot de passe</label>
-                                        <input type="password" name="last_name" id="last_name" />
+                                        <label for="comfirm" class="required">Comfirmer mot de passe</label>
+                                        <input type="password" name="comfirm" id="comfirm" />
                                     </div>                                    
 
 
@@ -69,11 +77,13 @@
                             <input type="submit" value="S'inscrire" class="submit" id="submit" name="submit" />
                             <input type="submit" value="rénitialiser" class="submit" id="reset" name="reset" />
                         </div>
-
+                        <p style="color:#9e9e9e;"> Vous avez deja un compte ? Login</p>     
+                                            
                     </form>
                 </div>
             </div>
         </div>
+        
 
     <!-- JS -->
     <script src="vendor/jquery/jquery.min.js"></script>

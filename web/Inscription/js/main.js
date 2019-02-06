@@ -43,18 +43,24 @@
 
   $('#register-form').validate({
     rules : {
+        fos_user_registration_form_username : {
+            required: true,
+        },
         first_name : {
             required: true,
         },
         last_name : {
             required: true,
         },
-        company : {
-            required: true
-        },
         email : {
             required: true,
             email : true
+        },
+        password : {
+            required: true,
+        },
+        confirm : {
+            required: true,
         },
         phone_number : {
             required: true,
