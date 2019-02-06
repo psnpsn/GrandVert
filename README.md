@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 Symfony Standard Edition
 ========================
 
@@ -75,3 +76,9 @@ Enjoy!
 [13]: https://symfony.com/doc/current/bundles/SensioGeneratorBundle/index.html
 [14]: https://symfony.com/doc/current/setup/built_in_web_server.html
 [15]: https://symfony.com/doc/current/setup.html
+=======
+# GrandVert
+Application Web Pepiniere
+Web Application Plant Nursery
+Symfony 3.4 Project
+>>>>>>> 1cb4d9b45ac53ddd4061e1a6d8ebde49623a326c
