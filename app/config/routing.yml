@@ -22,6 +22,18 @@ consulter_membre:
     path:     /consulter_membre
     defaults: { _controller: AppBundle:User:consulter }
 
+admin_home:
+    path:     /admin/home
+    defaults: { _controller: AppBundle:User:homeadmin }
+
+user_home:
+    path:     /home
+    defaults: { _controller: AppBundle:User:homemembre }
+
+
+
+
+
 
 
 

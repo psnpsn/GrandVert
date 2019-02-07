@@ -51,5 +51,18 @@ class UserController extends Controller
         return $this->render('User/consulter_membre.html.twig' , ["user" => $user]);
     }
 
+    public function homeadminAction()
+    {
+        return $this->render('admin_dashboard.html.twig');
+    }
+
+    public function homemembreAction()
+    {
+        return $this->render('default/index.html.twig');
+    }
+
+
+
+
 
 }

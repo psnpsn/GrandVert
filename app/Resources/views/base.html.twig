@@ -20,7 +20,7 @@
                 <div class="container">
                     <div class="header-top">
                         <div class="logo">
-                            <a href="{{ path('homepage') }}"><img src="images/logo.png" alt="GrandVert" ></a>
+                            <a href="{{ path('homepage') }}"><img src="{{ asset('Base/images/logo.png') }}" alt="GrandVert" ></a>
                         </div>
                         <div class="search-in">
                             <div class="header-grid">
@@ -124,13 +124,15 @@
 
 {% block footer %}
 
-
-{% endblock footer %}
 <div class="footer">
     <div class="container">
         <p class="footer-grid">Copyright &copy; 2015 vegetables Template by  <a href="http://w3layouts.com/" target="_blank">W3layouts</a> </p>
     </div>
 </div>
+
+
+{% endblock footer %}
+
 {% block javascripts %}
     <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
     <script src="{{ asset('Base/js/jquery.min.js') }}"></script>
