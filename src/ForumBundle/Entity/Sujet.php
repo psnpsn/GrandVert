@@ -5,6 +5,7 @@ namespace ForumBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use ForumBundle;
 use AppBundle;
+use PlanteBundle;
 
 /**
  * Sujet
@@ -74,11 +75,10 @@ class Sujet
 
 
     /**
-     * @var int
-     *
-     * @ORM\Column(name="id_plante", type="integer")
+     * @ORM\ManyToOne(targetEntity="PlanteBundle\Entity\plante")
+     * @ORM\JoinColumn(referencedColumnName="id")
      */
-    private $id_plante;
+    private $Plante;
 
     /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")

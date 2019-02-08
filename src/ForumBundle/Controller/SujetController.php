@@ -47,11 +47,8 @@ class SujetController extends Controller
         $em= $this->getDoctrine()->getManager();
         $sujets=$em->getRepository("ForumBundle:Sujet")->findBy(['id_plante'=> 1 ]);
 
-        //recuperer l'uilisateur connecter qui va ajouter un sujet
-        $user = $this->get('security.token_storage')->getToken()->getUser();
 
-
-        return $this->render('@Forum/Sujet/afficher.html.twig' , ["sujets" => $sujets , "user" => $user]);
+        return $this->render('@Forum/Sujet/afficher.html.twig' , ["sujets" => $sujets]);
     }
 
     public function consulterAction(Request $request)
@@ -71,7 +68,7 @@ class SujetController extends Controller
         //recuperer les reponses de sujet à consulter
         $reponses=$em->getRepository("ForumBundle:Reponse")->findBy(['Sujet'=> $sujet ]);
 
-        return $this->render('ForumBundle:Publication:consulter.html.twig', ["sujet" => $sujet , "reponses" => $reponses ]);
+        return $this->render('@Forum/Sujet/consulter.html.twig', ["sujet" => $sujet , "reponses" => $reponses ]);
     }
 
     public function supprimerAction(Request $request)

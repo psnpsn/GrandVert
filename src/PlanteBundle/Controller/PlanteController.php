@@ -39,11 +39,18 @@ class PlanteController extends Controller
     }
     public function detAction(Request $request)
     {
+        //recuperer les informations du  plante à consulter
         $id=$request->get('id');
         $em=$this->getDoctrine()->getManager();
         $plante=$em->getRepository('PlanteBundle:plante')->find($id);
+
+        //recuperer tous les sujets de plante à consulter
+        $em= $this->getDoctrine()->getManager();
+        $sujets=$em->getRepository("ForumBundle:Sujet")->findBy(['Plante'=> $plante ]);
+
+
         return $this->render('@Plante/plante/detaille.html.twig',array(
-            'plante'=>$plante
+            'plante'=>$plante , "sujets" =>$sujets
         ));
     }
 }
