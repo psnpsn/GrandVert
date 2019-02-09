@@ -11,13 +11,14 @@ namespace AppBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use FOS\UserBundle\Form\Type\ProfileFormType as BaseProfileFormType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 class ProfileFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder
+        $builder ->add('avatar',FileType::class, array('data_class' => null))
             ->add('nom')->
         add('prenom')->add('tel')->remove('username');
     }
