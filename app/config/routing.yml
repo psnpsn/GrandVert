@@ -10,7 +10,6 @@ app:
 fos_user:
     resource: "@FOSUserBundle/Resources/config/routing/all.xml"
 
-
 list_user/admin:
     path:     /admin/list_user
     defaults: { _controller: AppBundle:User:list }

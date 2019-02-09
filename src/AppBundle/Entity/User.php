@@ -5,7 +5,7 @@ namespace AppBundle\Entity;
 
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Component\Validator\Constraint as Assert;
 /**
  * @ORM\Entity
  * @ORM\Table(name="fos_user")
@@ -58,7 +58,6 @@ class User extends BaseUser
 
     /**
      * @var string
-     *
      * @ORM\Column(name="avatar", type="string", length=255)
      */
     private $avatar='';
