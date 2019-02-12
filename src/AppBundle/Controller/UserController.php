@@ -50,7 +50,16 @@ class UserController extends Controller
 
         return $this->render('User/consulter_membre.html.twig' , ["user" => $user]);
     }
-
+    public function profileAction(Request $request)
+    {
+        $user = $this->container->get('security.token_storage')->getToken()->getUser();
+        return $this->render('User/profile.html.twig' , ["user" => $user]);
+    }
+    public function profileadAction(Request $request)
+    {
+        $user = $this->container->get('security.token_storage')->getToken()->getUser();
+        return $this->render('User/profilead.html.twig' , ["user" => $user]);
+    }
     public function homeadminAction()
     {
         return $this->render('admin_dashboard.html.twig');

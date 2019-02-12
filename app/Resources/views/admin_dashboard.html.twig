@@ -164,7 +164,7 @@
                                 </div>
                             </div>
                         </a>
-                        <a class="dropdown-item mt-2">
+                        <a class="dropdown-item mt-2" href="{{ path('profile_admin')}}">
                             Compte
                         </a>
                         <a class="dropdown-item" href="{{ path('fos_user_security_logout')}}">
@@ -221,13 +221,10 @@
                     <div class="collapse" id="ui-basic">
                         <ul class="nav flex-column sub-menu">
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ asset('Admin/pages/ui-features/buttons.html') }}">Liste plante</a>
+                                <a class="nav-link" href="{{ path('conulter')}}">Liste plante</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ asset('Admin/pages/ui-features/typography.html') }}">Ajouter plante</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ asset('Admin/pages/ui-features/typography.html') }}">Consulter plante</a>
+                                <a class="nav-link" href="{{ path('planteadd') }}">Ajouter plante</a>
                             </li>
                         </ul>
                     </div>
