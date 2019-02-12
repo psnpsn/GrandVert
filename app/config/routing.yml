@@ -1,3 +1,11 @@
+plante:
+    resource: "@PlanteBundle/Resources/config/routing.yml"
+    prefix:   /plante
+
+forum:
+    resource: "@ForumBundle/Resources/config/routing.yml"
+    prefix:   /
+
 app:
     resource: '@AppBundle/Controller/'
     type: annotation
@@ -5,4 +13,31 @@ app:
 # app/config/routing.yml
 fos_user:
     resource: "@FOSUserBundle/Resources/config/routing/all.xml"
+
+list_user/admin:
+    path:     /admin/list_user
+    defaults: { _controller: AppBundle:User:list }
+
+Modifier_etat_compte:
+    path:     /admin/Modifier_etat_compte
+    defaults: { _controller: AppBundle:User:etat }
+
+consulter_membre:
+    path:     /consulter_membre
+    defaults: { _controller: AppBundle:User:consulter }
+
+admin_home:
+    path:     /admin/home
+    defaults: { _controller: AppBundle:User:homeadmin }
+
+user_home:
+    path:     /home
+    defaults: { _controller: AppBundle:User:homemembre }
+
+
+
+
+
+
+
 

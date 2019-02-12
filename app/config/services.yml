@@ -33,3 +33,29 @@ services:
     # AppBundle\Service\ExampleService:
     #     arguments:
     #         $someArgument: 'some_value'
+    app.form.registration:
+        class: AppBundle\Form\RegistrationFormType
+        tags:
+            - { name: form.type}
+    app.form.profile:
+        class: AppBundle\Form\ProfileFormType
+        tags:
+             - { name: form.type}
+    app.image_uploader:
+        class: AppBundle\ImageUpload
+        arguments: ['%image_directory%']
+    app.doctrine_image_listener:
+        class: AppBundle\EventListener\ImageUploadListener
+        arguments: ['@app.image_uploader']
+        tags:
+            - { name: doctrine.event_listener, event: prePersist }
+            - { name: doctrine.event_listener, event: preUpdate }
+    plante.image_uploader:
+        class: PlanteBundle\ImageUpload
+        arguments: ['%image_directory%']
+    plante.doctrine_image_listener:
+        class: PlanteBundle\EventListener\ImageUploadListener
+        arguments: ['@plante.image_uploader']
+        tags:
+            - { name: doctrine.event_listener, event: prePersist }
+            - { name: doctrine.event_listener, event: preUpdate }

@@ -1,0 +1,40 @@
+<p> List des membres inscrit </p>
+
+<form method="post">
+    <label> username :</label>
+    <input type="text" name="username"> <br>
+
+    <label> email :</label>
+    <input type="email" name="email"> <br>
+
+    <input type="submit" value="Rechercher">
+</form>
+
+
+<table border="2">
+    <tr>
+        <th> Nom </th>
+        <th> Prenom </th>
+        <th> Username </th>
+        <th> Email </th>
+        <th> Etat </th>
+    </tr>
+    {% for Membre in Membres %}
+        <tr>
+            <td> {{ Membre.nom }}</td>
+            <td> {{ Membre.prenom }}</td>
+            <td> {{ Membre.username }}</td>
+            <td> {{ Membre.email }}</td>
+            {% if Membre.enabled == 1 %}
+                <td> Activer </td>
+            {% endif %}
+            {% if Membre.enabled == 0 %}
+                <td> Desactiver </td>
+            {% endif %}
+            <td> <a href=" {{ path("Modifier_etat_compte",{'id': Membre.id} ) }}"> Modifier Etat</a> </td>
+            <td> <a href=" {{ path("consulter_membre",{'id': Membre.id} ) }}"> Consulter</a> </td>
+
+        </tr>
+
+    {% endfor %}
+</table>
