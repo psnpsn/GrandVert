@@ -1,3 +1,7 @@
+plante:
+    resource: "@PlanteBundle/Resources/config/routing.yml"
+    prefix:   /plante
+
 forum:
     resource: "@ForumBundle/Resources/config/routing.yml"
     prefix:   /

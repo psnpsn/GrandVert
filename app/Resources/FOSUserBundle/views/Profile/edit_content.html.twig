@@ -1,14 +1,24 @@
+{% extends 'base.html.twig' %}
 {% trans_default_domain 'FOSUserBundle' %}
+{% block content %}
 
-{{ form_start(form, { 'action': path('fos_user_profile_edit'), 'attr': { 'class': 'fos_user_profile_edit' } }) }}
-<img src="{{ asset('uploads/avatar/'~user.avatar) }}"  height="100px" width="100px">
-{{ form_row(form.avatar) }}
-{{ form_row(form.nom) }}
-{{ form_row(form.prenom) }}
-{{ form_row(form.email) }}
-{{ form_row(form.tel) }}
-{{ form_row(form.current_password) }}
-    <div>
-        <input type="submit" value="{{ 'profile.edit.submit'|trans }}" />
+    <div class="container">
+                <div class="sign">
+                {{ form_start(form, { 'action': path('fos_user_profile_edit'), 'attr': { 'class': 'fos_user_profile_edit' } }) }}
+                    <img height="240px" width="240px" src="{{ asset('uploads/avatar/'~user.avatar) }}" alt=" " >
+                    {{ form_row(form.avatar) }}
+                {{ form_row(form.nom) }}
+                {{ form_row(form.prenom) }}
+                {{ form_row(form.email) }}
+                {{ form_row(form.tel) }}
+                {{ form_row(form.current_password) }}
+                <div>
+                    <input type="submit" value="{{ 'profile.edit.submit'|trans }}" />
+                </div>
+
+                {{ form_end(form) }}
+                </div>
+                <div class="clearfix"> </div>
+
     </div>
-{{ form_end(form) }}
+{% endblock %}

@@ -50,3 +50,12 @@ services:
         tags:
             - { name: doctrine.event_listener, event: prePersist }
             - { name: doctrine.event_listener, event: preUpdate }
+    plante.image_uploader:
+        class: PlanteBundle\ImageUpload
+        arguments: ['%image_directory%']
+    plante.doctrine_image_listener:
+        class: PlanteBundle\EventListener\ImageUploadListener
+        arguments: ['@plante.image_uploader']
+        tags:
+            - { name: doctrine.event_listener, event: prePersist }
+            - { name: doctrine.event_listener, event: preUpdate }

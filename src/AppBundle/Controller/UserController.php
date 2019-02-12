@@ -9,7 +9,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class UserController extends Controller
 {
     public function listAction(Request $request)
-    {
+    {  $user = $this->container->get('security.token_storage')->getToken()->getUser();
         $em= $this->getDoctrine()->getManager();
         //$Membres=$em->getRepository("AppBundle:User")->findBy(['roles'=> 'ROLE_ADMIN' ]);
         $Membres=$em->getRepository("AppBundle:User")->findAll();
@@ -21,7 +21,7 @@ class UserController extends Controller
             return $this->render('User/listuser.html.twig' , ["Membres" => $Membres]);
         }
 
-        return $this->render('User/listuser.html.twig' , ["Membres" => $Membres]);
+        return $this->render('membre.html.twig' , ["Membres" => $Membres,"user" => $user]);
     }
 
     public function etatAction(Request $request)

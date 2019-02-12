@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+{% block content %}
+    <div class="container">
+        <div class="single">
+            <div class="blog-top-in">
+                <div class="col-md-4 top-blog">
+                    <img class="img-responsive" src="{{ asset('uploads/avatar/'~plante.photo) }}" alt=" " >
+                </div>
+                <div class="col-md-8 sed-in">
+                    <h4>{{ plante.nom }}</h4>
+                    <p>Hauteur: {{ plante.hauteur }}</p>
+                    <p>fertiliseur: {{ plante.fertiliseur }}</p>
+                    <p>categorie: {{ plante.categorie }}</p>
+                    <p>season: {{ plante.season }}</p>
+                    <p>Description:</p><p> {{ plante.Description }}</p>
+                </div>
+                <div class="clearfix"> </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

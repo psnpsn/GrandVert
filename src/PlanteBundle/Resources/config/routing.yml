@@ -1,0 +1,12 @@
+plante_homepage:
+    path:     /index
+    defaults: { _controller: PlanteBundle:Default:index }
+planteadd:
+    path:     /add
+    defaults: { _controller: PlanteBundle:Plante:add }
+planteaff:
+    path:     /
+    defaults: { _controller: PlanteBundle:Plante:aff }
+plantedetaile:
+    path:     /detaille
+    defaults: { _controller: PlanteBundle:Plante:det }

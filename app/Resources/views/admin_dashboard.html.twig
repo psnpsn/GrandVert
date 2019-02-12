@@ -148,7 +148,7 @@
                 <li class="nav-item dropdown d-none d-xl-inline-block">
                     <a class="nav-link dropdown-toggle" id="UserDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
                         <span class="profile-text">{{ user.nom }} {{ user.prenom }}</span>
-                        <img class="img-xs rounded-circle" src="{{ asset('uploads/avatar/') }} {{ user.avatar }} " alt="Profile image">
+                        <img class="img-xs rounded-circle" src="{{ asset('uploads/avatar/'~user.avatar) }}" alt="Profile image">
                     </a>
                     <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
                         <a class="dropdown-item p-0">
@@ -187,7 +187,7 @@
                     <div class="nav-link">
                         <div class="user-wrapper">
                             <div class="profile-image">
-                                <img src="{{ asset('Admin/images/faces/face1.jpg') }}" alt="profile image">
+                                <img src="{{ asset('uploads/avatar/'~user.avatar) }}" alt="profile image">
                             </div>
                             <div class="text-wrapper">
                                 <p class="profile-name">{{ user.nom }} {{ user.prenom }} </p>
@@ -200,13 +200,13 @@
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="index.html">
+                    <a class="nav-link" href={{ path('homepage') }}>
                         <i class="menu-icon mdi mdi-television"></i>
                         <span class="menu-title">Dashboard</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" data-toggle="collapse" href="#" aria-expanded="false" aria-controls="ui-basic">
+                    <a class="nav-link" href={{ path('list_user/admin') }} >
                         <i class="menu-icon mdi mdi-content-copy"></i>
                         <span class="menu-title">Gérer Membre</span>
                     </a>
