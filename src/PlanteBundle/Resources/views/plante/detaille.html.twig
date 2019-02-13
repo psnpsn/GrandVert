@@ -18,4 +18,23 @@
             </div>
         </div>
     </div>
+
+    <div class="comment-grid-top" style="padding-left: 90px;">
+    {% for sujet in sujets %}
+        <div class="comments-top-top">
+            <div class="top-comment-left">
+                <img class="img-responsive " src="{{ asset('uploads/avatar/'~sujet.User.avatar) }}" alt="" />
+            </div>
+            <div class="top-comment-right">
+                <ul>
+                    <li><span class="left-at"> {{ sujet.User.nom }} {{ sujet.User.prenom }}</span></li>
+                    <li><span class="right-at">{{ sujet.dateoriginal | date("y/m/d") }}</span></li>
+                    <li><a class="reply" href="{{ path('consulter_sujet' , {'id': sujet.id}) }}">Repondre</a></li>
+                </ul>
+                <p> {{ sujet.sujetOriginal |raw }} </p>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+    {% endfor %}
+    </div>
 {% endblock %}

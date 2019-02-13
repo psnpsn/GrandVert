@@ -26,12 +26,13 @@
                 <div class="container">
                     <div class="header-top">
                         <div class="logo">
-                            <a href="{{ path('homepage') }}"><img src="{{ asset('Base/images/logo.png') }}" alt="GrandVert" ></a>
+                            <a href="{{ path('homepage') }}"><img src="{{ asset('Base/images/logo.png') }}" alt="GrandVert" width="430px"></a>
                         </div>
                         <div class="search-in">
                             <div class="header-grid">
                                 <ul>
-                                    <li class="in-up" ><a href="{{ path('fos_user_profile_edit')}}" class="scroll"> Profile </a> <label>|</label></li>
+                                    <li class="in-up" ><a href="{{ path('profile_user')}}" class="scroll"> compte </a> <label>|</label></li>
+                                    <li class="in-up" ><a href="{{ path('fos_user_profile_edit')}}" class="scroll"> edit </a> <label>|</label></li>
                                     <li ><a href="{{ path('fos_user_security_logout')}}" class="scroll">Déconnection</a></li>
                                 </ul>
                             </div>
@@ -78,7 +79,7 @@
                 <div class="container">
                     <div class="header-top">
                         <div class="logo">
-                            <a href="{{ path('homepage') }}"><img src="images/logo.png" alt="GrandVert" ></a>
+                            <a href="{{ path('homepage') }}"><img src="{{ asset('Base/images/logo.png') }}" alt="GrandVert" width="430px"></a>
                         </div>
                         <div class="search-in">
                             <div class="header-grid">
@@ -107,7 +108,7 @@
                         <div class="top-nav">
                             <span class="menu"> </span>
                             <ul>
-                                <li><a href="product.html" > plante</a></li>
+                                <li><a href="{{ path('planteaff')}}" > plante</a></li>
                                 <li><a href="services.html" > partage expérience </a></li>
                                 <li><a href="404.html" >boutique</a></li>
                                 <li><a href="contact.html" > Evénemenet </a></li>

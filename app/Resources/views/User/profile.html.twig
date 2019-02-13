@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}    <div class="container">
+    <div class="single">
+        <div class="blog-top-in">
+            <div class="col-md-4 top-blog">
+                <img class="img-responsive" src="{{ asset('uploads/avatar/'~user.avatar) }}" alt=" " >
+            </div>
+            <div class="col-md-8 sed-in">
+                <p><h4>nom: {{ user.nom }}</h4></p>
+                <p><h4>prénom: {{ user.prenom }}</h4></p>
+                <p> <h4>email: {{ user.email }}</h4></p>
+                <p> <h4>level: {{ user.level }}</h4></p>
+                <p><h4>score: {{ user.score }}</h4></p>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+    </div>
+    </div>{% endblock %}

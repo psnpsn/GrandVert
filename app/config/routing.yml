@@ -1,3 +1,7 @@
+achat:
+    resource: "@AchatBundle/Resources/config/routing.yml"
+    prefix:   /achat
+
 plante:
     resource: "@PlanteBundle/Resources/config/routing.yml"
     prefix:   /plante
@@ -29,6 +33,12 @@ consulter_membre:
 admin_home:
     path:     /admin/home
     defaults: { _controller: AppBundle:User:homeadmin }
+profile_user:
+    path:     /user
+    defaults: { _controller: AppBundle:User:profile }
+profile_admin:
+    path:     /admin/profile
+    defaults: { _controller: AppBundle:User:profilead }
 
 user_home:
     path:     /home
