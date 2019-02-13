@@ -10,7 +10,13 @@
             <link href="{{ asset('Base/css/style.css') }}" rel="stylesheet" type="text/css" media="all" />
             <link href='http://fonts.googleapis.com/css?family=Exo:100,200,300,400,500,600,700,800,900' rel='stylesheet' type='text/css'>
         {% endblock %}
-        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+        <link rel="manifest" href="/site.webmanifest">
+        <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+        <meta name="msapplication-TileColor" content="#da532c">
+        <meta name="theme-color" content="#ffffff">
     {% endblock %}
 </head>
 <body>
@@ -52,7 +58,9 @@
                                 <li><a href="{{ path('planteaff')}}" > plante</a></li>
                                 <li><a href="services.html" > partage expérience </a></li>
                                 <li><a href="404.html" >boutique</a></li>
+                                <li><a href="contact.html" > Evénemenet </a></li>
                                 <li><a href="contact.html" > Contact </a></li>
+
                             </ul>
                             <script>
                                 $("span.menu").click(function(){
@@ -102,6 +110,7 @@
                                 <li><a href="product.html" > plante</a></li>
                                 <li><a href="services.html" > partage expérience </a></li>
                                 <li><a href="404.html" >boutique</a></li>
+                                <li><a href="contact.html" > Evénemenet </a></li>
                                 <li><a href="contact.html" > Contact </a></li>
                             </ul>
                             <script>
