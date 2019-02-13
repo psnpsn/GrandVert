@@ -2,9 +2,9 @@ forum_homepage:
     path:     /forum
     defaults: { _controller: ForumBundle:Default:index }
 
-consulter_plante:
-    path:     /plante/consulter
-    defaults: { _controller: ForumBundle:Sujet:afficher }
+consulter_sujet:
+    path:     /plante/sujet/consulter
+    defaults: { _controller: ForumBundle:Sujet:consulter }
 
 
 
