@@ -30,7 +30,15 @@
 
     <!-- SLIDER REVOLUTION 4.x CSS SETTINGS -->
     <link rel="stylesheet" type="text/css" href="{{ asset('forum/commentaire/rs-plugin/css/settings.css') }}" media="screen" />
+    <link rel="stylesheet" href="{{ asset('emojionearea-master/dist/emojionearea.css') }}">
 
+    <style>
+        .postreply{
+            width: 84%;
+            float: left;
+            margin-bottom: 10px ;
+        }
+    </style>
 </head>
 <body>
 
@@ -43,6 +51,12 @@
 
 <!-- get jQuery from the google apis -->
 <script type="text/javascript" src="{{ asset('jquery-3.3.1.js') }}"></script>
+<script src="{{ asset('emojionearea-master/dist/emojionearea.min.js') }}"> </script>
+<script>
+    $("#mytext").emojioneArea({
+        pickerPosition: "right"
+    });
+</script>
 
 
 <!-- SLIDER REVOLUTION 4.x SCRIPTS  -->

@@ -44,7 +44,7 @@ h1,h2,h3,h4,h5,h6,p{
 	font-weight: 500;
 }
 .header-grid ul li a:hover{
-	color:#ff9900;
+	color:#66bb6a;
 }
 .header-grid ul li label {
 	color: #dadada;
@@ -54,7 +54,7 @@ h1,h2,h3,h4,h5,h6,p{
 	vertical-align: middle;
 }
 .header-top {
-	padding: 2em 0;
+	padding: 0.7em 0;
 }
 /*----*/
 /* PREFIXED CSS */
@@ -157,7 +157,7 @@ h1,h2,h3,h4,h5,h6,p{
 	left: 0;
 	right: 0;
 	top: 100%;
-	background:#B07823;
+	background:#3C9947;
 	overflow: hidden;
 	opacity: 0;
 	color:#fff;
@@ -221,7 +221,7 @@ h1,h2,h3,h4,h5,h6,p{
 }
 /*----*/
 .header-bottom-bottom{
-	border-top:5px solid #ff9900;
+	border-top:5px solid #66bb6a;
 }
 .search {
 	margin: 0.8em 0.8em 0 0em;	
@@ -244,7 +244,7 @@ a.cart-in{
 	text-decoration:none;
 }
 .cart span{
-	background:#ff9900;
+	background:#66bb6a;
 	border-radius:100px;
 	color:#fff;
 	font-size:1.5em;
@@ -269,7 +269,7 @@ a.cart-in{
 .search input[type="submit"] {	
 	width: 60px;
 	height: 46px;
-	background: #ff9900 url(../images/img-sprite.png) -55px 6px no-repeat;
+	background: #66bb6a url(../images/img-sprite.png) -55px 6px no-repeat;
 	padding: 0px 10px;
 	border: none;
 	cursor: pointer;
@@ -286,13 +286,13 @@ a.cart-in{
 	text-decoration:none;
 	color:#000;
 	font-size:1.8em;
-	margin: 1.5em 1em;
+	margin: 0.4em 0.8em;
 	display: block;
 	font-weight: 500;
-	letter-spacing: 2px;
+	letter-spacing: 1.5px;
 }
 .top-nav ul li a:hover,.top-nav ul li.active a{
-	color:#ff9900;
+	color:#66bb6a;
 }
 /*----*/
 .top-nav span.menu:before{
@@ -1268,7 +1268,7 @@ a.company{
 }
 /*----*/
 .footer{
-	background:#ff9900;
+	background:#66bb6a;
 	padding:2em 0;
 	text-align:center;
 }

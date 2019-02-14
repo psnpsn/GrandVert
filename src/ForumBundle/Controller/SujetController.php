@@ -5,6 +5,7 @@ namespace ForumBundle\Controller;
 use ForumBundle\Entity\Sujet;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class SujetController extends Controller
 {
@@ -15,25 +16,39 @@ class SujetController extends Controller
 
     public function ajouterAction(Request $request) {
 
-        $sujet = new Sujet(); //creer un nouveau instance de l'entity sujet
+        //verifier si il ya un utilisateur connecter ou non pour faire l'ajout
+        $authChecker = $this->container->get('security.authorization_checker');
+        $router = $this->container->get('router');
 
-        //saisir leur données
-        $sujet->setSujetOriginal($request->request->get('postoriginal')); //recuperer le contenue du sujet sasie par l'utilisateur connecté
-        $sujet->setSujetEdited("");
-        $sujet->setDateoriginal(new \DateTime());
-        $sujet->setDateedited(new \DateTime());
-        $sujet->setEtat('open');
-        $sujet->setIdPlante(1);
+        //verfier si l'utilisateur connecter est un admin pour acceder à admin dashboard
+        if (($authChecker->isGranted('ROLE_ADMIN')) || ($authChecker->isGranted('ROLE_USER')) ) {
+            $id_plante = $request->request->get("id");
+            $sujet = new Sujet(); //creer un nouveau instance de l'entity sujet
 
-        //recuperer l'uilisateur connecter qui va ajouter un sujet
-        $user = $this->get('security.token_storage')->getToken()->getUser();
-        $sujet->setUser($user);
+            //saisir leur données
+            $sujet->setSujetOriginal($request->request->get('postoriginal')); //recuperer le contenue du sujet sasie par l'utilisateur connecté
+            $sujet->setSujetEdited("");
+            $sujet->setDateoriginal(new \DateTime());
+            $sujet->setDateedited(new \DateTime());
+            $sujet->setEtat('open');
+            $sujet->setPlante($id_plante);
 
-        $em = $this->getDoctrine()->getEntityManager();
-        $em->persist($sujet);
-        $em->flush();
+            //recuperer l'uilisateur connecter qui va ajouter un sujet
+            $user = $this->getUser();
+            $sujet->setUser($user);
 
-        return $this->redirect($this->generateUrl('consulter_plante'));
+            $em = $this->getDoctrine()->getEntityManager();
+            $em->persist($sujet);
+            $em->flush();
+
+            return $this->redirect($this->generateUrl('afficher_categorie'));
+        }else{
+            // si il n'ya pas un utilisateur connecter , redigier vers page login
+            return new RedirectResponse($router->generate('fos_user_security_login'), 307);
+        }
+
+
+
 
     }
 
@@ -61,7 +76,11 @@ class SujetController extends Controller
             array_push($NbReponses, array('sujet' => $sujets[$i] , 'NbReponseC' => count($reponses)));
         }
 
-        return $this->render('@Forum/Sujet/afficher.html.twig' , ["sujets" => $sujets , "plante"=> $plante ,"NbReponses" => $NbReponses]);
+        //recuperer l'uilisateur connecter
+        $id = $this->getUser();
+        $user = $em->getRepository("AppBundle:User")->find($id);
+
+        return $this->render('@Forum/Sujet/afficher.html.twig' , ["sujets" => $sujets , "plante"=> $plante ,"NbReponses" => $NbReponses ,"User" => $user]);
     }
 
     public function consulterAction(Request $request)
@@ -100,6 +119,7 @@ class SujetController extends Controller
 
         return $this->redirect($this->generateUrl('consulter_plante'));
     }
+
 
 
 

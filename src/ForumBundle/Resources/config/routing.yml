@@ -37,6 +37,11 @@ supprimer_commentaire:
     path:     /sujet/reponse/supprimer
     defaults: { _controller: ForumBundle:Reponse:supprimer }
 
+ajouter_sujet:
+    path:     /sujet/ajouter
+    defaults: { _controller: ForumBundle:Sujet:ajouter }
+
+
 
 
 

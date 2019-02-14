@@ -15,11 +15,6 @@ class DefaultController extends Controller
      */
     public function indexAction(Request $request)
     {
-        /* replace this example code with whatever you need
-        return $this->render('default/index.html.twig', [
-            'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
-        ]);
-        */
 
         $authChecker = $this->container->get('security.authorization_checker');
         $router = $this->container->get('router');
@@ -27,8 +22,7 @@ class DefaultController extends Controller
         //verfier si l'utilisateur connecter est un admin pour acceder à admin dashboard
         if ($authChecker->isGranted('ROLE_ADMIN')) {
             $user = $this->container->get('security.token_storage')->getToken()->getUser();
-            return $this->render('admin_dashboard.html.twig' , ["user" => $user]);
-            //return new RedirectResponse($router->generate('admin_home'), 307);
+            //return $this->render('admin_dashboard.html.twig' , ["user" => $user]);
         }
 
         //verfier si l'utilisateur connecter est un membre  pour acceder à son interface

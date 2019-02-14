@@ -57,21 +57,21 @@ class Sujet
      *
      * @ORM\Column(name="nbshare", type="integer")
      */
-    private $nbshare;
+    private $nbshare=0;
 
     /**
      * @var int
      *
      * @ORM\Column(name="nbviews", type="integer")
      */
-    private $nbviews;
+    private $nbviews=0;
 
     /**
      * @var string
      *
      * @ORM\Column(name="etat", type="string", length=255)
      */
-    private $etat;
+    private $etat="open";
 
 
     /**
@@ -313,27 +313,4 @@ class Sujet
         return $this->User;
     }
 
-    /**
-     * Set idPlante
-     *
-     * @param integer $idPlante
-     *
-     * @return Sujet
-     */
-    public function setIdPlante($idPlante)
-    {
-        $this->id_plante = $idPlante;
-
-        return $this;
-    }
-
-    /**
-     * Get idPlante
-     *
-     * @return integer
-     */
-    public function getIdPlante()
-    {
-        return $this->id_plante;
-    }
 }
