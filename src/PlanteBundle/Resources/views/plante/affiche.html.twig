@@ -4,12 +4,12 @@
         <div class="product">
             <div id="portfoliolist">
                 {% set i=1 %}
-                {% for plante in plantes %}
+                {% for i in 1..10 %}
                 {% if i==1 %}
                 <div class="portfolio app mix_all" data-cat="app" style="display: inline-block; opacity: 1;" width="224px" height="188px">
                     <div class="portfolio-wrapper ">
-                        <a href="{{ path('plantedetaile',{'id':plante.id}) }}" class="b-link-stripe b-animate-go ">
-                            <img class="img-responsive "  src="{{ asset('uploads/avatar/'~plante.photo) }}"  alt="" />
+                        <a href="{{ path('plantedetaile',{'id':plantes[0].id}) }}" class="b-link-stripe b-animate-go ">
+                            <img class="img-responsive "  src="{{ asset('uploads/avatar/'~plantes[0].photo) }}"  alt="" />
 
                             <ul class="social-ic">
                                 <li class="in-search"><span> </span></li>
@@ -21,8 +21,8 @@
                 {% elseif i==2 %}
                 <div class="portfolio icon mix_all" data-cat="icon" style="display: inline-block; opacity: 1;" >
                     <div class="portfolio-wrapper">
-                        <a href="{{ path('plantedetaile',{'id':plante.id}) }}" class="b-link-stripe b-animate-go  thickbox play-icon ">
-                            <img class="img-responsive"  src="{{ asset('uploads/avatar/'~plante.photo) }}" alt="" />
+                        <a href="{{ path('plantedetaile',{'id':plantes[0].id}) }}" class="b-link-stripe b-animate-go  thickbox play-icon ">
+                            <img class="img-responsive"  src="{{ asset('uploads/avatar/'~plantes[0].photo) }}" alt="" />
                             <ul class="social-ic">
                                 <li class="in-search"><span> </span></li>
                             </ul>
@@ -33,8 +33,8 @@
                 {% else %}
                 <div class="portfolio card mix_all" data-cat="card" style="display: inline-block; opacity: 1;">
                     <div class="portfolio-wrapper">
-                        <a href="{{ path('plantedetaile',{'id':plante.id}) }}" class="b-link-stripe b-animate-go  thickbox play-icon ">
-                            <img class="img-responsive"  src="{{ asset('uploads/avatar/'~plante.photo) }}"  alt="" />
+                        <a href="{{ path('plantedetaile',{'id':plantes[0].id}) }}" class="b-link-stripe b-animate-go  thickbox play-icon ">
+                            <img class="img-responsive"  src="{{ asset('uploads/avatar/'~plantes[0].photo) }}"  alt="" />
                             <ul class="social-ic">
                                 <li class="in-search"><span> </span></li>
                             </ul>
