@@ -41,6 +41,27 @@ ajouter_sujet:
     path:     /sujet/ajouter
     defaults: { _controller: ForumBundle:Sujet:ajouter }
 
+ajouter_reponse:
+    path:     /reponse/ajouter
+    defaults: { _controller: ForumBundle:Reponse:ajouter }
+
+
+Mederateur_sujet_list:
+    path:     /moderateur/forum/sujet/list
+    defaults: { _controller: ForumBundle:Sujet:alllist }
+
+Mederateur_sujet_open:
+    path:     /moderateur/forum/sujet/open
+    defaults: { _controller: ForumBundle:Sujet:open }
+
+Mederateur_sujet_close:
+    path:     /moderateur/forum/sujet/close
+    defaults: { _controller: ForumBundle:Sujet:close }
+
+Mederateur_sujet_delete:
+    path:     /moderateur/forum/sujet/delete
+    defaults: { _controller: ForumBundle:Sujet:delete }
+
 
 
 

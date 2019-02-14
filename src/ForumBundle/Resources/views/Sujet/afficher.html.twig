@@ -7,7 +7,9 @@
 <div class="container">
     <div class="userinfo ">
         <div class="avatar">
-            <img src="{{ asset('uploads/avatar/'~User.avatar) }}" alt="" style=" height:5vw ;  max-height: 5vw; max-width:5vw;" />
+            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                <img src="{{ asset('uploads/avatar/'~User.avatar) }}" alt="" style=" height:5vw ;  max-height: 5vw; max-width:5vw;" />
+            {% endif %}
         </div>
 
         <div class="icons">

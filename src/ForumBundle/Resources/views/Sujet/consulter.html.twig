@@ -2,6 +2,7 @@
 
 {% block content %}
     {% include 'forum.html.twig' %}
+    <script type="text/javascript" src="{{ asset('forum/ckeditor/ckeditor.js') }}"></script>
 
 
 <div class="container">
@@ -31,12 +32,14 @@
                                 </div>
                             </div>
                             <div class="avatar pull-right dropdown">
-                                <a data-toggle="dropdown" href="#"> <b class="caret"></b>
-                                    <ul class="dropdown-menu" role="menu">
-                                        <li role="presentation"><a role="menuitem" tabindex="-1" href="{{ path("supprimer_sujet",{'id': sujet.id} ) }}">Modifier</a></li>
-                                        <li role="presentation"><a role="menuitem" tabindex="-2" href="{{ path("supprimer_sujet",{'id': sujet.id} ) }}">Supprimer</a></li>
-                                    </ul>
-                                </a>
+                                {% if User.id == sujet.User.id %}
+                                    <a data-toggle="dropdown" href="#"> <b class="caret"></b>
+                                        <ul class="dropdown-menu" role="menu" style="height: auto; width: auto; background-color: white; font-size: 10px; text-decoration: none;">
+                                            <li style="border-bottom: 0px;" role="presentation"><a role="menuitem" tabindex="-1" href="{{ path("supprimer_sujet",{'id': sujet.id} ) }}">Modifier</a></li>
+                                            <li role="presentation"><a role="menuitem" tabindex="-2" href="{{ path("supprimer_sujet",{'id': sujet.id} ) }}">Supprimer</a></li>
+                                        </ul>
+                                    </a>
+                                {% endif %}
                             </div>
                             <div class="posttext pull-left">
                                 <h2>{{  sujet.User.prenom }} {{  sujet.User.nom }} </h2>
@@ -82,12 +85,14 @@
                                     </div>
                                 </div>
                                 <div class="avatar pull-right dropdown">
-                                    <a data-toggle="dropdown" href="#"> <b class="caret"></b>
-                                        <ul class="dropdown-menu" role="menu">
-                                            <li role="presentation"><a role="menuitem" tabindex="-1" href="{{ path("supprimer_reponse",{'id_pub': sujet.id , 'id_comm': reponse.id } ) }}">Modifier</a></li>
-                                            <li role="presentation"><a role="menuitem" tabindex="-2" href="{{ path("supprimer_commentaire",{'id_pub': sujet.id, 'id_comm': reponse.id } ) }}">Supprimer</a></li>
-                                        </ul>
-                                    </a>
+                                    {% if User.id == reponse.User.id %}
+                                        <a data-toggle="dropdown" href="#"> <b class="caret"></b>
+                                            <ul class="dropdown-menu" role="menu" style="height: auto; width: auto; background-color: white; font-size: 10px; text-decoration: none;">
+                                                <li role="presentation" style="border-bottom: 0px;" ><a role="menuitem" tabindex="-1" href="{{ path("supprimer_reponse",{'id_sujet': sujet.id , 'id_reponse': reponse.id } ) }}">Modifier</a></li>
+                                                <li role="presentation"><a role="menuitem" tabindex="-2" href="{{ path("supprimer_reponse",{'id_sujet': sujet.id , 'id_reponse': reponse.id } ) }}">Supprimer</a></li>
+                                            </ul>
+                                        </a>
+                                    {% endif %}
                                 </div>
                                 <div class="posttext pull-left">
                                     <h2>{{ reponse.User.prenom }} {{ reponse.User.nom }} </h2>
@@ -112,9 +117,37 @@
                         </div><!-- POST -->
 
                     {% endfor %}
+
                 </div>
             </div>
+            <form action="{{ path("ajouter_reponse",{'id': sujet.id} ) }}"  method="post">
+
+                <div>
+                    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                        <textarea name="commentoriginal"  id="content" rows="10" cols="80" placeholder="Ajouter une reponse"></textarea>
+                    {% endif %}
+                    <script type="text/javascript">
+                        CKEDITOR.replace('content');
+                    </script>
+
+                </div>
+
+                <br>
+
+                <input type="submit" class="btn btn-primary pull-left" value="Ajouter une reponse" onclick="nouveauContenu();" style="border: 1px solid #43a047 ; background-color:#66bb6a; "/>
+
+
+                <script type="text/javascript">
+                    function nouveauContenu(){
+                        //CKEDITOR.instances.content.updateElement();
+                        document.getElementById('demo').innerHTML =CKEDITOR.instances.content.getData();
+
+                    }
+                </script>
+
+            </form>
         </div>
+        <br><br>
     </div>
     </div>
     {% endblock %}

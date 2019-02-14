@@ -20,9 +20,13 @@ class SujetController extends Controller
         $authChecker = $this->container->get('security.authorization_checker');
         $router = $this->container->get('router');
 
-        //verfier si l'utilisateur connecter est un admin pour acceder à admin dashboard
+
         if (($authChecker->isGranted('ROLE_ADMIN')) || ($authChecker->isGranted('ROLE_USER')) ) {
-            $id_plante = $request->request->get("id");
+            //recuperer l'id de sujet pour affecter au reponse
+            $id = $request->get("id");
+            $em = $this->getDoctrine()->getManager();
+            $plante = $em->getRepository("PlanteBundle:plante")->find($id);
+
             $sujet = new Sujet(); //creer un nouveau instance de l'entity sujet
 
             //saisir leur données
@@ -31,7 +35,7 @@ class SujetController extends Controller
             $sujet->setDateoriginal(new \DateTime());
             $sujet->setDateedited(new \DateTime());
             $sujet->setEtat('open');
-            $sujet->setPlante($id_plante);
+            $sujet->setPlante($id);
 
             //recuperer l'uilisateur connecter qui va ajouter un sujet
             $user = $this->getUser();
@@ -47,15 +51,14 @@ class SujetController extends Controller
             return new RedirectResponse($router->generate('fos_user_security_login'), 307);
         }
 
-
-
-
     }
 
 
 
     public function afficherAction(Request $request)
     {
+        $authChecker = $this->container->get('security.authorization_checker');
+
         $id_plante = $request->get("id");
 
         //recuperer le plante pour trouver leur sujets
@@ -76,16 +79,23 @@ class SujetController extends Controller
             array_push($NbReponses, array('sujet' => $sujets[$i] , 'NbReponseC' => count($reponses)));
         }
 
-        //recuperer l'uilisateur connecter
-        $id = $this->getUser();
-        $user = $em->getRepository("AppBundle:User")->find($id);
+        if (($authChecker->isGranted('ROLE_ADMIN')) || ($authChecker->isGranted('ROLE_USER')) ) {
+            //recuperer l'uilisateur connecter
+            $id = $this->getUser();
+            $user = $em->getRepository("AppBundle:User")->find($id);
+        }else {
+            $user = null;
+        }
 
-        return $this->render('@Forum/Sujet/afficher.html.twig' , ["sujets" => $sujets , "plante"=> $plante ,"NbReponses" => $NbReponses ,"User" => $user]);
+        return $this->render('@Forum/Sujet/afficher.html.twig' , ["sujets" => $sujets , "plante" => $plante ,"NbReponses" => $NbReponses ,"User" => $user]);
     }
 
     public function consulterAction(Request $request)
     {
         $id = $request->get("id"); // get id de sujet consulter
+
+        $authChecker = $this->container->get('security.authorization_checker');
+
 
         //recuperer le sujet à consulter
         $em = $this->getDoctrine()->getManager();
@@ -100,7 +110,15 @@ class SujetController extends Controller
         //recuperer les reponses de sujet à consulter
         $reponses=$em->getRepository("ForumBundle:Reponse")->findBy(['Sujet'=> $sujet ]);
 
-        return $this->render('@Forum/Sujet/consulter.html.twig', ["sujet" => $sujet , "reponses" => $reponses ]);
+        if (($authChecker->isGranted('ROLE_ADMIN')) || ($authChecker->isGranted('ROLE_USER')) ) {
+            //recuperer l'uilisateur connecter
+            $id = $this->getUser();
+            $user = $em->getRepository("AppBundle:User")->find($id);
+        }else {
+            $user = null;
+        }
+
+        return $this->render('@Forum/Sujet/consulter.html.twig', ["sujet" => $sujet , "reponses" => $reponses ,"User" => $user]);
     }
 
     public function supprimerAction(Request $request)

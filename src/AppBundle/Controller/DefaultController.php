@@ -22,7 +22,7 @@ class DefaultController extends Controller
         //verfier si l'utilisateur connecter est un admin pour acceder à admin dashboard
         if ($authChecker->isGranted('ROLE_ADMIN')) {
             $user = $this->container->get('security.token_storage')->getToken()->getUser();
-            //return $this->render('admin_dashboard.html.twig' , ["user" => $user]);
+            return $this->render('admin_dashboard.html.twig' , ["user" => $user]);
         }
 
         //verfier si l'utilisateur connecter est un membre  pour acceder à son interface
