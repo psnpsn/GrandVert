@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    {% include 'forum.html.twig' %}
+
+
+    <div class="container">
+        <h3> Liste Plante :</h3>
+        {% for plante in plantes %}
+
+            <!-- POST -->
+            <div class="post">
+                <div class="wrap-ut pull-left">
+                    <div class="avatar pull-left">
+                        <img style="width: 50px; height: 50px;" src="{{ asset('uploads/avatar/'~plante.photo) }}" alt="" />
+                    </div>
+                    <a href="{{ path("afficher_sujet",{'id': plante.id} ) }}">
+                        <div class="posttext pull-right" style="cursor: pointer;" >
+                            {% for nbsujet in nbsujets %}
+                                {% if nbsujet.plante == plante %}
+                                    {{ plante.nom }}  <i style="margin-right: -130px;" class="fa fa-comments pull-right" aria-hidden="true" > <p style="padding-right: 10px;">{{ nbsujet.nbsujetp }} </p></i>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    </a>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="clearfix"></div>
+            </div><!-- POST -->
+
+        {% endfor %}
+
+    </div>
+{% endblock %}
