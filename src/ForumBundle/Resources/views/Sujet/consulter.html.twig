@@ -122,6 +122,9 @@
 
                 </div>
             </div>
+
+            <div class="text-center">{{ knp_pagination_render(reponses) }}</div>
+
             <form action="{{ path("ajouter_reponse",{'id': sujet.id} ) }}"  method="post">
 
                 <div>

@@ -69,6 +69,13 @@ class SujetController extends Controller
         //recuperer tous les sujets de plante à consulter
         $sujets=$em->getRepository("ForumBundle:Sujet")->findBy(['Plante'=> $plante ]);
 
+        //pagination data
+        $paginationsujets  = $this->get('knp_paginator')->paginate(
+            $sujets,
+            $request->query->get('page', 1)/*le numéro de la page à afficher*/,
+            3/*nbre d'éléments par page*/
+        );
+
         $NbReponses = array(
             array('sujet' => "" , 'NbReponseC' => "")
         );
@@ -88,7 +95,7 @@ class SujetController extends Controller
             $user = null;
         }
 
-        return $this->render('@Forum/Sujet/afficher.html.twig' , ["sujets" => $sujets , "plante" => $plante ,"NbReponses" => $NbReponses ,"User" => $user]);
+        return $this->render('@Forum/Sujet/afficher.html.twig' , ["sujets" => $paginationsujets , "plante" => $plante ,"NbReponses" => $NbReponses ,"User" => $user]);
     }
 
     public function consulterAction(Request $request)
@@ -111,6 +118,13 @@ class SujetController extends Controller
         //recuperer les reponses de sujet à consulter
         $reponses=$em->getRepository("ForumBundle:Reponse")->findBy(['Sujet'=> $sujet ]);
 
+        //pagination data
+        $paginationreponses  = $this->get('knp_paginator')->paginate(
+            $reponses,
+            $request->query->get('page', 1)/*le numéro de la page à afficher*/,
+            6/*nbre d'éléments par page*/
+        );
+
         if (($authChecker->isGranted('ROLE_ADMIN')) || ($authChecker->isGranted('ROLE_USER')) ) {
             //recuperer l'uilisateur connecter
             $id = $this->getUser();
@@ -119,7 +133,7 @@ class SujetController extends Controller
             $user = null;
         }
 
-        return $this->render('@Forum/Sujet/consulter.html.twig', ["sujet" => $sujet , "reponses" => $reponses ,"User" => $user]);
+        return $this->render('@Forum/Sujet/consulter.html.twig', ["sujet" => $sujet , "reponses" => $paginationreponses ,"User" => $user]);
     }
 
     public function supprimerAction(Request $request)
@@ -144,7 +158,7 @@ class SujetController extends Controller
 
     }
 
-    public function sujetsuserAction()
+    public function sujetsuserAction(Request $request)
     {
         $authChecker = $this->container->get('security.authorization_checker');
         //recuperer l'uilisateur connecter pour trouver leur sujet
@@ -154,6 +168,13 @@ class SujetController extends Controller
 
         //recuperer tous les sujets de l'utilisateru connecter
         $sujets=$em->getRepository("ForumBundle:Sujet")->findBy(['User'=> $user ]);
+
+        //pagination data
+        $paginationsujets  = $this->get('knp_paginator')->paginate(
+            $sujets,
+            $request->query->get('page', 1)/*le numéro de la page à afficher*/,
+            3/*nbre d'éléments par page*/
+        );
 
         $NbReponses = array(
             array('sujet' => "" , 'NbReponseC' => "")
@@ -169,7 +190,7 @@ class SujetController extends Controller
         $plante = null;
 
 
-        return $this->render('@Forum/Sujet/afficher.html.twig' , ["sujets" => $sujets , "plante" => $plante ,"NbReponses" => $NbReponses ,"User" => $user]);
+        return $this->render('@Forum/Sujet/afficher.html.twig' , ["sujets" => $paginationsujets , "plante" => $plante ,"NbReponses" => $NbReponses ,"User" => $user]);
     }
 
 

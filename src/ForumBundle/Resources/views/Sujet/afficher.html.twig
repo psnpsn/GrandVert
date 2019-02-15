@@ -56,7 +56,7 @@
             {% if plante != null %} <!-- user va consulter la liste de sujet de plante -->
                 <h3> Liste du sujet de la plante {{ plante.nom }} :</h3>
             {% else %} <!-- user va consulter la liste de leur sujet -->
-                <h3> La liste du mes sujets :
+                <h3> La liste du mes sujets :</h3>
             {% endif %}
             <br>
             {% for sujet in sujets %}
@@ -90,12 +90,28 @@
                                 {% endif %}
                             {% endif %}
                         </div>
-                        {% if sujet.etat == "resolut" %}
-                            <div class="views"> <img style="width: 30px; height: 30px; margin-left: 45px;" src="{{ asset('forum/publication/images/resolut.png') }}" alt="" /> </div>
-                        {% elseif sujet.etat =="nonresolut" %}
-                            <div class="views"> <img style="width: 30px; height: 30px; padding-right: 45px;" src="{{ asset('forum/publication/images/nonresolut.png') }}" alt="" /> </div>
-                        {% else %}
-                            <div class="views"> <img style="width: 30px; height: 30px; margin-left: 45px;" src="{{ asset('forum/publication/images/nonresolut.png') }}" alt="" /> </div>
+                        {% if User != null %}
+                            {% if User.id == sujet.User.id %}
+                                {% if sujet.etat == "resolut" %}
+                                    <div class="views"> <img style="width: 30px; height: 30px; margin-left: 45px;" src="{{ asset('forum/publication/images/resolut.png') }}" alt="" /> </div>
+                                {% elseif sujet.etat =="nonresolut" %}
+                                    <div class="views"> <img style="width: 30px; height: 30px; padding-right: 45px;" src="{{ asset('forum/publication/images/nonresolut.png') }}" alt="" /> </div>
+                                {% else %}
+                                    <div class="views"> <img style="width: 30px; height: 30px; margin-left: 45px;" src="{{ asset('forum/publication/images/nonresolut.png') }}" alt="" /> </div>
+                                {% endif %}
+                            {% endif %}
+                        {% endif %}
+
+                        {% if User == null or User != null %}
+                            {% if User.id != sujet.User.id %}
+                                {% if sujet.etat == "resolut" %}
+                                    <div class="views"> <img style="width: 30px; height: 30px; " src="{{ asset('forum/publication/images/resolut.png') }}" alt="" /> </div>
+                                {% elseif sujet.etat =="nonresolut" %}
+                                    <div class="views"> <img style="width: 30px; height: 30px;" src="{{ asset('forum/publication/images/nonresolut.png') }}" alt="" /> </div>
+                                {% else %}
+                                    <div class="views"> <img style="width: 30px; height: 30px; " src="{{ asset('forum/publication/images/nonresolut.png') }}" alt="" /> </div>
+                                {% endif %}
+                            {% endif %}
                         {% endif %}
                         <div class="comments">
                             {% for NbReponse in NbReponses %}
@@ -115,6 +131,7 @@
                 </div><!-- POST -->
 
             {% endfor %}
+            <div class="text-center">{{ knp_pagination_render(sujets) }}</div>
 
         </div>
 {% endblock %}
