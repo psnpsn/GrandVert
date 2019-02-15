@@ -9,6 +9,8 @@
             <link href="{{ asset('Base/css/bootstrap.css') }}" rel="stylesheet" type="text/css" media="all" />
             <link href="{{ asset('Base/css/style.css') }}" rel="stylesheet" type="text/css" media="all" />
             <link href='http://fonts.googleapis.com/css?family=Exo:100,200,300,400,500,600,700,800,900' rel='stylesheet' type='text/css'>
+            <link rel="stylesheet" href="{{ asset('forum/modelbox/style.css') }}">
+
         {% endblock %}
         <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -150,6 +152,7 @@
     <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
     <script src="{{ asset('Base/js/jquery.min.js') }}"></script>
     <script src="{{ asset('Base/js/jquery.easydropdown.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('forum/modelbox/script.js') }}"> </script>
 {% endblock %}
 </body>
 </html>

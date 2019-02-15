@@ -3,8 +3,10 @@
 {% block content %}
     {% include 'forum.html.twig' %}
 <script type="text/javascript" src="{{ asset('forum/ckeditor/ckeditor.js') }}"></script>
+<script type="text/javascript" src="{{ asset('forum/modelbox/script.js') }}"> </script>
 
-{% if plante != null %} <!-- user va consulter la liste de sujet de plante -->
+
+    {% if plante != null %} <!-- user va consulter la liste de sujet de plante -->
 
     <div class="container">
         <div class="userinfo ">
@@ -49,7 +51,6 @@
 
 {% endif %}
 
-
 <br>
 
         <div class="container">
@@ -83,7 +84,7 @@
                                 {% if User.id == sujet.User.id %}
                                     <a data-toggle="dropdown" href="#"> <b class="caret"></b>
                                         <ul class="dropdown-menu" role="menu" style="height: auto; width: auto; background-color: white; font-size: 10px; text-decoration: none; ">
-                                            <li style="border-bottom: 0px;" role="presentation"><a role="menuitem" tabindex="-1" href="{{ path("supprimer_sujet",{'id': sujet.id} ) }}">Modifier</a></li>
+                                            <li style="border-bottom: 0px;" role="presentation"><a role="menuitem" tabindex="-1" href="{{ path("edit_sujet",{'id': sujet.id} ) }}">Modifier</a></li>
                                             <li role="presentation"><a role="menuitem" tabindex="-2" href="{{ path("supprimer_sujet",{'id': sujet.id} ) }}">Supprimer</a></li>
                                         </ul>
                                     </a>
@@ -126,6 +127,7 @@
                         </div>
                         <div class="views"><i class="fa fa-eye"></i> {{ sujet.nbviews }}</div>
                         <div class="time"><i class="fa fa-clock-o"></i> {{ sujet.dateoriginal | date("y/m/d") }}</div>
+
                     </div>
                     <div class="clearfix"></div>
                 </div><!-- POST -->
@@ -134,6 +136,8 @@
             <div class="text-center">{{ knp_pagination_render(sujets) }}</div>
 
         </div>
+
+
 {% endblock %}
 
 

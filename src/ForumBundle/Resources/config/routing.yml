@@ -49,6 +49,22 @@ mes_sujets:
     path:     /sujet/user/listsujets
     defaults: { _controller: ForumBundle:Sujet:sujetsuser }
 
+modifier_sujet:
+    path:     /sujet/modifier
+    defaults: { _controller: ForumBundle:Sujet:modifier }
+
+edit_sujet:
+    path:     /sujet/goedit
+    defaults: { _controller: ForumBundle:Sujet:edit }
+
+modifier_reponse:
+    path:     /reponse/modifier
+    defaults: { _controller: ForumBundle:Reponse:modifier }
+
+edit_reponse:
+    path:     /reponse/goedit
+    defaults: { _controller: ForumBundle:Reponse:edit }
+
 
 Mederateur_sujet_list:
     path:     /moderateur/forum/sujet/list

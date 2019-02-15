@@ -193,6 +193,39 @@ class SujetController extends Controller
         return $this->render('@Forum/Sujet/afficher.html.twig' , ["sujets" => $paginationsujets , "plante" => $plante ,"NbReponses" => $NbReponses ,"User" => $user]);
     }
 
+    public function editAction(Request $request) {
+
+        //recuperer l'id de sujet à modifier
+        $id = $request->get("id");
+        $em = $this->getDoctrine()->getManager();
+        $sujet = $em->getRepository("ForumBundle:Sujet")->find($id);
+
+        return $this->render('@Forum/Sujet/modifier.html.twig' , ["sujet" => $sujet]);
+
+    }
+
+
+    public function modifierAction(Request $request) {
+
+         //recuperer l'id de sujet à modifier
+            $id = $request->get("id");
+            $em = $this->getDoctrine()->getManager();
+            $sujet = $em->getRepository("ForumBundle:Sujet")->find($id);
+
+            //modifier leur données
+            $sujet->setSujetOriginal($request->request->get('postoriginalM')); //recuperer le contenue du sujet sasie par l'utilisateur connecté
+            $sujet->setSujetEdited("true");
+            $sujet->setDateedited(new \DateTime());
+
+            $em = $this->getDoctrine()->getEntityManager();
+            $em->persist($sujet);
+            $em->flush();
+
+            $router = $this->container->get('router');
+            return new RedirectResponse($router->generate('consulter_sujet' ,['id' => $id]), 307);
+
+    }
+
 
 
 }

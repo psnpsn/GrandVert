@@ -88,4 +88,44 @@ class ReponseController extends Controller
 
     }
 
+    public function editAction(Request $request) {
+
+        //recuperer l'id de reponse à modifier
+        $id_reponse = $request->get("id_reponse");
+        $em = $this->getDoctrine()->getManager();
+        $reponse = $em->getRepository("ForumBundle:Reponse")->find($id_reponse);
+
+        //recuperer l'id de sujet
+        $id_sujet = $request->get("id_sujet");
+        $sujet = $em->getRepository("ForumBundle:Sujet")->find($id_sujet);
+
+
+        return $this->render('@Forum/Reponse/modifier.html.twig' , ["reponse" => $reponse ,"sujet" => $sujet ]);
+
+    }
+
+
+    public function modifierAction(Request $request) {
+
+        //recuperer l'id de reponse à modifier
+        $id = $request->get("id_reponse");
+        $em = $this->getDoctrine()->getManager();
+        $reponse = $em->getRepository("ForumBundle:Reponse")->find($id);
+
+        //modifier leur données
+        $reponse->setReponseOriginal($request->request->get('reponseoriginalM')); //recuperer le contenue du reponse sasie par l'utilisateur connecté
+        $reponse->setReponseEdited("true");
+        $reponse->setDateRedited(new \DateTime());
+
+        $em = $this->getDoctrine()->getEntityManager();
+        $em->persist($reponse);
+        $em->flush();
+
+        //recuperer l'id de sujet
+        $id_sujet = $request->get("id_sujet");
+        $router = $this->container->get('router');
+        return new RedirectResponse($router->generate('consulter_sujet' ,['id' => $id_sujet]), 307);
+
+    }
+
 }
