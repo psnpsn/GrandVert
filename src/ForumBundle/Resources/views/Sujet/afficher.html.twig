@@ -4,51 +4,60 @@
     {% include 'forum.html.twig' %}
 <script type="text/javascript" src="{{ asset('forum/ckeditor/ckeditor.js') }}"></script>
 
-<div class="container">
-    <div class="userinfo ">
-        <div class="avatar">
-            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                <img src="{{ asset('uploads/avatar/'~User.avatar) }}" alt="" style=" height:5vw ;  max-height: 5vw; max-width:5vw;" />
-            {% endif %}
+{% if plante != null %} <!-- user va consulter la liste de sujet de plante -->
+
+    <div class="container">
+        <div class="userinfo ">
+            <div class="avatar">
+                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                    <img src="{{ asset('uploads/avatar/'~User.avatar) }}" alt="" style=" height:5vw ;  max-height: 5vw; max-width:5vw;" />
+                {% endif %}
+            </div>
+
+            <div class="icons">
+            </div>
         </div>
-
-        <div class="icons">
-        </div>
-    </div>
-    <br>
-
-    <form action="{{ path("ajouter_sujet",{'id': plante.id} ) }}"  method="post">
-
-        <div>
-            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                <textarea name="postoriginal"  id="content" rows="10" cols="80" placeholder="Ajouter un commentaire"></textarea>
-            {% endif %}
-            <script type="text/javascript">
-                CKEDITOR.replace('content');
-            </script>
-
-        </div>
-
         <br>
 
-        <input type="submit" class="btn btn-primary pull-left" value="Poser Sujet" onclick="nouveauContenu();" style="border: 1px solid #43a047 ; background-color:#66bb6a; "/>
+        <form action="{{ path("ajouter_sujet",{'id': plante.id} ) }}"  method="post">
 
-        <script type="text/javascript">
-            function nouveauContenu(){
-                //CKEDITOR.instances.content.updateElement();
-                document.getElementById('demo').innerHTML =CKEDITOR.instances.content.getData();
+            <div>
+                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                    <textarea name="postoriginal"  id="content" rows="10" cols="80" placeholder="Ajouter un commentaire"></textarea>
+                {% endif %}
+                <script type="text/javascript">
+                    CKEDITOR.replace('content');
+                </script>
 
-            }
-        </script>
+            </div>
 
-    </form>
+            <br>
 
-</div>
+            <input type="submit" class="btn btn-primary pull-left" value="Poser Sujet" onclick="nouveauContenu();" style="border: 1px solid #43a047 ; background-color:#66bb6a; "/>
+
+            <script type="text/javascript">
+                function nouveauContenu(){
+                    //CKEDITOR.instances.content.updateElement();
+                    document.getElementById('demo').innerHTML =CKEDITOR.instances.content.getData();
+
+                }
+            </script>
+
+        </form>
+
+    </div>
+
+{% endif %}
+
 
 <br>
 
         <div class="container">
-            <h3> Liste du sujet de la plante {{ plante.nom }} :</h3>
+            {% if plante != null %} <!-- user va consulter la liste de sujet de plante -->
+                <h3> Liste du sujet de la plante {{ plante.nom }} :</h3>
+            {% else %} <!-- user va consulter la liste de leur sujet -->
+                <h3> La liste du mes sujets :
+            {% endif %}
             <br>
             {% for sujet in sujets %}
                 <!-- POST -->
@@ -69,12 +78,22 @@
                         <div class="clearfix"></div>
                     </div>
                     <div class="postinfo pull-left">
+                        <div class="avatar pull-right dropdown">
+                            {% if User.id == sujet.User.id %}
+                                <a data-toggle="dropdown" href="#"> <b class="caret"></b>
+                                    <ul class="dropdown-menu" role="menu" style="height: auto; width: auto; background-color: white; font-size: 10px; text-decoration: none; ">
+                                        <li style="border-bottom: 0px;" role="presentation"><a role="menuitem" tabindex="-1" href="{{ path("supprimer_sujet",{'id': sujet.id} ) }}">Modifier</a></li>
+                                        <li role="presentation"><a role="menuitem" tabindex="-2" href="{{ path("supprimer_sujet",{'id': sujet.id} ) }}">Supprimer</a></li>
+                                    </ul>
+                                </a>
+                            {% endif %}
+                        </div>
                         {% if sujet.etat == "resolut" %}
-                            <div class="views"> <img style="width: 30px; height: 30px;" src="{{ asset('forum/publication/images/resolut.png') }}" alt="" /> </div>
+                            <div class="views"> <img style="width: 30px; height: 30px; margin-left: 45px;" src="{{ asset('forum/publication/images/resolut.png') }}" alt="" /> </div>
                         {% elseif sujet.etat =="nonresolut" %}
-                            <div class="views"> <img style="width: 30px; height: 30px;" src="{{ asset('forum/publication/images/nonresolut.png') }}" alt="" /> </div>
+                            <div class="views"> <img style="width: 30px; height: 30px; padding-right: 45px;" src="{{ asset('forum/publication/images/nonresolut.png') }}" alt="" /> </div>
                         {% else %}
-                            <div class="views"> <img style="width: 30px; height: 30px;" src="{{ asset('forum/publication/images/nonresolut.png') }}" alt="" /> </div>
+                            <div class="views"> <img style="width: 30px; height: 30px; margin-left: 45px;" src="{{ asset('forum/publication/images/nonresolut.png') }}" alt="" /> </div>
                         {% endif %}
                         <div class="comments">
                             {% for NbReponse in NbReponses %}

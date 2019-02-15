@@ -44,7 +44,7 @@ class ReponseController extends Controller
             //recuperer les reponses de sujet à consulter pour actualiser les info aprés l'ajout
             $reponses=$em->getRepository("ForumBundle:Reponse")->findBy(['Sujet'=> $sujet ]);
 
-            return $this->render('@Forum/Sujet/consulter.html.twig', ["sujet" => $sujet , "reponses" => $reponses ]);
+            return $this->render('@Forum/Sujet/consulter.html.twig', ["sujet" => $sujet , "reponses" => $reponses ,"User" => $user]);
 
         }else{
             // si il n'ya pas un utilisateur connecter , redigier vers page login

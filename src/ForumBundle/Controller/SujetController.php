@@ -35,7 +35,7 @@ class SujetController extends Controller
             $sujet->setDateoriginal(new \DateTime());
             $sujet->setDateedited(new \DateTime());
             $sujet->setEtat('open');
-            $sujet->setPlante($id);
+            $sujet->setPlante($plante);
 
             //recuperer l'uilisateur connecter qui va ajouter un sujet
             $user = $this->getUser();
@@ -45,7 +45,8 @@ class SujetController extends Controller
             $em->persist($sujet);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('afficher_categorie'));
+            return new RedirectResponse($router->generate('afficher_sujet' ,['id' => $plante->getId()]), 307);
+
         }else{
             // si il n'ya pas un utilisateur connecter , redigier vers page login
             return new RedirectResponse($router->generate('fos_user_security_login'), 307);
@@ -131,13 +132,45 @@ class SujetController extends Controller
         $em = $this->getDoctrine()->getManager();
         $sujet = $em->getRepository("ForumBundle:Sujet")->find($id);
 
+        //recuperer le plante de sujet a supprimer pour trouver leur sujet aprés la supression
+        $em= $this->getDoctrine()->getManager();
+        $plante = $em->getRepository("PlanteBundle:plante")->find($sujet->getPlante());
+
         //remove sujet
         $em->remove($sujet);
         $em->flush();
 
-        return $this->redirect($this->generateUrl('consulter_plante'));
+        return $this->generateUrl("afficher_sujet",['id' => $plante]);
+
     }
 
+    public function sujetsuserAction()
+    {
+        $authChecker = $this->container->get('security.authorization_checker');
+        //recuperer l'uilisateur connecter pour trouver leur sujet
+        $id = $this->getUser();
+        $em= $this->getDoctrine()->getManager();
+        $user = $em->getRepository("AppBundle:User")->find($id);
+
+        //recuperer tous les sujets de l'utilisateru connecter
+        $sujets=$em->getRepository("ForumBundle:Sujet")->findBy(['User'=> $user ]);
+
+        $NbReponses = array(
+            array('sujet' => "" , 'NbReponseC' => "")
+        );
+        //parcourir la liste de sujet
+        for($i = 0; $i < count($sujets); ++$i) {
+            //recuperer tous les reponses de sujet
+            $reponses=$em->getRepository("ForumBundle:Reponse")->findBy(['Sujet'=> $sujets[$i] ]);
+
+            array_push($NbReponses, array('sujet' => $sujets[$i] , 'NbReponseC' => count($reponses)));
+        }
+
+        $plante = null;
+
+
+        return $this->render('@Forum/Sujet/afficher.html.twig' , ["sujets" => $sujets , "plante" => $plante ,"NbReponses" => $NbReponses ,"User" => $user]);
+    }
 
 
 

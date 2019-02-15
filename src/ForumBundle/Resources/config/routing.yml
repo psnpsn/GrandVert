@@ -45,6 +45,10 @@ ajouter_reponse:
     path:     /reponse/ajouter
     defaults: { _controller: ForumBundle:Reponse:ajouter }
 
+mes_sujets:
+    path:     /sujet/user/listsujets
+    defaults: { _controller: ForumBundle:Sujet:sujetsuser }
+
 
 Mederateur_sujet_list:
     path:     /moderateur/forum/sujet/list
@@ -61,6 +65,9 @@ Mederateur_sujet_close:
 Mederateur_sujet_delete:
     path:     /moderateur/forum/sujet/delete
     defaults: { _controller: ForumBundle:Sujet:delete }
+
+
+
 
 
 
