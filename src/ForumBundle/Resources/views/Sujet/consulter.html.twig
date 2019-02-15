@@ -32,13 +32,15 @@
                                 </div>
                             </div>
                             <div class="avatar pull-right dropdown">
-                                {% if User.id == sujet.User.id %}
-                                    <a data-toggle="dropdown" href="#"> <b class="caret"></b>
-                                        <ul class="dropdown-menu" role="menu" style="height: auto; width: auto; background-color: white; font-size: 10px; text-decoration: none;">
-                                            <li style="border-bottom: 0px;" role="presentation"><a role="menuitem" tabindex="-1" href="{{ path("supprimer_sujet",{'id': sujet.id} ) }}">Modifier</a></li>
-                                            <li role="presentation"><a role="menuitem" tabindex="-2" href="{{ path("supprimer_sujet",{'id': sujet.id} ) }}">Supprimer</a></li>
-                                        </ul>
-                                    </a>
+                                {% if User != null %}
+                                    {% if User.id == sujet.User.id %}
+                                        <a data-toggle="dropdown" href="#"> <b class="caret"></b>
+                                            <ul class="dropdown-menu" role="menu" style="height: auto; width: auto; background-color: white; font-size: 10px; text-decoration: none;">
+                                                <li style="border-bottom: 0px;" role="presentation"><a role="menuitem" tabindex="-1" href="{{ path("supprimer_sujet",{'id': sujet.id} ) }}">Modifier</a></li>
+                                                <li role="presentation"><a role="menuitem" tabindex="-2" href="{{ path("supprimer_sujet",{'id': sujet.id} ) }}">Supprimer</a></li>
+                                            </ul>
+                                        </a>
+                                    {% endif %}
                                 {% endif %}
                             </div>
                             <div class="posttext pull-left">
