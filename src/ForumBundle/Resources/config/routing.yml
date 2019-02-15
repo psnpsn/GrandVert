@@ -1,10 +1,90 @@
-forum_homepage:
-    path:     /forum
-    defaults: { _controller: ForumBundle:Default:index }
 
-consulter_plante:
-    path:     /plante/consulter
+afficher_categorie:
+    path:     /categorie
+    defaults: { _controller: ForumBundle:Categorie:afficher }
+
+consulter_categorie:
+    path:     /categorie/consulter
+    defaults: { _controller: ForumBundle:Categorie:consulter }
+
+afficher_sujet:
+    path:     /sujet/afficher
     defaults: { _controller: ForumBundle:Sujet:afficher }
+
+consulter_sujet:
+    path:     /sujet/consulter
+    defaults: { _controller: ForumBundle:Sujet:consulter }
+
+supprimer_sujet:
+    path:     /sujet/supprimer
+    defaults: { _controller: ForumBundle:Sujet:supprimer }
+
+supprimer_reponse:
+    path:     /sujet/reponse/supprimer
+    defaults: { _controller: ForumBundle:Reponse:supprimer }
+
+like_publication:
+    path:     /sujet/reponse/like
+    defaults: { _controller: ForumBundle:Reponse:like }
+
+
+dislike_publication:
+    path:     /sujet/reponse/dislike
+    defaults: { _controller: ForumBundle:Reponse:dislike }
+
+
+supprimer_commentaire:
+    path:     /sujet/reponse/supprimer
+    defaults: { _controller: ForumBundle:Reponse:supprimer }
+
+ajouter_sujet:
+    path:     /sujet/ajouter
+    defaults: { _controller: ForumBundle:Sujet:ajouter }
+
+ajouter_reponse:
+    path:     /reponse/ajouter
+    defaults: { _controller: ForumBundle:Reponse:ajouter }
+
+mes_sujets:
+    path:     /sujet/user/listsujets
+    defaults: { _controller: ForumBundle:Sujet:sujetsuser }
+
+modifier_sujet:
+    path:     /sujet/modifier
+    defaults: { _controller: ForumBundle:Sujet:modifier }
+
+edit_sujet:
+    path:     /sujet/goedit
+    defaults: { _controller: ForumBundle:Sujet:edit }
+
+modifier_reponse:
+    path:     /reponse/modifier
+    defaults: { _controller: ForumBundle:Reponse:modifier }
+
+edit_reponse:
+    path:     /reponse/goedit
+    defaults: { _controller: ForumBundle:Reponse:edit }
+
+
+Mederateur_sujet_list:
+    path:     /moderateur/forum/sujet/list
+    defaults: { _controller: ForumBundle:Sujet:alllist }
+
+Mederateur_sujet_open:
+    path:     /moderateur/forum/sujet/open
+    defaults: { _controller: ForumBundle:Sujet:open }
+
+Mederateur_sujet_close:
+    path:     /moderateur/forum/sujet/close
+    defaults: { _controller: ForumBundle:Sujet:close }
+
+Mederateur_sujet_delete:
+    path:     /moderateur/forum/sujet/delete
+    defaults: { _controller: ForumBundle:Sujet:delete }
+
+
+
+
 
 
 

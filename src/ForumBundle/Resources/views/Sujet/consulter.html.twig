@@ -1,0 +1,167 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    {% include 'forum.html.twig' %}
+    <script type="text/javascript" src="{{ asset('forum/ckeditor/ckeditor.js') }}"></script>
+
+
+<div class="container">
+    <div class="container">
+
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-md-12">
+
+                    {% if sujet.etat == "resolut" %}
+                        <div> <img style="border-radius: 6px; width: 100%; height: 47px; border: 1px solid #aed4a5;  " src="{{ asset('forum/commentaire/images/sujet_resolut.png') }}" alt=""></div>
+                    {% elseif sujet.etat =="nonresolut" %}
+
+                    {% else %}
+
+                    {% endif %}
+                    <br>
+                    <!-- POST -->
+                    <div class="post beforepagination" style="border: 2px solid #bdbdbd;">
+                        <div class="topwrap">
+                            <div class="userinfo pull-left">
+                                <div class="avatar">
+                                    <img src="{{ asset('uploads/avatar/'~sujet.User.avatar) }}" style=" height:5vw ;  max-height: 5vw; max-width:5vw;" alt="" />
+                                </div>
+
+                                <div class="icons">
+                                </div>
+                            </div>
+                            <div class="avatar pull-right dropdown">
+                                {% if User != null %}
+                                    {% if User.id == sujet.User.id %}
+                                        <a data-toggle="dropdown" href="#"> <b class="caret"></b>
+                                            <ul class="dropdown-menu" role="menu" style="height: auto; width: auto; background-color: white; font-size: 10px; text-decoration: none;">
+                                                <li style="border-bottom: 0px;" role="presentation"><a role="menuitem" tabindex="-1" href="{{ path("edit_sujet",{'id': sujet.id} ) }}">Modifier</a></li>
+                                                <li role="presentation"><a role="menuitem" tabindex="-2" href="{{ path("supprimer_sujet",{'id': sujet.id} ) }}">Supprimer</a></li>
+                                            </ul>
+                                        </a>
+                                    {% endif %}
+                                {% endif %}
+                            </div>
+                            <div class="posttext pull-left">
+                                <h2>{{  sujet.User.prenom }} {{  sujet.User.nom }} </h2>
+                                <p>{{ sujet.sujetOriginal |raw }}</p>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="postinfobot">
+
+                            <div class="likeblock pull-left">
+                                <a href="{{ path("like_publication",{'id': sujet.id} ) }}" class="up"><i class="fa fa-thumbs-o-up"></i>  12 </a>
+                                <a href="{{ path("dislike_publication",{'id': sujet.id} ) }}" class="down"><i class="fa fa-thumbs-o-down"></i> 3 </a>
+                            </div>
+
+                            <div class="prev pull-left">
+                                <a href="#"><i class="fa fa-reply"></i></a>
+                            </div>
+
+                            <div class="posted pull-left"><i class="fa fa-clock-o"></i> publier le : {{ sujet.dateoriginal | date("y/m/d") }}</div>
+                            {% if sujet.sujetedited == "true" %}
+                                <div class="posted pull-right" style="padding-left: 250px"> modifié </div>
+                            {% endif %}
+                            <div style="margin-top: -15px;" class="fb-like  pull-right" data-href="http://localhost:8080/symfony/pidev/web/app_dev.php/consulter_publication?id=1" data-layout="button_count" data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>
+
+                            <div class="clearfix"></div>
+
+                        </div>
+                    </div><!-- POST -->
+
+                    <br>
+
+                    {% for reponse in reponses %}
+
+                        <br>
+                        <!-- POST -->
+                        <div class="post" style="width: 90%; float: right; border: 2px solid #bdbdbd;">
+                            <div class="topwrap">
+                                <div class="userinfo pull-left">
+                                    <div class="avatar">
+                                        <img src="{{ asset('uploads/avatar/'~reponse.User.avatar) }}" style=" height:5vw ;  max-height: 5vw; max-width:5vw;" alt="" />
+                                    </div>
+
+                                    <div class="icons">
+                                        <img src="{{ asset('forum/commentaire/images/middle.jpg') }}" alt="" />
+                                    </div>
+                                </div>
+                                <div class="avatar pull-right dropdown">
+                                    {% if User.id == reponse.User.id %}
+                                        <a data-toggle="dropdown" href="#"> <b class="caret"></b>
+                                            <ul class="dropdown-menu" role="menu" style="height: auto; width: auto; background-color: white; font-size: 10px; text-decoration: none;">
+                                                <li role="presentation" style="border-bottom: 0px;" ><a role="menuitem" tabindex="-1" href="{{ path("edit_reponse",{'id_sujet': sujet.id , 'id_reponse': reponse.id } ) }}">Modifier</a></li>
+                                                <li role="presentation"><a role="menuitem" tabindex="-2" href="{{ path("supprimer_reponse",{'id_sujet': sujet.id , 'id_reponse': reponse.id } ) }}">Supprimer</a></li>
+                                            </ul>
+                                        </a>
+                                    {% endif %}
+                                </div>
+                                <div class="posttext pull-left">
+                                    <h2>{{ reponse.User.prenom }} {{ reponse.User.nom }} </h2>
+                                    <p> {{ reponse.reponseOriginal |raw }} </p>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="postinfobot">
+
+                                <div class="likeblock pull-left">
+                                    <a href="#" class="up"><i class="fa fa-thumbs-o-up"></i>10</a>
+                                    <a href="#" class="down"><i class="fa fa-thumbs-o-down"></i>1</a>
+                                </div>
+
+                                <div class="prev pull-left">
+                                </div>
+
+                                <div class="posted pull-left"><i class="fa fa-clock-o"></i> commenter le : {{ reponse.dateRoriginal | date("y/m/d") }}</div>
+                                {% if reponse.reponseedited == "true" %}
+                                    <div class="posted pull-right" style="padding-left: 250px"> modifié </div>
+                                {% endif %}
+
+                                <div class="clearfix"></div>
+                            </div>
+                        </div><!-- POST -->
+
+                    {% endfor %}
+
+                </div>
+            </div>
+
+            <div class="text-center">{{ knp_pagination_render(reponses) }}</div>
+
+            <form action="{{ path("ajouter_reponse",{'id': sujet.id} ) }}"  method="post">
+
+                <div>
+                    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                        <textarea name="commentoriginal"  id="content" rows="10" cols="80" placeholder="Ajouter une reponse"></textarea>
+                    {% endif %}
+                    <script type="text/javascript">
+                        CKEDITOR.replace('content');
+                    </script>
+
+                </div>
+
+                <br>
+
+                <input type="submit" class="btn btn-primary pull-left" value="Ajouter une reponse" onclick="nouveauContenu();" style="border: 1px solid #43a047 ; background-color:#66bb6a; "/>
+
+
+                <script type="text/javascript">
+                    function nouveauContenu(){
+                        //CKEDITOR.instances.content.updateElement();
+                        document.getElementById('demo').innerHTML =CKEDITOR.instances.content.getData();
+
+                    }
+                </script>
+
+            </form>
+        </div>
+        <br><br>
+    </div>
+    </div>
+    {% endblock %}
+
+
+
+

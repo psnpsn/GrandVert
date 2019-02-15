@@ -16,7 +16,13 @@
     <!-- inject:css -->
     <link rel="stylesheet" href="{{ asset('Admin/css/style.css') }}">
     <!-- endinject -->
-    <link rel="shortcut icon" href="{{ asset('Admin/images/favicon.png') }}" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
 </head>
 
 <body>
@@ -164,7 +170,7 @@
                                 </div>
                             </div>
                         </a>
-                        <a class="dropdown-item mt-2">
+                        <a class="dropdown-item mt-2" href="{{ path('profile_admin')}}">
                             Compte
                         </a>
                         <a class="dropdown-item" href="{{ path('fos_user_security_logout')}}">
@@ -200,13 +206,13 @@
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="index.html">
+                    <a class="nav-link" href={{ path('homepage') }}>
                         <i class="menu-icon mdi mdi-television"></i>
                         <span class="menu-title">Dashboard</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" data-toggle="collapse" href="#" aria-expanded="false" aria-controls="ui-basic">
+                    <a class="nav-link" href={{ path('list_user/admin') }}>
                         <i class="menu-icon mdi mdi-content-copy"></i>
                         <span class="menu-title">Gérer Membre</span>
                     </a>
@@ -221,13 +227,10 @@
                     <div class="collapse" id="ui-basic">
                         <ul class="nav flex-column sub-menu">
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ asset('Admin/pages/ui-features/buttons.html') }}">Liste plante</a>
+                                <a class="nav-link" href="{{ path('conulter')}}">Liste plante</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ asset('Admin/pages/ui-features/typography.html') }}">Ajouter plante</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ asset('Admin/pages/ui-features/typography.html') }}">Consulter plante</a>
+                                <a class="nav-link"  href="{{ path('planteadd')}}">Ajouter plante</a>
                             </li>
                         </ul>
                     </div>

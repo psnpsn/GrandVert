@@ -193,14 +193,15 @@ class Reponse
         return $this->Sujet;
     }
 
+
     /**
      * Set user
      *
-     * @param \ForumBundle\Entity\User $user
+     * @param \AppBundle\Entity\User $user
      *
      * @return Reponse
      */
-    public function setUser(\ForumBundle\Entity\User $user = null)
+    public function setUser(\AppBundle\Entity\User $user = null)
     {
         $this->User = $user;
 
@@ -210,7 +211,7 @@ class Reponse
     /**
      * Get user
      *
-     * @return \ForumBundle\Entity\User
+     * @return \AppBundle\Entity\User
      */
     public function getUser()
     {

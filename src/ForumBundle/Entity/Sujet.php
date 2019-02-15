@@ -5,6 +5,7 @@ namespace ForumBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use ForumBundle;
 use AppBundle;
+use PlanteBundle;
 
 /**
  * Sujet
@@ -56,29 +57,29 @@ class Sujet
      *
      * @ORM\Column(name="nbshare", type="integer")
      */
-    private $nbshare;
+    private $nbshare=0;
 
     /**
      * @var int
      *
      * @ORM\Column(name="nbviews", type="integer")
      */
-    private $nbviews;
+    private $nbviews=0;
 
     /**
      * @var string
      *
      * @ORM\Column(name="etat", type="string", length=255)
      */
-    private $etat;
+    private $etat="open";
 
 
     /**
-     * @var int
-     *
-     * @ORM\Column(name="id_plante", type="integer")
+     * @ORM\ManyToOne(targetEntity="PlanteBundle\Entity\plante")
+     * @ORM\JoinColumn(referencedColumnName="id")
      */
-    private $id_plante;
+    private $Plante;
+
 
     /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
@@ -90,7 +91,7 @@ class Sujet
     /**
      * Get id
      *
-     * @return int
+     * @return integer
      */
     public function getId()
     {
@@ -210,7 +211,7 @@ class Sujet
     /**
      * Get nbshare
      *
-     * @return int
+     * @return integer
      */
     public function getNbshare()
     {
@@ -234,7 +235,7 @@ class Sujet
     /**
      * Get nbviews
      *
-     * @return int
+     * @return integer
      */
     public function getNbviews()
     {
@@ -268,13 +269,13 @@ class Sujet
     /**
      * Set plante
      *
-     * @param integer $plante
+     * @param \PlanteBundle\Entity\plante $plante
      *
      * @return Sujet
      */
-    public function setPlante($plante)
+    public function setPlante(\PlanteBundle\Entity\plante $plante = null)
     {
-        $this->plante = $plante;
+        $this->Plante = $plante;
 
         return $this;
     }
@@ -282,21 +283,21 @@ class Sujet
     /**
      * Get plante
      *
-     * @return integer
+     * @return \PlanteBundle\Entity\plante
      */
     public function getPlante()
     {
-        return $this->plante;
+        return $this->Plante;
     }
 
     /**
      * Set user
      *
-     * @param integer $user
+     * @param \AppBundle\Entity\User $user
      *
      * @return Sujet
      */
-    public function setUser($user)
+    public function setUser(\AppBundle\Entity\User $user = null)
     {
         $this->User = $user;
 
@@ -306,34 +307,10 @@ class Sujet
     /**
      * Get user
      *
-     * @return integer
+     * @return \AppBundle\Entity\User
      */
     public function getUser()
     {
         return $this->User;
-    }
-
-    /**
-     * Set idPlante
-     *
-     * @param integer $idPlante
-     *
-     * @return Sujet
-     */
-    public function setIdPlante($idPlante)
-    {
-        $this->id_plante = $idPlante;
-
-        return $this;
-    }
-
-    /**
-     * Get idPlante
-     *
-     * @return integer
-     */
-    public function getIdPlante()
-    {
-        return $this->id_plante;
     }
 }

@@ -16,7 +16,13 @@
     <!-- inject:css -->
     <link rel="stylesheet" href="{{ asset('Admin/css/style.css') }}">
     <!-- endinject -->
-    <link rel="shortcut icon" href="{{ asset('Admin/images/favicon.png') }}" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
 </head>
 
 <body>
@@ -25,10 +31,10 @@
     <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
         <div class="text-center navbar-brand-wrapper d-flex align-items-top justify-content-center">
             <a class="navbar-brand brand-logo" href="index.html">
-                <img src="{{ asset('Admin/images/logo.svg') }}" alt="logo" />
+                <img src="{{ asset('Admin/images/logo.png') }}" alt="logo" style="width: 170px;" />
             </a>
             <a class="navbar-brand brand-logo-mini" href="index.html">
-                <img src="{{ asset('Admin/images/logo-mini.svg') }}" alt="logo" />
+                <img src="{{ asset('Admin/images/logo-mini.png') }}" alt="logo" />
             </a>
         </div>
         <div class="navbar-menu-wrapper d-flex align-items-center">
@@ -164,7 +170,7 @@
                                 </div>
                             </div>
                         </a>
-                        <a class="dropdown-item mt-2">
+                        <a class="dropdown-item mt-2" href="{{ path('profile_admin')}}">
                             Compte
                         </a>
                         <a class="dropdown-item" href="{{ path('fos_user_security_logout')}}">
@@ -213,6 +219,20 @@
                 </li>
 
                 <li class="nav-item">
+                    <a class="nav-link" href={{ path('list_user/admin') }} >
+                        <i class="menu-icon mdi mdi-content-copy"></i>
+                        <span class="menu-title">Gérer Moderateur</span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href={{ path('list_user/admin') }} >
+                        <i class="menu-icon mdi mdi-content-copy"></i>
+                        <span class="menu-title">Gérer Forum</span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
                     <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
                         <i class="menu-icon mdi mdi-content-copy"></i>
                         <span class="menu-title">Gérer Plante</span>
@@ -221,13 +241,10 @@
                     <div class="collapse" id="ui-basic">
                         <ul class="nav flex-column sub-menu">
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ asset('Admin/pages/ui-features/buttons.html') }}">Liste plante</a>
+                                <a class="nav-link" href="{{ path('conulter')}}">Liste plante</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ asset('Admin/pages/ui-features/typography.html') }}">Ajouter plante</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ asset('Admin/pages/ui-features/typography.html') }}">Consulter plante</a>
+                                <a class="nav-link" href="{{ path('planteadd') }}">Ajouter plante</a>
                             </li>
                         </ul>
                     </div>

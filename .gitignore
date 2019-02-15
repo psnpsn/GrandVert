@@ -16,9 +16,7 @@
 /vendor/
 /web/bundles/
 /web/uploads/avatar
+.idea/workspace.xml
 
-#enlever les configurations Phpstorm
-/phpunit.xml.dist
 .idea
 
-.idea/workspace.xml

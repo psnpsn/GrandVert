@@ -10,3 +10,12 @@ planteaff:
 plantedetaile:
     path:     /detaille
     defaults: { _controller: PlanteBundle:Plante:det }
+conulter:
+    path: /consulter
+    defaults: { _controller: PlanteBundle:Plante:cons }
+supprimer:
+    path: /supprimer
+    defaults: { _controller: PlanteBundle:Plante:supp }
+modifier:
+    path: /modifier
+    defaults: { _controller: PlanteBundle:Plante:modif }

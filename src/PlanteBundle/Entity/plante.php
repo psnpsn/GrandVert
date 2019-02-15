@@ -10,7 +10,7 @@ namespace PlanteBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 /**
- * Class Event
+ * Class plante
  * @ORM\Entity
  */
 class plante
@@ -22,38 +22,47 @@ class plante
      * @ORM\Column(type="integer")
      */
     private $id;
+
     /**
      * @ORM\Column(type="string",length=40)
      */
     private $nom;
+
     /**
      * @ORM\Column(type="string")
      */
     private $Description;
+
     /**
      * @ORM\Column(type="integer")
      */
     private $stock;
+
     /**
      * @ORM\Column(type="float")
      */
     private $prix;
+
     /**
      * @ORM\Column(type="string")
      */
     private $hauteur;
+
     /**
      * @ORM\Column(type="string")
      */
     private $fertiliseur;
+
     /**
      * @ORM\Column(type="string")
      */
     private $categorie;
+
     /**
      * @ORM\Column(type="string")
      */
     private $season;
+
     /**
      * @ORM\Column(type="string")
      * @Assert\File(mimeTypes={ "image/jpeg" })

@@ -193,27 +193,4 @@ class Reponse
         return $this->Sujet;
     }
 
-    /**
-     * Set user
-     *
-     * @param \ForumBundle\Entity\User $user
-     *
-     * @return Reponse
-     */
-    public function setUser(\ForumBundle\Entity\User $user = null)
-    {
-        $this->User = $user;
-
-        return $this;
-    }
-
-    /**
-     * Get user
-     *
-     * @return \ForumBundle\Entity\User
-     */
-    public function getUser()
-    {
-        return $this->User;
-    }
 }
