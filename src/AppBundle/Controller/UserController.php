@@ -60,6 +60,7 @@ class UserController extends Controller
         $user = $this->container->get('security.token_storage')->getToken()->getUser();
         return $this->render('User/profilead.html.twig' , ["user" => $user]);
     }
+
     public function homeadminAction()
     {
         return $this->render('admin_dashboard.html.twig');
@@ -70,8 +71,45 @@ class UserController extends Controller
         return $this->render('default/index.html.twig');
     }
 
+    public function homemoderateurAction()
+    {
+        $user = $this->container->get('security.token_storage')->getToken()->getUser();
+        return $this->render('moderateur_dashboard.html.twig' , ["user" => $user]);
+    }
 
+    public function rolemembreAction(Request $request)
+    {
+        //recuperer id de membre pour changer son role
+        $id = $request->get("id");
+        $em = $this->getDoctrine()->getManager();
+        $membre = $em->getRepository("AppBundle:User")->find($id);
 
+        $rolesArr = array('ROLE_USER');
+
+        $membre->setRoles($rolesArr); //set role to role membre
+
+        $em->persist($membre);
+        $em->flush();
+
+        return $this->redirectToRoute("list_user/admin");
+    }
+
+    public function rolemoderateurAction(Request $request)
+    {
+        //recuperer id de membre pour changer son role
+        $id = $request->get("id");
+        $em = $this->getDoctrine()->getManager();
+        $membre = $em->getRepository("AppBundle:User")->find($id);
+
+        $rolesArr = array('ROLE_ADMIN');
+
+        $membre->setRoles($rolesArr); //set role to role mederateur
+
+        $em->persist($membre);
+        $em->flush();
+
+        return $this->redirectToRoute("list_user/admin");
+    }
 
 
 }

@@ -37,6 +37,7 @@ consulter_membre:
 admin_home:
     path:     /admin/home
     defaults: { _controller: AppBundle:User:homeadmin }
+
 profile_user:
     path:     /user
     defaults: { _controller: AppBundle:User:profile }
@@ -47,6 +48,19 @@ profile_admin:
 user_home:
     path:     /home
     defaults: { _controller: AppBundle:User:homemembre }
+
+moderateur_home:
+    path:     /moderateur/dashboard
+    defaults: { _controller: AppBundle:User:homemoderateur }
+
+Role_Membre:
+    path:     /admin/Role_Membre
+    defaults: { _controller: AppBundle:User:rolemembre }
+
+Role_Moderateur:
+    path:     /admin/Role_Moderateur
+    defaults: { _controller: AppBundle:User:rolemoderateur }
+
 
 
 

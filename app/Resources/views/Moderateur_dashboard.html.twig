@@ -198,7 +198,7 @@
                             <div class="text-wrapper">
                                 <p class="profile-name">{{ user.nom }} {{ user.prenom }} </p>
                                 <div>
-                                    <small class="designation text-muted">Admin</small>
+                                    <small class="designation text-muted">Moderateur</small>
                                     <span class="status-indicator online"></span>
                                 </div>
                             </div>
@@ -206,9 +206,15 @@
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href={{ path('homepage') }}>
-                        <i class="menu-icon mdi mdi-television"></i>
-                        <span class="menu-title">Dashboard</span>
+                    <a class="nav-link" href={{ path('list_user/admin') }} >
+                        <i class="menu-icon mdi mdi-content-copy"></i>
+                        <span class="menu-title">Gérer Membre</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href={{ path('list_user/admin') }} >
+                        <i class="menu-icon mdi mdi-content-copy"></i>
+                        <span class="menu-title">Gérer Forum</span>
                     </a>
                 </li>
             </ul>
