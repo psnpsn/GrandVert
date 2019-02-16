@@ -155,8 +155,52 @@ class SujetController extends Controller
         $em->remove($sujet);
         $em->flush();
 
-        return $this->generateUrl("afficher_sujet",['id' => $plante]);
+        $authChecker = $this->container->get('security.authorization_checker');
+        $router = $this->container->get('router');
 
+        //verfier si l'utilisateur connecter est un admin pour acceder à admin dashboard aprés la supression de sujet
+        if ($authChecker->isGranted('ROLE_SUPER_ADMIN')) {
+            $user = $this->container->get('security.token_storage')->getToken()->getUser();
+            return $this->render('admin_dashboard.html.twig' , ["user" => $user]);
+        }
+
+        //verfier si l'utilisateur connecter est un moderateur pour acceder à son dashboard aprés la supression de sujet
+        if ($authChecker->isGranted('ROLE_ADMIN')) {
+            return $this->generateUrl("moderateur_forum"); //user connecter est un moderateur
+        }
+
+        return $this->generateUrl("afficher_sujet",['id' => $plante]); // user connecter est un membre
+
+    }
+
+    public function deleteAction(Request $request)
+    {
+
+        //recuperer id du sujet à supprimer par le moderateur ou bien par l'admin
+        $id = $request->get('id');
+
+        //recuperer le sujet à supprimer à partir de leur id
+        $em = $this->getDoctrine()->getManager();
+        $sujet = $em->getRepository("ForumBundle:Sujet")->find($id);
+
+        //remove sujet
+        $em->remove($sujet);
+        $em->flush();
+
+        $authChecker = $this->container->get('security.authorization_checker');
+        $router = $this->container->get('router');
+
+        //verfier si l'utilisateur connecter est un admin pour acceder à admin dashboard aprés la supression de sujet
+        if ($authChecker->isGranted('ROLE_SUPER_ADMIN')) {
+            $user = $this->container->get('security.token_storage')->getToken()->getUser();
+            return new RedirectResponse($router->generate('admin_forum'), 307);
+        }
+
+        //verfier si l'utilisateur connecter est un moderateur pour acceder à son dashboard aprés la suppression de sujet
+        if ($authChecker->isGranted('ROLE_ADMIN')) {
+            //user connecter est un moderateur
+            return new RedirectResponse($router->generate('moderateur_forum'), 307);
+        }
     }
 
     public function sujetsuserAction(Request $request)
@@ -284,6 +328,25 @@ class SujetController extends Controller
 
     }
 
+    public function ouvertAction(Request $request) {
+
+        //recuperer l'id de sujet à modifier
+        $id = $request->get("id");
+        $em = $this->getDoctrine()->getManager();
+        $sujet = $em->getRepository("ForumBundle:Sujet")->find($id);
+
+        //modifier leur etat à fermer
+        $sujet->setOpen("true");
+
+        $em = $this->getDoctrine()->getEntityManager();
+        $em->persist($sujet);
+        $em->flush();
+
+        $router = $this->container->get('router');
+        return new RedirectResponse($router->generate('consulter_sujet' ,['id' => $id]), 307);
+
+    }
+
     public function forumAction(Request $request) {
 
         //recuperer tous les sujets
@@ -301,8 +364,20 @@ class SujetController extends Controller
         $id = $this->getUser();
         $user = $em->getRepository("AppBundle:User")->find($id);
 
-        return $this->render('@Forum/Sujet/sujet_moderat.html.twig' , ["sujets" => $paginationsujets , "user" => $user  ]);
+        $authChecker = $this->container->get('security.authorization_checker');
 
+        //verfier si l'utilisateur connecter est un admin pour acceder à admin dashboard aprés la supression de sujet
+        if ($authChecker->isGranted('ROLE_SUPER_ADMIN')) {
+            return $this->render('@Forum/Sujet/sujet_admin.html.twig' , ["sujets" => $paginationsujets , "user" => $user  ]);
+
+        }
+
+        //verfier si l'utilisateur connecter est un moderateur pour acceder à son dashboard aprés la suppression de sujet
+        if ($authChecker->isGranted('ROLE_ADMIN')) {
+            //user connecter est un moderateur
+            return $this->render('@Forum/Sujet/sujet_moderat.html.twig' , ["sujets" => $paginationsujets , "user" => $user  ]);
+
+        }
     }
 
 

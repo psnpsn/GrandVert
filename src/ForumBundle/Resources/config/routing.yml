@@ -87,11 +87,11 @@ Mederateur_sujet_list:
 
 Mederateur_sujet_open:
     path:     /moderateur/forum/sujet/open
-    defaults: { _controller: ForumBundle:Sujet:open }
+    defaults: { _controller: ForumBundle:Sujet:ouvert }
 
 Mederateur_sujet_close:
     path:     /moderateur/forum/sujet/close
-    defaults: { _controller: ForumBundle:Sujet:close }
+    defaults: { _controller: ForumBundle:Sujet:fermer }
 
 Mederateur_sujet_delete:
     path:     /moderateur/forum/sujet/delete
@@ -99,6 +99,10 @@ Mederateur_sujet_delete:
 
 moderateur_forum:
     path:     /moderateur/forum/sujet
+    defaults: { _controller: ForumBundle:Sujet:forum }
+
+admin_forum:
+    path:     /admin/forum/sujet
     defaults: { _controller: ForumBundle:Sujet:forum }
 
 

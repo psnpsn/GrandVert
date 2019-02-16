@@ -253,11 +253,11 @@
                                                                     <li style="border-bottom: 0px; font-size: 15px; margin-top: -12px; margin-bottom: 5px; text-align: center;" role="presentation"><a role="menuitem" tabindex="-2" href="{{ path("sujet_Resolut",{'id': sujet.id} ) }}">Resolu</a></li>
                                                                 {% endif %}
                                                                 {% if sujet.open == "true" %}
-                                                                    <li style="border-bottom: 0px; font-size: 15px; margin-top: -12px; margin-bottom: 5px; text-align: center;" role="presentation"><a role="menuitem" tabindex="-2" href="{{ path("sujet_Fermer",{'id': sujet.id} ) }}">Fermer</a></li>
+                                                                    <li style="border-bottom: 0px; font-size: 15px; margin-top: -12px; margin-bottom: 5px; text-align: center;" role="presentation"><a role="menuitem" tabindex="-2" href="{{ path("Mederateur_sujet_close",{'id': sujet.id} ) }}">Fermer</a></li>
                                                                 {% else %}
-                                                                    <li style="border-bottom: 0px; font-size: 15px; margin-top: -12px; margin-bottom: 5px; text-align: center;" role="presentation"><a role="menuitem" tabindex="-2" href="{{ path("sujet_Ouvert",{'id': sujet.id} ) }}">Ouvert</a></li>
+                                                                    <li style="border-bottom: 0px; font-size: 15px; margin-top: -12px; margin-bottom: 5px; text-align: center;" role="presentation"><a role="menuitem" tabindex="-2" href="{{ path("Mederateur_sujet_open",{'id': sujet.id} ) }}">Ouvert</a></li>
                                                                 {% endif %}
-                                                                <li style="border-bottom: 0px; font-size: 15px; margin-top: -12px; margin-bottom: 5px; text-align: center;" role="presentation"><a role="menuitem" tabindex="-2" href="{{ path("supprimer_sujet",{'id': sujet.id} ) }}">Supprimer</a></li>
+                                                                <li style="border-bottom: 0px; font-size: 15px; margin-top: -12px; margin-bottom: 5px; text-align: center;" role="presentation"><a role="menuitem" tabindex="-2" href="{{ path("Mederateur_sujet_delete",{'id': sujet.id} ) }}">Supprimer</a></li>
                                                             </ul>
                                                         </a>
                                                     </div>
@@ -272,8 +272,6 @@
                         </div>
                     </div>
                 </div>
-
-
 
             </div>
             <!-- content-wrapper ends -->
