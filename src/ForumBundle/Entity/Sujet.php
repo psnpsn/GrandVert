@@ -69,9 +69,16 @@ class Sujet
     /**
      * @var string
      *
-     * @ORM\Column(name="etat", type="string", length=255)
+     * @ORM\Column(name="open", type="string", length=255)
      */
-    private $etat="open";
+    private $open="true";
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="resolu", type="string", length=255)
+     */
+    private $resolu="false";
 
 
     /**
@@ -242,29 +249,6 @@ class Sujet
         return $this->nbviews;
     }
 
-    /**
-     * Set etat
-     *
-     * @param string $etat
-     *
-     * @return Sujet
-     */
-    public function setEtat($etat)
-    {
-        $this->etat = $etat;
-
-        return $this;
-    }
-
-    /**
-     * Get etat
-     *
-     * @return string
-     */
-    public function getEtat()
-    {
-        return $this->etat;
-    }
 
     /**
      * Set plante
@@ -312,5 +296,53 @@ class Sujet
     public function getUser()
     {
         return $this->User;
+    }
+
+    /**
+     * Set open
+     *
+     * @param string $open
+     *
+     * @return Sujet
+     */
+    public function setOpen($open)
+    {
+        $this->open = $open;
+
+        return $this;
+    }
+
+    /**
+     * Get open
+     *
+     * @return string
+     */
+    public function getOpen()
+    {
+        return $this->open;
+    }
+
+    /**
+     * Set resolu
+     *
+     * @param string $resolu
+     *
+     * @return Sujet
+     */
+    public function setResolu($resolu)
+    {
+        $this->resolu = $resolu;
+
+        return $this;
+    }
+
+    /**
+     * Get resolu
+     *
+     * @return string
+     */
+    public function getResolu()
+    {
+        return $this->resolu;
     }
 }

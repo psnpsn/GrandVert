@@ -34,7 +34,8 @@ class SujetController extends Controller
             $sujet->setSujetEdited("");
             $sujet->setDateoriginal(new \DateTime());
             $sujet->setDateedited(new \DateTime());
-            $sujet->setEtat('open');
+            $sujet->setOpen('true');
+            $sujet->setResolu('false');
             $sujet->setPlante($plante);
 
             //recuperer l'uilisateur connecter qui va ajouter un sujet
@@ -226,6 +227,80 @@ class SujetController extends Controller
 
     }
 
+    public function nonresoluAction(Request $request) {
 
+        //recuperer l'id de sujet à modifier
+        $id = $request->get("id");
+        $em = $this->getDoctrine()->getManager();
+        $sujet = $em->getRepository("ForumBundle:Sujet")->find($id);
+
+        //modifier leur etat à non resolut
+        $sujet->setResolu("false");
+
+        $em = $this->getDoctrine()->getEntityManager();
+        $em->persist($sujet);
+        $em->flush();
+
+        $router = $this->container->get('router');
+        return new RedirectResponse($router->generate('consulter_sujet' ,['id' => $id]), 307);
+
+    }
+
+    public function resoluAction(Request $request) {
+
+        //recuperer l'id de sujet à modifier
+        $id = $request->get("id");
+        $em = $this->getDoctrine()->getManager();
+        $sujet = $em->getRepository("ForumBundle:Sujet")->find($id);
+
+        //modifier leur etat à resolut
+        $sujet->setResolu("true");
+
+        $em = $this->getDoctrine()->getEntityManager();
+        $em->persist($sujet);
+        $em->flush();
+
+        $router = $this->container->get('router');
+        return new RedirectResponse($router->generate('consulter_sujet' ,['id' => $id]), 307);
+
+    }
+
+    public function fermerAction(Request $request) {
+
+        //recuperer l'id de sujet à modifier
+        $id = $request->get("id");
+        $em = $this->getDoctrine()->getManager();
+        $sujet = $em->getRepository("ForumBundle:Sujet")->find($id);
+
+        //modifier leur etat à fermer
+        $sujet->setOpen("false");
+
+        $em = $this->getDoctrine()->getEntityManager();
+        $em->persist($sujet);
+        $em->flush();
+
+        $router = $this->container->get('router');
+        return new RedirectResponse($router->generate('consulter_sujet' ,['id' => $id]), 307);
+
+    }
+
+    public function ouvertAction(Request $request) {
+
+        //recuperer l'id de sujet à modifier
+        $id = $request->get("id");
+        $em = $this->getDoctrine()->getManager();
+        $sujet = $em->getRepository("ForumBundle:Sujet")->find($id);
+
+        //modifier leur etat à ouvert
+        $sujet->setOpen("true");
+
+        $em = $this->getDoctrine()->getEntityManager();
+        $em->persist($sujet);
+        $em->flush();
+
+        $router = $this->container->get('router');
+        return new RedirectResponse($router->generate('consulter_sujet' ,['id' => $id]), 307);
+
+    }
 
 }

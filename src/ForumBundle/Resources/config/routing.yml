@@ -65,6 +65,21 @@ edit_reponse:
     path:     /reponse/goedit
     defaults: { _controller: ForumBundle:Reponse:edit }
 
+sujet_NonResolut:
+    path:     /sujet/etat/nonresolut
+    defaults: { _controller: ForumBundle:Sujet:nonresolu }
+
+sujet_Resolut:
+    path:     /sujet/etat/resolut
+    defaults: { _controller: ForumBundle:Sujet:resolu }
+
+sujet_Fermer:
+    path:     /sujet/etat/fermer
+    defaults: { _controller: ForumBundle:Sujet:fermer }
+
+sujet_Ouvert:
+    path:     /sujet/etat/ouvert
+    defaults: { _controller: ForumBundle:Sujet:ouvert }
 
 Mederateur_sujet_list:
     path:     /moderateur/forum/sujet/list

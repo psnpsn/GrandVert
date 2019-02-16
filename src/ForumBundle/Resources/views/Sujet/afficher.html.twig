@@ -85,7 +85,17 @@
                                     <a data-toggle="dropdown" href="#"> <b class="caret"></b>
                                         <ul class="dropdown-menu" role="menu" style="height: auto; width: auto; background-color: white; font-size: 10px; text-decoration: none; ">
                                             <li style="border-bottom: 0px;" role="presentation"><a role="menuitem" tabindex="-1" href="{{ path("edit_sujet",{'id': sujet.id} ) }}">Modifier</a></li>
-                                            <li role="presentation"><a role="menuitem" tabindex="-2" href="{{ path("supprimer_sujet",{'id': sujet.id} ) }}">Supprimer</a></li>
+                                            {% if sujet.resolu == "true" %}
+                                                <li style="border-bottom: 0px;" role="presentation"><a role="menuitem" tabindex="-2" href="{{ path("sujet_NonResolut",{'id': sujet.id} ) }}">Non Resolu</a></li>
+                                            {% else %}
+                                                <li style="border-bottom: 0px;" role="presentation"><a role="menuitem" tabindex="-2" href="{{ path("sujet_Resolut",{'id': sujet.id} ) }}">Resolu</a></li>
+                                            {% endif %}
+                                            {% if sujet.open == "true" %}
+                                                <li style="border-bottom: 0px;" role="presentation"><a role="menuitem" tabindex="-2" href="{{ path("sujet_Fermer",{'id': sujet.id} ) }}">Fermer</a></li>
+                                            {% else %}
+                                                <li style="border-bottom: 0px;" role="presentation"><a role="menuitem" tabindex="-2" href="{{ path("sujet_Ouvert",{'id': sujet.id} ) }}">Ouvert</a></li>
+                                            {% endif %}
+                                            <li style="border-bottom: 0px;" role="presentation"><a role="menuitem" tabindex="-2" href="{{ path("supprimer_sujet",{'id': sujet.id} ) }}">Supprimer</a></li>
                                         </ul>
                                     </a>
                                 {% endif %}
@@ -93,10 +103,8 @@
                         </div>
                         {% if User != null %}
                             {% if User.id == sujet.User.id %}
-                                {% if sujet.etat == "resolut" %}
+                                {% if sujet.resolu == "true" %}
                                     <div class="views"> <img style="width: 30px; height: 30px; margin-left: 45px;" src="{{ asset('forum/publication/images/resolut.png') }}" alt="" /> </div>
-                                {% elseif sujet.etat =="nonresolut" %}
-                                    <div class="views"> <img style="width: 30px; height: 30px; padding-right: 45px;" src="{{ asset('forum/publication/images/nonresolut.png') }}" alt="" /> </div>
                                 {% else %}
                                     <div class="views"> <img style="width: 30px; height: 30px; margin-left: 45px;" src="{{ asset('forum/publication/images/nonresolut.png') }}" alt="" /> </div>
                                 {% endif %}
@@ -105,10 +113,8 @@
 
                         {% if User == null or User != null %}
                             {% if User.id != sujet.User.id %}
-                                {% if sujet.etat == "resolut" %}
+                                {% if sujet.resolu == "true" %}
                                     <div class="views"> <img style="width: 30px; height: 30px; " src="{{ asset('forum/publication/images/resolut.png') }}" alt="" /> </div>
-                                {% elseif sujet.etat =="nonresolut" %}
-                                    <div class="views"> <img style="width: 30px; height: 30px;" src="{{ asset('forum/publication/images/nonresolut.png') }}" alt="" /> </div>
                                 {% else %}
                                     <div class="views"> <img style="width: 30px; height: 30px; " src="{{ asset('forum/publication/images/nonresolut.png') }}" alt="" /> </div>
                                 {% endif %}
