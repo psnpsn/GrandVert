@@ -88,7 +88,7 @@ class SujetController extends Controller
             array_push($NbReponses, array('sujet' => $sujets[$i] , 'NbReponseC' => count($reponses)));
         }
 
-        if (($authChecker->isGranted('ROLE_ADMIN')) || ($authChecker->isGranted('ROLE_USER')) ) {
+        if (($authChecker->isGranted('SUPER_ROLE_ADMIN')) ||($authChecker->isGranted('ROLE_ADMIN')) || ($authChecker->isGranted('ROLE_USER')) ) {
             //recuperer l'uilisateur connecter
             $id = $this->getUser();
             $user = $em->getRepository("AppBundle:User")->find($id);
@@ -126,7 +126,7 @@ class SujetController extends Controller
             6/*nbre d'éléments par page*/
         );
 
-        if (($authChecker->isGranted('ROLE_ADMIN')) || ($authChecker->isGranted('ROLE_USER')) ) {
+        if ( ($authChecker->isGranted('SUPER_ROLE_ADMIN')) ||($authChecker->isGranted('ROLE_ADMIN')) || ($authChecker->isGranted('ROLE_USER')) ) {
             //recuperer l'uilisateur connecter
             $id = $this->getUser();
             $user = $em->getRepository("AppBundle:User")->find($id);
@@ -284,23 +284,27 @@ class SujetController extends Controller
 
     }
 
-    public function ouvertAction(Request $request) {
+    public function forumAction(Request $request) {
 
-        //recuperer l'id de sujet à modifier
-        $id = $request->get("id");
+        //recuperer tous les sujets
         $em = $this->getDoctrine()->getManager();
-        $sujet = $em->getRepository("ForumBundle:Sujet")->find($id);
+        $sujets = $em->getRepository("ForumBundle:Sujet")->findAll();
 
-        //modifier leur etat à ouvert
-        $sujet->setOpen("true");
+        //pagination data
+        $paginationsujets  = $this->get('knp_paginator')->paginate(
+            $sujets,
+            $request->query->get('page', 1)/*le numéro de la page à afficher*/,
+            3/*nbre d'éléments par page*/
+        );
 
-        $em = $this->getDoctrine()->getEntityManager();
-        $em->persist($sujet);
-        $em->flush();
+        //recuperer l'uilisateur connecter
+        $id = $this->getUser();
+        $user = $em->getRepository("AppBundle:User")->find($id);
 
-        $router = $this->container->get('router');
-        return new RedirectResponse($router->generate('consulter_sujet' ,['id' => $id]), 307);
+        return $this->render('@Forum/Sujet/sujet_moderat.html.twig' , ["sujets" => $paginationsujets , "user" => $user  ]);
 
     }
+
+
 
 }

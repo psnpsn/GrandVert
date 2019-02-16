@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block content %}
-    {% include 'forum.html.twig' %}
+    {% include 'forum_moderateur.html.twig' %}
     <script type="text/javascript" src="{{ asset('forum/ckeditor/ckeditor.js') }}"></script>
 
 
@@ -98,6 +98,7 @@
                                     </div>
                                 </div>
                                 <div class="avatar pull-right dropdown">
+                                 {% if User != null %}
                                     {% if User.id == reponse.User.id %}
                                         <a data-toggle="dropdown" href="#"> <b class="caret"></b>
                                             <ul class="dropdown-menu" role="menu" style="height: auto; width: auto; background-color: white; font-size: 10px; text-decoration: none;">
@@ -106,6 +107,8 @@
                                             </ul>
                                         </a>
                                     {% endif %}
+                                 {% endif %}
+
                                 </div>
                                 <div class="posttext pull-left">
                                     <h2>{{ reponse.User.prenom }} {{ reponse.User.nom }} </h2>

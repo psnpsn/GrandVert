@@ -99,7 +99,7 @@ Mederateur_sujet_delete:
 
 moderateur_forum:
     path:     /moderateur/forum/sujet
-    defaults: { _controller: AppBundle:User:forum }
+    defaults: { _controller: ForumBundle:Sujet:forum }
 
 
 

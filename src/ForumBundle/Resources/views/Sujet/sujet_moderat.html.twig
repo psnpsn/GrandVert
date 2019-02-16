@@ -228,47 +228,45 @@
                     <div class="col-12 grid-margin">
                         <div class="card">
                             <div class="card-body">
-                                <h5 class="card-title mb-4">Gestion membre</h5>
+                                <h5 class="card-title mb-4">Gestion Sujet</h5>
                                 <div class="fluid-container">
-                                    {% for membre in Membres %}
-                                    <div class="row ticket-card mt-3 pb-2 border-bottom pb-3 mb-3">
-                                        <div class="col-md-1">
-                                            <img class="img-sm rounded-circle mb-4 mb-md-0" src="{{ asset('uploads/avatar/'~membre.avatar) }}" alt="profile image">
-                                        </div>
-                                        <div class="ticket-details col-md-9">
-                                            <div class="d-flex">
-                                                <p class="text-dark font-weight-semibold mr-2 mb-0 no-wrap">{{ membre.nom }} {{ membre.prenom }} :</p>
-                                                <p class="mb-0 ellipsis">{{ membre.email }}</p>
+                                    {% for sujet in sujets %}
+                                        <div class="row ticket-card mt-3 pb-2 border-bottom pb-3 mb-3">
+                                            <div class="col-md-1">
+                                                <img class="img-sm rounded-circle mb-4 mb-md-0" src="{{ asset('uploads/avatar/'~sujet.User.avatar) }}" alt="profile image">
                                             </div>
-                                            <p class="text-gray ellipsis mb-2">téléphone:{{ membre.tel }}</p>
-                                            <p class="text-gray ellipsis mb-2">level:{{ membre.level }}</p>
-                                            <p class="text-gray ellipsis mb-2">score:{{ membre.score }}</p>
-                                            <p class="text-gray ellipsis mb-2">Role : {% if membre.roles[0] == "ROLE_USER" %}Membre {% elseif membre.roles[0] == "ROLE_ADMIN" %} Moderateur {% else %}Admin{% endif %}</small> </p>
-                                            <div class="row text-gray d-md-flex d-none">
-                                                <div class="col-4 d-flex">
-                                                    <small class="mb-0 mr-2 text-muted text-muted">etat:</small>
-                                                    <small class="Last-responded mr-2 mb-0 text-muted text-muted">
-                                                        {% if membre.enabled==1 %}Active{% else %}Désactivé{% endif %}</small>
+                                            <div class="ticket-details col-md-9">
+                                                <div class="d-flex">
+                                                    <p class="text-dark font-weight-semibold mr-2 mb-0 no-wrap">{{ sujet.User.nom }} {{ sujet.User.prenom }}</p>
                                                 </div>
-                                                <div class="col-4 d-flex">
-                                                    <small class="mb-0 mr-2 text-muted text-muted">dernière connection:</small>
-                                                    <small class="Last-responded mr-2 mb-0 text-muted text-muted">{{ membre.lastLogin |date("m/d/Y H:i:s", "Europe/Paris") }}</small>
-                                                </div>
+                                                <p class="text-gray ellipsis mb-2">téléphone:{{ sujet.sujetOriginal |raw }}</p>
+                                                <p> publié le  : {{ sujet.dateoriginal | date("y/m/d") }}</p>
                                             </div>
-                                        </div>
-                                        <div class="ticket-actions col-md-2">
-                                            <div class="btn-group dropdown">
-                                                <div class="avatar pull-right dropdown" style="background-color: #66bb6a; color: white; width: 100px; height: 20px; border-radius: 20px;">
-                                                            <a data-toggle="dropdown"  href="#" style="color: white; padding-left: 20px; "> Action</b>
-                                                                <ul class="dropdown-menu" role="menu" style="height: auto; width: auto; background-color: white; font-size: 10px; text-decoration: none; ">
-                                                                    <li style="border-bottom: 0px; font-size: 13px; margin-top: -12px" role="presentation"><a role="menuitem"  href="{{ path("Modifier_etat_compte_by_moderateur",{'id': membre.id} ) }}">Modifier etat compte</a></li>
-                                                                </ul>
-                                                            </a>
+                                            <div class="ticket-actions col-md-2">
+                                                <div class="btn-group dropdown">
+                                                    <div class="avatar pull-right dropdown" style="background-color: #66bb6a; color: white; width: 100px; height: 20px; border-radius: 20px;">
+                                                        <a data-toggle="dropdown"  href="#" style="color: white; padding-left: 20px; "> Action</b>
+                                                            <ul class="dropdown-menu" role="menu" style="height: auto; width: auto; background-color: white; font-size: 10px; text-decoration: none; ">
+                                                                {% if sujet.resolu == "true" %}
+                                                                    <li style="border-bottom: 0px; font-size: 15px; margin-top: -12px; margin-bottom: 5px; text-align: center;" role="presentation"><a role="menuitem" tabindex="-2" href="{{ path("sujet_NonResolut",{'id': sujet.id} ) }}">Non Resolu</a></li>
+                                                                {% else %}
+                                                                    <li style="border-bottom: 0px; font-size: 15px; margin-top: -12px; margin-bottom: 5px; text-align: center;" role="presentation"><a role="menuitem" tabindex="-2" href="{{ path("sujet_Resolut",{'id': sujet.id} ) }}">Resolu</a></li>
+                                                                {% endif %}
+                                                                {% if sujet.open == "true" %}
+                                                                    <li style="border-bottom: 0px; font-size: 15px; margin-top: -12px; margin-bottom: 5px; text-align: center;" role="presentation"><a role="menuitem" tabindex="-2" href="{{ path("sujet_Fermer",{'id': sujet.id} ) }}">Fermer</a></li>
+                                                                {% else %}
+                                                                    <li style="border-bottom: 0px; font-size: 15px; margin-top: -12px; margin-bottom: 5px; text-align: center;" role="presentation"><a role="menuitem" tabindex="-2" href="{{ path("sujet_Ouvert",{'id': sujet.id} ) }}">Ouvert</a></li>
+                                                                {% endif %}
+                                                                <li style="border-bottom: 0px; font-size: 15px; margin-top: -12px; margin-bottom: 5px; text-align: center;" role="presentation"><a role="menuitem" tabindex="-2" href="{{ path("supprimer_sujet",{'id': sujet.id} ) }}">Supprimer</a></li>
+                                                            </ul>
+                                                        </a>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
                                     {% endfor %}
+                                    <div class="text-center">{{ knp_pagination_render(sujets) }}</div>
+
                                 </div>
                             </div>
                         </div>
