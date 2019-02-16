@@ -25,17 +25,18 @@ class DefaultController extends Controller
             return $this->render('admin_dashboard.html.twig' , ["user" => $user]);
         }
 
+        //verfier si l'utilisateur connecter est un moderateur pour acceder à son dashboard
+        if ($authChecker->isGranted('ROLE_ADMIN')) {
+            $user = $this->container->get('security.token_storage')->getToken()->getUser();
+            return new RedirectResponse($router->generate('list_user/moderateur'), 307);
+        }
+
         //verfier si l'utilisateur connecter est un membre  pour acceder à son interface
         if ($authChecker->isGranted('ROLE_USER')) {
             return new RedirectResponse($router->generate('user_home'), 307);
         }
 
-        //verfier si l'utilisateur connecter est un moderateur pour acceder à son dashboard
-        if ($authChecker->isGranted('ROLE_ADMIN')) {
-            $user = $this->container->get('security.token_storage')->getToken()->getUser();
-            return $this->render('admin_dashboard.html.twig' , ["user" => $user]);
-        }
-
+        //visiteur
         return new RedirectResponse($router->generate('user_home'), 307);
     }
 }

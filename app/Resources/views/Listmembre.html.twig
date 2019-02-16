@@ -5,7 +5,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Moderateur Dashboard</title>
+    <title>Star Admin Free Bootstrap Admin Dashboard Template</title>
     <!-- plugins:css -->
     <link rel="stylesheet" href="{{ asset('Admin/vendors/iconfonts/mdi/css/materialdesignicons.min.css') }}">
     <link rel="stylesheet" href="{{ asset('Admin/vendors/css/vendor.bundle.base.css') }}">
@@ -31,7 +31,7 @@
     <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
         <div class="text-center navbar-brand-wrapper d-flex align-items-top justify-content-center">
             <a class="navbar-brand brand-logo" href="index.html">
-                <img src="{{ asset('Admin/images/logo.png') }}" alt="logo" style="width: 170px;" />
+                <img src="{{ asset('Admin/images/logo.png') }}" alt="logo" />
             </a>
             <a class="navbar-brand brand-logo-mini" href="index.html">
                 <img src="{{ asset('Admin/images/logo-mini.png') }}" alt="logo" />
@@ -198,7 +198,7 @@
                             <div class="text-wrapper">
                                 <p class="profile-name">{{ user.nom }} {{ user.prenom }} </p>
                                 <div>
-                                    <small class="designation text-muted">Moderateur</small>
+                                    <small class="designation text-muted">Admin</small>
                                     <span class="status-indicator online"></span>
                                 </div>
                             </div>
@@ -206,20 +206,79 @@
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href={{ path('list_user/moderateur') }} >
-                        <i class="menu-icon mdi mdi-content-copy"></i>
+                    <a class="nav-link" href={{ path('list_user/moderateur') }}>
+                        <i class="menu-icon mdi mdi-account-multiple"></i>
                         <span class="menu-title">Gérer Membre</span>
                     </a>
                 </li>
+
                 <li class="nav-item">
-                    <a class="nav-link" href={{ path('moderateur_forum') }} >
+                    <a class="nav-link" href={{ path('moderateur_forum') }}>
                         <i class="menu-icon mdi mdi-content-copy"></i>
                         <span class="menu-title">Gérer Forum</span>
                     </a>
                 </li>
+
             </ul>
         </nav>
+        <!-- partial -->
+        <div class="main-panel">
+            <div class="content-wrapper">
+                <div class="row">
+                    <div class="col-12 grid-margin">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title mb-4">Gestion membre</h5>
+                                <div class="fluid-container">
+                                    {% for membre in Membres %}
+                                    <div class="row ticket-card mt-3 pb-2 border-bottom pb-3 mb-3">
+                                        <div class="col-md-1">
+                                            <img class="img-sm rounded-circle mb-4 mb-md-0" src="{{ asset('uploads/avatar/'~membre.avatar) }}" alt="profile image">
+                                        </div>
+                                        <div class="ticket-details col-md-9">
+                                            <div class="d-flex">
+                                                <p class="text-dark font-weight-semibold mr-2 mb-0 no-wrap">{{ membre.nom }} {{ membre.prenom }} :</p>
+                                                <p class="mb-0 ellipsis">{{ membre.email }}</p>
+                                            </div>
+                                            <p class="text-gray ellipsis mb-2">téléphone:{{ membre.tel }}</p>
+                                            <p class="text-gray ellipsis mb-2">level:{{ membre.level }}</p>
+                                            <p class="text-gray ellipsis mb-2">score:{{ membre.score }}</p>
+                                            <p class="text-gray ellipsis mb-2">Role : {% if membre.roles[0] == "ROLE_USER" %}Membre {% elseif membre.roles[0] == "ROLE_ADMIN" %} Moderateur {% else %}Admin{% endif %}</small> </p>
+                                            <div class="row text-gray d-md-flex d-none">
+                                                <div class="col-4 d-flex">
+                                                    <small class="mb-0 mr-2 text-muted text-muted">etat:</small>
+                                                    <small class="Last-responded mr-2 mb-0 text-muted text-muted">
+                                                        {% if membre.enabled==1 %}Active{% else %}Désactivé{% endif %}</small>
+                                                </div>
+                                                <div class="col-4 d-flex">
+                                                    <small class="mb-0 mr-2 text-muted text-muted">dernière connection:</small>
+                                                    <small class="Last-responded mr-2 mb-0 text-muted text-muted">{{ membre.lastLogin |date("m/d/Y H:i:s", "Europe/Paris") }}</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="ticket-actions col-md-2">
+                                            <div class="btn-group dropdown">
+                                                <div class="avatar pull-right dropdown" style="background-color: #66bb6a; color: white; width: 100px; height: 20px; border-radius: 20px;">
+                                                            <a data-toggle="dropdown"  href="#" style="color: white; padding-left: 20px; "> Action</b>
+                                                                <ul class="dropdown-menu" role="menu" style="height: auto; width: auto; background-color: white; font-size: 10px; text-decoration: none; ">
+                                                                    <li style="border-bottom: 0px; font-size: 13px; margin-top: -12px" role="presentation"><a role="menuitem"  href="{{ path("Modifier_etat_compte_by_moderateur",{'id': membre.id} ) }}">Modifier etat compte</a></li>
+                                                                </ul>
+                                                            </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
+
+
+            </div>
+            <!-- content-wrapper ends -->
             <!-- partial:partials/_footer.html -->
             <footer class="footer">
                 <div class="container-fluid clearfix">
