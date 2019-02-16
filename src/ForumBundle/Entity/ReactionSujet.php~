@@ -21,7 +21,7 @@ class ReactionSujet
     protected $Sujet;
     /**
      * @ORM\Id
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User", inversedBy="ReactionSujet")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User", inversedBy="ReactionSujet" )
      */
     protected $User;
 

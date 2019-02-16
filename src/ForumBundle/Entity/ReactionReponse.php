@@ -16,12 +16,12 @@ class ReactionReponse
 {
     /**
      * @ORM\Id
-     * @ORM\ManyToOne(targetEntity="ForumBundle\Entity\Reponse", inversedBy="ReactionReponse")
+     * @ORM\ManyToOne(targetEntity="ForumBundle\Entity\Reponse", inversedBy="ReactionReponse" )
      */
     protected $Reponse;
     /**
      * @ORM\Id
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User", inversedBy="ReactionReponse")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User", inversedBy="ReactionReponse" )
      */
     protected $User;
 

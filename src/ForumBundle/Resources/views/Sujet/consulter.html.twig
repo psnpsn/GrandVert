@@ -61,8 +61,8 @@
                         <div class="postinfobot">
 
                             <div class="likeblock pull-left">
-                                <a href="{{ path("like_publication",{'id': sujet.id} ) }}" class="up"><i class="fa fa-thumbs-o-up"></i>  12 </a>
-                                <a href="{{ path("dislike_publication",{'id': sujet.id} ) }}" class="down"><i class="fa fa-thumbs-o-down"></i> 3 </a>
+                                <a href="{{ path("like_publication",{'id': sujet.id} ) }}" class="up"><i class="fa fa-thumbs-o-up"></i>  {{ nblikeSujet }} </a>
+                                <a href="{{ path("dislike_publication",{'id': sujet.id} ) }}" class="down"><i class="fa fa-thumbs-o-down"></i> {{ nbDislikeSujet }} </a>
                             </div>
 
                             <div class="prev pull-left">
@@ -81,6 +81,7 @@
                     </div><!-- POST -->
 
                     <br>
+
 
                     {% for reponse in reponses %}
 
@@ -118,10 +119,14 @@
                             </div>
                             <div class="postinfobot">
 
-                                <div class="likeblock pull-left">
-                                    <a href="#" class="up"><i class="fa fa-thumbs-o-up"></i>10</a>
-                                    <a href="#" class="down"><i class="fa fa-thumbs-o-down"></i>1</a>
-                                </div>
+                                {% for NbReactionreponse in NbReactionreponses %}
+                                    {% if NbReactionreponse.reponse == reponse %}
+                                        <div class="likeblock pull-left">
+                                            <a href="#" class="up"><i class="fa fa-thumbs-o-up"></i> {{ NbReactionreponse.nbLike }} </a>
+                                            <a href="#" class="down"><i class="fa fa-thumbs-o-down"></i> {{ NbReactionreponse.nbDisLike }} </a>
+                                        </div>
+                                    {% endif %}
+                                {% endfor %}
 
                                 <div class="prev pull-left">
                                 </div>
@@ -136,11 +141,12 @@
                         </div><!-- POST -->
 
                     {% endfor %}
+                    <div class="text-center">{{ knp_pagination_render(reponses) }}</div>
+
 
                 </div>
             </div>
 
-            <div class="text-center">{{ knp_pagination_render(reponses) }}</div>
             {% if sujet.open == "true" %}<!-- user ne peut pas ajouter une reponse lorsque le sujet est en etat fermer !!-->
                 <form action="{{ path("ajouter_reponse",{'id': sujet.id} ) }}"  method="post">
 

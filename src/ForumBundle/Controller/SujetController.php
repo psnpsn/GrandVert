@@ -4,6 +4,7 @@ namespace ForumBundle\Controller;
 
 use ForumBundle\Entity\Sujet;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
@@ -110,14 +111,59 @@ class SujetController extends Controller
         $em = $this->getDoctrine()->getManager();
         $sujet = $em->getRepository("ForumBundle:Sujet")->find($id);
 
+        $AllReactionSujet = $em->getRepository("ForumBundle:ReactionSujet")->findBy(["Sujet"=>$sujet]);
+
+        $nbLike = 0;
+        $nbDislike = 0;
+
+        //calculer le nb de like et dislike sur le sujet
+        for($i = 0; $i < count($AllReactionSujet); ++$i) {
+            if($AllReactionSujet[$i]->getReaction() == 'like')
+                $nbLike++;
+            else
+                $nbDislike++;
+        }
+
         //incrementer le nb de view de sujet
         $nbviews= $sujet->getNbviews();
         $sujet->setNbviews($nbviews+1);
         $em->persist($sujet);
         $em->flush();
 
+        //calculer nb de like et dislike pour chaque reponse du sujet
+        $NbReactionreponses = array(
+            array('reponse' => "" , 'nbLike' => "" , 'nbDisLike' => "")
+        );
+
         //recuperer les reponses de sujet à consulter
         $reponses=$em->getRepository("ForumBundle:Reponse")->findBy(['Sujet'=> $sujet ]);
+
+        //parcourir la liste de reponse de sujet
+        for($i = 0; $i < count($reponses); ++$i) {
+            //recuperer tous les reactions du reponse
+            $AllReactionreponse = $em->getRepository("ForumBundle:ReactionReponse")->findBy(["Reponse" => $reponses[$i]]);
+
+            //calculer nb de like dislike pour la reponse
+            $nbLikereponse = 0;
+            $nbDislikereponse = 0;
+
+            if($AllReactionreponse != null ) { // pour fix l'erreur de memoire inssufisant
+                for ($i = 0; $i < count($AllReactionreponse); ++$i) {
+                    if ($AllReactionreponse[$i]->getReaction() == 'like')
+                        $nbLikereponse++;
+                    else
+                        $nbDislikereponse++;
+                }
+            }
+            else{
+                $nbLikereponse = 0;
+                $nbDislikereponse = 0;
+            }
+
+            //inserer le nb de like et disklike dans le tableau de nb reaction de tous les reponses
+            array_push($NbReactionreponses, array('reponse' => $reponses[$i] , 'nbLike' => $nbLikereponse , 'nbDisLike' => $nbDislikereponse));
+
+        }
 
         //pagination data
         $paginationreponses  = $this->get('knp_paginator')->paginate(
@@ -134,7 +180,8 @@ class SujetController extends Controller
             $user = null;
         }
 
-        return $this->render('@Forum/Sujet/consulter.html.twig', ["sujet" => $sujet , "reponses" => $paginationreponses ,"User" => $user]);
+        //return new JsonResponse(array('NbReactionreponses' => $NbReactionreponses));
+        return $this->render('@Forum/Sujet/consulter.html.twig', ["sujet" => $sujet , "reponses" => $paginationreponses ,"User" => $user ,"nblikeSujet" => $nbLike ,"nbDislikeSujet" => $nbDislike , "NbReactionreponses" => $NbReactionreponses ]);
     }
 
     public function supprimerAction(Request $request)
@@ -148,7 +195,6 @@ class SujetController extends Controller
         $sujet = $em->getRepository("ForumBundle:Sujet")->find($id);
 
         //recuperer le plante de sujet a supprimer pour trouver leur sujet aprés la supression
-        $em= $this->getDoctrine()->getManager();
         $plante = $em->getRepository("PlanteBundle:plante")->find($sujet->getPlante());
 
         //remove sujet
@@ -169,7 +215,8 @@ class SujetController extends Controller
             return $this->generateUrl("moderateur_forum"); //user connecter est un moderateur
         }
 
-        return $this->generateUrl("afficher_sujet",['id' => $plante]); // user connecter est un membre
+        //user connecter est un membre
+        return new RedirectResponse($router->generate("afficher_sujet",['id' => $plante->getId()]), 307);
 
     }
 

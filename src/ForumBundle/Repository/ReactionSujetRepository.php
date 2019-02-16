@@ -10,4 +10,5 @@ namespace ForumBundle\Repository;
  */
 class ReactionSujetRepository extends \Doctrine\ORM\EntityRepository
 {
+
 }
