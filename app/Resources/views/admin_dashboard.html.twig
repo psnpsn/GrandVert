@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-
+{% block head %}
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -9,6 +9,7 @@
     <!-- plugins:css -->
     <link rel="stylesheet" href="{{ asset('Admin/vendors/iconfonts/mdi/css/materialdesignicons.min.css') }}">
     <link rel="stylesheet" href="{{ asset('Admin/vendors/css/vendor.bundle.base.css') }}">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="{{ asset('Admin/vendors/css/vendor.bundle.addons.css') }}">
     <!-- endinject -->
     <!-- plugin css for this page -->
@@ -16,9 +17,15 @@
     <!-- inject:css -->
     <link rel="stylesheet" href="{{ asset('Admin/css/style.css') }}">
     <!-- endinject -->
-    <link rel="shortcut icon" href="{{ asset('Admin/images/favicon.png') }}" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
 </head>
-
+{% endblock %}
 <body>
 <div class="container-scroller">
     <!-- partial:partials/_navbar.html -->
@@ -167,6 +174,9 @@
                         <a class="dropdown-item mt-2" href="{{ path('profile_admin')}}">
                             Compte
                         </a>
+                        <a class="dropdown-item " href="{{ path('fos_user_profile_edit')}}">
+                            edit
+                        </a>
                         <a class="dropdown-item" href="{{ path('fos_user_security_logout')}}">
                             Déconnecter
                         </a>
@@ -179,6 +189,7 @@
         </div>
     </nav>
     <!-- partial -->
+
     <div class="container-fluid page-body-wrapper">
         <!-- partial:partials/_sidebar.html -->
         <nav class="sidebar sidebar-offcanvas" id="sidebar">
@@ -225,6 +236,9 @@
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ path('planteadd') }}">Ajouter plante</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ path('propad') }}">consulter proposition plante</a>
                             </li>
                         </ul>
                     </div>
@@ -286,6 +300,7 @@
             </ul>
         </nav>
         <!-- partial -->
+        {% block content %}
         <div class="main-panel">
             <div class="content-wrapper">
                 <div class="row">
@@ -860,6 +875,7 @@
             </footer>
             <!-- partial -->
         </div>
+        {% endblock %}
         <!-- main-panel ends -->
     </div>
     <!-- page-body-wrapper ends -->
@@ -867,6 +883,7 @@
 <!-- container-scroller -->
 
 <!-- plugins:js -->
+{% block script %}
 <script src="{{ asset('Admin/vendors/js/vendor.bundle.base.js') }}"></script>
 <script src="{{ asset('Admin/vendors/js/vendor.bundle.addons.js') }}"></script>
 <!-- endinject -->
@@ -879,6 +896,7 @@
 <!-- Custom js for this page-->
 <script src="{{ asset('Admin/js/dashboard.js') }}"></script>
 <!-- End custom js for this page-->
+{% endblock %}
 </body>
 
 </html>

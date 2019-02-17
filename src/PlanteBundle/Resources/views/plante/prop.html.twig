@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+{% block content %}
+    <div class="container">
+        <div class="sign">
+            {% for flashMessage in app.session.flashbag.get('notice') %}
+                <div class="w3-panel w3-green" >
+                    {{ flashMessage }}
+                </div>
+            {% endfor %}
+                {{ form_start(Form) }}
+                {{ form_row(Form.photo) }}
+                {{ form_row(Form.nom) }}
+                {{ form_row(Form.Description)}}
+                {{ form_row(Form.stock) }}
+                {{ form_row(Form.prix) }}
+                {{ form_row(Form.hauteur) }}
+                {{ form_row(Form.fertiliseur) }}
+                {{ form_row(Form.categorie) }}
+                {{ form_row(Form.season) }}
+            <div>
+                <input type="submit" value="envoyer" />
+            </div>
+                {{ form_end(Form) }}
+        </div>
+        <div class="clearfix"> </div>
+
+    </div>
+{% endblock %}

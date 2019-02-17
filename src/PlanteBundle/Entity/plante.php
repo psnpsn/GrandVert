@@ -55,10 +55,49 @@ class plante
      */
     private $season;
     /**
+     * @ORM\Column(type="boolean")
+     */
+    private $proposition;
+    /**
      * @ORM\Column(type="string")
      * @Assert\File(mimeTypes={ "image/jpeg" })
      */
     private $photo;
+    /**
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\User")
+     * @ORM\JoinColumn(referencedColumnName="id")
+     */
+    private $user;
+    /**
+     * @return mixed
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * @param mixed $user
+     */
+    public function setUser($user)
+    {
+        $this->user = $user;
+    }
+    /**
+     * @return mixed
+     */
+    public function getProposition()
+    {
+        return $this->proposition;
+    }
+
+    /**
+     * @param mixed $proposition
+     */
+    public function setProposition($proposition)
+    {
+        $this->proposition = $proposition;
+    }
 
     /**
      * @return mixed

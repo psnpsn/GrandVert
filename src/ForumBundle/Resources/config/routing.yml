@@ -1,10 +1,41 @@
-forum_homepage:
-    path:     /forum
-    defaults: { _controller: ForumBundle:Default:index }
+
+afficher_categorie:
+    path:     /categorie
+    defaults: { _controller: ForumBundle:Categorie:afficher }
+
+consulter_categorie:
+    path:     /categorie/consulter
+    defaults: { _controller: ForumBundle:Categorie:consulter }
+
+afficher_sujet:
+    path:     /sujet/afficher
+    defaults: { _controller: ForumBundle:Sujet:afficher }
 
 consulter_sujet:
-    path:     /plante/sujet/consulter
+    path:     /sujet/consulter
     defaults: { _controller: ForumBundle:Sujet:consulter }
+
+supprimer_sujet:
+    path:     /sujet/supprimer
+    defaults: { _controller: ForumBundle:Sujet:supprimer }
+
+supprimer_reponse:
+    path:     /sujet/reponse/supprimer
+    defaults: { _controller: ForumBundle:Reponse:supprimer }
+
+like_publication:
+    path:     /sujet/reponse/like
+    defaults: { _controller: ForumBundle:Reponse:like }
+
+
+dislike_publication:
+    path:     /sujet/reponse/dislike
+    defaults: { _controller: ForumBundle:Reponse:dislike }
+
+
+supprimer_commentaire:
+    path:     /sujet/reponse/supprimer
+    defaults: { _controller: ForumBundle:Reponse:supprimer }
 
 
 

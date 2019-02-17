@@ -41,14 +41,27 @@ class SujetController extends Controller
 
     public function afficherAction(Request $request)
     {
-        //$id_plante = $request->get("id");
+        $id_plante = $request->get("id");
+
+        //recuperer le plante pour trouver leur sujets
+        $em= $this->getDoctrine()->getManager();
+        $plante = $em->getRepository("PlanteBundle:plante")->find($id_plante);
 
         //recuperer tous les sujets de plante à consulter
-        $em= $this->getDoctrine()->getManager();
-        $sujets=$em->getRepository("ForumBundle:Sujet")->findBy(['id_plante'=> 1 ]);
+        $sujets=$em->getRepository("ForumBundle:Sujet")->findBy(['Plante'=> $plante ]);
 
+        $NbReponses = array(
+            array('sujet' => "" , 'NbReponseC' => "")
+        );
+        //parcourir la liste de sujet
+        for($i = 0; $i < count($sujets); ++$i) {
+            //recuperer tous les reponses de sujet
+            $reponses=$em->getRepository("ForumBundle:Reponse")->findBy(['Sujet'=> $sujets[$i] ]);
 
-        return $this->render('@Forum/Sujet/afficher.html.twig' , ["sujets" => $sujets]);
+            array_push($NbReponses, array('sujet' => $sujets[$i] , 'NbReponseC' => count($reponses)));
+        }
+
+        return $this->render('@Forum/Sujet/afficher.html.twig' , ["sujets" => $sujets , "plante"=> $plante ,"NbReponses" => $NbReponses]);
     }
 
     public function consulterAction(Request $request)
@@ -87,6 +100,7 @@ class SujetController extends Controller
 
         return $this->redirect($this->generateUrl('consulter_plante'));
     }
+
 
 
 }

@@ -19,3 +19,15 @@ supprimer:
 modifier:
     path: /modifier
     defaults: { _controller: PlanteBundle:Plante:modif }
+proposer:
+    path: /proposer
+    defaults: { _controller: PlanteBundle:Plante:prop }
+propad:
+    path: /propad
+    defaults: { _controller: PlanteBundle:Plante:propad }
+accepter:
+    path: /accepter
+    defaults: { _controller: PlanteBundle:Plante:acc }
+filter:
+    path: /filter
+    defaults: { _controller: PlanteBundle:Plante:fil }
