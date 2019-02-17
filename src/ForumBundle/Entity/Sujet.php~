@@ -83,14 +83,14 @@ class Sujet
 
     /**
      * @ORM\ManyToOne(targetEntity="PlanteBundle\Entity\plante")
-     * @ORM\JoinColumn(referencedColumnName="id")
+     * @ORM\JoinColumn(referencedColumnName="id" , onDelete="CASCADE")
      */
     private $Plante;
 
 
     /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
-     * @ORM\JoinColumn(referencedColumnName="id")
+     * @ORM\JoinColumn(referencedColumnName="id" , onDelete="CASCADE")
      */
     private $User;
 
@@ -296,5 +296,53 @@ class Sujet
     public function getUser()
     {
         return $this->User;
+    }
+
+    /**
+     * Set open
+     *
+     * @param string $open
+     *
+     * @return Sujet
+     */
+    public function setOpen($open)
+    {
+        $this->open = $open;
+
+        return $this;
+    }
+
+    /**
+     * Get open
+     *
+     * @return string
+     */
+    public function getOpen()
+    {
+        return $this->open;
+    }
+
+    /**
+     * Set resolu
+     *
+     * @param string $resolu
+     *
+     * @return Sujet
+     */
+    public function setResolu($resolu)
+    {
+        $this->resolu = $resolu;
+
+        return $this;
+    }
+
+    /**
+     * Get resolu
+     *
+     * @return string
+     */
+    public function getResolu()
+    {
+        return $this->resolu;
     }
 }

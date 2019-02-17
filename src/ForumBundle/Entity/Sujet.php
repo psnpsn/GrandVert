@@ -83,14 +83,14 @@ class Sujet
 
     /**
      * @ORM\ManyToOne(targetEntity="PlanteBundle\Entity\plante")
-     * @ORM\JoinColumn(referencedColumnName="id")
+     * @ORM\JoinColumn(referencedColumnName="id" , onDelete="CASCADE")
      */
     private $Plante;
 
 
     /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
-     * @ORM\JoinColumn(referencedColumnName="id")
+     * @ORM\JoinColumn(referencedColumnName="id" , onDelete="CASCADE")
      */
     private $User;
 

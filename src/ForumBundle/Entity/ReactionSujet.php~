@@ -14,14 +14,18 @@ use AppBundle;
  */
 class ReactionSujet
 {
+
     /**
      * @ORM\Id
      * @ORM\ManyToOne(targetEntity="ForumBundle\Entity\Sujet", inversedBy="ReactionSujet")
+     * @ORM\JoinColumn(name="sujet_id", referencedColumnName="id", onDelete="CASCADE")
      */
     protected $Sujet;
+
     /**
      * @ORM\Id
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User", inversedBy="ReactionSujet" )
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User", inversedBy="ReactionSujet")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id", onDelete="CASCADE")
      */
     protected $User;
 

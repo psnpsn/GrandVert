@@ -42,17 +42,7 @@ class ReponseController extends Controller
             $em->persist($reponse);
             $em->flush();
 
-            //recuperer les reponses de sujet à consulter pour actualiser les info aprés l'ajout
-            $reponses=$em->getRepository("ForumBundle:Reponse")->findBy(['Sujet'=> $sujet ]);
-
-            //pagination data
-            $paginationreponses  = $this->get('knp_paginator')->paginate(
-                $reponses,
-                $request->query->get('page', 1)/*le numéro de la page à afficher*/,
-                6/*nbre d'éléments par page*/
-            );
-
-            return $this->render('@Forum/Sujet/consulter.html.twig', ["sujet" => $sujet , "reponses" => $paginationreponses ,"User" => $user]);
+            return new RedirectResponse($router->generate("consulter_sujet",['id' => $id]), 307);
 
         }else{
             // si il n'ya pas un utilisateur connecter , redigier vers page login
