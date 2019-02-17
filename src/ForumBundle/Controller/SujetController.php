@@ -2,6 +2,7 @@
 
 namespace ForumBundle\Controller;
 
+use ForumBundle\Entity\Reponse;
 use ForumBundle\Entity\Sujet;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -132,7 +133,7 @@ class SujetController extends Controller
 
         //calculer nb de like et dislike pour chaque reponse du sujet
         $NbReactionreponses = array(
-            array('reponse' => "" , 'nbLike' => "" , 'nbDisLike' => "")
+            array('reponse' => new Reponse() , 'nbLike' => 0 , 'nbDisLike' => 0)
         );
 
         //recuperer les reponses de sujet à consulter
@@ -140,31 +141,15 @@ class SujetController extends Controller
 
         //parcourir la liste de reponse de sujet
         for($i = 0; $i < count($reponses); ++$i) {
-            //recuperer tous les reactions du reponse
-            $AllReactionreponse = $em->getRepository("ForumBundle:ReactionReponse")->findBy(["Reponse" => $reponses[$i]]);
 
-            //calculer nb de like dislike pour la reponse
-            $nbLikereponse = 0;
-            $nbDislikereponse = 0;
+            //recuperer tous les reactions du reponse pour like et dislike
+            $ListLike = $em->getRepository("ForumBundle:ReactionReponse")->findBy(["Reponse" => $reponses[$i] , "reaction" => "like"]);
+            $ListDisLike = $em->getRepository("ForumBundle:ReactionReponse")->findBy(["Reponse" => $reponses[$i] , "reaction" => "dislike"]);
 
-            if($AllReactionreponse != null ) { // pour fix l'erreur de memoire inssufisant
-                for ($i = 0; $i < count($AllReactionreponse); ++$i) {
-                    if ($AllReactionreponse[$i]->getReaction() == 'like')
-                        $nbLikereponse++;
-                    else
-                        $nbDislikereponse++;
-                }
-            }
-            else{
-                $nbLikereponse = 0;
-                $nbDislikereponse = 0;
-            }
-
-            //inserer le nb de like et disklike dans le tableau de nb reaction de tous les reponses
-            array_push($NbReactionreponses, array('reponse' => $reponses[$i] , 'nbLike' => $nbLikereponse , 'nbDisLike' => $nbDislikereponse));
+             //inserer le nb de like et disklike dans le tableau de nb reaction de tous les reponses
+             array_push($NbReactionreponses, array('reponse' => $reponses[$i] , 'nbLike' => count($ListLike) , 'nbDisLike' => count($ListDisLike)));
 
         }
-
         //pagination data
         $paginationreponses  = $this->get('knp_paginator')->paginate(
             $reponses,

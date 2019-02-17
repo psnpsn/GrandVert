@@ -120,7 +120,8 @@
                             <div class="postinfobot">
 
                                 {% for NbReactionreponse in NbReactionreponses %}
-                                    {% if NbReactionreponse.reponse == reponse %}
+
+                                    {% if NbReactionreponse.reponse.id == reponse.id %}
                                         <div class="likeblock pull-left">
                                             <a href="#" class="up"><i class="fa fa-thumbs-o-up"></i> {{ NbReactionreponse.nbLike }} </a>
                                             <a href="#" class="down"><i class="fa fa-thumbs-o-down"></i> {{ NbReactionreponse.nbDisLike }} </a>
