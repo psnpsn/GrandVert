@@ -96,14 +96,15 @@ class ReactionSujet
         return $this->Sujet;
     }
 
+
     /**
      * Set user
      *
-     * @param \ForumBundle\Entity\User $user
+     * @param \AppBundle\Entity\User $user
      *
      * @return ReactionSujet
      */
-    public function setUser(\ForumBundle\Entity\User $user)
+    public function setUser(\AppBundle\Entity\User $user)
     {
         $this->User = $user;
 
@@ -113,7 +114,7 @@ class ReactionSujet
     /**
      * Get user
      *
-     * @return \ForumBundle\Entity\User
+     * @return \AppBundle\Entity\User
      */
     public function getUser()
     {

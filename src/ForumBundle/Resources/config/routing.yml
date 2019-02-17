@@ -23,14 +23,23 @@ supprimer_reponse:
     path:     /sujet/reponse/supprimer
     defaults: { _controller: ForumBundle:Reponse:supprimer }
 
-like_publication:
+like_sujet:
+    path:     /sujet/like
+    defaults: { _controller: ForumBundle:ReactionSujet:like }
+
+
+dislike_sujet:
+    path:     /sujet/dislike
+    defaults: { _controller: ForumBundle:ReactionSujet:dislike }
+
+like_reponse:
     path:     /sujet/reponse/like
-    defaults: { _controller: ForumBundle:Reponse:like }
+    defaults: { _controller: ForumBundle:ReactionReponse:like }
 
 
-dislike_publication:
+dislike_reponse:
     path:     /sujet/reponse/dislike
-    defaults: { _controller: ForumBundle:Reponse:dislike }
+    defaults: { _controller: ForumBundle:ReactionReponse:dislike }
 
 
 supprimer_commentaire:

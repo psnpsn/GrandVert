@@ -2,6 +2,7 @@
 
 namespace ForumBundle\Controller;
 
+use ForumBundle\Entity\ReactionSujet;
 use ForumBundle\Entity\Reponse;
 use ForumBundle\Entity\Sujet;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -411,6 +412,9 @@ class SujetController extends Controller
 
         }
     }
+
+
+
 
 
 
