@@ -57,32 +57,40 @@ class Sujet
      *
      * @ORM\Column(name="nbshare", type="integer")
      */
-    private $nbshare;
+    private $nbshare=0;
 
     /**
      * @var int
      *
      * @ORM\Column(name="nbviews", type="integer")
      */
-    private $nbviews;
+    private $nbviews=0;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="etat", type="string", length=255)
+     * @ORM\Column(name="open", type="string", length=255)
      */
-    private $etat;
+    private $open="true";
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="resolu", type="string", length=255)
+     */
+    private $resolu="false";
 
 
     /**
      * @ORM\ManyToOne(targetEntity="PlanteBundle\Entity\plante")
-     * @ORM\JoinColumn(referencedColumnName="id")
+     * @ORM\JoinColumn(referencedColumnName="id" , onDelete="CASCADE")
      */
     private $Plante;
 
+
     /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
-     * @ORM\JoinColumn(referencedColumnName="id")
+     * @ORM\JoinColumn(referencedColumnName="id" , onDelete="CASCADE")
      */
     private $User;
 
@@ -90,7 +98,7 @@ class Sujet
     /**
      * Get id
      *
-     * @return int
+     * @return integer
      */
     public function getId()
     {
@@ -210,7 +218,7 @@ class Sujet
     /**
      * Get nbshare
      *
-     * @return int
+     * @return integer
      */
     public function getNbshare()
     {
@@ -234,47 +242,24 @@ class Sujet
     /**
      * Get nbviews
      *
-     * @return int
+     * @return integer
      */
     public function getNbviews()
     {
         return $this->nbviews;
     }
 
-    /**
-     * Set etat
-     *
-     * @param string $etat
-     *
-     * @return Sujet
-     */
-    public function setEtat($etat)
-    {
-        $this->etat = $etat;
-
-        return $this;
-    }
-
-    /**
-     * Get etat
-     *
-     * @return string
-     */
-    public function getEtat()
-    {
-        return $this->etat;
-    }
 
     /**
      * Set plante
      *
-     * @param integer $plante
+     * @param \PlanteBundle\Entity\plante $plante
      *
      * @return Sujet
      */
-    public function setPlante($plante)
+    public function setPlante(\PlanteBundle\Entity\plante $plante = null)
     {
-        $this->plante = $plante;
+        $this->Plante = $plante;
 
         return $this;
     }
@@ -282,21 +267,21 @@ class Sujet
     /**
      * Get plante
      *
-     * @return integer
+     * @return \PlanteBundle\Entity\plante
      */
     public function getPlante()
     {
-        return $this->plante;
+        return $this->Plante;
     }
 
     /**
      * Set user
      *
-     * @param integer $user
+     * @param \AppBundle\Entity\User $user
      *
      * @return Sujet
      */
-    public function setUser($user)
+    public function setUser(\AppBundle\Entity\User $user = null)
     {
         $this->User = $user;
 
@@ -306,7 +291,7 @@ class Sujet
     /**
      * Get user
      *
-     * @return integer
+     * @return \AppBundle\Entity\User
      */
     public function getUser()
     {
@@ -314,26 +299,50 @@ class Sujet
     }
 
     /**
-     * Set idPlante
+     * Set open
      *
-     * @param integer $idPlante
+     * @param string $open
      *
      * @return Sujet
      */
-    public function setIdPlante($idPlante)
+    public function setOpen($open)
     {
-        $this->id_plante = $idPlante;
+        $this->open = $open;
 
         return $this;
     }
 
     /**
-     * Get idPlante
+     * Get open
      *
-     * @return integer
+     * @return string
      */
-    public function getIdPlante()
+    public function getOpen()
     {
-        return $this->id_plante;
+        return $this->open;
+    }
+
+    /**
+     * Set resolu
+     *
+     * @param string $resolu
+     *
+     * @return Sujet
+     */
+    public function setResolu($resolu)
+    {
+        $this->resolu = $resolu;
+
+        return $this;
+    }
+
+    /**
+     * Get resolu
+     *
+     * @return string
+     */
+    public function getResolu()
+    {
+        return $this->resolu;
     }
 }

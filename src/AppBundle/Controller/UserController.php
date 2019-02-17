@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -39,7 +40,22 @@ class UserController extends Controller
         $em->persist($membre);
         $em->flush();
 
-        return $this->redirectToRoute("list_user/admin");
+        //rediger l'utilisateur vers leur interface apres le changement de l'etat
+        $authChecker = $this->container->get('security.authorization_checker');
+        $router = $this->container->get('router');
+
+        //verfier si l'utilisateur connecter est un admin pour acceder à admin dashboard
+        if ($authChecker->isGranted('ROLE_SUPER_ADMIN')) {
+            $user = $this->container->get('security.token_storage')->getToken()->getUser();
+            return $this->render('admin_dashboard.html.twig' , ["user" => $user]);
+        }
+
+        //verfier si l'utilisateur connecter est un moderateur pour acceder à son dashboard
+        if ($authChecker->isGranted('ROLE_ADMIN')) {
+            $user = $this->container->get('security.token_storage')->getToken()->getUser();
+            return new RedirectResponse($router->generate('list_user/moderateur'), 307);
+        }
+
     }
 
     public function consulterAction(Request $request)
@@ -60,6 +76,7 @@ class UserController extends Controller
         $user = $this->container->get('security.token_storage')->getToken()->getUser();
         return $this->render('User/profilead.html.twig' , ["user" => $user]);
     }
+
     public function homeadminAction()
     {
         return $this->render('admin_dashboard.html.twig');
@@ -70,6 +87,63 @@ class UserController extends Controller
         return $this->render('default/index.html.twig');
     }
 
+    public function homemoderateurAction()
+    {
+        $user = $this->container->get('security.token_storage')->getToken()->getUser();
+        return $this->render('moderateur_dashboard.html.twig' , ["user" => $user]);
+    }
+
+    public function rolemembreAction(Request $request)
+    {
+        //recuperer id de membre pour changer son role
+        $id = $request->get("id");
+        $em = $this->getDoctrine()->getManager();
+        $membre = $em->getRepository("AppBundle:User")->find($id);
+
+        $rolesArr = array('ROLE_USER');
+
+        $membre->setRoles($rolesArr); //set role to role membre
+
+        $em->persist($membre);
+        $em->flush();
+
+        return $this->redirectToRoute("list_user/admin");
+    }
+
+    public function rolemoderateurAction(Request $request)
+    {
+        //recuperer id de membre pour changer son role
+        $id = $request->get("id");
+        $em = $this->getDoctrine()->getManager();
+        $membre = $em->getRepository("AppBundle:User")->find($id);
+
+        $rolesArr = array('ROLE_ADMIN');
+
+        $membre->setRoles($rolesArr); //set role to role mederateur
+
+        $em->persist($membre);
+        $em->flush();
+
+        return $this->redirectToRoute("list_user/admin");
+    }
+
+    public function listmembreAction(Request $request)
+    {
+        $user = $this->container->get('security.token_storage')->getToken()->getUser();
+        $em= $this->getDoctrine()->getManager();
+
+        $rolesArr = array('ROLE_USER');
+
+        //recuperer tous les membres
+        $query = $this->getDoctrine()->getEntityManager()
+            ->createQuery(
+                'SELECT u FROM AppBundle:User u WHERE u.roles LIKE :role'
+            )->setParameter('role', 'a:0:{}');
+
+        $Membres = $query->getResult();
+
+        return $this->render('Listmembre.html.twig' , ["Membres" => $Membres,"user" => $user]);
+    }
 
 
 

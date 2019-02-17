@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {% extends 'admin_dashboard.html.twig' %}
 {% block content %}
         <div class="main-panel">
@@ -21,6 +22,7 @@
                                             <p class="text-gray ellipsis mb-2">téléphone:{{ membre.tel }}</p>
                                             <p class="text-gray ellipsis mb-2">level:{{ membre.level }}</p>
                                             <p class="text-gray ellipsis mb-2">score:{{ membre.score }}</p>
+                                            <p class="text-gray ellipsis mb-2">Role : {% if membre.roles[0] == "ROLE_USER" %}Membre {% elseif membre.roles[0] == "ROLE_ADMIN" %} Moderateur {% else %}Admin{% endif %}</small> </p>
                                             <div class="row text-gray d-md-flex d-none">
                                                 <div class="col-4 d-flex">
                                                     <small class="mb-0 mr-2 text-muted text-muted">etat:</small>
@@ -35,10 +37,20 @@
                                         </div>
                                         <div class="ticket-actions col-md-2">
                                             <div class="btn-group dropdown">
-                                              <a href="{{ path('Modifier_etat_compte',{'id':membre.id }) }}"><button type="button" class="btn btn-success " >
-                                                    Changer etat
-                                                </button>
-                                              </a>
+                                                <div class="avatar pull-right dropdown" style="background-color: #66bb6a; color: white; width: 100px; height: 20px; border-radius: 20px;">
+                                                            <a data-toggle="dropdown"  href="#" style="color: white; padding-left: 20px; "> Action</b>
+                                                                <ul class="dropdown-menu" role="menu" style="height: auto; width: auto; background-color: white; font-size: 10px; text-decoration: none; ">
+                                                                    {% if membre.roles[0] == "ROLE_ADMIN" %}
+                                                                        <li style="border-bottom: 0px; padding-left: 20px; margin-top: -20px; font-size: 13px;" role="presentation"><a role="menuitem"  href="{{ path("Role_Membre",{'id': membre.id} ) }}">Membre</a></li>
+                                                                    {% elseif  membre.roles[0] == "ROLE_USER" %}
+                                                                        <li style="border-bottom: 0px; padding-left: 20px; margin-top: -20px; font-size: 13px;" role="presentation"><a role="menuitem" href="{{ path("Role_Moderateur",{'id': membre.id} ) }}">Moderateur</a></li>
+                                                                    {% else %}
+
+                                                                    {% endif %}
+                                                                        <li style="border-bottom: 0px; padding-left: 20px; font-size: 13px;" role="presentation"><a role="menuitem"  href="{{ path("Modifier_etat_compte",{'id': membre.id} ) }}">Modifier etat compte</a></li>
+                                                                </ul>
+                                                            </a>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

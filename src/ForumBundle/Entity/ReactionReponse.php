@@ -17,11 +17,14 @@ class ReactionReponse
     /**
      * @ORM\Id
      * @ORM\ManyToOne(targetEntity="ForumBundle\Entity\Reponse", inversedBy="ReactionReponse")
+     * @ORM\JoinColumn(name="reponse_id", referencedColumnName="id", onDelete="CASCADE")
      */
     protected $Reponse;
+
     /**
      * @ORM\Id
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User", inversedBy="ReactionReponse")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id", onDelete="CASCADE")
      */
     protected $User;
 
@@ -91,14 +94,15 @@ class ReactionReponse
         return $this->Reponse;
     }
 
+
     /**
      * Set user
      *
-     * @param \ForumBundle\Entity\User $user
+     * @param \AppBundle\Entity\User $user
      *
      * @return ReactionReponse
      */
-    public function setUser(\ForumBundle\Entity\User $user)
+    public function setUser(\AppBundle\Entity\User $user)
     {
         $this->User = $user;
 
@@ -108,7 +112,7 @@ class ReactionReponse
     /**
      * Get user
      *
-     * @return \ForumBundle\Entity\User
+     * @return \AppBundle\Entity\User
      */
     public function getUser()
     {

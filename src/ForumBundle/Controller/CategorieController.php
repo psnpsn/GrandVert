@@ -24,6 +24,13 @@ class CategorieController extends Controller
         $em = $this->getDoctrine()->getManager();
         $plantes = $em->getRepository("PlanteBundle:plante")->findBy(['categorie'=> $categorie ]);
 
+        //pagination data
+        $paginationplantes  = $this->get('knp_paginator')->paginate(
+            $plantes,
+            $request->query->get('page', 1)/*le numéro de la page à afficher*/,
+            7/*nbre d'éléments par page*/
+        );
+
         $nbsujets = array(
             array('plante' => "" , 'nbsujetp' => "")
         );
@@ -35,6 +42,6 @@ class CategorieController extends Controller
             array_push($nbsujets, array('plante' => $plantes[$i] , 'nbsujetp' => count($sujets)));
         }
 
-        return $this->render('@Forum\Categorie\consulter.html.twig', ["plantes" => $plantes ,"nbsujets" => $nbsujets ]);
+        return $this->render('@Forum\Categorie\consulter.html.twig', ["plantes" => $paginationplantes ,"nbsujets" => $nbsujets ]);
     }
 }

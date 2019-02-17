@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    {% include 'forum_moderateur.html.twig' %}
+    <script type="text/javascript" src="{{ asset('forum/ckeditor/ckeditor.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('forum/modelbox/script.js') }}"> </script>
+
+
+    <!-- The Modal -->
+    <div id="myModal" class="modal" style="display: block;">
+
+        <!-- Modal content -->
+        <div class="modal-content">
+            <form action="{{ path("modifier_reponse",{'id_sujet': sujet.id , 'id_reponse': reponse.id } ) }}"  method="post">
+
+                <div>
+                    <textarea name="reponseoriginalM"  id="contentm" rows="10" cols="80" > {{ reponse.reponseOriginal |raw }}</textarea>
+                    <script type="text/javascript">
+                        CKEDITOR.replace('contentm');
+                    </script>
+                </div>
+
+                <input type="submit" class="btn btn-primary pull-left" value="Modifer reponse" onclick="modifierContenu();" style="border: 1px solid #43a047 ; background-color:#66bb6a; "/>
+
+                <script type="text/javascript">
+                    function modifierContenu(){
+                        //CKEDITOR.instances.content.updateElement();
+                        document.getElementById('demo').innerHTML =CKEDITOR.instances.contentm.getData();
+
+                    }
+                </script>
+
+            </form>
+        </div>
+
+    </div>
+
+    <script type="text/javascript" src="{{ asset('forum/modelbox/script.js') }}"> </script>
+
+{% endblock %}

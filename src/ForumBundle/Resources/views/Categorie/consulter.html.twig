@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block content %}
-    {% include 'forum.html.twig' %}
+    {% include 'forum_moderateur.html.twig' %}
 
 
     <div class="container">
@@ -29,6 +29,7 @@
             </div><!-- POST -->
 
         {% endfor %}
+        <div class="text-center">{{ knp_pagination_render(plantes) }}</div>
 
     </div>
 {% endblock %}
