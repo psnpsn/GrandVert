@@ -10,13 +10,8 @@
             <link href="{{ asset('Base/css/style.css') }}" rel="stylesheet" type="text/css" media="all" />
             <link href='http://fonts.googleapis.com/css?family=Exo:100,200,300,400,500,600,700,800,900' rel='stylesheet' type='text/css'>
         {% endblock %}
-        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-        <link rel="manifest" href="/site.webmanifest">
-        <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
-        <meta name="msapplication-TileColor" content="#da532c">
-        <meta name="theme-color" content="#ffffff">
+        <link rel="icon" type="image/x-icon"  href="{{ asset('favicon.ico') }}">
+
     {% endblock %}
 </head>
 <body>
@@ -26,20 +21,20 @@
                 <div class="container">
                     <div class="header-top">
                         <div class="logo">
-                            <a href="{{ path('homepage') }}"><img src="{{ asset('Base/images/logo.png') }}" alt="GrandVert" width="430px"></a>
+                            <a href="{{ path('homepage') }}"><img src="{{ asset('Base/images/logo2.png') }}" alt="GrandVert" width="400px"></a>
                         </div>
                         <div class="search-in">
                             <div class="header-grid">
                                 <ul>
-                                    <li class="in-up" ><a href="{{ path('profile_user')}}" class="scroll"> compte </a> <label>|</label></li>
-                                    <li class="in-up" ><a href="{{ path('fos_user_profile_edit')}}" class="scroll"> edit </a> <label>|</label></li>
-                                    <li ><a href="{{ path('fos_user_security_logout')}}" class="scroll">Déconnection</a></li>
+                                    <li class="in-up" ><a href="{{ path('profile_user')}}" class="scroll"> Compte </a> <label>|</label></li>
+                                    <li class="in-up" ><a href="{{ path('fos_user_profile_edit')}}" class="scroll"> Modifier </a> <label>|</label></li>
+                                    <li ><a href="{{ path('fos_user_security_logout')}}" class="scroll">Déconnexion</a></li>
                                 </ul>
                             </div>
                             <div class="search-top">
                                 <div class="search">
                                     <form>
-                                        <input type="text" value="Search" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '';}" >
+                                        <input type="text" value="Recherche" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '';}" >
                                         <input type="submit"  value="">
                                     </form>
                                 </div>
@@ -59,7 +54,7 @@
                                 <li><a href="{{ path('planteaff')}}" > plante</a></li>
                                 <li><a href="services.html" > partage expérience </a></li>
                                 <li><a href="404.html" >boutique</a></li>
-                                <li><a href="contact.html" > Evénemenet </a></li>
+                                <li><a href="contact.html" > Evénement </a></li>
                                 <li><a href="contact.html" > Contact </a></li>
 
                             </ul>
@@ -79,19 +74,19 @@
                 <div class="container">
                     <div class="header-top">
                         <div class="logo">
-                            <a href="{{ path('homepage') }}"><img src="{{ asset('Base/images/logo.png') }}" alt="GrandVert" width="430px"></a>
+                            <a href="{{ path('homepage') }}"><img src="{{ asset('Base/images/logo2.png') }}" alt="GrandVert" width="400px"></a>
                         </div>
                         <div class="search-in">
                             <div class="header-grid">
                                 <ul>
-                                    <li class="in-up" ><a href="{{ path('fos_user_security_login') }}" class="scroll"> Sign in </a> <label>|</label></li>
-                                    <li ><a href="{{ path('fos_user_registration_register') }}" class="scroll">Sign up</a></li>
+                                    <li class="in-up" ><a href="{{ path('fos_user_security_login') }}" class="scroll"> Se connecter </a> <label>|</label></li>
+                                    <li ><a href="{{ path('fos_user_registration_register') }}" class="scroll">S'inscrire</a></li>
                                 </ul>
                             </div>
                             <div class="search-top">
                                 <div class="search">
                                     <form>
-                                        <input type="text" value="Search" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '';}" >
+                                        <input type="text" value="Recherche" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '';}" >
                                         <input type="submit"  value="">
                                     </form>
                                 </div>
@@ -108,10 +103,10 @@
                         <div class="top-nav">
                             <span class="menu"> </span>
                             <ul>
-                                <li><a href="{{ path('planteaff')}}" > plante</a></li>
-                                <li><a href="services.html" > partage expérience </a></li>
-                                <li><a href="404.html" >boutique</a></li>
-                                <li><a href="contact.html" > Evénemenet </a></li>
+                                <li><a href="{{ path('planteaff')}}" > Plante</a></li>
+                                <li><a href="services.html" > Partage expérience </a></li>
+                                <li><a href="404.html" >Boutique</a></li>
+                                <li><a href="contact.html" > Evénement </a></li>
                                 <li><a href="contact.html" > Contact </a></li>
                             </ul>
                             <script>
@@ -136,7 +131,7 @@
 
 <div class="footer">
     <div class="container">
-        <p class="footer-grid">Copyright &copy; 2015 vegetables Template by  <a href="http://w3layouts.com/" target="_blank">W3layouts</a> </p>
+        <p class="footer-grid">Copyright &copy; 2019 <a href="" target="_blank">Behind The Machines</a> </p>
     </div>
 </div>
 
