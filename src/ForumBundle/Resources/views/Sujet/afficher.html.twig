@@ -1,92 +1,149 @@
 {% extends 'base.html.twig' %}
 
 {% block content %}
+    {% include 'forum_moderateur.html.twig' %}
+<script type="text/javascript" src="{{ asset('forum/ckeditor/ckeditor.js') }}"></script>
+<script type="text/javascript" src="{{ asset('forum/modelbox/script.js') }}"> </script>
 
-<!---->
-<div class="container">
-    <div class="single">
-        <div class="blog-top-in">
-            <div class="col-md-4 top-blog">
-                <a href="#"><img class="img-responsive" src="{{ asset('Base/images/b3.jpg') }}" alt=" " ></a>
-            </div>
-            <div class="col-md-8 sed-in">
-                <h4>SED LOREET ALIQUAM LEOTELLUS DOLOR DAPIBUS</h4>
-                <ul>
-                    <li><a href="#"><span><i> </i>Super user</span></a></li>
-                    <li><span><i class="clock"> </i>June 14, 2013</span></li>
-                    <li><span><i class="hit"> </i>Hits:145</span></li>
-                </ul>
-                <p>Cras consequat iaculis lorem, id vehicula erat mattis quis. Vivamus laoreet velit justo, in ven e natis purus pretium sit amet. Praesent lectus tortor, tincidu nt in consectetur vestibulum, ultrices nec neque. Praesent nec sagittis mauris. Fusce convallis nunc neque. Integer egestas aliquam interdum. Nulla ante diam, interdum nec tempus eu, feugiat vel erat. Integer aliquam mi quis accum san porta.
-                    Quisque nec turpis nisi. Proin lobortis nisl ut orci euismod, et lobortis est scelerisque. Sed eget volutpat ipsum. Integer fring illa leo porttitor, ultrices quam non, lobortis ligula. Aliquam vel consequat arcu.
-                    Quisque nec turpis nisi. Proin lobortis nisl ut orci euismod, et lobortis est scelerisque. Sed eget volutpat ipsum. Integer fring illa leo porttitor, ultrices quam non, lobortis ligula. Aliquam vel consequat arcu.
-                    Quisque nec turpis nisi. Proin lobortis nisl ut orci euismod, et lobortis est scelerisque. Sed eget volutpat ipsum.</p>
-            </div>
-            <div class="clearfix"> </div>
-        </div>
-        <p class="at-in">Cras consequat iaculis lorem, id vehicula erat mattis quis. Vivamus laoreet velit justo, in ven e natis purus pretium sit amet. Praesent lectus tortor, tincidu nt in consectetur vestibulum, ultrices nec neque. Praesent nec sagittis mauris. Fusce convallis nunc neque. Integer egestas aliquam interdum. Nulla ante diam, interdum nec tempus eu, feugiat vel erat. Integer aliquam mi quis accum san porta.
-            Quisque nec turpis nisi. Proin lobortis nisl ut orci euismod, et lobortis est scelerisque. Sed eget volutpat ipsum. </p>
 
-        <div class="comment-grid-top">
-            <div class="comments-top-top">
-                <div class="top-comment-left">
-                    <img class="img-responsive" src="{{ asset('Base/images/co.png') }}" alt="" />
-                </div>
-                <div class="top-comment-right">
-                    <ul>
-                        <li><span class="left-at"> Admin</span></li>
-                        <li><span class="right-at">12 July 2014 at 10.30am</span></li>
-                        <li><a class="reply" href="#">REPLY</a></li>
-                    </ul>
-                    <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.The point of using Lorem Ipsum is that it has a more-or-less </p>
-                </div>
-                <div class="clearfix"> </div>
+    {% if plante != null %} <!-- user va consulter la liste de sujet de plante -->
+
+    <div class="container">
+        <div class="userinfo ">
+            <div class="avatar">
+                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                    <img src="{{ asset('uploads/avatar/'~User.avatar) }}" alt="" style=" height:5vw ;  max-height: 5vw; max-width:5vw;" />
+                {% endif %}
             </div>
-            <div class="comments-top-top top-grid-comment">
-                <div class="top-comment-left">
-                    <img class="img-responsive" src="{{ asset('Base/images/co.png') }}" alt="" />
-                </div>
-                <div class="top-comment-right">
-                    <ul>
-                        <li><span class="left-at"> Admin</span></li>
-                        <li><span class="right-at">12 July 2014 at 10.30am</span></li>
-                        <li><a class="reply" href="#">REPLY</a></li>
-                    </ul>
-                    <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.The point of using Lorem Ipsum is that it has a more-or-less </p>
-                </div>
-                <div class="clearfix"> </div>
-            </div>
-            <div class="comments-top-top top-grid-comment">
-                <div class="top-comment-left">
-                    <img class="img-responsive" src="{{ asset('Base/images/co.png') }}" alt="" />
-                </div>
-                <div class="top-comment-right">
-                    <ul>
-                        <li><span class="left-at"> Admin</span></li>
-                        <li><span class="right-at">12 July 2014 at 10.30am</span></li>
-                        <li><a class="reply" href="#">REPLY</a></li>
-                    </ul>
-                    <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.The point of using Lorem Ipsum is that it has a more-or-less </p>
-                </div>
-                <div class="clearfix"> </div>
-            </div>
-            <div class="comments-top-top">
-                <div class="top-comment-left">
-                    <img class="img-responsive" src="{{ asset('Base/images/co.png') }}" alt="" />
-                </div>
-                <div class="top-comment-right">
-                    <ul>
-                        <li><span class="left-at"> Admin</span></li>
-                        <li><span class="right-at">12 July 2014 at 10.30am</span></li>
-                        <li><a class="reply" href="#">REPLY</a></li>
-                    </ul>
-                    <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.The point of using Lorem Ipsum is that it has a more-or-less </p>
-                </div>
-                <div class="clearfix"> </div>
+
+            <div class="icons">
             </div>
         </div>
+        <br>
+
+        <form action="{{ path("ajouter_sujet",{'id': plante.id} ) }}"  method="post">
+
+            <div>
+                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                    <textarea name="postoriginal"  id="content" rows="10" cols="80" placeholder="Ajouter un commentaire"></textarea>
+                {% endif %}
+                <script type="text/javascript">
+                    CKEDITOR.replace('content');
+                </script>
+
+            </div>
+
+            <br>
+
+            <input type="submit" class="btn btn-primary pull-left" value="Poser Sujet" onclick="nouveauContenu();" style="border: 1px solid #43a047 ; background-color:#66bb6a; "/>
+
+            <script type="text/javascript">
+                function nouveauContenu(){
+                    //CKEDITOR.instances.content.updateElement();
+                    document.getElementById('demo').innerHTML =CKEDITOR.instances.content.getData();
+
+                }
+            </script>
+
+        </form>
+
     </div>
-</div>
 
-    {% endblock content %}
+{% endif %}
+
+<br>
+
+        <div class="container">
+            {% if plante != null %} <!-- user va consulter la liste de sujet de plante -->
+                <h3> Liste du sujet de la plante {{ plante.nom }} :</h3>
+            {% else %} <!-- user va consulter la liste de leur sujet -->
+                <h3> La liste du mes sujets :</h3>
+            {% endif %}
+            <br>
+            {% for sujet in sujets %}
+                <!-- POST -->
+                <div class="post">
+                    <div class="wrap-ut pull-left">
+                        <div class="userinfo pull-left">
+                            <div class="avatar">
+                                <img src="{{ asset('uploads/avatar/'~sujet.User.avatar) }}" alt="" style=" height:5vw ;  max-height: 5vw; max-width:5vw;" />
+                            </div>
+
+                            <div class="icons">
+                            </div>
+                        </div>
+                        <div class="posttext pull-left">
+                            <h2><a href="{{ path("consulter_membre",{'id': sujet.user.id} ) }}"> {{  sujet.user.prenom }} {{  sujet.user.nom }} </a></h2>
+                            <a href="{{ path("consulter_sujet",{'id': sujet.id} ) }}">  {{ sujet.sujetOriginal |raw }} </a>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="postinfo pull-left">
+                        <div class="avatar pull-right dropdown">
+                            {% if User != null %}
+                                {% if User.id == sujet.User.id %}
+                                    <a data-toggle="dropdown" href="#"> <b class="caret"></b>
+                                        <ul class="dropdown-menu" role="menu" style="height: auto; width: auto; background-color: white; font-size: 10px; text-decoration: none; ">
+                                            <li style="border-bottom: 0px;" role="presentation"><a role="menuitem" tabindex="-1" href="{{ path("edit_sujet",{'id': sujet.id} ) }}">Modifier</a></li>
+                                            {% if sujet.resolu == "true" %}
+                                                <li style="border-bottom: 0px;" role="presentation"><a role="menuitem" tabindex="-2" href="{{ path("sujet_NonResolut",{'id': sujet.id} ) }}">Non Resolu</a></li>
+                                            {% else %}
+                                                <li style="border-bottom: 0px;" role="presentation"><a role="menuitem" tabindex="-2" href="{{ path("sujet_Resolut",{'id': sujet.id} ) }}">Resolu</a></li>
+                                            {% endif %}
+                                            {% if sujet.open == "true" %}
+                                                <li style="border-bottom: 0px;" role="presentation"><a role="menuitem" tabindex="-2" href="{{ path("sujet_Fermer",{'id': sujet.id} ) }}">Fermer</a></li>
+                                            {% else %}
+                                                <li style="border-bottom: 0px;" role="presentation"><a role="menuitem" tabindex="-2" href="{{ path("sujet_Ouvert",{'id': sujet.id} ) }}">Ouvert</a></li>
+                                            {% endif %}
+                                            <li style="border-bottom: 0px;" role="presentation"><a role="menuitem" tabindex="-2" href="{{ path("supprimer_sujet",{'id': sujet.id} ) }}">Supprimer</a></li>
+                                        </ul>
+                                    </a>
+                                {% endif %}
+                            {% endif %}
+                        </div>
+                        {% if User != null %}
+                            {% if User.id == sujet.User.id %}
+                                {% if sujet.resolu == "true" %}
+                                    <div class="views"> <img style="width: 30px; height: 30px; margin-left: 45px;" src="{{ asset('forum/publication/images/resolut.png') }}" alt="" /> </div>
+                                {% else %}
+                                    <div class="views"> <img style="width: 30px; height: 30px; margin-left: 45px;" src="{{ asset('forum/publication/images/nonresolut.png') }}" alt="" /> </div>
+                                {% endif %}
+                            {% endif %}
+                        {% endif %}
+
+                        {% if User != null %}
+                            {% if User.id != sujet.User.id %}
+                                {% if sujet.resolu == "true" %}
+                                    <div class="views"> <img style="width: 30px; height: 30px; " src="{{ asset('forum/publication/images/resolut.png') }}" alt="" /> </div>
+                                {% else %}
+                                    <div class="views"> <img style="width: 30px; height: 30px; " src="{{ asset('forum/publication/images/nonresolut.png') }}" alt="" /> </div>
+                                {% endif %}
+                            {% endif %}
+                        {% endif %}
+                        <div class="comments">
+                            {% for NbReponse in NbReponses %}
+                                {% if NbReponse.sujet == sujet %}
+                                    <div class="commentbg">
+                                        {{ NbReponse.NbReponseC }}
+                                        <div class="mark"></div>
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+
+                        </div>
+                        <div class="views"><i class="fa fa-eye"></i> {{ sujet.nbviews }}</div>
+                        <div class="time"><i class="fa fa-clock-o"></i> {{ sujet.dateoriginal | date("y/m/d") }}</div>
+
+                    </div>
+                    <div class="clearfix"></div>
+                </div><!-- POST -->
+
+            {% endfor %}
+            <div class="text-center">{{ knp_pagination_render(sujets) }}</div>
+
+        </div>
+
+
+{% endblock %}
 
 

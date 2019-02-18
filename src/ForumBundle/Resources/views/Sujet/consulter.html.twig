@@ -1,72 +1,188 @@
 {% extends 'base.html.twig' %}
+
 {% block content %}
-{% if sujet.etat == "resolut" %}
-    <div> <img style="border-radius: 6px; width: 100%; height: 47px; border: 1px solid #aed4a5;  " src="{{ asset('forum/Reponse/images/sujet_resolut.png') }}" alt=""></div>
-{% elseif sujet.etat =="nonresolut" %}
+    {% include 'forum_moderateur.html.twig' %}
+    <div id="fb-root"></div>
+    <script async defer src="https://connect.facebook.net/fr_FR/sdk.js#xfbml=1&version=v3.2&appId=298248927712899&autoLogAppEvents=1"></script>
+    <script type="text/javascript" src="{{ asset('forum/ckeditor/ckeditor.js') }}"></script>
 
-{% else %}
 
-{% endif %}
+<div class="container">
+    <div class="container">
 
-<div class="comment-grid-top">
-    <h3>3 Responses</h3>
-    <div class="comments-top-top">
-        <div class="top-comment-left">
-            <img class="img-responsive" src="{{ asset('uploads/avatar/'~sujet.User.avatar) }}" alt="" />
-        </div>
-        <div class="top-comment-right">
-            <ul>
-                <li><span class="left-at"> {{ sujet.User.nom }} {{ sujet.User.prenom }}</span></li>
-                <li><span class="right-at">{{ sujet.dateoriginal | date("y/m/d") }}</span></li>
-            </ul>
-            <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.The point of using Lorem Ipsum is that it has a more-or-less </p>
-        </div>
-        <div class="clearfix"> </div>
-    </div>
-    <div class="comments-top-top top-grid-comment">
-        <div class="top-comment-left">
-            <img class="img-responsive" src="images/co.png" alt="" />
-        </div>
-        <div class="top-comment-right">
-            <ul>
-                <li><span class="left-at"> Admin</span></li>
-                <li><span class="right-at">12 July 2014 at 10.30am</span></li>
-                <li><a class="reply" href="#">REPLY</a></li>
-            </ul>
-            <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.The point of using Lorem Ipsum is that it has a more-or-less </p>
-        </div>
-        <div class="clearfix"> </div>
-    </div>
-    <div class="comments-top-top top-grid-comment">
-        <div class="top-comment-left">
-            <img class="img-responsive" src="images/co.png" alt="" />
-        </div>
-        <div class="top-comment-right">
-            <ul>
-                <li><span class="left-at"> Admin</span></li>
-                <li><span class="right-at">12 July 2014 at 10.30am</span></li>
-                <li><a class="reply" href="#">REPLY</a></li>
-            </ul>
-            <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.The point of using Lorem Ipsum is that it has a more-or-less </p>
-        </div>
-        <div class="clearfix"> </div>
-    </div>
-    <div class="comments-top-top">
-        <div class="top-comment-left">
-            <img class="img-responsive" src="images/co.png" alt="" />
-        </div>
-        <div class="top-comment-right">
-            <ul>
-                <li><span class="left-at"> Admin</span></li>
-                <li><span class="right-at">12 July 2014 at 10.30am</span></li>
-                <li><a class="reply" href="#">REPLY</a></li>
-            </ul>
-            <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.The point of using Lorem Ipsum is that it has a more-or-less </p>
-        </div>
-        <div class="clearfix"> </div>
-    </div>
-</div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-md-12">
+                    {% if sujet.open == "false" %}
+                        <h1 style="color: #f26355; font-size: 24px; text-transform: uppercase; font-weight: 700;     font-family: Lato!important;">Sujet fermé !</h1>
+                    {% endif %}
 
-{% endblock %}
+                    {% if sujet.resolu == "true" %}
+                        <div> <img style="border-radius: 6px; width: 100%; height: 47px; border: 1px solid #aed4a5;  " src="{{ asset('forum/commentaire/images/sujet_resolut.png') }}" alt=""></div>
+                    {% endif %}
+                    <br>
+                    <!-- POST -->
+                    <div class="post beforepagination" style="border: 2px solid #bdbdbd;">
+                        <div class="topwrap">
+                            <div class="userinfo pull-left">
+                                <div class="avatar">
+                                    <img src="{{ asset('uploads/avatar/'~sujet.User.avatar) }}" style=" height:5vw ;  max-height: 5vw; max-width:5vw;" alt="" />
+                                </div>
+
+                                <div class="icons">
+                                </div>
+                            </div>
+                            <div class="avatar pull-right dropdown">
+                                {% if User != null %}
+                                    {% if User.id == sujet.User.id %}
+                                        <a data-toggle="dropdown" href="#"> <b class="caret"></b>
+                                            <ul class="dropdown-menu" role="menu" style="height: auto; width: auto; background-color: white; font-size: 10px; text-decoration: none;">
+                                                <li style="border-bottom: 0px;" role="presentation"><a role="menuitem" tabindex="-1" href="{{ path("edit_sujet",{'id': sujet.id} ) }}">Modifier</a></li>
+                                                {% if sujet.resolu == "true" %}
+                                                    <li style="border-bottom: 0px;" role="presentation"><a role="menuitem" tabindex="-2" href="{{ path("sujet_NonResolut",{'id': sujet.id} ) }}">Non Resolu</a></li>
+                                                {% else %}
+                                                    <li style="border-bottom: 0px;" role="presentation"><a role="menuitem" tabindex="-2" href="{{ path("sujet_Resolut",{'id': sujet.id} ) }}">Resolu</a></li>
+                                                {% endif %}
+                                                {% if sujet.open == "true" %}
+                                                    <li style="border-bottom: 0px;" role="presentation"><a role="menuitem" tabindex="-2" href="{{ path("sujet_Fermer",{'id': sujet.id} ) }}">Fermer</a></li>
+                                                {% else %}
+                                                    <li style="border-bottom: 0px;" role="presentation"><a role="menuitem" tabindex="-2" href="{{ path("sujet_Ouvert",{'id': sujet.id} ) }}">Ouvert</a></li>
+                                                {% endif %}
+                                                <li style="border-bottom: 0px;" role="presentation"><a role="menuitem" tabindex="-2" href="{{ path("supprimer_sujet",{'id': sujet.id} ) }}">Supprimer</a></li>
+                                            </ul>
+                                        </a>
+                                    {% endif %}
+                                {% endif %}
+                            </div>
+                            <div class="posttext pull-left">
+                                <h2>{{  sujet.User.prenom }} {{  sujet.User.nom }} </h2>
+                                <p>{{ sujet.sujetOriginal |raw }}</p>
+                            </div>
+                            <div class="posted pull-right" style="padding-right: 30px"> modifié </div>
+
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="postinfobot">
+
+                            <div class="likeblock pull-left">
+                                <a href="{{ path("like_sujet",{'id': sujet.id} ) }}" class="up"><i class="fa fa-thumbs-o-up"></i>  {{ nblikeSujet }} </a>
+                                <a href="{{ path("dislike_sujet",{'id': sujet.id} ) }}" class="down"><i class="fa fa-thumbs-o-down"></i> {{ nbDislikeSujet }} </a>
+                            </div>
+
+                            <div class="prev pull-left">
+                                <a href="#"><i class="fa fa-reply"></i></a>
+                            </div>
+
+                            <div class="posted pull-left"><i class="fa fa-clock-o"></i> publier le : {{ sujet.dateoriginal | date("y/m/d") }}</div>
+                            {% if sujet.sujetedited == "true" %}
+                                <div style="padding-left: 450px; margin-top:-80px ; padding-bottom: 0px; padding-top: -20px;" class="fb-share-button" data-href="http://localhost/GrandVert/web/app_dev.php/forum/sujet/consulter?id=20" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%2FGrandVert%2Fweb%2Fapp_dev.php%2Fforum%2Fsujet%2Fconsulter%3Fid%3D20&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Partager</a></div>
+                            {% endif %}
+
+                            <div class="clearfix"></div>
+
+                        </div>
+                    </div><!-- POST -->
+
+                    <br>
+
+                    {% for reponse in reponses %}
+
+                        <br>
+                        <!-- POST -->
+                        <div class="post" style="width: 90%; float: right; border: 2px solid #bdbdbd;">
+                            <div class="topwrap">
+                                <div class="userinfo pull-left">
+                                    <div class="avatar">
+                                        <img src="{{ asset('uploads/avatar/'~reponse.User.avatar) }}" style=" height:5vw ;  max-height: 5vw; max-width:5vw;" alt="" />
+                                    </div>
+
+                                    <div class="icons">
+                                        <img src="{{ asset('forum/commentaire/images/middle.jpg') }}" alt="" />
+                                    </div>
+                                </div>
+                                <div class="avatar pull-right dropdown">
+                                 {% if User != null %}
+                                    {% if User.id == reponse.User.id %}
+                                        <a data-toggle="dropdown" href="#"> <b class="caret"></b>
+                                            <ul class="dropdown-menu" role="menu" style="height: auto; width: auto; background-color: white; font-size: 10px; text-decoration: none;">
+                                                <li role="presentation" style="border-bottom: 0px;" ><a role="menuitem" tabindex="-1" href="{{ path("edit_reponse",{'id_sujet': sujet.id , 'id_reponse': reponse.id } ) }}">Modifier</a></li>
+                                                <li role="presentation"><a role="menuitem" tabindex="-2" href="{{ path("supprimer_reponse",{'id_sujet': sujet.id , 'id_reponse': reponse.id } ) }}">Supprimer</a></li>
+                                            </ul>
+                                        </a>
+                                    {% endif %}
+                                 {% endif %}
+
+                                </div>
+                                <div class="posttext pull-left">
+                                    <h2>{{ reponse.User.prenom }} {{ reponse.User.nom }} </h2>
+                                    <p> {{ reponse.reponseOriginal |raw }} </p>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="postinfobot">
+
+                                {% for NbReactionreponse in NbReactionreponses %}
+
+                                    {% if NbReactionreponse.reponse.id == reponse.id %}
+                                        <div class="likeblock pull-left">
+                                            <a href="{{ path("like_reponse",{'id_sujet': sujet.id ,'id_reponse': reponse.id } ) }}" class="up"><i class="fa fa-thumbs-o-up"></i> {{ NbReactionreponse.nbLike }} </a>
+                                            <a href="{{ path("dislike_reponse",{'id_sujet': sujet.id ,'id_reponse': reponse.id } ) }}" class="down"><i class="fa fa-thumbs-o-down"></i> {{ NbReactionreponse.nbDisLike }} </a>
+                                        </div>
+                                    {% endif %}
+                                {% endfor %}
+
+                                <div class="prev pull-left">
+                                </div>
+
+                                <div class="posted pull-left"><i class="fa fa-clock-o"></i> commenter le : {{ reponse.dateRoriginal | date("y/m/d") }}</div>
+                                {% if reponse.reponseedited == "true" %}
+                                    <div class="posted pull-right" style="padding-left: 250px"> modifié </div>
+                                {% endif %}
+
+                                <div class="clearfix"></div>
+                            </div>
+                        </div><!-- POST -->
+
+                    {% endfor %}
+                    <div class="text-center">{{ knp_pagination_render(reponses) }}</div>
+
+
+                </div>
+            </div>
+
+            {% if sujet.open == "true" %}<!-- user ne peut pas ajouter une reponse lorsque le sujet est en etat fermer !!-->
+                <form action="{{ path("ajouter_reponse",{'id': sujet.id} ) }}"  method="post">
+
+                    <div>
+                        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                            <textarea name="commentoriginal"  id="content" rows="10" cols="80" placeholder="Ajouter une reponse"></textarea>
+                        {% endif %}
+                        <script type="text/javascript">
+                            CKEDITOR.replace('content');
+                        </script>
+
+                    </div>
+
+                    <br>
+                        <input type="submit" class="btn btn-primary pull-left" value="Ajouter une reponse" onclick="nouveauContenu();" style="border: 1px solid #43a047 ; background-color:#66bb6a; "/>
+
+                    <script type="text/javascript">
+                        function nouveauContenu(){
+                            //CKEDITOR.instances.content.updateElement();
+                            document.getElementById('demo').innerHTML =CKEDITOR.instances.content.getData();
+
+                        }
+                    </script>
+
+                </form>
+            {% endif %}
+
+        </div>
+        <br><br>
+    </div>
+    </div>
+    {% endblock %}
+
+
 
 

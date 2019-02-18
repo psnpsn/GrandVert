@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    {% include 'forum_moderateur.html.twig' %}
+
+
+    <div class="container">
+        <h3> Liste Categorie :</h3>
+        {% for categorie in categories %}
+            <!-- POST -->
+            <div class="post">
+                <div class="wrap-ut pull-left">
+                    <div class="userinfo pull-left">
+
+                    </div>
+                    <a href="{{ path("consulter_categorie",{'categorie': categorie} ) }}">
+                        <div class="posttext pull-left" style="cursor: pointer;" >
+                              {{ categorie }}  <i class="fa fa-arrow-right pull-right"></i>
+                        </div>
+                    </a>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="clearfix"></div>
+            </div><!-- POST -->
+
+        {% endfor %}
+
+    </div>
+{% endblock %}

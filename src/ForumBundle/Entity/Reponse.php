@@ -53,13 +53,13 @@ class Reponse
 
     /**
      * @ORM\ManyToOne(targetEntity="ForumBundle\Entity\Sujet")
-     * @ORM\JoinColumn(referencedColumnName="id")
+     * @ORM\JoinColumn(referencedColumnName="id" , onDelete="CASCADE")
      */
     private $Sujet;
 
     /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
-     * @ORM\JoinColumn(referencedColumnName="id")
+     * @ORM\JoinColumn(referencedColumnName="id" , onDelete="CASCADE")
      */
     private $User;
 
@@ -193,14 +193,15 @@ class Reponse
         return $this->Sujet;
     }
 
+
     /**
      * Set user
      *
-     * @param \ForumBundle\Entity\User $user
+     * @param \AppBundle\Entity\User $user
      *
      * @return Reponse
      */
-    public function setUser(\ForumBundle\Entity\User $user = null)
+    public function setUser(\AppBundle\Entity\User $user = null)
     {
         $this->User = $user;
 
@@ -210,7 +211,7 @@ class Reponse
     /**
      * Get user
      *
-     * @return \ForumBundle\Entity\User
+     * @return \AppBundle\Entity\User
      */
     public function getUser()
     {
