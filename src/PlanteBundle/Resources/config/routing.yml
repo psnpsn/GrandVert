@@ -22,7 +22,7 @@ modifier:
 proposer:
     path: /proposer
     defaults: { _controller: PlanteBundle:Plante:prop }
-propapd:
+propad:
     path: /propad
     defaults: { _controller: PlanteBundle:Plante:propad }
 accepter:

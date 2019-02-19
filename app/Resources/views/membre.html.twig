@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 {% extends 'admin_dashboard.html.twig' %}
 {% block content %}
         <div class="main-panel">
@@ -37,22 +36,22 @@
                                         </div>
                                         <div class="ticket-actions col-md-2">
                                             <div class="btn-group dropdown">
-                                                <div class="avatar pull-right dropdown" style="background-color: #66bb6a; color: white; width: 100px; height: 20px; border-radius: 20px;">
-                                                            <a data-toggle="dropdown"  href="#" style="color: white; padding-left: 20px; "> Action</b>
-                                                                <ul class="dropdown-menu" role="menu" style="height: auto; width: auto; background-color: white; font-size: 10px; text-decoration: none; ">
+                                                    <button type="button" class="btn btn-primary dropdown-toggle btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        Action
+                                                    </button>
+                                                <div class="dropdown-menu">
                                                                     {% if membre.roles[0] == "ROLE_ADMIN" %}
-                                                                        <li style="border-bottom: 0px; padding-left: 20px; margin-top: -20px; font-size: 13px;" role="presentation"><a role="menuitem"  href="{{ path("Role_Membre",{'id': membre.id} ) }}">Membre</a></li>
+                                                                        <a class="dropdown-item"  href="{{ path("Role_Membre",{'id': membre.id} ) }}"> <i class="fa fa-reply fa-fw"></i>Membre</a>
+                                                                        <a class="dropdown-item"  href="{{ path("Modifier_etat_compte",{'id': membre.id} ) }}"> <i class="fa fa-reply fa-fw"></i>Modifier etat compte</a>
                                                                     {% elseif  membre.roles[0] == "ROLE_USER" %}
-                                                                        <li style="border-bottom: 0px; padding-left: 20px; margin-top: -20px; font-size: 13px;" role="presentation"><a role="menuitem" href="{{ path("Role_Moderateur",{'id': membre.id} ) }}">Moderateur</a></li>
+                                                                        <a class="dropdown-item" href="{{ path("Role_Moderateur",{'id': membre.id} ) }}"><i class="fa fa-reply fa-fw"></i>Moderateur</a>
+                                                                        <a class="dropdown-item"  href="{{ path("Modifier_etat_compte",{'id': membre.id} ) }}"> <i class="fa fa-reply fa-fw"></i>Modifier etat compte</a>
                                                                     {% else %}
-
+                                                                        <a class="dropdown-item"  href="{{ path("Modifier_etat_compte",{'id': membre.id} ) }}"> <i class="fa fa-reply fa-fw"></i>Modifier etat compte</a>
                                                                     {% endif %}
-                                                                        <li style="border-bottom: 0px; padding-left: 20px; font-size: 13px;" role="presentation"><a role="menuitem"  href="{{ path("Modifier_etat_compte",{'id': membre.id} ) }}">Modifier etat compte</a></li>
-                                                                </ul>
-                                                            </a>
-                                                </div>
-                                            </div>
+                                                    </div >
                                         </div>
+                                    </div>
                                     </div>
                                     {% endfor %}
                                 </div>
