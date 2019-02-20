@@ -71,7 +71,7 @@ class SujetController extends Controller
         $plante = $em->getRepository("PlanteBundle:plante")->find($id_plante);
 
         //recuperer tous les sujets de plante à consulter
-        $sujets=$em->getRepository("ForumBundle:Sujet")->findBy(['Plante'=> $plante ]);
+        $sujets=$em->getRepository("ForumBundle:Sujet")->findBy(['Plante'=> $plante , 'archive'=> false  ]);
 
         //pagination data
         $paginationsujets  = $this->get('knp_paginator')->paginate(
@@ -138,7 +138,7 @@ class SujetController extends Controller
         );
 
         //recuperer les reponses de sujet à consulter
-        $reponses=$em->getRepository("ForumBundle:Reponse")->findBy(['Sujet'=> $sujet ]);
+        $reponses=$em->getRepository("ForumBundle:Reponse")->findBy(['Sujet'=> $sujet , 'archive'=> false ]);
 
         //parcourir la liste de reponse de sujet
         for($i = 0; $i < count($reponses); ++$i) {
@@ -412,6 +412,86 @@ class SujetController extends Controller
 
         }
     }
+
+    public function archiverAction(Request $request) {
+
+        //recuperer l'id de sujet à archiver
+        $id = $request->get("id");
+        $em = $this->getDoctrine()->getManager();
+        $sujet = $em->getRepository("ForumBundle:Sujet")->find($id);
+
+        //modifier leur etat à archiver
+        $sujet->setArchive(true);
+
+        $em = $this->getDoctrine()->getEntityManager();
+        $em->persist($sujet);
+        $em->flush();
+
+        $authChecker = $this->container->get('security.authorization_checker');
+        $router = $this->container->get('router');
+
+        //verfier si l'utilisateur connecter est un admin pour acceder à admin dashboard aprés la supression de sujet
+        if ($authChecker->isGranted('ROLE_SUPER_ADMIN')) {
+            $user = $this->container->get('security.token_storage')->getToken()->getUser();
+            return $this->render('admin_dashboard.html.twig' , ["user" => $user]);
+        }
+
+        //verfier si l'utilisateur connecter est un moderateur pour acceder à son dashboard aprés la supression de sujet
+        if ($authChecker->isGranted('ROLE_ADMIN')) {
+            return $this->generateUrl("moderateur_forum"); //user connecter est un moderateur
+        }
+
+        //user connecter est un membre
+        return new RedirectResponse($router->generate("afficher_sujet",['id' => $sujet->getPlante()->getId()]), 307);
+
+    }
+
+    public function signalerAction(Request $request) {
+
+        //recuperer l'id de sujet à signaler
+        $id = $request->get("id");
+        $em = $this->getDoctrine()->getManager();
+        $sujet = $em->getRepository("ForumBundle:Sujet")->find($id);
+
+        //modifier le nb de signaler du sujet
+        $sujet->setNbsignal($sujet->getNbsignal()+1);
+
+        //verifier le nb de signaler si il atteint 10 signaler , changer letat de sujet à archiver !
+        if($sujet->getNbsignal() == 10)
+        {
+            //modifier leur etat à archiver
+            $sujet->setArchive(true);
+
+            //modifier le nb de signaler du sujet à 0
+            $sujet->setNbsignal(0);
+        }
+
+        $em = $this->getDoctrine()->getEntityManager();
+        $em->persist($sujet);
+        $em->flush();
+
+
+
+        $authChecker = $this->container->get('security.authorization_checker');
+        $router = $this->container->get('router');
+
+        //verfier si l'utilisateur connecter est un admin pour acceder à admin dashboard aprés la supression de sujet
+        if ($authChecker->isGranted('ROLE_SUPER_ADMIN')) {
+            $user = $this->container->get('security.token_storage')->getToken()->getUser();
+            return $this->render('admin_dashboard.html.twig' , ["user" => $user]);
+        }
+
+        //verfier si l'utilisateur connecter est un moderateur pour acceder à son dashboard aprés la supression de sujet
+        if ($authChecker->isGranted('ROLE_ADMIN')) {
+            return $this->generateUrl("moderateur_forum"); //user connecter est un moderateur
+        }
+
+        //user connecter est un membre
+        return new RedirectResponse($router->generate("afficher_sujet",['id' => $sujet->getPlante()->getId()]), 307);
+
+    }
+
+
 
 
 

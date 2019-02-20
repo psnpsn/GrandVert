@@ -84,7 +84,7 @@
                                 {% if User.id == sujet.User.id %}
                                     <a data-toggle="dropdown" href="#"> <b class="caret"></b>
                                         <ul class="dropdown-menu" role="menu" style="height: auto; width: auto; background-color: white; font-size: 10px; text-decoration: none; ">
-                                            <li style="border-bottom: 0px;" role="presentation"><a role="menuitem" tabindex="-1" href="{{ path("edit_sujet",{'id': sujet.id} ) }}">Modifier</a></li>
+                           <!--                 <li style="border-bottom: 0px;" role="presentation"><a role="menuitem" tabindex="-1" href="{{ path("edit_sujet",{'id': sujet.id} ) }}">Modifier</a></li> -->
                                             {% if sujet.resolu == "true" %}
                                                 <li style="border-bottom: 0px;" role="presentation"><a role="menuitem" tabindex="-2" href="{{ path("sujet_NonResolut",{'id': sujet.id} ) }}">Non Resolu</a></li>
                                             {% else %}
@@ -95,7 +95,9 @@
                                             {% else %}
                                                 <li style="border-bottom: 0px;" role="presentation"><a role="menuitem" tabindex="-2" href="{{ path("sujet_Ouvert",{'id': sujet.id} ) }}">Ouvert</a></li>
                                             {% endif %}
-                                            <li style="border-bottom: 0px;" role="presentation"><a role="menuitem" tabindex="-2" href="{{ path("supprimer_sujet",{'id': sujet.id} ) }}">Supprimer</a></li>
+                                            <li style="border-bottom: 0px;" role="presentation"><a role="menuitem" tabindex="-2" href="{{ path("sujet_Archiver",{'id': sujet.id} ) }}">Supprimer</a></li>
+
+                                            <!--    <li style="border-bottom: 0px;" role="presentation"><a role="menuitem" tabindex="-2" href="{{ path("supprimer_sujet",{'id': sujet.id} ) }}">Supprimer</a></li> -->
                                         </ul>
                                     </a>
                                 {% endif %}
@@ -120,6 +122,16 @@
                                 {% endif %}
                             {% endif %}
                         {% endif %}
+
+                        {% if User == null %}
+                                {% if sujet.resolu == "true" %}
+                                    <div class="views"> <img style="width: 30px; height: 30px; " src="{{ asset('forum/publication/images/resolut.png') }}" alt="" /> </div>
+                                {% else %}
+                                    <div class="views"> <img style="width: 30px; height: 30px; " src="{{ asset('forum/publication/images/nonresolut.png') }}" alt="" /> </div>
+                                {% endif %}
+                        {% endif %}
+
+
                         <div class="comments">
                             {% for NbReponse in NbReponses %}
                                 {% if NbReponse.sujet == sujet %}

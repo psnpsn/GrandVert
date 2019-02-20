@@ -52,6 +52,20 @@ class Reponse
     private $dateRedited;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="archive", type="boolean", length=255)
+     */
+    private $archive=false;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="nbsignal", type="integer")
+     */
+    private $nbsignal=0;
+
+    /**
      * @ORM\ManyToOne(targetEntity="ForumBundle\Entity\Sujet")
      * @ORM\JoinColumn(referencedColumnName="id" , onDelete="CASCADE")
      */
@@ -216,5 +230,53 @@ class Reponse
     public function getUser()
     {
         return $this->User;
+    }
+
+    /**
+     * Set archive
+     *
+     * @param boolean $archive
+     *
+     * @return Reponse
+     */
+    public function setArchive($archive)
+    {
+        $this->archive = $archive;
+
+        return $this;
+    }
+
+    /**
+     * Get archive
+     *
+     * @return boolean
+     */
+    public function getArchive()
+    {
+        return $this->archive;
+    }
+
+    /**
+     * Set nbsignal
+     *
+     * @param integer $nbsignal
+     *
+     * @return Reponse
+     */
+    public function setNbsignal($nbsignal)
+    {
+        $this->nbsignal = $nbsignal;
+
+        return $this;
+    }
+
+    /**
+     * Get nbsignal
+     *
+     * @return integer
+     */
+    public function getNbsignal()
+    {
+        return $this->nbsignal;
     }
 }

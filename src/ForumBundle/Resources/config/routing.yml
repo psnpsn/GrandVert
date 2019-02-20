@@ -90,6 +90,22 @@ sujet_Ouvert:
     path:     /sujet/etat/ouvert
     defaults: { _controller: ForumBundle:Sujet:ouvert }
 
+sujet_Archiver:
+    path:     /sujet/etat/archiver
+    defaults: { _controller: ForumBundle:Sujet:archiver }
+
+sujet_Signaler:
+    path:     /sujet/etat/signaler
+    defaults: { _controller: ForumBundle:Sujet:signaler }
+
+reponse_Archiver:
+    path:     /reponse/etat/archiver
+    defaults: { _controller: ForumBundle:Reponse:archiver }
+
+reponse_Signaler:
+    path:     /reponse/etat/signaler
+    defaults: { _controller: ForumBundle:Reponse:signaler }
+
 Mederateur_sujet_list:
     path:     /moderateur/forum/sujet/list
     defaults: { _controller: ForumBundle:Sujet:alllist }

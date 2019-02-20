@@ -115,4 +115,61 @@ class ReponseController extends Controller
 
     }
 
+    public function archiverAction(Request $request) {
+
+        //recuperer l'id de reponse à archiver
+        $id_reponse = $request->get("id_reponse");
+        $em = $this->getDoctrine()->getManager();
+        $reponse = $em->getRepository("ForumBundle:Reponse")->find($id_reponse);
+
+        //modifier leur etat à archiver
+        $reponse->setArchive(true);
+
+        $em = $this->getDoctrine()->getEntityManager();
+        $em->persist($reponse);
+        $em->flush();
+
+
+        //recuperer l'id de sujet
+        $id_sujet = $request->get("id_sujet");
+
+        $router = $this->container->get('router');
+
+        return new RedirectResponse($router->generate("consulter_sujet",['id' => $id_sujet]), 307);
+
+    }
+
+    public function signalerAction(Request $request) {
+
+        //recuperer l'id de reponse à signaler
+        $id_reponse = $request->get("id_reponse");
+        $em = $this->getDoctrine()->getManager();
+        $reponse = $em->getRepository("ForumBundle:Reponse")->find($id_reponse);
+
+        //modifier le nb de signaler du sujet
+        $reponse->setNbsignal($reponse->getNbsignal()+1);
+
+        //verifier le nb de signaler si il atteint 10 signaler , changer letat de reponse à archiver !
+        if($reponse->getNbsignal() == 10)
+        {
+            //modifier leur etat à signaler
+            $reponse->setArchive(true);
+
+            //modifier le nb de signaler du sujet à 0
+            $reponse->setNbsignal(0);
+        }
+
+        $em = $this->getDoctrine()->getEntityManager();
+        $em->persist($reponse);
+        $em->flush();
+
+        //recuperer l'id de sujet
+        $id_sujet = $request->get("id_sujet");
+
+        $router = $this->container->get('router');
+
+        return new RedirectResponse($router->generate("consulter_sujet",['id' => $id_sujet]), 307);
+
+    }
+
 }
