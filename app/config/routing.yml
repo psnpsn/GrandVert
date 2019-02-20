@@ -38,8 +38,12 @@ admin_home:
     path:     /admin/home
     defaults: { _controller: AppBundle:User:homeadmin }
 
+account_user:
+    path:     /account
+    defaults: {_controller: AppBundle:User:Account}
+
 profile_user:
-    path:     /user
+    path:     /account/profile
     defaults: { _controller: AppBundle:User:profile }
 profile_admin:
     path:     /admin/profile

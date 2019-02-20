@@ -1,0 +1,110 @@
+{% extends 'base.html.twig' %}
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(document).ready(function(){
+
+            $("#setDateBt").click(function () {
+                var newDate = new Date(2014, 4, 24);
+                rangeCalendar.setStartDate(newDate);
+
+                rangeCalendar.update();
+            });
+
+            $("#addMonthBt").click(function () {
+
+                var newDate = moment().add('months', 1);
+                rangeCalendar.setStartDate(newDate);
+            });
+
+            var thisdate = new Date();
+            var thisyear = thisdate.getFullYear();
+            var thismonth = thisdate.getMonth();
+            var thisday = thisdate.getDay();
+            var myCalendar = $("#cal2").rangeCalendar({theme:"blue-theme",
+                lang:"fr",
+                startRangeWidth:"7",
+                minRangeWidth: 7,
+                maxRangeWidth: 7,
+                changeRangeCallback: rangeChanged,
+                startDate:new Date(thisyear,thismonth,thisday+4),
+                endDate: moment().add('months', 12),
+                autoHideMonths:false
+            });
+
+
+            function rangeChanged(target,range){
+                console.log(range);
+                $.ajax({
+                    url: '{{ path('jardin_index') }}',
+                    type: 'post',
+                    data: range,
+                    success: function(data){
+                        console.log(data)
+                    },
+                    error: function(){
+                        console.log('Error in Ajax');
+                    }
+                });
+                var startDay = moment(range.start).format('DD');
+                var startMonth = moment(range.start).format('MMM');
+                var startYear = moment(range.start).format('YY');
+                var endDay = moment(range.end).format('DD');
+                var endMonth = moment(range.end).format('MMM');
+                var endYear = moment(range.end).format('YY');
+
+
+                $(".calendar-values .start-date .value").html(startDay);
+                $(".calendar-values .start-date .label").html("");
+                $(".calendar-values .start-date .label").append(startMonth);
+                $(".calendar-values .start-date .label").append("<small>"+startYear+"</small>");
+                $(".calendar-values .end-date .value").html(endDay);
+                $(".calendar-values .end-date .label").html("");
+                $(".calendar-values .end-date .label").append(endMonth);
+                $(".calendar-values .end-date .label").append("<small>"+endYear+"</small>");
+                $(".calendar-values .days-width .value").html(range.width);
+                $(".calendar-values .from-now .label").html(range.fromNow);
+
+
+
+
+            }
+
+
+
+
+        });
+    </script>
+    <script type="text/javascript" src="{{ asset('jardin/weektl/js/jquery-ui.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('jardin/weektl/js/jquery.ui.touch-punch.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('jardin/weektl/js/moment+langs.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('jardin/weektl/js/jquery.rangecalendar.js') }}"></script>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" id="rangecalendar-style-css" href="{{ asset('jardin/weektl/css/rangecalendar.css') }}" type="text/css" media="all">
+    <link rel="stylesheet" id="jquery-ui-style-css" href="{{ asset('jardin/weektl/css/jquery-ui-1.10.3.custom.min.css') }}" type="text/css" media="all">
+    <link rel="stylesheet" id="jquery-ui-style-css" href="{{ asset('jardin/daymodel.css') }}" type="text/css" media="all">
+{% endblock %}
+{% block content %}
+    <div class="container">
+        <div id="cal2" class="cal"></div>
+        {% for dayNumber in 1..7 %}
+            <div class="day-container">
+                <div class="dayHeader">
+                    <div class="dayName"><h2>Lundi{{ range }}</h2></div>
+                    <div class="add-note-btn">
+                        <button class="btn btn-primary" type="submit">Button</button>
+                    </div>
+                    <div class="activity-bar">
+                        <button class="btn btn-primary" type="submit">Button</button>
+                    </div>
+                </div>
+                <div>
+                    <h4>Weather lorem posem lolm</h4>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
