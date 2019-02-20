@@ -1,3 +1,7 @@
-jardin_homepage:
+jardin_index:
     path:     /
     defaults: { _controller: JardinBundle:Default:index }
+
+load_days:
+    path:     /
+    defaults: { _controller: JardinBundle:Default:loadDays }

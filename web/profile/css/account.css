@@ -1,0 +1,21 @@
+.account-menu {
+    margin-top: 50px;
+    padding-left: 150px;
+    padding-right: 150px;
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 2fr;
+}
+
+.bouton {
+    width:200px;
+    color:#0b2e13;
+}
+
+.item {
+    margin-bottom:10px;
+}
+
+.info {
+    padding-top: 10px;
+}

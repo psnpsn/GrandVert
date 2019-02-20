@@ -83,9 +83,9 @@ class User extends BaseUser
     {
         parent::__construct();
         // your own logic
-        //$this->addRole("ROLE_USER"); // Membre
-        //$this->addRole("ROLE_ADMIN"); // Moderateur
-        $this->addRole('ROLE_SUPER_ADMIN');  // Admin
+        $this->addRole("ROLE_USER"); // Membre
+        // $this->addRole("ROLE_ADMIN"); // Moderateur
+        // $this->addRole('ROLE_SUPER_ADMIN');  // Admin
 
     }
 

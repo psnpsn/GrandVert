@@ -21,6 +21,18 @@ class Note
      */
     private $id;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="Jardin", inversedBy="notes")
+     * @ORM\JoinColumn(name="jardin_id", referencedColumnName="id")
+     */
+    private $jardinId;
+
+    /**
+     * @var string
+     * @ORM\Column(name="contenu", type="text")
+     */
+    private $contenu;
+
 
     /**
      * Get id
@@ -31,5 +43,39 @@ class Note
     {
         return $this->id;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getJardinId()
+    {
+        return $this->jardinId;
+    }
+
+    /**
+     * @param mixed $jardinId
+     */
+    public function setJardinId($jardinId)
+    {
+        $this->jardinId = $jardinId;
+    }
+
+    /**
+     * @return string
+     */
+    public function getContenu()
+    {
+        return $this->contenu;
+    }
+
+    /**
+     * @param string $contenu
+     */
+    public function setContenu($contenu)
+    {
+        $this->contenu = $contenu;
+    }
+
+
 }
 

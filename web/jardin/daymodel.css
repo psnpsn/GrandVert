@@ -1,0 +1,23 @@
+.day-container {
+    margin-bottom: 50px;
+}
+.dayHeader {
+    display: grid;
+    grid-gap: 10px;
+    grid-template-columns: 2fr 1fr 1fr;
+    width: 100%;
+    border-bottom: 1px solid #D0F1E6;
+    position: relative;
+}
+
+.dayName {
+    padding-top: 8px;
+    margin: 0;
+    text-align: left;
+    font-size: 14pt;
+}
+
+.cal {
+    margin-bottom: 60px;
+}
+
