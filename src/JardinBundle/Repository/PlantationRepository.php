@@ -10,4 +10,12 @@ namespace JardinBundle\Repository;
  */
 class PlantationRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function findAllByDate($date,$jardin)
+    {
+        return $this->findBy([
+            'date' => $date,
+            'jardin' => $jardin
+        ]);
+    }
+
 }

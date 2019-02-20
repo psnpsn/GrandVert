@@ -8,9 +8,13 @@
 
 namespace PlanteBundle\Controller;
 use PlanteBundle\Entity\plante;
+use AppBundle\Entity\User;
 use PlanteBundle\Form\planteType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Cookie;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 class PlanteController extends Controller
 {
@@ -142,12 +146,36 @@ class PlanteController extends Controller
 
     }
     public function detAction(Request $request)
-    {
-        //recuperer les informations du  plante à consulter
+    {//recuperer les informations du  plante à consulter
         $id=$request->get('id');
         $em=$this->getDoctrine()->getManager();
         $plante=$em->getRepository('PlanteBundle:plante')->find($id);
         //recuperer tous les sujets de plante à consulter
+        $em= $this->getDoctrine()->getManager();
+        $sujets=$em->getRepository("ForumBundle:Sujet")->findBy(['Plante'=> $plante ]);
+        return $this->render('@Plante/plante/detaille.html.twig',array(
+            'plante'=>$plante , "sujets" =>$sujets
+        ));
+    }
+    public function panAction(Request $request)
+    {$id=$request->get('id');$test=true;
+        $em=$this->getDoctrine()->getManager();
+        $plante=$em->getRepository('PlanteBundle:plante')->find($id);
+        $session = new Session();
+        if(!$session->has('panier'))$session->set('panier',array());
+        $panier=$session->get('panier');
+        foreach ($panier as $plant){
+            if($plante->getId()==$plant->getId())$test=false;
+        }
+       if($test){ array_push($panier,$plante);
+           $session->set('panier',$panier);
+           $this->get('session')->getFlashBag()->add(
+               'notice',
+               'ajouter au panier'
+           );}else{$this->get('session')->getFlashBag()->add(
+           'danger',
+           'existe déja au panier'
+       );}
         $em= $this->getDoctrine()->getManager();
         $sujets=$em->getRepository("ForumBundle:Sujet")->findBy(['Plante'=> $plante ]);
         return $this->render('@Plante/plante/detaille.html.twig',array(

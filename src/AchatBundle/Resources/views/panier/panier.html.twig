@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+{% block content %}
+    <style>
+        table{
+            font-size:150%;
+        }
+    </style>
+    <div class="container">
+    <div class="product">
+        <table class="table">
+            <thead class="thead-dark">
+            <tr>
+                <th></th>
+                <th scope="col">nom</th>
+                <th scope="col">prix</th>
+                <th scope="col">disponible</th>
+            </tr>
+            </thead>
+            <tbody>
+{% for panier in panier %}
+    <tr><td align="center"><a data-toggle="modal" data-target="#{{ panier.id }}"><i class="fa fa-close"></i></a></td>
+            <td><a href="{{ path('plantedetaile',{'id':panier.id}) }}">{{ panier.nom }}</a></td>
+            <td>{{ panier.prix }}</td>
+            <td>{% if panier.stock>0 %}disponible{% else %}non disponible{% endif %}</td>
+        </tr>
+    <div class="modal fade" id="{{ panier.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="exampleModalLabel">message confirmation</h4>
+                </div>
+                <div class="modal-body">
+                    Voulez-vous supprimer cette plante du panier?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">annuler</button>
+                    <a href="{{ path('delpa',{'id':panier.id}) }}" >   <button type="button" class="btn btn-primary">Supprimer</button></a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endfor %}
+            </tbody>
+        </table>
+    </div>
+    </div>
+{% endblock %}

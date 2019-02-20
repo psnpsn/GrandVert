@@ -66,6 +66,13 @@ class UserController extends Controller
 
         return $this->render('User/consulter_membre.html.twig' , ["user" => $user]);
     }
+
+    public function accountAction(Request $request)
+    {
+        $user = $this->container->get('security.token_storage')->getToken()->getUser();
+        return $this->render('User/account.html.twig' , ["user" => $user]);
+    }
+
     public function profileAction(Request $request)
     {
         $user = $this->container->get('security.token_storage')->getToken()->getUser();

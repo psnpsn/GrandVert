@@ -1,3 +1,9 @@
 achat_homepage:
-    path:     /
+    path:     /index
     defaults: { _controller: AchatBundle:Default:index }
+panier:
+    path:     /
+    defaults: { _controller: AchatBundle:Panier:con }
+delpa:
+    path:     /delpa
+    defaults: { _controller: AchatBundle:Panier:del }

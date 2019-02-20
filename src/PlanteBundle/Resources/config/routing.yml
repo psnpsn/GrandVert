@@ -31,3 +31,6 @@ accepter:
 filter:
     path: /filter
     defaults: { _controller: PlanteBundle:Plante:fil }
+addpanier:
+    path: /addpan
+    defaults: { _controller: PlanteBundle:Plante:pan }
