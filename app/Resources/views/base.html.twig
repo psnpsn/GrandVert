@@ -4,24 +4,29 @@
     {% block head %}
         <title>{% block title %}Welcome!{% endblock %}</title>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
         {% block stylesheets %}
             <link href="{{ asset('bootstrap/css/bootstrap.css') }}" rel="stylesheet" type="text/css" media="all" />
+            <link href='http://fonts.googleapis.com/css?family=Exo:100,200,300,400,500,600,700,800,900' rel='stylesheet' type='text/css'/>
             <link href="{{ asset('Base/css/style.css') }}" rel="stylesheet" type="text/css" media="all" />
-            <link href='http://fonts.googleapis.com/css?family=Exo:100,200,300,400,500,600,700,800,900' rel='stylesheet' type='text/css'>
-            <link rel="stylesheet" href="{{ asset('forum/modelbox/style.css') }}">
-
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+            <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+            <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+            <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+            <link rel="manifest" href="/site.webmanifest">
+            <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+            <meta name="msapplication-TileColor" content="#da532c">
+            <meta name="theme-color" content="#ffffff">
         {% endblock %}
-        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-        <link rel="manifest" href="/site.webmanifest">
-        <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
-        <meta name="msapplication-TileColor" content="#da532c">
-        <meta name="theme-color" content="#ffffff"><style>
+    <head>
+        <style>
         .w3-green {
+             color: #fff!important;
+             background-color: #4CAF50!important;
+         }
+        .w3-red {
             color: #fff!important;
-            background-color: #4CAF50!important;
+            background-color: #af0820 !important;
         }
         .w3-panel {
             margin-top: 26px;
@@ -64,8 +69,8 @@
                                     </form>
                                 </div>
                                 <div class="cart">
-                                    <a href="#" class="cart-in"> </a>
-                                    <span> 5</span>
+                                    <a href="{{ path('panier')}}" class="cart-in"> </a>
+                                    <span> {{ app.session.get('panier')|length }}</span>
                                 </div>
                                 <div class="clearfix"> </div>
                             </div>
@@ -78,7 +83,6 @@
                             <ul>
                                 <li><a href="{{ path('planteaff')}}" > plante</a></li>
                                 <li><a href="services.html" > partage expérience </a></li>
-                                <li><a href="404.html" >boutique</a></li>
                                 <li><a href="{{ path('afficher_categorie') }}" >Forum</a></li>
                                 <li><a href="contact.html" > Evénemenet </a></li>
                                 <li><a href="contact.html" > Contact </a></li>
@@ -122,7 +126,6 @@
                                 <li><a href="{{ path('planteaff')}}" > plante</a></li>
                                 <li><a href="{{ path('afficher_categorie') }}" >Forum</a></li>
                                 <li><a href="services.html" > partage expérience </a></li>
-                                <li><a href="404.html" >boutique</a></li>
                                 <li><a href="contact.html" > Evénemenet </a></li>
                                 <li><a href="contact.html" > Contact </a></li>
                             </ul>
@@ -155,7 +158,6 @@
 {% block javascripts %}
     <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
     <script src="{{ asset('Base/js/jquery.min.js') }}"></script>
-    <script src="{{ asset('Base/js/jquery.easydropdown.js') }}"></script>
     <script src="{{ asset('bootstrap/js/bootstrap.js') }}"></script>
     <script type="text/javascript" src="{{ asset('forum/modelbox/script.js') }}"> </script>
 {% endblock %}

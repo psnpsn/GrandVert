@@ -50,6 +50,22 @@ class User extends BaseUser
     private $level=0;
 
     /**
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param mixed $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+    /**
      * @var int
      *
      * @ORM\Column(name="score", type="integer")

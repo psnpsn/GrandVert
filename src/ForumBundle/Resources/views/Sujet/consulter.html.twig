@@ -14,18 +14,12 @@
                     {% if sujet.open == "false" %}
                         <h1 style="color: #f26355; font-size: 24px; text-transform: uppercase; font-weight: 700;     font-family: Lato!important;">Sujet fermé !</h1>
                     {% endif %}
-
-<<<<<<< HEAD
                     {% if sujet.etat == "resolut" %}
                     <div> <img style="border-radius: 6px; width: 100%; height: 47px; border: 1px solid #aed4a5;  " src="{{ asset('forum/commentaire/images/sujet_resolut.png') }}" alt=""></div>
                     {% elseif sujet.etat =="nonresolut" %}
-
                     {% else %}
-
-=======
                     {% if sujet.resolu == "true" %}
                         <div> <img style="border-radius: 6px; width: 100%; height: 47px; border: 1px solid #aed4a5;  " src="{{ asset('forum/commentaire/images/sujet_resolut.png') }}" alt=""></div>
->>>>>>> 2874cde0b0b59b77dde5d412c290dbb7a8eaa540
                     {% endif %}
                     <br>
                     <!-- POST -->

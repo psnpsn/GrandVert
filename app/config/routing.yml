@@ -4,7 +4,7 @@ jardin:
 
 achat:
     resource: "@AchatBundle/Resources/config/routing.yml"
-    prefix:   /achat
+    prefix:   /panier
 
 plante:
     resource: "@PlanteBundle/Resources/config/routing.yml"
