@@ -4,6 +4,8 @@ namespace JardinBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use AppBundle;
+
 /**
  * @ORM\Entity
  * @ORM\Table(name="jardin")
@@ -18,7 +20,7 @@ class Jardin
     private $id;
 
     /**
-     * @ORM\OneToOne(targetEntity="User")
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\User")
      */
     private $userId;
 

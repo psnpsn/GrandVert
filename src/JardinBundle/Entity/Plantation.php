@@ -3,6 +3,8 @@
 namespace JardinBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use PlanteBundle;
+
 
 /**
  * Plantation
@@ -22,7 +24,7 @@ class Plantation
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="plante")
+     * @ORM\ManyToOne(targetEntity="PlanteBundle\Entity\plante")
      * @ORM\JoinColumn(name="plante_id", referencedColumnName="id")
      */
     private $plantId;

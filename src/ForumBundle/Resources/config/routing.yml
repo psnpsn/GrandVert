@@ -131,6 +131,13 @@ admin_forum:
     defaults: { _controller: ForumBundle:Sujet:forum }
 
 
+mgilet_notification:
+    resource: "@MgiletNotificationBundle/Controller/"
+    prefix: /notifications
+
+
+
+
 
 
 

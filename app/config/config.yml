@@ -102,3 +102,7 @@ knp_paginator:
     template:
         pagination: 'twitter_bootstrap_v3_pagination.html.twig'
         sortable: 'KnpPaginatorBundle:Pagination:sortable_link.html.twig'
+
+
+framework:
+    translator: ~

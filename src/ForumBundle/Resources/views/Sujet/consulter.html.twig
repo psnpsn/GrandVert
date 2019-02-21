@@ -68,11 +68,18 @@
                             <div class="clearfix"></div>
                         </div>
                         <div class="postinfobot">
+                            {% if User != null %}
+                                <div class="likeblock pull-left">
+                                    <a href="{{ path("like_sujet",{'id': sujet.id} ) }}" class="up"><i class="fa fa-thumbs-o-up"></i>  {{ nblikeSujet }} </a>
+                                    <a href="{{ path("dislike_sujet",{'id': sujet.id} ) }}" class="down"><i class="fa fa-thumbs-o-down"></i> {{ nbDislikeSujet }} </a>
+                                </div>
+                            {% else %}
+                                <div class=" pull-left">
+                                    <a href="#" class="up"><i class="fa fa-thumbs-o-up"></i>  {{ nblikeSujet }} </a>
+                                    <a href="#" class="down"><i class="fa fa-thumbs-o-down"></i> {{ nbDislikeSujet }} </a>
+                                </div>
+                            {% endif %}
 
-                            <div class="likeblock pull-left">
-                                <a href="{{ path("like_sujet",{'id': sujet.id} ) }}" class="up"><i class="fa fa-thumbs-o-up"></i>  {{ nblikeSujet }} </a>
-                                <a href="{{ path("dislike_sujet",{'id': sujet.id} ) }}" class="down"><i class="fa fa-thumbs-o-down"></i> {{ nbDislikeSujet }} </a>
-                            </div>
 
                             <div class="prev pull-left">
                                 <a href="#"><i class="fa fa-reply"></i></a>
@@ -137,10 +144,17 @@
                                 {% for NbReactionreponse in NbReactionreponses %}
 
                                     {% if NbReactionreponse.reponse.id == reponse.id %}
-                                        <div class="likeblock pull-left">
-                                            <a href="{{ path("like_reponse",{'id_sujet': sujet.id ,'id_reponse': reponse.id } ) }}" class="up"><i class="fa fa-thumbs-o-up"></i> {{ NbReactionreponse.nbLike }} </a>
-                                            <a href="{{ path("dislike_reponse",{'id_sujet': sujet.id ,'id_reponse': reponse.id } ) }}" class="down"><i class="fa fa-thumbs-o-down"></i> {{ NbReactionreponse.nbDisLike }} </a>
-                                        </div>
+                                        {% if User != null %}
+                                            <div class="likeblock pull-left">
+                                                    <a href="{{ path("like_reponse",{'id_sujet': sujet.id ,'id_reponse': reponse.id } ) }}" class="up"><i class="fa fa-thumbs-o-up"></i> {{ NbReactionreponse.nbLike }} </a>
+                                                    <a href="{{ path("dislike_reponse",{'id_sujet': sujet.id ,'id_reponse': reponse.id } ) }}" class="down"><i class="fa fa-thumbs-o-down"></i> {{ NbReactionreponse.nbDisLike }} </a>
+                                            </div>
+                                        {% else %}
+                                            <div class="likeblock pull-left">
+                                                <a href="#" class="up" style="color: #9e9e9e;"><i  class="fa fa-thumbs-o-up"></i> {{ NbReactionreponse.nbLike }} </a>
+                                                <a href="#" class="down" style="color: #9e9e9e;"><i class="fa fa-thumbs-o-down"></i> {{ NbReactionreponse.nbDisLike }} </a>
+                                            </div>
+                                        {% endif %}
                                     {% endif %}
                                 {% endfor %}
 
