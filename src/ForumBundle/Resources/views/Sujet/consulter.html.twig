@@ -253,5 +253,36 @@
         <br><br>
     </div>
 </div>
+
+    {% if message == "show" %}
+        <!-- Modal HTML  pour confimrer la suppression -->
+        <div id="myModalMessage" class="modal " style="display: block">
+            <div class="modal-dialog modal-confirm">
+                <div class="modal-content" style="width: 500px;">
+                    <div class="modal-header">
+                        <div class="icon-box" style="border: 3px solid #82ce34;">
+                            <i class="material-icons" style="color: #82ce34;">&#xE876;</i>
+                        </div>
+                        <h4 class="modal-title">Bien!</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p class="text-center">Opération a été fait avec succés.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button id="closebtn" style="background: #82ce34;" type="button" class="btnconfirm btn-danger" data-dismiss="modal" onclick="Close();">Ok</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+
+    <script type="text/javascript" src="{{ asset('forum/modelbox/script.js') }}"> </script>
+
+    <script>
+        function Close() {
+            $('#myModalMessage').hide();
+        };
+    </script>
 {% endblock %}
 

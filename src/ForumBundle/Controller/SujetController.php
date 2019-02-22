@@ -12,10 +12,6 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class SujetController extends Controller
 {
-    public function indexAction()
-    {
-        return $this->render('ForumBundle:Default:index.html.twig');
-    }
 
     public function ajouterAction(Request $request) {
 
@@ -49,7 +45,7 @@ class SujetController extends Controller
             $em->persist($sujet);
             $em->flush();
 
-            return new RedirectResponse($router->generate('afficher_sujet' ,['id' => $plante->getId()]), 307);
+            return new RedirectResponse($router->generate('afficher_sujet' ,['id' => $plante->getId() , "message" => "show"]), 307);
 
         }else{
             // si il n'ya pas un utilisateur connecter , redigier vers page login
@@ -99,7 +95,10 @@ class SujetController extends Controller
             $user = null;
         }
 
-        return $this->render('@Forum/Sujet/afficher.html.twig' , ["sujets" => $paginationsujets , "plante" => $plante ,"NbReponses" => $NbReponses ,"User" => $user]);
+        //verifier si il le message de sucées va afficher ou non
+        $operation = $request->get("message");
+
+        return $this->render('@Forum/Sujet/afficher.html.twig' , ["sujets" => $paginationsujets , "plante" => $plante ,"NbReponses" => $NbReponses ,"User" => $user , "message" => $operation]);
     }
 
     public function consulterAction(Request $request)
@@ -166,8 +165,11 @@ class SujetController extends Controller
             $user = null;
         }
 
+        //verifier si il le message de sucées va afficher ou non
+        $operation = $request->get("message");
+
         //return new JsonResponse(array('NbReactionreponses' => $NbReactionreponses));
-        return $this->render('@Forum/Sujet/consulter.html.twig', ["sujet" => $sujet , "reponses" => $paginationreponses ,"User" => $user ,"nblikeSujet" => $nbLike ,"nbDislikeSujet" => $nbDislike , "NbReactionreponses" => $NbReactionreponses ]);
+        return $this->render('@Forum/Sujet/consulter.html.twig', ["sujet" => $sujet , "reponses" => $paginationreponses ,"User" => $user ,"nblikeSujet" => $nbLike ,"nbDislikeSujet" => $nbDislike , "NbReactionreponses" => $NbReactionreponses , "message" => $operation ]);
     }
 
     public function supprimerAction(Request $request)
@@ -202,7 +204,7 @@ class SujetController extends Controller
         }
 
         //user connecter est un membre
-        return new RedirectResponse($router->generate("afficher_sujet",['id' => $plante->getId()]), 307);
+        return new RedirectResponse($router->generate("afficher_sujet",['id' => $plante->getId() , "message" => "show"]), 307);
 
     }
 
@@ -245,7 +247,7 @@ class SujetController extends Controller
         $user = $em->getRepository("AppBundle:User")->find($id);
 
         //recuperer tous les sujets de l'utilisateru connecter
-        $sujets=$em->getRepository("ForumBundle:Sujet")->findBy(['User'=> $user ]);
+        $sujets=$em->getRepository("ForumBundle:Sujet")->findBy(['User'=> $user , 'archive'=> false]);
 
         //pagination data
         $paginationsujets  = $this->get('knp_paginator')->paginate(
@@ -268,7 +270,7 @@ class SujetController extends Controller
         $plante = null;
 
 
-        return $this->render('@Forum/Sujet/afficher.html.twig' , ["sujets" => $paginationsujets , "plante" => $plante ,"NbReponses" => $NbReponses ,"User" => $user]);
+        return $this->render('@Forum/Sujet/afficher.html.twig' , ["sujets" => $paginationsujets , "plante" => $plante ,"NbReponses" => $NbReponses ,"User" => $user , "message" => "hide"]);
     }
 
     public function editAction(Request $request) {
@@ -384,7 +386,7 @@ class SujetController extends Controller
 
         //recuperer tous les sujets
         $em = $this->getDoctrine()->getManager();
-        $sujets = $em->getRepository("ForumBundle:Sujet")->findAll();
+        $sujets = $em->getRepository("ForumBundle:Sujet")->findBy(['archive'=> false]);
 
         //pagination data
         $paginationsujets  = $this->get('knp_paginator')->paginate(
@@ -442,7 +444,7 @@ class SujetController extends Controller
         }
 
         //user connecter est un membre
-        return new RedirectResponse($router->generate("afficher_sujet",['id' => $sujet->getPlante()->getId()]), 307);
+        return new RedirectResponse($router->generate("afficher_sujet",['id' => $sujet->getPlante()->getId() , "message" => "show"]), 307);
 
     }
 
