@@ -3,7 +3,6 @@
 {% block content %}
     {% include 'forum_moderateur.html.twig' %}
 <script type="text/javascript" src="{{ asset('forum/ckeditor/ckeditor.js') }}"></script>
-<script type="text/javascript" src="{{ asset('forum/modelbox/script.js') }}"> </script>
 
 
     {% if plante != null %} <!-- user va consulter la liste de sujet de plante -->
@@ -73,8 +72,8 @@
                             </div>
                         </div>
                         <div class="posttext pull-left">
-                            <h2><a href="{{ path("consulter_membre",{'id': sujet.user.id} ) }}"> {{  sujet.user.prenom }} {{  sujet.user.nom }} </a></h2>
-                            <a href="{{ path("consulter_sujet",{'id': sujet.id} ) }}">  {{ sujet.sujetOriginal |raw }} </a>
+                            <h2><a style="color: #363838;" href="{{ path("consulter_membre",{'id': sujet.user.id} ) }}"> {{  sujet.user.prenom }} {{  sujet.user.nom }} </a></h2>
+                            <a style="color: #989c9e;" href="{{ path("consulter_sujet",{'id': sujet.id} ) }}">  {{ sujet.sujetOriginal |raw }} </a>
                         </div>
                         <div class="clearfix"></div>
                     </div>
@@ -86,16 +85,17 @@
                                         <ul class="dropdown-menu" role="menu" style="height: auto; width: auto; background-color: white; font-size: 10px; text-decoration: none; ">
                            <!--                 <li style="border-bottom: 0px;" role="presentation"><a role="menuitem" tabindex="-1" href="{{ path("edit_sujet",{'id': sujet.id} ) }}">Modifier</a></li> -->
                                             {% if sujet.resolu == "true" %}
-                                                <li style="border-bottom: 0px;" role="presentation"><a role="menuitem" tabindex="-2" href="{{ path("sujet_NonResolut",{'id': sujet.id} ) }}">Non Resolu</a></li>
+                                                <li style="border-bottom: 0px;" role="presentation"><a style="margin-top: 0px; margin-bottom: 0px;" role="menuitem" tabindex="-1" href="{{ path("sujet_NonResolut",{'id': sujet.id} ) }}">Non Resolu</a></li>
                                             {% else %}
-                                                <li style="border-bottom: 0px;" role="presentation"><a role="menuitem" tabindex="-2" href="{{ path("sujet_Resolut",{'id': sujet.id} ) }}">Resolu</a></li>
+                                                <li style="border-bottom: 0px;" role="presentation"><a style="margin-top: 0px; margin-bottom: 0px;" role="menuitem" tabindex="-1" href="{{ path("sujet_Resolut",{'id': sujet.id} ) }}">Resolu</a></li>
                                             {% endif %}
                                             {% if sujet.open == "true" %}
-                                                <li style="border-bottom: 0px;" role="presentation"><a role="menuitem" tabindex="-2" href="{{ path("sujet_Fermer",{'id': sujet.id} ) }}">Fermer</a></li>
+                                                <li style="border-bottom: 0px;" role="presentation"><a style="margin-top: 0px; margin-bottom: 0px;" role="menuitem" tabindex="-2" href="{{ path("sujet_Fermer",{'id': sujet.id} ) }}">Fermer</a></li>
                                             {% else %}
-                                                <li style="border-bottom: 0px;" role="presentation"><a role="menuitem" tabindex="-2" href="{{ path("sujet_Ouvert",{'id': sujet.id} ) }}">Ouvert</a></li>
+                                                <li style="border-bottom: 0px;" role="presentation"><a style="margin-top: 0px; margin-bottom: 0px;" role="menuitem" tabindex="-2" href="{{ path("sujet_Ouvert",{'id': sujet.id} ) }}">Ouvert</a></li>
                                             {% endif %}
-                                            <li style="border-bottom: 0px;" role="presentation"><a role="menuitem" tabindex="-2" href="{{ path("sujet_Archiver",{'id': sujet.id} ) }}">Supprimer</a></li>
+                                            <li style="border-bottom: 0px;" role="presentation"><a style="margin-top: 0px; margin-bottom: 0px;" href="#myModal" class="trigger-btn" data-toggle="modal" role="menuitem" tabindex="-3" >Supprimer</a></li>
+
 
                                             <!--    <li style="border-bottom: 0px;" role="presentation"><a role="menuitem" tabindex="-2" href="{{ path("supprimer_sujet",{'id': sujet.id} ) }}">Supprimer</a></li> -->
                                         </ul>
@@ -131,7 +131,6 @@
                                 {% endif %}
                         {% endif %}
 
-
                         <div class="comments">
                             {% for NbReponse in NbReponses %}
                                 {% if NbReponse.sujet == sujet %}
@@ -150,11 +149,32 @@
                     <div class="clearfix"></div>
                 </div><!-- POST -->
 
+                <!-- Modal HTML  pour confimrer la suppression -->
+                <div id="myModal" class="modal fade">
+                    <div class="modal-dialog modal-confirm">
+                        <div class="modal-content" style="width: 500px;">
+                            <div class="modal-header">
+                                <div class="icon-box">
+                                    <i class="material-icons">&#xE5CD;</i>
+                                </div>
+                                <h4 class="modal-title">Voulez vous supprimer ce sujet?</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            </div>
+                            <div class="modal-body">
+                                <p>Voulez-vous vraiment supprimer ce sujet? Ce processus ne peut pas être annulé.</p>
+                            </div>
+                            <div class="">
+                                <button type="button" class="btnconfirm btn-info" data-dismiss="modal">Annuler</button>
+                                <button type="button" class="btnconfirm btn-danger"> <a style="color: white;" href="{{ path("sujet_Archiver",{'id': sujet.id} ) }}">Supprimer </a></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             {% endfor %}
             <div class="text-center">{{ knp_pagination_render(sujets) }}</div>
 
         </div>
-
 
 {% endblock %}
 
