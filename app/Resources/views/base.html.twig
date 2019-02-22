@@ -41,6 +41,25 @@
         }
         w3-panel:before,w3-panel:after, w3-green:before,w3-green:after{box-sizing: inherit;}
     </style>
+
+        <style>
+
+            #ex4 .p1[data-count]:after{
+                position:absolute;
+                right:10%;
+                top:8%;
+                content: attr(data-count);
+                font-size:35%;
+                padding:.2em;
+                border-radius:50%;
+                line-height:1em;
+                color: white;
+                background: rgba(46, 169, 41, 0.85);
+                text-align:center;
+                min-width: 1em;
+            //font-weight:bold;
+            }
+        </style>
     {% endblock %}
 </head>
 <body>
@@ -68,10 +87,6 @@
                                         <input type="submit"  value="">
                                     </form>
                                 </div>
-                                <div class="cart">
-                                    <a href="{{ path('panier')}}" class="cart-in"> </a>
-                                    <span> {{ app.session.get('panier')|length }}</span>
-                                </div>
                                 <div class="clearfix"> </div>
                             </div>
                         </div>
@@ -86,6 +101,25 @@
                                 <li><a href="{{ path('afficher_categorie') }}" >Forum</a></li>
                                 <li><a href="contact.html" > Evénement </a></li>
                                 <li><a href="contact.html" > Contact </a></li>
+                                <li style="margin-left: -30px; font-size: 9px;"><a href="{{ path('panier')}}" > <div id="ex4">
+                                      <span class="p1 fa-stack fa-2x has-badge" data-count="{{ app.session.get('panier')|length }}">
+                                        <i class="p3 fa fa-shopping-cart fa-stack-1x xfa-inverse" data-count="4b"></i>
+                                      </span>
+                                        </div> </a>
+                                </li>
+
+                                <li style="margin-left: -30px; font-size: 8px;" class="dropdown"><a data-toggle="dropdown" href="#"> <b id ="ex4" >       <span class="p1 fa-stack fa-2x has-badge" data-count="4">
+                                            <i class="p3 fa fa-bell-o fa-stack-1x xfa-inverse" data-count="4b"></i>
+                                          </span></b>
+                                        <ul class="dropdown-menu" role="menu" style="height: auto; width: auto; background-color: white; font-size: 8px; text-decoration: none; margin-top: 50px;">
+                                            <li style="border-bottom: 0px; font-size: 8px;" role="presentation"><a style="margin-top: 0px; margin-bottom: 0px;" role="menuitem" tabindex="-2" href="#">Notification 1 </a></li>
+                                            <li style="border-bottom: 0px; font-size: 8px;" role="presentation"><a style="margin-top: 0px; margin-bottom: 0px;" role="menuitem" tabindex="-2" href="#">Notification 2</a></li>
+                                            <li style="border-bottom: 0px; font-size: 8px;" role="presentation"><a style="margin-top: 0px; margin-bottom: 0px;" role="menuitem" tabindex="-2" href="#">Notification 3</a></li>
+                                            <li style="border-bottom: 0px; font-size: 8px;" role="presentation"><a style="margin-top: 0px; margin-bottom: 0px;" role="menuitem" tabindex="-2" href="#">Notification 4</a></li>
+
+                                        </ul>
+                                    </a>
+                                </li>
 
                             </ul>
                         </div>

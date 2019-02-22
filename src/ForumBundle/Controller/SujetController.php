@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Response;
 
 class SujetController extends Controller
 {
@@ -41,11 +42,27 @@ class SujetController extends Controller
             $user = $this->getUser();
             $sujet->setUser($user);
 
+            $validator = $this->get('validator');
+            $errors = $validator->validate($sujet);
+
+            $errorsString = null;
+
+            if (count($errors) > 0) {
+                /*
+                 * Uses a __toString method on the $errors variable which is a
+                 * ConstraintViolationList object. This gives us a nice string
+                 * for debugging.
+                 */
+                $errorsString = (string) $errors;
+
+                return new RedirectResponse($router->generate('afficher_sujet' ,['id' => $plante->getId() , "message" => "" , "messageError" => "Sujet ne doit pas etre vide !!"]), 307);
+            }
+
             $em = $this->getDoctrine()->getEntityManager();
             $em->persist($sujet);
             $em->flush();
 
-            return new RedirectResponse($router->generate('afficher_sujet' ,['id' => $plante->getId() , "message" => "show"]), 307);
+            return new RedirectResponse($router->generate('afficher_sujet' ,['id' => $plante->getId() , "message" => "show" , "errorsString" => ""]), 307);
 
         }else{
             // si il n'ya pas un utilisateur connecter , redigier vers page login
@@ -98,7 +115,10 @@ class SujetController extends Controller
         //verifier si il le message de sucées va afficher ou non
         $operation = $request->get("message");
 
-        return $this->render('@Forum/Sujet/afficher.html.twig' , ["sujets" => $paginationsujets , "plante" => $plante ,"NbReponses" => $NbReponses ,"User" => $user , "message" => $operation]);
+        $errorsString = $request->get("messageError");
+
+
+        return $this->render('@Forum/Sujet/afficher.html.twig' , ["sujets" => $paginationsujets , "plante" => $plante ,"NbReponses" => $NbReponses ,"User" => $user , "message" => $operation , "errorsString" => $errorsString]);
     }
 
     public function consulterAction(Request $request)
@@ -168,8 +188,10 @@ class SujetController extends Controller
         //verifier si il le message de sucées va afficher ou non
         $operation = $request->get("message");
 
-        //return new JsonResponse(array('NbReactionreponses' => $NbReactionreponses));
-        return $this->render('@Forum/Sujet/consulter.html.twig', ["sujet" => $sujet , "reponses" => $paginationreponses ,"User" => $user ,"nblikeSujet" => $nbLike ,"nbDislikeSujet" => $nbDislike , "NbReactionreponses" => $NbReactionreponses , "message" => $operation ]);
+        //verifier si le message d'erreur aprés l'ajout d'un réponse va afficher ou non
+        $errorsString = $request->get("messageError");
+
+        return $this->render('@Forum/Sujet/consulter.html.twig', ["sujet" => $sujet , "reponses" => $paginationreponses ,"User" => $user ,"nblikeSujet" => $nbLike ,"nbDislikeSujet" => $nbDislike , "NbReactionreponses" => $NbReactionreponses , "message" => $operation , "errorsString" => $errorsString ]);
     }
 
     public function supprimerAction(Request $request)

@@ -22,6 +22,9 @@
         </div>
         <br>
 
+        {% if errorsString != "" %}
+           <p style="color: #ef5350; "> {{ errorsString }} </p>
+        {% endif %}
         <form action="{{ path("ajouter_sujet",{'id': plante.id} ) }}"  method="post">
 
             <div>
@@ -178,6 +181,8 @@
 
         </div>
 
+
+
     {% if message == "show" %}
         <!-- Modal HTML  pour confimrer la suppression -->
         <div id="myModalMessage" class="modal " style="display: block">
@@ -209,6 +214,13 @@
             {% set message = 'hide' %}
             console.log('{{ message }}');
         };
+
+        $( document ).ready(function(){
+            if ( '{{ errorsString}}' != "") {
+                $('.cke_inner').css("border", "2px solid #ef5350");
+            }
+        });
+
     </script>
 
 {% endblock %}

@@ -223,6 +223,9 @@
             </div>
 
             {% if sujet.open == "true" %}<!-- user ne peut pas ajouter une reponse lorsque le sujet est en etat fermer !!-->
+                {% if errorsString != "" %}
+                    <p style="color: #ef5350; "> {{ errorsString }} </p>
+                {% endif %}
                 <form action="{{ path("ajouter_reponse",{'id': sujet.id} ) }}"  method="post">
 
                     <div>
@@ -283,6 +286,13 @@
         function Close() {
             $('#myModalMessage').hide();
         };
+
+        $( document ).ready(function(){
+            if ( '{{ errorsString}}' != "") {
+                $('.cke_inner').css("border", "2px solid #ef5350");
+            }
+        });
     </script>
+
 {% endblock %}
 
