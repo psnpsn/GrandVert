@@ -27,7 +27,12 @@
                                 </div>
 
                                 <div class="icons">
+                                    {% if sujet.User.roles[0] == "ROLE_ADMIN" %}
+                                        <img src="{{ asset('forum/commentaire/images/middle.jpg') }}" alt="" />
+                                    {% endif %}
+
                                 </div>
+
                             </div>
                             <div class="avatar pull-right dropdown">
                                 {% if User != null %}
@@ -74,8 +79,8 @@
                                 </div>
                             {% else %}
                                 <div class=" pull-left">
-                                    <a href="#" class="up"><i class="fa fa-thumbs-o-up"></i>  {{ nblikeSujet }} </a>
-                                    <a href="#" class="down"><i class="fa fa-thumbs-o-down"></i> {{ nbDislikeSujet }} </a>
+                                    <a href="#" style="color: #9e9e9e;" class="up"><i class="fa fa-thumbs-o-up"></i>  {{ nblikeSujet }} </a>
+                                    <a href="#" style="color: #9e9e9e;" class="down"><i class="fa fa-thumbs-o-down"></i> {{ nbDislikeSujet }} </a>
                                 </div>
                             {% endif %}
 
@@ -127,11 +132,15 @@
                             <div class="topwrap">
                                 <div class="userinfo pull-left">
                                     <div class="avatar">
-                                        <img src="{{ asset('uploads/avatar/'~reponse.User.avatar) }}" style=" height:5vw ;  max-height: 5vw; max-width:5vw;" alt="" />
+                                            <img src="{{ asset('uploads/avatar/'~reponse.User.avatar) }}" style=" height:5vw ;  max-height: 5vw; max-width:5vw;" alt="" />
+
                                     </div>
 
                                     <div class="icons">
-                                        <img src="{{ asset('forum/commentaire/images/middle.jpg') }}" alt="" />
+                                        {% if reponse.User.roles[0] == "ROLE_ADMIN" %}
+                                            <img src="{{ asset('forum/commentaire/images/middle.jpg') }}" alt="" />
+                                        {% endif %}
+
                                     </div>
                                 </div>
                                 <div class="avatar pull-right dropdown">
