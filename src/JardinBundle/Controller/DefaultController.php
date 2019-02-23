@@ -9,20 +9,15 @@ use Symfony\Component\HttpFoundation\Response;
 
 class DefaultController extends Controller
 {
-    public function indexAction(Request $req)
+    public function indexAction(Request $request)
     {
-
-        $range = 0;
-
+        $i=5;
+        if($request->isXmlHttpRequest()){
+            $i=$request->get('width');
+            return new JsonResponse($i);
+        }
         return $this->render('@Jardin/index.html.twig', array(
-            'range' => $range+1
+            "i" => $i
         ));
-    }
-
-    public function loadDaysAction(Request $req)
-    {
-        $range = $req->request->get('range');
-        $range = "ref";
-        return new Response($range);
     }
 }

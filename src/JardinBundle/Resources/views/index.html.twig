@@ -35,12 +35,13 @@
 
             function rangeChanged(target,range){
                 console.log(range);
+
                 $.ajax({
-                    url: '{{ path('jardin_index') }}',
-                    type: 'post',
-                    data: range,
+                    url: '{{ path('jardin_journal') }}',
+                    type: "POST",
+                    data: 'width=' + 7,
                     success: function(data){
-                        console.log(data)
+                        console.log(data);
                     },
                     error: function(){
                         console.log('Error in Ajax');
@@ -53,7 +54,6 @@
                 var endMonth = moment(range.end).format('MMM');
                 var endYear = moment(range.end).format('YY');
 
-
                 $(".calendar-values .start-date .value").html(startDay);
                 $(".calendar-values .start-date .label").html("");
                 $(".calendar-values .start-date .label").append(startMonth);
@@ -65,8 +65,16 @@
                 $(".calendar-values .days-width .value").html(range.width);
                 $(".calendar-values .from-now .label").html(range.fromNow);
 
+                var days = range.all.split(',');
 
 
+                var daysNameList = ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'];
+                for (i=0; i<7;i++){
+                    var d = new Date(days[i]);
+                    var dayName = daysNameList[d.getDay()];
+                    j=i+1;
+                    document.getElementById("day"+ j ).innerHTML= dayName + " " + d.getDate();
+                }
 
             }
 
@@ -93,12 +101,14 @@
         {% for dayNumber in 1..7 %}
             <div class="day-container">
                 <div class="dayHeader">
-                    <div class="dayName"><h2>Lundi{{ range }}</h2></div>
+                    <div class="dayName"><h2 id="day{{ dayNumber }}"></h2></div>
                     <div class="add-note-btn">
-                        <button class="btn btn-primary" type="submit">Button</button>
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+                            Add Note
+                        </button>
                     </div>
                     <div class="activity-bar">
-                        <button class="btn btn-primary" type="submit">Button</button>
+                        <button class="btn btn-primary" type="submit">Add</button>
                     </div>
                 </div>
                 <div>
@@ -106,5 +116,25 @@
                 </div>
             </div>
         {% endfor %}
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        ...
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 {% endblock %}

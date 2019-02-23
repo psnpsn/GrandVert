@@ -1,7 +1,27 @@
-jardin_index:
-    path:     /
+jardin_journal:
+    path:     /journal
     defaults: { _controller: JardinBundle:Default:index }
 
-load_days:
-    path:     /
-    defaults: { _controller: JardinBundle:Default:loadDays }
+jardin_add:
+    path:     /ajouter
+    defaults: { _controller: JardinBundle:Jardin:add }
+
+jardin_update:
+    path:     /update
+    defaults: { _controller: JardinBundle:Jardin:update }
+
+note_add:
+    path:     /note/add
+    defaults: { _controller: JardinBundle:Note:add }
+
+note_update:
+    path:     /note/update
+    defaults: { _controller: JardinBundle:Note:update }
+
+note_delete:
+    path:     /note/delete
+    defaults: { _controller: JardinBundle:Note:delete }
+
+note_view:
+    path:     /note
+    defaults: { _controller: JardinBundle:Note:view }
