@@ -106,3 +106,5 @@ knp_paginator:
 
 framework:
     translator: ~
+    validation: { enabled: true }
+    validation: { enable_annotations: true }

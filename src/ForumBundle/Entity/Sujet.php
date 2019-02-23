@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use ForumBundle;
 use AppBundle;
 use PlanteBundle;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Sujet
@@ -26,6 +27,8 @@ class Sujet
 
     /**
      * @var string
+     *
+     * @Assert\NotBlank
      *
      * @ORM\Column(name="sujet_original", type="string", length=9999)
      */

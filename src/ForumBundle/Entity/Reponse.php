@@ -5,6 +5,8 @@ namespace ForumBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use ForumBundle;
 use AppBundle;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 /**
  * Reponse
@@ -25,6 +27,8 @@ class Reponse
 
     /**
      * @var string
+     *
+     * @Assert\NotBlank
      *
      * @ORM\Column(name="reponse_original", type="string", length=9999)
      */

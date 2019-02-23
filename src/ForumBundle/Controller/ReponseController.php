@@ -37,12 +37,27 @@ class ReponseController extends Controller
 
             $reponse->setUser($user);
 
+            $validator = $this->get('validator');
+            $errors = $validator->validate($reponse);
+
+            $errorsString = null;
+
+            if (count($errors) > 0) {
+                /*
+                 * Uses a __toString method on the $errors variable which is a
+                 * ConstraintViolationList object. This gives us a nice string
+                 * for debugging.
+                 */
+                $errorsString = (string) $errors;
+
+                return new RedirectResponse($router->generate("consulter_sujet",['id' => $id , "messageError" => "Réponse ne doit pas etre vide !!"]), 307);
+            }
 
             $em = $this->getDoctrine()->getEntityManager();
             $em->persist($reponse);
             $em->flush();
 
-            return new RedirectResponse($router->generate("consulter_sujet",['id' => $id]), 307);
+            return new RedirectResponse($router->generate("consulter_sujet",['id' => $id , "messageError" => "" ]), 307);
 
         }else{
             // si il n'ya pas un utilisateur connecter , redigier vers page login

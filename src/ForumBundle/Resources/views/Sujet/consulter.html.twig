@@ -27,7 +27,12 @@
                                 </div>
 
                                 <div class="icons">
+                                    {% if sujet.User.roles[0] == "ROLE_ADMIN" %}
+                                        <img src="{{ asset('forum/commentaire/images/middle.jpg') }}" alt="" />
+                                    {% endif %}
+
                                 </div>
+
                             </div>
                             <div class="avatar pull-right dropdown">
                                 {% if User != null %}
@@ -36,16 +41,16 @@
                                             <ul class="dropdown-menu" role="menu" style="height: auto; width: auto; background-color: white; font-size: 10px; text-decoration: none;">
                                        <!--         <li style="border-bottom: 0px;" role="presentation"><a role="menuitem" tabindex="-1" href="{{ path("edit_sujet",{'id': sujet.id} ) }}">Modifier</a></li> -->
                                                 {% if sujet.resolu == "true" %}
-                                                    <li style="border-bottom: 0px;" role="presentation"><a role="menuitem" tabindex="-2" href="{{ path("sujet_NonResolut",{'id': sujet.id} ) }}">Non Resolu</a></li>
+                                                    <li style="border-bottom: 0px;" role="presentation"><a style="margin-top: 0px; margin-bottom: 0px;" role="menuitem" tabindex="-2" href="{{ path("sujet_NonResolut",{'id': sujet.id} ) }}">Non Resolu</a></li>
                                                 {% else %}
-                                                    <li style="border-bottom: 0px;" role="presentation"><a role="menuitem" tabindex="-2" href="{{ path("sujet_Resolut",{'id': sujet.id} ) }}">Resolu</a></li>
+                                                    <li style="border-bottom: 0px;" role="presentation"><a style="margin-top: 0px; margin-bottom: 0px;" role="menuitem" tabindex="-2" href="{{ path("sujet_Resolut",{'id': sujet.id} ) }}">Resolu</a></li>
                                                 {% endif %}
                                                 {% if sujet.open == "true" %}
-                                                    <li style="border-bottom: 0px;" role="presentation"><a role="menuitem" tabindex="-2" href="{{ path("sujet_Fermer",{'id': sujet.id} ) }}">Fermer</a></li>
+                                                    <li style="border-bottom: 0px;" role="presentation"><a style="margin-top: 0px; margin-bottom: 0px;" role="menuitem" tabindex="-2" href="{{ path("sujet_Fermer",{'id': sujet.id} ) }}">Fermer</a></li>
                                                 {% else %}
-                                                    <li style="border-bottom: 0px;" role="presentation"><a role="menuitem" tabindex="-2" href="{{ path("sujet_Ouvert",{'id': sujet.id} ) }}">Ouvert</a></li>
+                                                    <li style="border-bottom: 0px;" role="presentation"><a style="margin-top: 0px; margin-bottom: 0px;" role="menuitem" tabindex="-2" href="{{ path("sujet_Ouvert",{'id': sujet.id} ) }}">Ouvert</a></li>
                                                 {% endif %}
-                                                <li style="border-bottom: 0px;" role="presentation"><a role="menuitem" tabindex="-2" href="{{ path("sujet_Archiver",{'id': sujet.id} ) }}">Supprimer</a></li>
+                                                <li style="border-bottom: 0px;" role="presentation"><a style="margin-top: 0px; margin-bottom: 0px;" href="#myModal" class="trigger-btn" data-toggle="modal" role="menuitem" tabindex="-3" >Supprimer</a></li>
 
                                                 <!--   <li style="border-bottom: 0px;" role="presentation"><a role="menuitem" tabindex="-2" href="{{ path("supprimer_sujet",{'id': sujet.id} ) }}">Supprimer</a></li> -->
                                             </ul>
@@ -53,7 +58,7 @@
                                     {% else %}
                                         <a data-toggle="dropdown" href="#"> <b class="caret"></b>
                                             <ul class="dropdown-menu" role="menu" style="height: auto; width: auto; background-color: white; font-size: 10px; text-decoration: none;">
-                                                <li style="border-bottom: 0px;" role="presentation"><a role="menuitem" tabindex="-2" href="{{ path("sujet_Signaler",{'id': sujet.id} ) }}">Signaler</a></li>
+                                                <li style="border-bottom: 0px;" role="presentation"><a style="margin-top: 0px; margin-bottom: 0px;" role="menuitem" tabindex="-2" href="{{ path("sujet_Signaler",{'id': sujet.id} ) }}">Signaler</a></li>
                                             </ul>
                                         </a>
                                     {% endif %}
@@ -63,7 +68,6 @@
                                 <h2>{{  sujet.User.prenom }} {{  sujet.User.nom }} </h2>
                                 <p>{{ sujet.sujetOriginal |raw }}</p>
                             </div>
-                            <div class="posted pull-right" style="padding-right: 30px"> modifié </div>
 
                             <div class="clearfix"></div>
                         </div>
@@ -75,8 +79,8 @@
                                 </div>
                             {% else %}
                                 <div class=" pull-left">
-                                    <a href="#" class="up"><i class="fa fa-thumbs-o-up"></i>  {{ nblikeSujet }} </a>
-                                    <a href="#" class="down"><i class="fa fa-thumbs-o-down"></i> {{ nbDislikeSujet }} </a>
+                                    <a href="#" style="color: #9e9e9e;" class="up"><i class="fa fa-thumbs-o-up"></i>  {{ nblikeSujet }} </a>
+                                    <a href="#" style="color: #9e9e9e;" class="down"><i class="fa fa-thumbs-o-down"></i> {{ nbDislikeSujet }} </a>
                                 </div>
                             {% endif %}
 
@@ -97,6 +101,29 @@
 
                     <br>
 
+                    <!-- Modal HTML  pour confimrer la suppression du sujet -->
+                    <div id="myModal" class="modal fade">
+                        <div class="modal-dialog modal-confirm">
+                            <div class="modal-content" style="width: 500px;">
+                                <div class="modal-header">
+                                    <div class="icon-box">
+                                        <i class="material-icons">&#xE5CD;</i>
+                                    </div>
+                                    <h4 class="modal-title">Voulez vous supprimer ce sujet?</h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>Voulez-vous vraiment supprimer ce sujet? Ce processus ne peut pas être annulé.</p>
+                                </div>
+                                <div class="">
+                                    <button type="button" class="btnconfirm btn-info" data-dismiss="modal">Annuler</button>
+                                    <button type="button" class="btnconfirm btn-danger"> <a style="color: white;" href="{{ path("sujet_Archiver",{'id': sujet.id} ) }}">Supprimer </a></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
                     {% for reponse in reponses %}
 
                         <br>
@@ -105,11 +132,15 @@
                             <div class="topwrap">
                                 <div class="userinfo pull-left">
                                     <div class="avatar">
-                                        <img src="{{ asset('uploads/avatar/'~reponse.User.avatar) }}" style=" height:5vw ;  max-height: 5vw; max-width:5vw;" alt="" />
+                                            <img src="{{ asset('uploads/avatar/'~reponse.User.avatar) }}" style=" height:5vw ;  max-height: 5vw; max-width:5vw;" alt="" />
+
                                     </div>
 
                                     <div class="icons">
-                                        <img src="{{ asset('forum/commentaire/images/middle.jpg') }}" alt="" />
+                                        {% if reponse.User.roles[0] == "ROLE_ADMIN" %}
+                                            <img src="{{ asset('forum/commentaire/images/middle.jpg') }}" alt="" />
+                                        {% endif %}
+
                                     </div>
                                 </div>
                                 <div class="avatar pull-right dropdown">
@@ -117,14 +148,15 @@
                                     {% if User.id == reponse.User.id %}
                                         <a data-toggle="dropdown" href="#"> <b class="caret"></b>
                                             <ul class="dropdown-menu" role="menu" style="height: auto; width: auto; background-color: white; font-size: 10px; text-decoration: none;">
-                                                <li role="presentation" style="border-bottom: 0px;" ><a role="menuitem" tabindex="-1" href="{{ path("edit_reponse",{'id_sujet': sujet.id , 'id_reponse': reponse.id } ) }}">Modifier</a></li>
-                                                <li role="presentation"><a role="menuitem" tabindex="-2" href="{{ path("supprimer_reponse",{'id_sujet': sujet.id , 'id_reponse': reponse.id } ) }}">Supprimer</a></li>
+                                                <li role="presentation" style="border-bottom: 0px;" ><a style="margin-top: 0px; margin-bottom: 0px;" role="menuitem" tabindex="-1" href="{{ path("edit_reponse",{'id_sujet': sujet.id , 'id_reponse': reponse.id } ) }}">Modifier</a></li>
+                                                <li style="border-bottom: 0px;" role="presentation"><a style="margin-top: 0px; margin-bottom: 0px;" href="#myModalreponse" class="trigger-btn" data-toggle="modal" role="menuitem" tabindex="-3" >Supprimer</a></li>
+
                                             </ul>
                                         </a>
                                     {% else %}
                                         <a data-toggle="dropdown" href="#"> <b class="caret"></b>
                                             <ul class="dropdown-menu" role="menu" style="height: auto; width: auto; background-color: white; font-size: 10px; text-decoration: none;">
-                                                <li role="presentation" style="border-bottom: 0px;" ><a role="menuitem" tabindex="-1" href="{{ path("reponse_Signaler",{'id_sujet': sujet.id , 'id_reponse': reponse.id } ) }}">Signaler</a></li>
+                                                <li role="presentation" style="border-bottom: 0px;" ><a style="margin-top: 0px; margin-bottom: 0px;" role="menuitem" tabindex="-1" href="{{ path("reponse_Signaler",{'id_sujet': sujet.id , 'id_reponse': reponse.id } ) }}">Signaler</a></li>
                                             </ul>
                                         </a>
                                     {% endif %}
@@ -170,6 +202,28 @@
                             </div>
                         </div><!-- POST -->
 
+                        <!-- Modal HTML  pour confimrer la suppression du reponse -->
+                        <div id="myModalreponse" class="modal fade">
+                            <div class="modal-dialog modal-confirm">
+                                <div class="modal-content" style="width: 500px;">
+                                    <div class="modal-header">
+                                        <div class="icon-box">
+                                            <i class="material-icons">&#xE5CD;</i>
+                                        </div>
+                                        <h4 class="modal-title">Voulez vous supprimer cette réponse?</h4>
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>Voulez-vous vraiment supprimer cette réponse? Ce processus ne peut pas être annulé.</p>
+                                    </div>
+                                    <div class="">
+                                        <button type="button" class="btnconfirm btn-info" data-dismiss="modal">Annuler</button>
+                                        <button type="button" class="btnconfirm btn-danger"> <a style="color: white;" href="{{ path("reponse_Archiver",{'id_sujet': sujet.id , 'id_reponse': reponse.id } ) }}">Supprimer </a></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                     {% endfor %}
                     <div class="text-center">{{ knp_pagination_render(reponses) }}</div>
 
@@ -178,6 +232,9 @@
             </div>
 
             {% if sujet.open == "true" %}<!-- user ne peut pas ajouter une reponse lorsque le sujet est en etat fermer !!-->
+                {% if errorsString != "" %}
+                    <p style="color: #ef5350; "> {{ errorsString }} </p>
+                {% endif %}
                 <form action="{{ path("ajouter_reponse",{'id': sujet.id} ) }}"  method="post">
 
                     <div>
@@ -208,5 +265,43 @@
         <br><br>
     </div>
 </div>
+
+    {% if message == "show" %}
+        <!-- Modal HTML  pour confimrer la suppression -->
+        <div id="myModalMessage" class="modal " style="display: block">
+            <div class="modal-dialog modal-confirm">
+                <div class="modal-content" style="width: 500px;">
+                    <div class="modal-header">
+                        <div class="icon-box" style="border: 3px solid #82ce34;">
+                            <i class="material-icons" style="color: #82ce34;">&#xE876;</i>
+                        </div>
+                        <h4 class="modal-title">Bien!</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p class="text-center">Opération a été fait avec succés.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button id="closebtn" style="background: #82ce34;" type="button" class="btnconfirm btn-danger" data-dismiss="modal" onclick="Close();">Ok</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+
+    <script type="text/javascript" src="{{ asset('forum/modelbox/script.js') }}"> </script>
+
+    <script>
+        function Close() {
+            $('#myModalMessage').hide();
+        };
+
+        $( document ).ready(function(){
+            if ( '{{ errorsString}}' != "") {
+                $('.cke_inner').css("border", "2px solid #ef5350");
+            }
+        });
+    </script>
+
 {% endblock %}
 

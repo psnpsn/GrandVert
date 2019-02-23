@@ -25,19 +25,35 @@ class ReactionSujetController extends Controller
         $reaction = $em->getRepository("ForumBundle:ReactionSujet")->findBy(["Sujet" =>$sujet , "User" => $user]);
 
         if($reaction != null) {
-            //remove reaction
-            $em->remove($reaction[0]);
+            if($reaction[0]->getReaction() == "dislike") {
+                //remove reaction
+                $em->remove($reaction[0]);
+                $em->flush();
+
+                //ajouter nouveau reaction de j'aime
+                $reaction = new ReactionSujet();
+                $reaction->setUser($user);
+                $reaction->setSujet($sujet);
+                $reaction->setReaction('like');
+                $em->persist($reaction);
+                $em->flush();
+            }
+            else
+            {
+                //remove reaction
+                $em->remove($reaction[0]);
+                $em->flush();
+            }
+        }else
+        {
+            //ajouter nouveau reaction de j'aime
+            $reaction = new ReactionSujet();
+            $reaction->setUser($user);
+            $reaction->setSujet($sujet);
+            $reaction->setReaction('like');
+            $em->persist($reaction);
             $em->flush();
         }
-
-        //ajouter nouveau reaction de j'aime
-        $reaction = new ReactionSujet();
-        $reaction->setUser($user);
-        $reaction->setSujet($sujet);
-        $reaction->setReaction('like');
-        $em->persist($reaction);
-        $em->flush();
-
 
         $router = $this->container->get('router');
         return new RedirectResponse($router->generate('consulter_sujet' ,['id' => $id_sujet]), 307);
@@ -59,19 +75,37 @@ class ReactionSujetController extends Controller
         //chercher si user deja faire un reaction a ce sujet !!
         $reaction = $em->getRepository("ForumBundle:ReactionSujet")->findBy(["Sujet" =>$sujet , "User" => $user]);
 
-        if($reaction != null) {
-            //remove reaction
-            $em->remove($reaction[0]);
+        if($reaction != null) { //si user deaj ajouter son reaction au sujet
+            if($reaction[0]->getReaction() == "like"){
+                //remove reaction
+                $em->remove($reaction[0]);
+                $em->flush();
+
+                //ajouter nouveau reaction de je n'aime plus
+                $reaction = new ReactionSujet();
+                $reaction->setUser($user);
+                $reaction->setSujet($sujet);
+                $reaction->setReaction('dislike');
+                $em->persist($reaction);
+                $em->flush();
+            }else
+            {
+                //remove reaction
+                $em->remove($reaction[0]);
+                $em->flush();
+            }
+        }else
+        {
+            //ajouter nouveau reaction de je n'aime plus
+            $reaction = new ReactionSujet();
+            $reaction->setUser($user);
+            $reaction->setSujet($sujet);
+            $reaction->setReaction('dislike');
+            $em->persist($reaction);
             $em->flush();
         }
 
-        //ajouter nouveau reaction de je n'aime plus
-        $reaction = new ReactionSujet();
-        $reaction->setUser($user);
-        $reaction->setSujet($sujet);
-        $reaction->setReaction('dislike');
-        $em->persist($reaction);
-        $em->flush();
+
 
 
         $router = $this->container->get('router');
