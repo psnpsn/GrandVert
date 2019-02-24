@@ -15,7 +15,8 @@ class NotificationController extends Controller
 
         //return $this->render('notification.html.twig' , ["notifications" => $notifications]);
 
-        //return $this->json(["notifications" => $notifications , "nbnotification" => count($notifications)]);
-        return new JsonResponse(array("data" => json_encode($notifications)));
+        return new JsonResponse(array( 'notifications'=> $notifications,'count'=> count($notifications) ));
+        //return new JsonResponse(array("data" => json_encode($notifications)));
     }
+
 }

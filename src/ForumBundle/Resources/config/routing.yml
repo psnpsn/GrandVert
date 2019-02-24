@@ -133,7 +133,7 @@ admin_forum:
 notification_user:
     path:     /notification/user
     defaults: { _controller: ForumBundle:Notification:list }
-    methods: [post]
+    methods: [POST]
 
 
 
