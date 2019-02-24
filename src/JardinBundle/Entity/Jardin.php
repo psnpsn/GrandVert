@@ -22,7 +22,7 @@ class Jardin
     /**
      * @ORM\OneToOne(targetEntity="AppBundle\Entity\User")
      */
-    private $userId;
+    private $user;
 
     /**
      * @var string
