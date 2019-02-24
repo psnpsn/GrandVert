@@ -3,6 +3,8 @@
 namespace JardinBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use PlanteBundle;
+
 
 /**
  * Plantation

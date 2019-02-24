@@ -25,18 +25,36 @@ class ReactionReponseController extends Controller
         $reaction = $em->getRepository("ForumBundle:ReactionReponse")->findBy(["Reponse" =>$reponse , "User" => $user]);
 
         if($reaction != null) {
-            //remove reaction
-            $em->remove($reaction[0]);
+            if($reaction[0]->getReaction() == "dislike") {
+
+                //remove reaction
+                $em->remove($reaction[0]);
+                $em->flush();
+
+                //ajouter nouveau reaction de j'aime
+                $reaction = new ReactionReponse();
+                $reaction->setUser($user);
+                $reaction->setReponse($reponse);
+                $reaction->setReaction('like');
+                $em->persist($reaction);
+                $em->flush();
+            }else
+            {
+                //remove reaction
+                $em->remove($reaction[0]);
+                $em->flush();
+            }
+        }else{
+            //ajouter nouveau reaction de j'aime
+            $reaction = new ReactionReponse();
+            $reaction->setUser($user);
+            $reaction->setReponse($reponse);
+            $reaction->setReaction('like');
+            $em->persist($reaction);
             $em->flush();
         }
 
-        //ajouter nouveau reaction de j'aime
-        $reaction = new ReactionReponse();
-        $reaction->setUser($user);
-        $reaction->setReponse($reponse);
-        $reaction->setReaction('like');
-        $em->persist($reaction);
-        $em->flush();
+
 
 
         //recuperer l'id de sujet à consulter aprés l'ajout de reaction sujr le reponse
@@ -63,18 +81,35 @@ class ReactionReponseController extends Controller
         $reaction = $em->getRepository("ForumBundle:ReactionReponse")->findBy(["Reponse" =>$reponse , "User" => $user]);
 
         if($reaction != null) {
-            //remove reaction
-            $em->remove($reaction[0]);
+            if($reaction[0]->getReaction() == "like") {
+                //remove reaction
+                $em->remove($reaction[0]);
+                $em->flush();
+
+                //ajouter nouveau reaction de j'aime
+                $reaction = new ReactionReponse();
+                $reaction->setUser($user);
+                $reaction->setReponse($reponse);
+                $reaction->setReaction('dislike');
+                $em->persist($reaction);
+                $em->flush();
+            }else{
+                //remove reaction
+                $em->remove($reaction[0]);
+                $em->flush();
+            }
+        }else
+        {
+            //ajouter nouveau reaction de j'aime
+            $reaction = new ReactionReponse();
+            $reaction->setUser($user);
+            $reaction->setReponse($reponse);
+            $reaction->setReaction('dislike');
+            $em->persist($reaction);
             $em->flush();
         }
 
-        //ajouter nouveau reaction de j'aime
-        $reaction = new ReactionReponse();
-        $reaction->setUser($user);
-        $reaction->setReponse($reponse);
-        $reaction->setReaction('dislike');
-        $em->persist($reaction);
-        $em->flush();
+
 
 
         //recuperer l'id de sujet à consulter aprés l'ajout de reaction sujr le reponse
