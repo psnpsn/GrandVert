@@ -18,9 +18,9 @@ class Jardin
     private $id;
 
     /**
-     * @ORM\OneToOne(targetEntity="User")
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\User")
      */
-    private $userId;
+    private $user;
 
     /**
      * @var string

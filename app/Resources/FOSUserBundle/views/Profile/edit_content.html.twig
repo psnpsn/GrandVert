@@ -1,7 +1,5 @@
-
 {% trans_default_domain 'FOSUserBundle' %}
-
- {% if is_granted("ROLE_SUPER_ADMIN") %}
+{% if is_granted("ROLE_SUPER_ADMIN")  %}
      <!DOCTYPE html>
      <html lang="en">
 
@@ -240,6 +238,9 @@
                                  <li class="nav-item">
                                      <a class="nav-link" href="{{ path('planteadd') }}">Ajouter plante</a>
                                  </li>
+                                 <li class="nav-item">
+                                     <a class="nav-link" href="{{ path('propad') }}">consulter proposition plante</a>
+                                 </li>
                              </ul>
                          </div>
                      </li>
@@ -420,8 +421,9 @@
                              </div>
                              <div class="search-top">
                                  <div class="search">
-                                     <form>
-                                         <input type="text" value="Search" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '';}" >
+                                     <form method="POST">
+                                         <input type="text" id="tags" placeholder="Recherche" list="json-datalist">
+                                         <datalist id="json-datalist"></datalist>
                                          <input type="submit"  value="">
                                      </form>
                                  </div>
@@ -446,12 +448,6 @@
                                  <li><a href="contact.html" > Contact </a></li>
 
                              </ul>
-                             <script>
-                                 $("span.menu").click(function(){
-                                     $(".top-nav ul").slideToggle(500, function(){
-                                     });
-                                 });
-                             </script>
                          </div>
                          <div class="clearfix"> </div>
                      </div>
@@ -553,6 +549,32 @@
      {% block javascripts %}
          <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
          <script src="{{ asset('Base/js/jquery.min.js') }}"></script>
+         <script>
+             //call ajax
+             var ajax=new XMLHttpRequest();
+             var method="GET";
+             var data;
+             var dataList = document.getElementById('json-datalist');
+             var input = document.getElementById('tags');
+             var url="{{ asset('ajax/data.php') }}";
+             var asynchronous=true;
+             ajax.open(method,url,asynchronous);
+             // sending ajax
+             ajax.send();
+             // receiving response from data.php
+             ajax.onreadystatechange= function () {
+                 if(this.readyState ==4 &&this.status==200)
+                     data=JSON.parse(this.responseText);
+                 data.forEach(function (item) {
+                     console.log(item);
+                     var option=document.createElement('option')
+                     option.value=item.nom;
+                     dataList.appendChild(option);
+                 });
+                 console.log(data);
+             };
+
+         </script>
          <script src="{{ asset('Base/js/jquery.easydropdown.js') }}"></script>
      {% endblock %}
      </body>

@@ -63,8 +63,10 @@
                             </div>
                             <div class="search-top">
                                 <div class="search">
-                                    <form>
-                                        <input type="text" value="Search" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '';}" >
+                                    <form  method="POST" action="{{ path('result') }}">
+                                        <input type="text" id="tags" placeholder="Recherche" list="json-datalist" name="nom">
+                                        <datalist id="json-datalist">
+                                        </datalist>
                                         <input type="submit"  value="">
                                     </form>
                                 </div>
@@ -82,9 +84,9 @@
                             <span class="menu"> </span>
                             <ul>
                                 <li><a href="{{ path('planteaff')}}" > plante</a></li>
-                                <li><a href="services.html" > partage expérience </a></li>
                                 <li><a href="{{ path('afficher_categorie') }}" >Forum</a></li>
                                 <li><a href="contact.html" > Evénemenet </a></li>
+                                <li><a href="{{ path('commande') }}">Commande</a></li>
                                 <li><a href="contact.html" > Contact </a></li>
 
                             </ul>
@@ -109,8 +111,10 @@
                             </div>
                             <div class="search-top">
                                 <div class="search">
-                                    <form>
-                                        <input type="text" value="Search" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '';}" >
+                                    <form  method="POST" action="{{ path('result') }}">
+                                        <input type="text" id="tags" placeholder="Recherche" list="json-datalist">
+                                        <datalist id="json-datalist">
+                                        </datalist>
                                         <input type="submit"  value="">
                                     </form>
                                 </div>
@@ -156,6 +160,32 @@
 </div>
 {% endblock footer %}
 {% block javascripts %}
+    <script>
+        //call ajax
+        var ajax=new XMLHttpRequest();
+        var method="GET";
+        var data;
+        var dataList = document.getElementById('json-datalist');
+        var input = document.getElementById('tags');
+        var url="{{ asset('ajax/data.php') }}";
+        var asynchronous=true;
+        ajax.open(method,url,asynchronous);
+        // sending ajax
+        ajax.send();
+        // receiving response from data.php
+        ajax.onreadystatechange= function () {
+            if(this.readyState ==4 &&this.status==200)
+                 data=JSON.parse(this.responseText);
+            data.forEach(function (item) {
+                console.log(item);
+                var option=document.createElement('option')
+                option.value=item.nom;
+                dataList.appendChild(option);
+            });
+                console.log(data);
+        };
+
+    </script>
     <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
     <script src="{{ asset('Base/js/jquery.min.js') }}"></script>
     <script src="{{ asset('bootstrap/js/bootstrap.js') }}"></script>
