@@ -3,22 +3,19 @@
 namespace ForumBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 class NotificationController extends Controller
 {
-    public function sendNotificationAction(Request $request)
+    public function listAction(Request $request)
     {
-        $manager = $this->get('mgilet.notification');
-        $notif = $manager->createNotification('Hello world!');
-        $notif->setMessage('This a notification.');
-        $notif->setLink('https://symfony.com/');
-        // or the one-line method :
-        // $manager->createNotification('Notification subject', 'Some random text', 'https://google.fr/');
+        $em = $this->getDoctrine()->getManager();
+        $notifications = $em->getRepository("ForumBundle:Notification")->findBy(["User" => $this->getUser() , "seen" => false]);
 
-        // you can add a notification to a list of entities
-        // the third parameter `$flush` allows you to directly flush the entities
-        $manager->addNotification(array($this->getUser()), $notif, true);
+        //return $this->render('notification.html.twig' , ["notifications" => $notifications]);
 
+        //return $this->json(["notifications" => $notifications , "nbnotification" => count($notifications)]);
+        return new JsonResponse(array("data" => json_encode($notifications)));
     }
 }

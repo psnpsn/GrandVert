@@ -2,6 +2,7 @@
 
 namespace ForumBundle\Controller;
 
+use ForumBundle\Entity\Notification;
 use ForumBundle\Entity\ReactionSujet;
 use ForumBundle\Entity\Reponse;
 use ForumBundle\Entity\Sujet;
@@ -62,6 +63,31 @@ class SujetController extends Controller
             $em->persist($sujet);
             $em->flush();
 
+
+            //recuperer tous les moderateurs
+            $query = $this->getDoctrine()->getEntityManager()
+                ->createQuery(
+                    'SELECT u FROM AppBundle:User u WHERE u.roles LIKE :role'
+                )->setParameter('role', 'a:1:{i:0;s:10:"ROLE_ADMIN";}');
+
+            $moderateurs = $query->getResult();
+
+            //parcourir lalist de moderateur , et envoyer à chacun une notification
+            for($i = 0; $i < count($moderateurs); ++$i) {
+                $notification = new Notification();
+
+                $notification->setUser($moderateurs[$i]);
+                $notification->setDate(new \DateTime());
+                $notification->setTitle("Sujet");
+                $notification->setSeen(false);
+                $notification->setDescription("un nouveau sujet a été ajouter !!");
+                $notification->setRoute("consulter_sujet");
+                //$notification->setParameters(["id" => $this->getId()]);
+
+                $em->persist($notification);
+                $em->flush();
+            }
+
             return new RedirectResponse($router->generate('afficher_sujet' ,['id' => $plante->getId() , "message" => "show" , "errorsString" => ""]), 307);
 
         }else{
@@ -119,6 +145,8 @@ class SujetController extends Controller
 
 
         return $this->render('@Forum/Sujet/afficher.html.twig' , ["sujets" => $paginationsujets , "plante" => $plante ,"NbReponses" => $NbReponses ,"User" => $user , "message" => $operation , "errorsString" => $errorsString]);
+
+        //return $this->json(["sujets" => $paginationsujets , "plante" => $plante ,"NbReponses" => $NbReponses ,"User" => $user , "message" => $operation , "errorsString" => $errorsString]);
     }
 
     public function consulterAction(Request $request)
@@ -373,12 +401,32 @@ class SujetController extends Controller
         $em = $this->getDoctrine()->getManager();
         $sujet = $em->getRepository("ForumBundle:Sujet")->find($id);
 
+
         //modifier leur etat à fermer
         $sujet->setOpen("false");
 
-        $em = $this->getDoctrine()->getEntityManager();
         $em->persist($sujet);
         $em->flush();
+
+
+        $user = $em->getRepository("AppBundle:User")->find($sujet->getUser());
+
+        //notifier user si le moderateur a fermer son sujet
+        if($this->getUser() != $user){
+            $notification = new Notification();
+
+            $notification->setUser($user);
+            $notification->setDate(new \DateTime());
+            $notification->setTitle("Sujet");
+            $notification->setSeen(false);
+            $notification->setDescription("votre sujet à été fermer par le Moderateur/Admin");
+            $notification->setRoute("consulter_sujet");
+            $notification->setParameters(["id" => $sujet->getId()]);
+
+            $em->persist($notification);
+            $em->flush();
+        }
+
 
         $router = $this->container->get('router');
         return new RedirectResponse($router->generate('consulter_sujet' ,['id' => $id]), 307);
@@ -392,12 +440,31 @@ class SujetController extends Controller
         $em = $this->getDoctrine()->getManager();
         $sujet = $em->getRepository("ForumBundle:Sujet")->find($id);
 
-        //modifier leur etat à fermer
+        //modifier leur etat à ouver
         $sujet->setOpen("true");
 
         $em = $this->getDoctrine()->getEntityManager();
         $em->persist($sujet);
         $em->flush();
+
+        $user = $em->getRepository("AppBundle:User")->find($sujet->getUser());
+
+        //notifier user si le moderateur a fermer son sujet
+        if($this->getUser() != $user){
+            $notification = new Notification();
+
+            $notification->setUser($user);
+            $notification->setDate(new \DateTime());
+            $notification->setTitle("Sujet");
+            $notification->setSeen(false);
+            $notification->setDescription("votre sujet à été ouvrer par le Moderateur/Admin");
+            $notification->setRoute("consulter_sujet");
+            $notification->setParameters(["id" => $sujet->getId()]);
+
+            $em->persist($notification);
+            $em->flush();
+        }
+
 
         $router = $this->container->get('router');
         return new RedirectResponse($router->generate('consulter_sujet' ,['id' => $id]), 307);
@@ -451,18 +518,37 @@ class SujetController extends Controller
         $em->persist($sujet);
         $em->flush();
 
+        $user = $em->getRepository("AppBundle:User")->find($sujet->getUser());
+
+        //notifier user si le moderateur a fermer son sujet
+        if($this->getUser() != $user){
+            $notification = new Notification();
+
+            $notification->setUser($user);
+            $notification->setDate(new \DateTime());
+            $notification->setTitle("Sujet");
+            $notification->setSeen(false);
+            $notification->setDescription("votre sujet à été supprimer par le Moderateur/Admin");
+            $notification->setRoute("consulter_sujet");
+            $notification->setParameters(["id" => $sujet->getId()]);
+
+            $em->persist($notification);
+            $em->flush();
+        }
+
+
         $authChecker = $this->container->get('security.authorization_checker');
         $router = $this->container->get('router');
 
         //verfier si l'utilisateur connecter est un admin pour acceder à admin dashboard aprés la supression de sujet
         if ($authChecker->isGranted('ROLE_SUPER_ADMIN')) {
             $user = $this->container->get('security.token_storage')->getToken()->getUser();
-            return $this->render('admin_dashboard.html.twig' , ["user" => $user]);
+            return new RedirectResponse($router->generate('admin_dashboard.html.twig' , ["user" => $user]));
         }
 
         //verfier si l'utilisateur connecter est un moderateur pour acceder à son dashboard aprés la supression de sujet
         if ($authChecker->isGranted('ROLE_ADMIN')) {
-            return $this->generateUrl("moderateur_forum"); //user connecter est un moderateur
+            return new RedirectResponse($router->generate("moderateur_forum")); //user connecter est un moderateur
         }
 
         //user connecter est un membre
@@ -494,6 +580,22 @@ class SujetController extends Controller
         $em->persist($sujet);
         $em->flush();
 
+        $user = $em->getRepository("AppBundle:User")->find($sujet->getUser());
+
+
+        //notifier le reponsable de sujet
+            $notification = new Notification();
+
+            $notification->setUser($user);
+            $notification->setDate(new \DateTime());
+            $notification->setTitle("Sujet");
+            $notification->setSeen(false);
+            $notification->setDescription("votre sujet à été supprimer à cause de signale");
+            $notification->setRoute("consulter_sujet");
+            $notification->setParameters(["id" => $sujet->getId()]);
+
+            $em->persist($notification);
+            $em->flush();
 
 
         $authChecker = $this->container->get('security.authorization_checker');
