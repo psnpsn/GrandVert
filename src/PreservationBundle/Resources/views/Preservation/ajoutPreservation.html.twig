@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    <div class="container">
+        <div class="sign">
+            <h1> Réservez Vos Places !  </h1>
+            <br>
+
+            {{ form_start(Form) }}
+            {{ form_widget(Form) }}
+            <input type="submit" value="Réservez" />
+            {{ form_end(Form) }}
+
+            <ul>
+                <li>
+                    <h4>  <a href="{{ path('listPreservation') }}">Liste Des Préservations</a> </h4>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+{% endblock %}

@@ -1,0 +1,51 @@
+preservation_homepage:
+    path:     /
+    defaults: { _controller: PreservationBundle:Default:index }
+
+Ajout:
+    path:     /ajoutEspace
+    defaults: { _controller: PreservationBundle:EspaceDePreservation:Ajout}
+
+list:
+    path:     /listEspace
+    defaults: { _controller: PreservationBundle:EspaceDePreservation:list}
+
+export:
+    path:     /exportEspace
+    defaults: { _controller: PreservationBundle:EspaceDePreservation:export}
+
+supprimerEspace:
+    path:     /supprimerEspace
+    defaults: { _controller: PreservationBundle:EspaceDePreservation:Delete}
+
+ModifierEspace:
+    path:     /modifierEspace
+    defaults: { _controller: PreservationBundle:EspaceDePreservation:Modifier}
+
+exportPreservation:
+    path:     /exportPreservation
+    defaults: { _controller: PreservationBundle:Preservation:exportPreservation}
+
+AjoutPreservation:
+    path:     /ajoutPreservation
+    defaults: { _controller: PreservationBundle:Preservation:AjoutPreservation}
+
+listPreservation:
+    path:     /listPreservation
+    defaults: { _controller: PreservationBundle:Preservation:listPreservation}
+
+listPreservationForAdmin:
+    path:     /listPreservationForAdmin
+    defaults: { _controller: PreservationBundle:Preservation:listPreservationForAdmin}
+
+supprimerPreservation:
+    path:     /supprimerPreservation
+    defaults: { _controller: PreservationBundle:Preservation:SupprimerPreservation}
+
+modifierPreservation:
+    path:     /modifierPreservation
+    defaults: { _controller: PreservationBundle:Preservation:modifierPreservation}
+
+FindCarsJoinModeleDQL:
+    path:     /findPreservationByDate
+    defaults: { _controller: PreservationBundle:Preservation:findPreservationDQL }

@@ -1,3 +1,7 @@
+preservation:
+    resource: "@PreservationBundle/Resources/config/routing.yml"
+    prefix:   /preservation
+
 jardin:
     resource: "@JardinBundle/Resources/config/routing.yml"
     prefix:   /jardin
