@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    <div class="container">
+        <div class="sign">
+            <h1> Créer Un Espace De Préservation</h1>
+            <br>
+
+
+            {{ form_start(Form) }}
+
+            {{ form_widget(Form) }}
+
+
+            <input type="submit" value="Create" />
+
+            {{ form_end(Form) }}
+
+
+            <ul>
+                <li>
+                    <h4>  <a href="{{ path('list') }}">Liste Des Espaces De Préservation</a> </h4>
+                </li>
+            </ul>
+        </div>
+    </div>
+{% endblock %}

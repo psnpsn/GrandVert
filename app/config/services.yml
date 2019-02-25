@@ -59,3 +59,12 @@ services:
         tags:
             - { name: doctrine.event_listener, event: prePersist }
             - { name: doctrine.event_listener, event: preUpdate }
+    Evenement.image_uploader:
+            class: EvenementBundle\ImageUpload
+            arguments: ['%image_directory%']
+    Evenement.doctrine_image_listener:
+            class: EvenementBundle\EventListener\ImageUploadListener
+            arguments: ['@Evenement.image_uploader']
+            tags:
+                - { name: doctrine.event_listener, event: prePersist }
+                - { name: doctrine.event_listener, event: preUpdate }

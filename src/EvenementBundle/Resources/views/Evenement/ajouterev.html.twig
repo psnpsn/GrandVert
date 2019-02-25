@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+{% block content %}
+ {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+
+    <div class="container">
+    <div class="sign">
+
+        <h3>Créer événement</h3>
+                        {{ form_start(Form ,{'attr': {'class': 'forms-sample'}}) }}
+                        {{ form_row(Form.categorie, {'attr': {'class': 'form-control'}}) }}
+                        {{ form_row(Form.titre, {'attr': {'class': 'form-control'}}) }}
+                        {{ form_row(Form.organisation, {'attr': {'class': 'form-control'}}) }}
+                        {{ form_row(Form.description, {'attr': {'class': 'form-control'}})}}
+                        {{ form_row(Form.image, {'attr': {'class': 'file-upload-default'}}) }}
+                        {{ form_row(Form.lieu, {'attr': {'class': 'form-control'}}) }}
+                        {{ form_row(Form.adresse, {'attr': {'class': 'form-control'}}) }}
+                        {{ form_row(Form.gouvernorat, {'attr': {'class': 'form-control'}}) }}
+                        {{ form_row(Form.prix, {'attr': {'class': 'form-control'}}) }}
+        {% for message in app.flashes('notice1') %}
+            <div class="flash-notice">
+                {{ message }}
+            </div>
+        {% endfor %}
+
+            {{ form_end(Form) }}
+    </div>
+    </div>
+
+
+{% else %}
+
+    <div class="container">
+        <div class="sign">
+            <h3>Vous devez vous connecter</h3>
+            <ul>
+                <li class="in-up" ><h4><a href="{{ path('fos_user_security_login') }}" class="scroll"> Sign in </a></h4> </li></br>
+                <li ><h4><a href="{{ path('fos_user_registration_register') }}" class="scroll">Sign up</a></h4></li>
+            </ul>
+        </div>
+    </div>
+ {% endif %}
+{% endblock %}
+
+
+
+
