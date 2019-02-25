@@ -3,6 +3,16 @@
     <div class="container">
         <div class="single">
             <div class="blog-top-in">
+                {% for flashMessage in app.session.flashbag.get('notice') %}
+                    <div class="w3-panel w3-green" >
+                        {{ flashMessage }}
+                    </div>
+                {% endfor %}
+                {% for flashMessage in app.session.flashbag.get('danger') %}
+                    <div class="w3-panel w3-red" >
+                        {{ flashMessage }}
+                    </div>
+                {% endfor %}
                 <div class="col-md-4 top-blog">
                     <img class="img-responsive" src="{{ asset('uploads/avatar/'~plante.photo) }}" alt=" " >
                 </div>
@@ -14,6 +24,11 @@
                     <p>season: {{ plante.season }}</p>
                     <p>Description:</p><p> {{ plante.Description }}</p>
                 </div>
+                <ul id="filters">
+                <a href="{{ path('addpanier',{'id':plante.id}) }}" data-toggle="collapse" data-target="#collapseExample" ><li><span class="filter" >
+                   Ajouer au panier
+               </span></li> </a>
+                </ul>
                 <div class="clearfix"> </div>
             </div>
         </div>

@@ -66,11 +66,26 @@ class UserController extends Controller
 
         return $this->render('User/consulter_membre.html.twig' , ["user" => $user]);
     }
-    public function profileAction(Request $request)
+
+    public function accountAction(Request $request)
     {
         $user = $this->container->get('security.token_storage')->getToken()->getUser();
-        return $this->render('User/profile.html.twig' , ["user" => $user]);
+        return $this->render('User/account.html.twig' , ["user" => $user]);
     }
+
+    public function settingsAction(Request $request)
+    {
+        $user = $this->container->get('security.token_storage')->getToken()->getUser();
+        return $this->render('User/account.html.twig' , ["user" => $user]);
+    }
+
+
+    public function preferencesAction(Request $request)
+    {
+        $user = $this->container->get('security.token_storage')->getToken()->getUser();
+        return $this->render('User/account.html.twig' , ["user" => $user]);
+    }
+
     public function profileadAction(Request $request)
     {
         $user = $this->container->get('security.token_storage')->getToken()->getUser();
@@ -84,7 +99,10 @@ class UserController extends Controller
 
     public function homemembreAction()
     {
-        return $this->render('default/index.html.twig');
+        $em = $this->getDoctrine()->getManager();
+        $notifications = $em->getRepository("ForumBundle:Notification")->findBy(["User" => $this->getUser() , "seen" => false]);
+
+        return $this->render('default/index.html.twig' , ["notifications" => $notifications , "count" => count($notifications)]);
     }
 
     public function homemoderateurAction()

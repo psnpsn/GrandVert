@@ -11,4 +11,5 @@ namespace ForumBundle\Repository;
 class SujetRepository extends \Doctrine\ORM\EntityRepository
 {
 
+
 }

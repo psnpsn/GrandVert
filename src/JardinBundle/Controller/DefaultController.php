@@ -2,12 +2,28 @@
 
 namespace JardinBundle\Controller;
 
+use JardinBundle\Entity\Jardin;
+use JardinBundle\Repository\JardinRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class DefaultController extends Controller
 {
-    public function indexAction()
+    public function indexAction(Request $request)
     {
-        return $this->render('JardinBundle:Default:index.html.twig');
+        $user = $this->getUser();
+        $jardin = new Jardin();
+        $jardin->setUserId($user);
+        $em = $this->getDoctrine()->getManager();
+        $jardin = $em->getRepository('JardinBundle:Jardin')->findByUser($user);
+        if($request->isXmlHttpRequest()){
+            $i=$request->get('width');
+            return new JsonResponse($i);
+        }
+        return $this->render('@Jardin/index.html.twig', array(
+            "jardin" => $jardin[0]
+        ));
     }
 }

@@ -103,3 +103,16 @@ knp_paginator:
     template:
         pagination: 'twitter_bootstrap_v3_pagination.html.twig'
         sortable: 'KnpPaginatorBundle:Pagination:sortable_link.html.twig'
+
+
+framework:
+    translator: ~
+    validation: { enabled: true }
+    validation: { enable_annotations: true }
+
+# NotificationsBundle configuration
+notifications:
+    app_id:     721623
+    app_key:    cce427075a55d24d16dc
+    app_secret: 342abeaab58c3bcc4d74
+    cluster:    eu
