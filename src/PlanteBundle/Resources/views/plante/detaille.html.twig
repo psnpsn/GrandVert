@@ -1,8 +1,10 @@
 {% extends 'base.html.twig' %}
 {% block content %}
-    <div class="container">
-        <div class="single">
-            <div class="blog-top-in">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link href="{{ asset('base/css/single.css') }}" rel='stylesheet' type='text/css' />
+    <section class="banner-bottom-w3layouts py-lg-5 py-md-5 py-3">
+        <div class="container">
+            <div class="inner-sec-w3ls-agileits py-lg-5 py-3">
                 {% for flashMessage in app.session.flashbag.get('notice') %}
                     <div class="w3-panel w3-green" >
                         {{ flashMessage }}
@@ -13,43 +15,47 @@
                         {{ flashMessage }}
                     </div>
                 {% endfor %}
-                <div class="col-md-4 top-blog">
-                    <img class="img-responsive" src="{{ asset('uploads/avatar/'~plante.photo) }}" alt=" " >
-                </div>
-                <div class="col-md-8 sed-in">
-                    <h4>{{ plante.nom }}</h4>
-                    <p>Hauteur: {{ plante.hauteur }}</p>
-                    <p>fertiliseur: {{ plante.fertiliseur }}</p>
-                    <p>categorie: {{ plante.categorie }}</p>
-                    <p>season: {{ plante.season }}</p>
-                    <p>Description:</p><p> {{ plante.Description }}</p>
-                </div>
-                <ul id="filters">
-                <a href="{{ path('addpanier',{'id':plante.id}) }}" data-toggle="collapse" data-target="#collapseExample" ><li><span class="filter" >
-                   Ajouer au panier
-               </span></li> </a>
-                </ul>
-                <div class="clearfix"> </div>
-            </div>
-        </div>
-    </div>
+                <div class="row">
+                    <!--left-->
+                    <div class="col-lg-8 left-blog-info text-left">
+                        <div class="blog-grid-top">
+                            <div class="b-grid-top">
+                                <div class="blog_info_left_grid">
+                                    <a href="single.html">
+                                        <img src="{{ asset('uploads/avatar/'~plante.photo) }}" style="height: 250px;width: 300px" alt="">
+                                    </a>
+                                </div>
+                            </div>
 
-    <div class="comment-grid-top" style="padding-left: 90px;">
-    {% for sujet in sujets %}
-        <div class="comments-top-top">
-            <div class="top-comment-left">
-                <img class="img-responsive " src="{{ asset('uploads/avatar/'~sujet.User.avatar) }}" alt="" />
+                            <h3>
+                              {{ plante.nom }}
+                            </h3>
+                            <p>fertiliseur: {{ plante.fertiliseur }}</p>
+                            <p>categorie: {{ plante.categorie }}</p>
+                            <p>season: {{ plante.season }}</p>
+                            <p>Description:</p><p> {{ plante.Description }}</p>
+                            <a href="{{ path('addpanier',{'id':plante.id}) }}"  >
+                                        <button type="submit" class="btn btn-primary  btn-lg"> Ajouer au panier</button></a>
+                        </div>
+
+                        <div class="comment-top">
+                            <h4>Sujet relatif</h4>
+                            {% for sujet in sujets %}
+                            <div class="media">
+                                <img src="{{ asset('uploads/avatar/'~sujet.User.avatar) }}"  alt="" class="img-fluid rounded" />
+                                <div class="media-body">
+                                    <h5 class="mt-0">{{ sujet.User.nom }} {{ sujet.User.prenom }}</h5>
+                                    <p><a class="reply" href="{{ path('consulter_sujet' , {'id': sujet.id}) }}">Repondre</a></p>
+                                    <p>date soumis:{{ sujet.dateoriginal | date("y/m/d") }}</p>
+                                    <p>{{ sujet.sujetOriginal |raw }}</p>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+
             </div>
-            <div class="top-comment-right">
-                <ul>
-                    <li><span class="left-at"> {{ sujet.User.nom }} {{ sujet.User.prenom }}</span></li>
-                    <li><span class="right-at">{{ sujet.dateoriginal | date("y/m/d") }}</span></li>
-                    <li><a class="reply" href="{{ path('consulter_sujet' , {'id': sujet.id}) }}">Repondre</a></li>
-                </ul>
-                <p> {{ sujet.sujetOriginal |raw }} </p>
-            </div>
-            <div class="clearfix"> </div>
         </div>
-    {% endfor %}
-    </div>
+    </section>
 {% endblock %}

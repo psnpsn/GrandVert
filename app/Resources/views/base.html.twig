@@ -15,6 +15,7 @@
             }
         </script>
         {% block stylesheets %}
+<<<<<<< HEAD
             <link href="{{ asset('base/css/bootstrap.css') }}" rel='stylesheet' type='text/css' />
             <link rel="stylesheet" href="{{ asset('base/css/component.css') }}" type="text/css" media="all">
             <link href="{{ asset('base/css/style.cs') }}s" rel='stylesheet' type='text/css' />
@@ -28,6 +29,40 @@
     <style type="text/css">
 
     </style>
+=======
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+    <link href="{{ asset('base/css/bootstrap.css') }}" rel='stylesheet' type='text/css' />
+    <link rel="stylesheet" href="{{ asset('base/css/component.css') }}" type="text/css" media="all">
+    <link href="{{ asset('base/css/style.css') }}" rel='stylesheet' type='text/css' />
+    <link rel="stylesheet" href="{{ asset('base/css/owl.theme.css') }}" type="text/css" media="all">
+    <link rel="stylesheet" href="{{ asset('base/css/owl.carousel.css') }}" type="text/css" media="screen" property="" />
+    <link href="{{ asset('base/css/minimal-slider.css') }}" rel='stylesheet' type='text/css' />
+    <link href="{{ asset('base/css/fontawesome-all.css') }}" rel="stylesheet">
+    <link href="//fonts.googleapis.com/css?family=Josefin+Sans:100,100i,300,300i,400,400i,600,600i,700,700i" rel="stylesheet">
+    <link href="//fonts.googleapis.com/css?family=BenchNine:300,400,700" rel="stylesheet">
+        <style>
+            .w3-green {
+                color: #fff!important;
+                background-color: #4CAF50!important;
+            }
+            .w3-red {
+                color: #fff!important;
+                background-color: #af0820 !important;
+            }
+            .w3-panel {
+                margin-top: 26px;
+                margin-bottom: 26px;
+                display: block;
+                font-family: Verdana,sans-serif;
+                font-size: 20px;
+                line-height: 1.5;
+            }
+            .w3-panel {
+                padding: 0.01em 26px;
+            }
+            w3-panel:before,w3-panel:after, w3-green:before,w3-green:after{box-sizing: inherit;}
+        </style>
+>>>>>>> dea5c0da70a308f7dc491774aed2bdd4748578a6
 
     {% endblock %}
     {% endblock %}
@@ -82,13 +117,7 @@
                 </div>
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-md-3 top-social-icons text-center">
-                            <ul class="social-icons">
-                                <li class="mr-1"><a href="#"><span class="fab fa-facebook-f"></span></a></li>
-                                <li class="mx-1"><a href="#"><span class="fab fa-twitter"></span></a></li>
-                                <li class="mx-1"><a href="#"><span class="fab fa-google-plus-g"></span></a></li>
-                                <li class="mx-1"><a href="#"><span class="fab fa-linkedin-in"></span></a></li>
-                            </ul>
+                        <div class="col-md-3 login-right-img text-center">
                         </div>
                         <div class="col-md-6 logo text-center">
                             <h1>
@@ -97,8 +126,9 @@
                             </h1>
                         </div>
                         <div class="col-md-3 login-right-img text-center">
-                            <a class="request text-uppercase" href="#" data-toggle="modal" data-target="#exampleModalCenter">Sign In</a>
-                            <a class="request text-uppercase" href="#" data-toggle="modal" data-target="#exampleModalCenter2">Sign Up</a>
+                            <a class="request text-uppercase" href="{{ path('profile_user')}}"  >compte</a>
+                            <a class="request text-uppercase"  href="{{ path('fos_user_profile_edit')}}" >edit</a>
+                            <a class="request text-uppercase"href="{{ path('fos_user_security_logout')}}" >Déconnection</a>
                         </div>
                     </div>
                 </div>
@@ -152,8 +182,10 @@
                                         </li>
 
                                     </ul>
-                                    <form action="#" method="post" class="form-inline  header-search">
-                                        <input class="form-control" type="search" placeholder="Search here..." name="Search" required="">
+                                    <form method="POST" action="{{ path('result') }}" class="form-inline  header-search">
+                                        <input class="form-control" type="search" placeholder="Recherche..." name="nom" list="json-datalist">
+                                        <datalist id="json-datalist">
+                                        </datalist>
                                         <button class="btn btn1 my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
                                     </form>
                                 </div>
@@ -210,13 +242,7 @@
                 </div>
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-md-3 top-social-icons text-center">
-                            <ul class="social-icons">
-                                <li class="mr-1"><a href="#"><span class="fab fa-facebook-f"></span></a></li>
-                                <li class="mx-1"><a href="#"><span class="fab fa-twitter"></span></a></li>
-                                <li class="mx-1"><a href="#"><span class="fab fa-google-plus-g"></span></a></li>
-                                <li class="mx-1"><a href="#"><span class="fab fa-linkedin-in"></span></a></li>
-                            </ul>
+                        <div class="col-md-3 login-right-img text-center">
                         </div>
                         <div class="col-md-6 logo text-center">
                             <h1>
@@ -224,9 +250,9 @@
                                     <i class="fas fa-leaf"></i>Grand Vert</a>
                             </h1>
                         </div>
-                        <div class="col-md-3 text-center">
-                            <a class="request text-uppercase" href="#" data-toggle="modal" data-target="#exampleModalCenter">Sign In</a>
-                            <a class="request text-uppercase" href="#" data-toggle="modal" data-target="#exampleModalCenter2">Sign Up</a>
+                        <div class="col-md-3 login-right-img text-center">
+                            <a class="request text-uppercase" href="{{ path('fos_user_security_login') }}">Sign In</a>
+                            <a class="request text-uppercase" href="{{ path('fos_user_registration_register') }}">Sign Up</a>
                         </div>
                     </div>
                 </div>
@@ -263,8 +289,10 @@
 
 
                                     </ul>
-                                    <form action="#" method="post" class="form-inline my-2 my-lg-0 header-search">
-                                        <input class="form-control" type="search" placeholder="Search here..." name="Search" required="">
+                                    <form method="POST" action="{{ path('result') }}" class="form-inline  header-search">
+                                        <input class="form-control" type="search" placeholder="Recherche..." name="nom" list="json-datalist">
+                                        <datalist id="json-datalist">
+                                        </datalist>
                                         <button class="btn btn1 my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
                                     </form>
                                 </div>
@@ -291,12 +319,6 @@
                     </div>
                     <div class="footer-text">
                         <p>Curabitur non nulla sit amet nislinit tempus convallis quis ac lectus. lac inia eget consectetur sed, convallis at tellus. Nulla porttitor accumsana tincidunt.</p>
-                        <ul class="social-icons">
-                            <li class="mr-1"><a href="#"><span class="fab fa-facebook-f"></span></a></li>
-                            <li class="mx-1"><a href="#"><span class="fab fa-twitter"></span></a></li>
-                            <li class="mx-1"><a href="#"><span class="fab fa-google-plus-g"></span></a></li>
-                            <li class="mx-1"><a href="#"><span class="fab fa-linkedin-in"></span></a></li>
-                        </ul>
                     </div>
                 </div>
                 <div class="col-lg-6 footer-grid-w3ls">
@@ -317,7 +339,7 @@
                 </div>
             <div class="copyright-w3 mt-4" style="text-align: center; margin : 0 auto;">
                 <p class="footer-grid" style="text-align: center; margin : 0 auto;">Copyright &copy; {{ "now"|date("Y") }} Template by  <a href="#" target="_blank">Behinds The Machines</a> </p>
-
+            </div>d
             </div>
         </div>
     </footer>
@@ -329,6 +351,32 @@
     <script src="{{ asset('base/js/toucheffects.j') }}s"></script>
     <script src="{{ asset('base/js/modernizr.custom.js') }}"></script>
     <!-- carousel -->
+    <script>
+        //call ajax
+        var ajax=new XMLHttpRequest();
+        var method="GET";
+        var data;
+        var dataList = document.getElementById('json-datalist');
+        var input = document.getElementById('tags');
+        var url="{{ asset('ajax/data.php') }}";
+        var asynchronous=true;
+        ajax.open(method,url,asynchronous);
+        // sending ajax
+        ajax.send();
+        // receiving response from data.php
+        ajax.onreadystatechange= function () {
+            if(this.readyState ==4 &&this.status==200)
+                data=JSON.parse(this.responseText);
+            data.forEach(function (item) {
+                console.log(item);
+                var option=document.createElement('option')
+                option.value=item.nom;
+                dataList.appendChild(option);
+            });
+            console.log(data);
+        };
+
+    </script>
     <script src="{{ asset('base/js/owl.carousel.js') }}"></script>
     <script>
         $(document).ready(function() {

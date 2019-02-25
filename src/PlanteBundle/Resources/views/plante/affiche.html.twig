@@ -1,13 +1,12 @@
 {% extends 'base.html.twig' %}
 {% block content %}
-    <div class="container">
-        <div class="product">
-            <ul id="filters">
-                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %} <a href="{{ path('proposer') }}"> <li><span class="filter" >Proposer plante</span></li></a>{% endif %}
-                <a data-toggle="collapse" data-target="#collapseExample" ><li><span class="filter" >
-                    Catégorie
-               </span></li> </a>
-            </ul>
+    <div class="banner-bottom-w3layouts py-lg-5 py-3">
+        <div class="container">
+
+                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %} <a href="{{ path('proposer') }}"><button type="button" class="btn btn-primary btn-lg">Proposer plante</button></a>{% endif %}
+                <a data-toggle="collapse" data-target="#collapseExample" >
+                    <button type="button" class="btn btn-secondary btn-lg">Catégorie</button>
+               </a>
             <div class="collapse" id="collapseExample">
                 <div class="list-group">
                     <a href="{{ path('filter',{'cat':'ALL'}) }}" class="list-group-item list-group-item-action">All</a>
@@ -17,57 +16,23 @@
                     <a href="{{ path('filter',{'cat':'Fleur'}) }}" class="list-group-item list-group-item-action" >Fleur</a>
                 </div>
             </div>
-            <div id="portfoliolist">
-                {% set i=1 %}
-                {% for plante in plantes %}
-                    {% if plante.proposition %}
-                {% if i==1 %}
-                <div class="portfolio app mix_all" data-cat="app" style="display: inline-block; opacity: 1;" >
-                    <div class="portfolio-wrapper ">
-                        <a href="{{ path('plantedetaile',{'id':plante.id}) }}" class="b-link-stripe b-animate-go ">
-                            <img class="img-responsive "  src="{{ asset('uploads/avatar/'~plante.photo) }}"  alt="" />
-
-                            <ul class="social-ic">
-                                <li class="in-search"><span> </span></li>
-                            </ul>
-                        </a>
-                    </div>
-                </div>
-                {% set i=2 %}
-                {% elseif i==2 %}
-                <div class="portfolio icon mix_all" data-cat="icon" style="display: inline-block; opacity: 1;" >
-                    <div class="portfolio-wrapper">
-                        <a href="{{ path('plantedetaile',{'id':plante.id}) }}" class="b-link-stripe b-animate-go  thickbox play-icon ">
-                            <img class="img-responsive"  src="{{ asset('uploads/avatar/'~plante.photo) }}" alt="" />
-                            <ul class="social-ic">
-                                <li class="in-search"><span> </span></li>
-                            </ul>
-                        </a>
-                    </div>
-                </div>
-                {% set i=3 %}
-                {% else %}
-                <div class="portfolio card mix_all" data-cat="card" style="display: inline-block; opacity: 1;">
-                    <div class="portfolio-wrapper">
-                        <a href="{{ path('plantedetaile',{'id':plante.id}) }}" class="b-link-stripe b-animate-go  thickbox play-icon ">
-                            <img class="img-responsive"  src="{{ asset('uploads/avatar/'~plante.photo) }}"  alt="" />
-                            <ul class="social-ic">
-                                <li class="in-search"><span> </span></li>
-                            </ul>
-                        </a>
-                    </div>
-                </div>
-                {% set i=1 %}
-                {% endif %}
-                    {% endif %}
-                {% endfor %}
-                <div class="clearfix"> </div>
+            <div class="inner-sec-w3ls-agileits py-lg-5 py-3">
+                <ul class="grid cs-style-5 row">
+                    {% for plante in plantes %}
+                        {% if plante.proposition %}
+                    <li class="grid-info-img">
+                        <figure>
+                            <img src="{{ asset('uploads/avatar/'~plante.photo) }}" class="img-fluid" alt="img03">
+                            <figcaption>
+                                <h3>{{ plante.nom }}</h3>
+                                <a href="{{ path('plantedetaile',{'id':plante.id}) }}">Détaille</a>
+                            </figcaption>
+                        </figure>
+                    </li>
+                        {% endif %}
+                  {% endfor %}
+                </ul>
             </div>
-
-            <!-- Script for gallery Here -->
-            <script type="text/javascript" src="js/jquery.mixitup.min.js"></script>
-            <!-- Gallery Script Ends -->
-
         </div>
     </div>
 {% endblock %}
