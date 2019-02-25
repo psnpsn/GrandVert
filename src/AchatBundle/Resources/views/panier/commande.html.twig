@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+{% block content %}
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <style>
+        table{
+            font-size:120%;
+        }
+    </style>
+    <div class="container">
+        <div class="product">
+            <table class="table" style="table-layout: fixed">
+                <thead class="thead-dark">
+                <tr>
+                    <th scope="col"></th>
+                    <th scope="col">nom de plante</th>
+                    <th scope="col">contité</th>
+                    <th scope="col">prix total</th>
+                    <th scope="col">etat</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for commande in commandes %}
+                    {% if commande.etat=="Rejeter" %} <tr bgcolor="#FF0000">
+                    {% elseif commande.etat=="Valider" %} <tr bgcolor="#32CD32">
+                        {% else %}    <tr>
+                          {% endif %}
+
+                        <td align="center">{% if commande.etat=="en cour..." %}<a data-toggle="modal" data-target="#{{ commande.id }}"><i class="fa fa-close"></i></a>
+                        {% endif %}</td>
+                        <td><a href="{{ path('plantedetaile',{'id':commande.plante.id}) }}">{{ commande.plante.nom }}</a></td>
+                        <td>{{ commande.contite }}</td>
+                        <td>{{ commande.plante.prix * commande.contite  }}</td>
+                        <td>{{ commande.etat  }}</td>
+                    </tr>
+                    <div class="modal fade" id="{{ commande.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title" id="exampleModalLabel">message confirmation</h4>
+                                </div>
+                                <div class="modal-body">
+                                    Voulez-vous annuler cette commande?
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">non</button>
+                                    <a href="{{ path('annuler',{'id':commande.id}) }}" >   <button type="button" class="btn btn-primary">oui</button></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

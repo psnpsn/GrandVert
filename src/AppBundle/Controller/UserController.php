@@ -99,7 +99,10 @@ class UserController extends Controller
 
     public function homemembreAction()
     {
-        return $this->render('default/index.html.twig');
+        $em = $this->getDoctrine()->getManager();
+        $notifications = $em->getRepository("ForumBundle:Notification")->findBy(["User" => $this->getUser() , "seen" => false]);
+
+        return $this->render('default/index.html.twig' , ["notifications" => $notifications , "count" => count($notifications)]);
     }
 
     public function homemoderateurAction()

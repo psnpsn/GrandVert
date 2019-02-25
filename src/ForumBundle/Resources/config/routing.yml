@@ -130,10 +130,12 @@ admin_forum:
     path:     /admin/forum/sujet
     defaults: { _controller: ForumBundle:Sujet:forum }
 
+notification_user:
+    path:     /notification/user
+    defaults: { _controller: ForumBundle:Notification:list }
+    methods: [POST]
 
-mgilet_notification:
-    resource: "@MgiletNotificationBundle/Controller/"
-    prefix: /notifications
+
 
 
 

@@ -10,8 +10,8 @@ namespace JardinBundle\Repository;
  */
 class JardinRepository extends \Doctrine\ORM\EntityRepository
 {
-    public function findByUserId($user){
-        $query = $this->createQueryBuilder('j')->where('m.userId = :param')->setParameter('param',$user);
+    public function findByUser($user){
+        $query = $this->createQueryBuilder('j')->where('m.user = :param')->setParameter('param',$user);
         return $query->getQuery()->getResult();
     }
 }

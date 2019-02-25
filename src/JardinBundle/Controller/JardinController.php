@@ -15,7 +15,7 @@ class JardinController extends Controller
         $jardin = new Jardin();
         $date = new \DateTime();
         $jardin->setDateC($date);
-        $jardin->setUserId($this->getUser());
+        $jardin->setUser($this->getUser());
         //build form
         $form = $this->createForm(JardinType::class, $jardin);
 

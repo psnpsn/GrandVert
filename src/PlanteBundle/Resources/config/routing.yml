@@ -34,3 +34,6 @@ filter:
 addpanier:
     path: /addpan
     defaults: { _controller: PlanteBundle:Plante:pan }
+result:
+    path: /resultat
+    defaults: { _controller: PlanteBundle:Plante:res }

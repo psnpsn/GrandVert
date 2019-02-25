@@ -7,3 +7,21 @@ panier:
 delpa:
     path:     /delpa
     defaults: { _controller: AchatBundle:Panier:del }
+achat:
+    path:     /achat
+    defaults: { _controller: AchatBundle:Panier:ach }
+commande:
+    path:     /commande
+    defaults: { _controller: AchatBundle:Panier:com }
+annuler:
+    path:     /annuler
+    defaults: { _controller: AchatBundle:Panier:ann }
+conscom:
+    path:     /consultercommande
+    defaults: { _controller: AchatBundle:Panier:cons }
+valider:
+    path:     /valider
+    defaults: { _controller: AchatBundle:Panier:val }
+rejet:
+    path:     /rejet
+    defaults: { _controller: AchatBundle:Panier:rej }

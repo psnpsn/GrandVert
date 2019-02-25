@@ -7,6 +7,8 @@ use ForumBundle;
 use AppBundle;
 use PlanteBundle;
 use Symfony\Component\Validator\Constraints as Assert;
+use SBC\NotificationsBundle\Builder\NotificationBuilder;
+use SBC\NotificationsBundle\Model\NotifiableInterface;
 
 /**
  * Sujet
@@ -14,7 +16,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table(name="sujet")
  * @ORM\Entity(repositoryClass="ForumBundle\Repository\SujetRepository")
  */
-class Sujet
+class Sujet implements NotifiableInterface, \JsonSerializable
 {
     /**
      * @var int
@@ -410,4 +412,49 @@ class Sujet
     {
         return $this->nbsignal;
     }
+
+    /**
+     * Build notifications on entity creation
+     * @param NotificationBuilder $builder
+     * @return NotificationBuilder
+     */
+    public function notificationsOnCreate(NotificationBuilder $builder)
+    {
+        return $builder;
+    }
+
+    /**
+     * Build notifications on entity update
+     * @param NotificationBuilder $builder
+     * @return NotificationBuilder
+     */
+    public function notificationsOnUpdate(NotificationBuilder $builder)
+    {
+        return $builder;
+    }
+
+    /**
+     * Build notifications on entity delete
+     * @param NotificationBuilder $builder
+     * @return NotificationBuilder
+     */
+    public function notificationsOnDelete(NotificationBuilder $builder)
+    {
+        return $builder;
+    }
+
+    /**
+     * Specify data which should be serialized to JSON
+     * @link http://php.net/manual/en/jsonserializable.jsonserialize.php
+     * @return mixed data which can be serialized by <b>json_encode</b>,
+     * which is a value of any type other than a resource.
+     * @since 5.4.0
+     */
+    public function jsonSerialize()
+    {
+        // TODO: Implement jsonSerialize() method.
+    }
+
+
+
 }

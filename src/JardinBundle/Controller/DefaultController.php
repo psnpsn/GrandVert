@@ -17,7 +17,7 @@ class DefaultController extends Controller
         $jardin = new Jardin();
         $jardin->setUserId($user);
         $em = $this->getDoctrine()->getManager();
-        $jardin = $em->getRepository('JardinBundle:Jardin')->findByUserId($user);
+        $jardin = $em->getRepository('JardinBundle:Jardin')->findByUser($user);
         if($request->isXmlHttpRequest()){
             $i=$request->get('width');
             return new JsonResponse($i);

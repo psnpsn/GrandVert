@@ -182,4 +182,18 @@ class PlanteController extends Controller
             'plante'=>$plante , "sujets" =>$sujets
         ));
     }
+
+    public function resAction(Request $request)
+    {
+        $nom=$request->get('nom');
+        //recuperer les informations du  plante à consulter
+        $em=$this->getDoctrine()->getManager();
+        $plante=$em->getRepository('PlanteBundle:plante')->findOneBy(['nom'=>$nom]);
+        //recuperer tous les sujets de plante à consulter
+        $em= $this->getDoctrine()->getManager();
+        $sujets=$em->getRepository("ForumBundle:Sujet")->findBy(['Plante'=> $plante ]);
+        return $this->render('@Plante/plante/detaille.html.twig',array(
+            'plante'=>$plante , "sujets" =>$sujets
+        ));
+    }
 }

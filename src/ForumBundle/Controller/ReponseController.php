@@ -2,6 +2,7 @@
 
 namespace ForumBundle\Controller;
 
+use ForumBundle\Entity\Notification;
 use ForumBundle\Entity\Reponse;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -33,7 +34,6 @@ class ReponseController extends Controller
 
             //recuperer l'uilisateur connecter qui va ajouter un sujet
             $user = $this->getUser();
-            $sujet->setUser($user);
 
             $reponse->setUser($user);
 
@@ -56,6 +56,25 @@ class ReponseController extends Controller
             $em = $this->getDoctrine()->getEntityManager();
             $em->persist($reponse);
             $em->flush();
+
+            $user = $em->getRepository("AppBundle:User")->find($sujet->getUser());
+
+            //notifier user si le moderateur a fermer son sujet
+            if($this->getUser() != $user){
+                //notifier le reponsable de sujet pour de la nouvelle  reponse
+                $notification = new Notification();
+
+                $notification->setUser($user);
+                $notification->setDate(new \DateTime());
+                $notification->setTitle("Sujet");
+                $notification->setSeen(false);
+                $notification->setDescription("une nouvelle reponse a été ajouter à votre sujet");
+                $notification->setRoute("consulter_sujet");
+                $notification->setParameters(["id" => $sujet->getId()]);
+
+                $em->persist($notification);
+                $em->flush();
+            }
 
             return new RedirectResponse($router->generate("consulter_sujet",['id' => $id , "messageError" => "" ]), 307);
 

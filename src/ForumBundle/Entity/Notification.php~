@@ -12,7 +12,7 @@ use AppBundle;
  * Notification
  *
  * @ORM\Table(name="notification")
- * @ORM\Entity(repositoryClass="ForumBundle\Repository\NotificationRepository")
+ * @ORM\Entity(repositoryClass="YourBundle\Repository\NotificationRepository")
  */
 class Notification extends BaseNotification implements \JsonSerializable
 {
@@ -42,38 +42,4 @@ class Notification extends BaseNotification implements \JsonSerializable
     }
 
 
-
-    /**
-     * Get seen
-     *
-     * @return boolean
-     */
-    public function getSeen()
-    {
-        return $this->seen;
-    }
-
-    /**
-     * Set user
-     *
-     * @param \AppBundle\Entity\User $user
-     *
-     * @return Notification
-     */
-    public function setUser(\AppBundle\Entity\User $user = null)
-    {
-        $this->User = $user;
-
-        return $this;
-    }
-
-    /**
-     * Get user
-     *
-     * @return \AppBundle\Entity\User
-     */
-    public function getUser()
-    {
-        return $this->User;
-    }
 }
