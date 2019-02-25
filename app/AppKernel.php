@@ -23,6 +23,7 @@ class AppKernel extends Kernel
             new AchatBundle\AchatBundle(),
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
             new JardinBundle\JardinBundle(),
+            new EvenementBundle\EvenementBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

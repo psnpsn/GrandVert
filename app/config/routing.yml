@@ -1,3 +1,7 @@
+evenement:
+    resource: "@EvenementBundle/Resources/config/routing.yml"
+    prefix:   /evenement
+
 jardin:
     resource: "@JardinBundle/Resources/config/routing.yml"
     prefix:   /jardin
