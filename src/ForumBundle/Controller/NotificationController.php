@@ -11,11 +11,13 @@ class NotificationController extends Controller
     public function listAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $notifications = $em->getRepository("ForumBundle:Notification")->findBy(["User" => $this->getUser() , "seen" => false]);
+        $notifications = $em->getRepository("ForumBundle:Notification")->findBy(["User" => $this->getUser()]);
+
+        $NoSEENnotifications = $em->getRepository("ForumBundle:Notification")->findBy(["User" => $this->getUser() , "seen" => false]);
 
         //return $this->render('notification.html.twig' , ["notifications" => $notifications]);
 
-        return new JsonResponse(array( 'notifications'=> $notifications,'count'=> count($notifications) ));
+        return new JsonResponse(array( 'notifications'=> $notifications,'count'=> count($NoSEENnotifications) ));
         //return new JsonResponse(array("data" => json_encode($notifications)));
     }
 

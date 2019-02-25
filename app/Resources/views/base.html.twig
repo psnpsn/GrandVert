@@ -6,7 +6,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     {% block stylesheets %}
-        <link href="{{ asset('bootstrap/css/bootstrap.css') }}" rel="stylesheet" type="text/css" media="all" />
+        <link href="{{ asset('bootstrap11/css/bootstrap.css') }}" rel="stylesheet" type="text/css" media="all" />
         <link href='http://fonts.googleapis.com/css?family=Exo:100,200,300,400,500,600,700,800,900' rel='stylesheet' type='text/css'/>
         <link href="{{ asset('Base/css/style.css') }}" rel="stylesheet" type="text/css" media="all" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
@@ -241,9 +241,11 @@
                     data.notifications.forEach(function (item) {
                         console.log(item);
 
-                        $('#ajax-results').append("<li style='border-bottom: 0px; font-size: 8px;' role='presentation'><a style='margin-top: 0px; margin-bottom: 0px; ' role='menuitem' tabindex='-2' href=''> <p style='float: left; font-size: 9px;'>"+item.title+"</p> <br> <p style='float: left; font-size: 7px;'>"+item.description+"</p></a></li>");
-
-
+                        //si notification est en etat seen
+                        if(item.seen == true)
+                            $('#ajax-results').append("<li style='border-bottom: 0px; font-size: 8px;' role='presentation'><a style='margin-top: 0px; margin-bottom: 0px; ' role='menuitem' tabindex='-2' href=''> <p style='float: left; font-size: 9px;'>"+item.title+"</p> <br> <p style='float: left; font-size: 7px;'>"+item.description+"</p></a></li>");
+                        else
+                            $('#ajax-results').append("<li style='border-bottom: 0px; font-size: 8px; background-color:#eeeeee; ' role='presentation'><a style='margin-top: 0px; margin-bottom: 0px; ' role='menuitem' tabindex='-2' href=''> <p style='float: left; font-size: 9px;'>"+item.title+"</p> <br> <p style='float: left; font-size: 7px;'>"+item.description+"</p></a></li>");
                     });
                     //console.log(data.count);
                     /*
