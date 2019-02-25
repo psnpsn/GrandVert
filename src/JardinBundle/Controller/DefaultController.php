@@ -2,6 +2,8 @@
 
 namespace JardinBundle\Controller;
 
+use JardinBundle\Entity\Jardin;
+use JardinBundle\Repository\JardinRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -9,20 +11,19 @@ use Symfony\Component\HttpFoundation\Response;
 
 class DefaultController extends Controller
 {
-    public function indexAction(Request $req)
+    public function indexAction(Request $request)
     {
-
-        $range = 0;
-
+        $user = $this->getUser();
+        $jardin = new Jardin();
+        $jardin->setUserId($user);
+        $em = $this->getDoctrine()->getManager();
+        $jardin = $em->getRepository('JardinBundle:Jardin')->findByUser($user);
+        if($request->isXmlHttpRequest()){
+            $i=$request->get('width');
+            return new JsonResponse($i);
+        }
         return $this->render('@Jardin/index.html.twig', array(
-            'range' => $range+1
+            "jardin" => $jardin[0]
         ));
-    }
-
-    public function loadDaysAction(Request $req)
-    {
-        $range = $req->request->get('range');
-        $range = "ref";
-        return new Response($range);
     }
 }

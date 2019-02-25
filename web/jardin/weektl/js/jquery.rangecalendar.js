@@ -100,15 +100,29 @@ $.fn.rangeCalendar = function(options) {
             
 		    var realStart = getMomentFromString(startDateTime);
 		    var realEnd = getMomentFromString(endDateTime);
+
+		    var allDates = "";
+			var date = new Date(startDateTime.substring(0,4),startDateTime.substring(4,6),startDateTime.substring(6,8));
+			var endDate = new Date(endDateTime.substring(0,4),endDateTime.substring(4,6),endDateTime.substring(6,8));
+
+			while (date <= endDate) {
+				var day = date.getDate();
+				var month = date.getMonth();
+				var year = date.getFullYear();
+				allDates = allDates+year+"-"+month+"-"+day+",";
+				date.setDate(date.getDate() + 1);
+			}
+
 		    
 		    var startDateFormatted = realStart.toString();
 		    var endDateFormatted = realEnd.toString();
 		    var startDate = moment().add('days', startDateIndex.index() + obj.start);
 		       
 		    var range = $.data( obj, "range", {
-						    	start: startDateFormatted,
-								end: endDateFormatted,
+						    	start: startDateTime,
+								end: endDateTime,
 								width: obj.rangeWidth(),
+								all:allDates.slice(0, -1),
 								fromNow: startDate.fromNow()     
 		    });
 		    return range;

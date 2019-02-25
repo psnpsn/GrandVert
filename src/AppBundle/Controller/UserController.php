@@ -73,11 +73,19 @@ class UserController extends Controller
         return $this->render('User/account.html.twig' , ["user" => $user]);
     }
 
-    public function profileAction(Request $request)
+    public function settingsAction(Request $request)
     {
         $user = $this->container->get('security.token_storage')->getToken()->getUser();
-        return $this->render('User/profile.html.twig' , ["user" => $user]);
+        return $this->render('User/account.html.twig' , ["user" => $user]);
     }
+
+
+    public function preferencesAction(Request $request)
+    {
+        $user = $this->container->get('security.token_storage')->getToken()->getUser();
+        return $this->render('User/account.html.twig' , ["user" => $user]);
+    }
+
     public function profileadAction(Request $request)
     {
         $user = $this->container->get('security.token_storage')->getToken()->getUser();

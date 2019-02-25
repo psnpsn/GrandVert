@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 {% block javascripts %}
     {{ parent() }}
+    <script type="text/javascript" src="{{ asset('jardin/jquery.form.js') }}"></script>
     <script>
         $(document).ready(function(){
 
@@ -35,12 +36,13 @@
 
             function rangeChanged(target,range){
                 console.log(range);
+
                 $.ajax({
-                    url: '{{ path('jardin_index') }}',
-                    type: 'post',
-                    data: range,
+                    url: '{{ path('jardin_journal') }}',
+                    type: "POST",
+                    data: 'width=' + 7,
                     success: function(data){
-                        console.log(data)
+                        console.log(data);
                     },
                     error: function(){
                         console.log('Error in Ajax');
@@ -53,7 +55,6 @@
                 var endMonth = moment(range.end).format('MMM');
                 var endYear = moment(range.end).format('YY');
 
-
                 $(".calendar-values .start-date .value").html(startDay);
                 $(".calendar-values .start-date .label").html("");
                 $(".calendar-values .start-date .label").append(startMonth);
@@ -65,14 +66,52 @@
                 $(".calendar-values .days-width .value").html(range.width);
                 $(".calendar-values .from-now .label").html(range.fromNow);
 
+                var days = range.all.split(',');
 
 
+                var daysNameList = ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'];
+                for (i=0; i<7;i++){
+                    var d = new Date(days[i]);
+                    var dayName = daysNameList[d.getDay()];
+                    j=i+1;
+                    document.getElementById("day"+ j ).innerHTML= dayName + " " + d.getDate();
+                }
 
             }
+        });
 
 
+        $('#addNoteModal').on('shown.bs.modal', function () {
+            var modal = $(this);
+            $.ajax('{{ path('note_add', { 'jardinId': jardin.id, 'date':'2019-03-02' }) }}', {
+                success: function(data) {
+                    modal.find('.modal-body').html(data);
+                    console.log(myCalendar.range);
+                }
+            });
+        });
 
+        $(document).on('submit', 'form', function(e){
+            e.preventDefault();
 
+            $form = $(e.target);
+            modal = $('#addNoteModal');
+
+            var title = $('#article_title').val();
+
+            var $submitButton = $form.find(':submit');
+            $submitButton.html('<i class="fas fa-spinner fa-pulse"></i>');
+            $submitButton.prop('disabled', true);
+
+            $.ajax({
+                type:"POST",
+                data: $(this).serialize(),
+                url:"{{ path('note_add', { 'jardinId': jardin.id, 'date':'2019-03-02' }) }}",
+                cache: false,
+                success: function( msg ){
+                console.log(msg);
+                }
+            });
         });
     </script>
     <script type="text/javascript" src="{{ asset('jardin/weektl/js/jquery-ui.min.js') }}"></script>
@@ -90,15 +129,18 @@
 {% block content %}
     <div class="container">
         <div id="cal2" class="cal"></div>
+        <div class="container">
         {% for dayNumber in 1..7 %}
             <div class="day-container">
                 <div class="dayHeader">
-                    <div class="dayName"><h2>Lundi{{ range }}</h2></div>
+                    <div class="dayName"><h2 id="day{{ dayNumber }}"></h2></div>
                     <div class="add-note-btn">
-                        <button class="btn btn-primary" type="submit">Button</button>
+                        <button id="add_note" type="button" class="btn btn-primary" data-toggle="modal" data-target="#addNoteModal">
+                            Add Note
+                        </button>
                     </div>
                     <div class="activity-bar">
-                        <button class="btn btn-primary" type="submit">Button</button>
+                        <button class="btn btn-primary" type="submit">Add</button>
                     </div>
                 </div>
                 <div>
@@ -106,5 +148,24 @@
                 </div>
             </div>
         {% endfor %}
+        </div>
+        <!-- Modal -->
+        <div class="modal fade" id="addNoteModal" tabindex="-1" role="dialog" aria-labelledby="addNoteModalTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="addNoteModalLongTitle">Modal title</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div id="modal-form-addnote" class="modal-body">
+                        Loading...
+                    </div>
+                    <div class="modal-footer">
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 {% endblock %}
