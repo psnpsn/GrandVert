@@ -1,28 +1,27 @@
 {% extends 'base.html.twig' %}
 {% block content %}
-    <div class="container">
-        <div class="sign">
-            {% for flashMessage in app.session.flashbag.get('notice') %}
-                <div class="w3-panel w3-green" >
-                    {{ flashMessage }}
-                </div>
-            {% endfor %}
+    <div class="banner-bottom-w3layouts py-lg-5 py-3">
+        <div class="container">
+                {% for flashMessage in app.session.flashbag.get('notice') %}
+                    <div class="w3-panel w3-green" >
+                        {{ flashMessage }}
+                    </div>
+                {% endfor %}
                 {{ form_start(Form) }}
-                {{ form_row(Form.photo) }}
-                {{ form_row(Form.nom) }}
-                {{ form_row(Form.Description)}}
-                {{ form_row(Form.stock) }}
-                {{ form_row(Form.prix) }}
-                {{ form_row(Form.hauteur) }}
-                {{ form_row(Form.fertiliseur) }}
-                {{ form_row(Form.categorie) }}
-                {{ form_row(Form.season) }}
-            <div>
-                <input type="submit" value="envoyer" />
-            </div>
+                {{ form_row(Form.photo,{'attr': {'class': 'form-control'}}) }}
+                {{ form_row(Form.nom,{'attr': {'class': 'form-control'}}) }}
+                {{ form_row(Form.Description,{'attr': {'class': 'form-control'}})}}
+                {{ form_row(Form.stock,{'attr': {'class': 'form-control'}}) }}
+                {{ form_row(Form.prix,{'attr': {'class': 'form-control'}}) }}
+                {{ form_row(Form.hauteur,{'attr': {'class': 'form-control'}}) }}
+                {{ form_row(Form.fertiliseur,{'attr': {'class': 'form-control'}}) }}
+                {{ form_row(Form.categorie,{'attr': {'class': 'form-control'}}) }}
+                {{ form_row(Form.season,{'attr': {'class': 'form-control'}}) }}
+            <br>
+                <div>
+                    <input type="submit" value="envoyer" class="btn btn-primary btn-lg" />
+                </div>
                 {{ form_end(Form) }}
         </div>
-        <div class="clearfix"> </div>
-
     </div>
 {% endblock %}
