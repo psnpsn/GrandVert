@@ -11,7 +11,7 @@ jardin_update:
     defaults: { _controller: JardinBundle:Jardin:update }
 
 note_add:
-    path:     /note/add
+    path:     /note/add/{jardinId}/{date}
     defaults: { _controller: JardinBundle:Note:add }
 
 note_update:

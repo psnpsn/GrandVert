@@ -3,6 +3,7 @@
 namespace JardinBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -15,7 +16,7 @@ class NoteType extends AbstractType
     {
         $builder
             ->add('contenu')
-            ->add('Add', SubmitType::class, ['label' => 'Créer Jardin']);
+            ->add('add', SubmitType::class, ['label' => 'Ajouter Note']);
     }/**
      * {@inheritdoc}
      */

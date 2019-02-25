@@ -33,6 +33,12 @@ class Note
      */
     private $contenu;
 
+    /**
+     * @var string
+     * @ORM\Column(name="date_note", type="date")
+     */
+    private $dateN;
+
 
     /**
      * Get id
@@ -75,6 +81,24 @@ class Note
     {
         $this->contenu = $contenu;
     }
+
+    /**
+     * @return string
+     */
+    public function getDateN()
+    {
+        return $this->dateN;
+    }
+
+    /**
+     * @param string $dateN
+     */
+    public function setDateN($dateN)
+    {
+        $this->dateN = $dateN;
+    }
+
+
 
 
 }
