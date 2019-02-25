@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('profile/css/account.css') }}" type="text/css" media="all">
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+    </script>
+{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="account-menu">
+            <div class="item">
+                <a href="{{ path('jardin_add') }}" class="btn btn-primary bouton">
+                    Jardin
+                </a>
+            <div class="item">
+                <p class="info">Cliquer pour accéder à votre Jardin Virtuel</p>
+            </div>
+            <div class="item">
+                <a href="{{ path('profile_settings') }}" class="btn btn-primary bouton">
+                    Settings
+                </a>
+            </div>
+            <div class="item">
+                <p class="info">Changer vos informations et votre mot de passe ou désactiver votre compte</p>
+            </div>
+            <div class="item">
+                <a href="{{ path('profile_preferences') }}" class="btn btn-primary bouton">
+                    Préférences
+                </a>
+            </div>
+            <div class="item">
+                <p class="info">Changer vos informations et votre mot de passe ou désactiver votre compte</p>
+            </div>
+        </div>
+    </div>
+{% endblock %}

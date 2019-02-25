@@ -2,6 +2,7 @@
 
 namespace ForumBundle\Controller;
 
+use ForumBundle\Entity\Notification;
 use ForumBundle\Entity\Reponse;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -33,16 +34,49 @@ class ReponseController extends Controller
 
             //recuperer l'uilisateur connecter qui va ajouter un sujet
             $user = $this->getUser();
-            $sujet->setUser($user);
 
             $reponse->setUser($user);
 
+            $validator = $this->get('validator');
+            $errors = $validator->validate($reponse);
+
+            $errorsString = null;
+
+            if (count($errors) > 0) {
+                /*
+                 * Uses a __toString method on the $errors variable which is a
+                 * ConstraintViolationList object. This gives us a nice string
+                 * for debugging.
+                 */
+                $errorsString = (string) $errors;
+
+                return new RedirectResponse($router->generate("consulter_sujet",['id' => $id , "messageError" => "Réponse ne doit pas etre vide !!"]), 307);
+            }
 
             $em = $this->getDoctrine()->getEntityManager();
             $em->persist($reponse);
             $em->flush();
 
-            return new RedirectResponse($router->generate("consulter_sujet",['id' => $id]), 307);
+            $user = $em->getRepository("AppBundle:User")->find($sujet->getUser());
+
+            //notifier user si le moderateur a fermer son sujet
+            if($this->getUser() != $user){
+                //notifier le reponsable de sujet pour de la nouvelle  reponse
+                $notification = new Notification();
+
+                $notification->setUser($user);
+                $notification->setDate(new \DateTime());
+                $notification->setTitle("Sujet");
+                $notification->setSeen(false);
+                $notification->setDescription("une nouvelle reponse a été ajouter à votre sujet");
+                $notification->setRoute("consulter_sujet");
+                $notification->setParameters(["id" => $sujet->getId()]);
+
+                $em->persist($notification);
+                $em->flush();
+            }
+
+            return new RedirectResponse($router->generate("consulter_sujet",['id' => $id , "messageError" => "" ]), 307);
 
         }else{
             // si il n'ya pas un utilisateur connecter , redigier vers page login
@@ -112,6 +146,63 @@ class ReponseController extends Controller
         $id_sujet = $request->get("id_sujet");
         $router = $this->container->get('router');
         return new RedirectResponse($router->generate('consulter_sujet' ,['id' => $id_sujet]), 307);
+
+    }
+
+    public function archiverAction(Request $request) {
+
+        //recuperer l'id de reponse à archiver
+        $id_reponse = $request->get("id_reponse");
+        $em = $this->getDoctrine()->getManager();
+        $reponse = $em->getRepository("ForumBundle:Reponse")->find($id_reponse);
+
+        //modifier leur etat à archiver
+        $reponse->setArchive(true);
+
+        $em = $this->getDoctrine()->getEntityManager();
+        $em->persist($reponse);
+        $em->flush();
+
+
+        //recuperer l'id de sujet
+        $id_sujet = $request->get("id_sujet");
+
+        $router = $this->container->get('router');
+
+        return new RedirectResponse($router->generate("consulter_sujet",['id' => $id_sujet]), 307);
+
+    }
+
+    public function signalerAction(Request $request) {
+
+        //recuperer l'id de reponse à signaler
+        $id_reponse = $request->get("id_reponse");
+        $em = $this->getDoctrine()->getManager();
+        $reponse = $em->getRepository("ForumBundle:Reponse")->find($id_reponse);
+
+        //modifier le nb de signaler du sujet
+        $reponse->setNbsignal($reponse->getNbsignal()+1);
+
+        //verifier le nb de signaler si il atteint 10 signaler , changer letat de reponse à archiver !
+        if($reponse->getNbsignal() == 10)
+        {
+            //modifier leur etat à signaler
+            $reponse->setArchive(true);
+
+            //modifier le nb de signaler du sujet à 0
+            $reponse->setNbsignal(0);
+        }
+
+        $em = $this->getDoctrine()->getEntityManager();
+        $em->persist($reponse);
+        $em->flush();
+
+        //recuperer l'id de sujet
+        $id_sujet = $request->get("id_sujet");
+
+        $router = $this->container->get('router');
+
+        return new RedirectResponse($router->generate("consulter_sujet",['id' => $id_sujet]), 307);
 
     }
 

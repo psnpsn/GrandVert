@@ -8,7 +8,7 @@ jardin:
 
 achat:
     resource: "@AchatBundle/Resources/config/routing.yml"
-    prefix:   /achat
+    prefix:   /panier
 
 plante:
     resource: "@PlanteBundle/Resources/config/routing.yml"
@@ -43,8 +43,17 @@ admin_home:
     defaults: { _controller: AppBundle:User:homeadmin }
 
 profile_user:
-    path:     /user
-    defaults: { _controller: AppBundle:User:profile }
+    path:     /account
+    defaults: {_controller: AppBundle:User:Account}
+
+profile_settings:
+    path:     /account/profile
+    defaults: { _controller: AppBundle:User:settings }
+
+profile_preferences:
+    path:     /account/jardin
+    defaults: { _controller: AppBundle:User:preferences }
+
 profile_admin:
     path:     /admin/profile
     defaults: { _controller: AppBundle:User:profilead }

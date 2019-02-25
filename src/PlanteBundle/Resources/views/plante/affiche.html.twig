@@ -2,11 +2,27 @@
 {% block content %}
     <div class="container">
         <div class="product">
+            <ul id="filters">
+                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %} <a href="{{ path('proposer') }}"> <li><span class="filter" >Proposer plante</span></li></a>{% endif %}
+                <a data-toggle="collapse" data-target="#collapseExample" ><li><span class="filter" >
+                    Catégorie
+               </span></li> </a>
+            </ul>
+            <div class="collapse" id="collapseExample">
+                <div class="list-group">
+                    <a href="{{ path('filter',{'cat':'ALL'}) }}" class="list-group-item list-group-item-action">All</a>
+                    <a href="{{ path('filter',{'cat':'Legume'}) }}" class="list-group-item list-group-item-action">Legume</a>
+                    <a href="{{ path('filter',{'cat':'Fruit'}) }}" class="list-group-item list-group-item-action">Fruit</a>
+                    <a href="{{ path('filter',{'cat':'Herbe'}) }}" class="list-group-item list-group-item-action" >Herbe</a>
+                    <a href="{{ path('filter',{'cat':'Fleur'}) }}" class="list-group-item list-group-item-action" >Fleur</a>
+                </div>
+            </div>
             <div id="portfoliolist">
                 {% set i=1 %}
                 {% for plante in plantes %}
+                    {% if plante.proposition %}
                 {% if i==1 %}
-                <div class="portfolio app mix_all" data-cat="app" style="display: inline-block; opacity: 1;" width="224px" height="188px">
+                <div class="portfolio app mix_all" data-cat="app" style="display: inline-block; opacity: 1;" >
                     <div class="portfolio-wrapper ">
                         <a href="{{ path('plantedetaile',{'id':plante.id}) }}" class="b-link-stripe b-animate-go ">
                             <img class="img-responsive "  src="{{ asset('uploads/avatar/'~plante.photo) }}"  alt="" />
@@ -43,56 +59,13 @@
                 </div>
                 {% set i=1 %}
                 {% endif %}
+                    {% endif %}
                 {% endfor %}
                 <div class="clearfix"> </div>
             </div>
 
             <!-- Script for gallery Here -->
             <script type="text/javascript" src="js/jquery.mixitup.min.js"></script>
-            <script type="text/javascript">
-                $(function () {
-
-                    var filterList = {
-
-                        init: function () {
-
-                            // MixItUp plugin
-                            // http://mixitup.io
-                            $('#portfoliolist').mixitup({
-                                targetSelector: '.portfolio',
-                                filterSelector: '.filter',
-                                effects: ['fade'],
-                                easing: 'snap',
-                                // call the hover effect
-                                onMixEnd: filterList.hoverEffect()
-                            });
-
-                        },
-
-                        hoverEffect: function () {
-
-                            // Simple parallax effect
-                            $('#portfoliolist .portfolio').hover(
-                                function () {
-                                    $(this).find('.label').stop().animate({bottom: 0}, 200, 'easeOutQuad');
-                                    $(this).find('img').stop().animate({top: -30}, 500, 'easeOutQuad');
-                                },
-                                function () {
-                                    $(this).find('.label').stop().animate({bottom: -40}, 200, 'easeInQuad');
-                                    $(this).find('img').stop().animate({top: 0}, 300, 'easeOutQuad');
-                                }
-                            );
-
-                        }
-
-                    };
-
-                    // Run the show!
-                    filterList.init();
-
-
-                });
-            </script>
             <!-- Gallery Script Ends -->
 
         </div>

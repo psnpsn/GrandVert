@@ -6,6 +6,9 @@ use Doctrine\ORM\Mapping as ORM;
 use ForumBundle;
 use AppBundle;
 use PlanteBundle;
+use Symfony\Component\Validator\Constraints as Assert;
+use SBC\NotificationsBundle\Builder\NotificationBuilder;
+use SBC\NotificationsBundle\Model\NotifiableInterface;
 
 /**
  * Sujet
@@ -13,7 +16,7 @@ use PlanteBundle;
  * @ORM\Table(name="sujet")
  * @ORM\Entity(repositoryClass="ForumBundle\Repository\SujetRepository")
  */
-class Sujet
+class Sujet implements NotifiableInterface, \JsonSerializable
 {
     /**
      * @var int
@@ -26,6 +29,8 @@ class Sujet
 
     /**
      * @var string
+     *
+     * @Assert\NotBlank
      *
      * @ORM\Column(name="sujet_original", type="string", length=9999)
      */
@@ -79,6 +84,20 @@ class Sujet
      * @ORM\Column(name="resolu", type="string", length=255)
      */
     private $resolu="false";
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="archive", type="boolean", length=255)
+     */
+    private $archive=false;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="nbsignal", type="integer")
+     */
+    private $nbsignal=0;
 
 
     /**
@@ -345,4 +364,97 @@ class Sujet
     {
         return $this->resolu;
     }
+
+    /**
+     * Set archive
+     *
+     * @param boolean $archive
+     *
+     * @return Sujet
+     */
+    public function setArchive($archive)
+    {
+        $this->archive = $archive;
+
+        return $this;
+    }
+
+    /**
+     * Get archive
+     *
+     * @return boolean
+     */
+    public function getArchive()
+    {
+        return $this->archive;
+    }
+
+    /**
+     * Set nbsignal
+     *
+     * @param integer $nbsignal
+     *
+     * @return Sujet
+     */
+    public function setNbsignal($nbsignal)
+    {
+        $this->nbsignal = $nbsignal;
+
+        return $this;
+    }
+
+    /**
+     * Get nbsignal
+     *
+     * @return integer
+     */
+    public function getNbsignal()
+    {
+        return $this->nbsignal;
+    }
+
+    /**
+     * Build notifications on entity creation
+     * @param NotificationBuilder $builder
+     * @return NotificationBuilder
+     */
+    public function notificationsOnCreate(NotificationBuilder $builder)
+    {
+        return $builder;
+    }
+
+    /**
+     * Build notifications on entity update
+     * @param NotificationBuilder $builder
+     * @return NotificationBuilder
+     */
+    public function notificationsOnUpdate(NotificationBuilder $builder)
+    {
+        return $builder;
+    }
+
+    /**
+     * Build notifications on entity delete
+     * @param NotificationBuilder $builder
+     * @return NotificationBuilder
+     */
+    public function notificationsOnDelete(NotificationBuilder $builder)
+    {
+        return $builder;
+    }
+
+    /**
+     * Specify data which should be serialized to JSON
+     * @link http://php.net/manual/en/jsonserializable.jsonserialize.php
+     * @return mixed data which can be serialized by <b>json_encode</b>,
+     * which is a value of any type other than a resource.
+     * @since 5.4.0
+     */
+    public function jsonSerialize()
+    {
+        // TODO: Implement jsonSerialize() method.
+    }
+
+
+
 }

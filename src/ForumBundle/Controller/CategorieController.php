@@ -12,7 +12,11 @@ class CategorieController extends Controller
         //afficher tous les categories
         $categories = array("Fruit" , "Herbe" , "Fleur" , "Légume");
 
-        return $this->render('@Forum\Categorie\list.html.twig' , ["categories" => $categories ]);
+        $em = $this->getDoctrine()->getManager();
+        $notifications = $em->getRepository("ForumBundle:Notification")->findBy(["User" => $this->getUser() , "seen" => false]);
+
+
+        return $this->render('@Forum\Categorie\list.html.twig' , ["categories" => $categories ,"notifications" => $notifications , "count" => count($notifications) ]);
     }
 
     public function consulterAction(Request $request)

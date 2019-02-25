@@ -25,6 +25,7 @@ class AppKernel extends Kernel
             new JardinBundle\JardinBundle(),
             new PreservationBundle\PreservationBundle(),
             new Knp\Bundle\SnappyBundle\KnpSnappyBundle(),
+            new SBC\NotificationsBundle\NotificationsBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

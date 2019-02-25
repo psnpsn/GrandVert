@@ -4,155 +4,421 @@
     {% block head %}
         <title>{% block title %}Welcome!{% endblock %}</title>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        {% block stylesheets %}
-            <link href="{{ asset('Base/css/bootstrap.css') }}" rel="stylesheet" type="text/css" media="all" />
-            <link href="{{ asset('Base/css/style.css') }}" rel="stylesheet" type="text/css" media="all" />
-            <link href='http://fonts.googleapis.com/css?family=Exo:100,200,300,400,500,600,700,800,900' rel='stylesheet' type='text/css'>
-            <link rel="stylesheet" href="{{ asset('forum/modelbox/style.css') }}">
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <script>
+            addEventListener("load", function() {
+                setTimeout(hideURLbar, 0);
+            }, false);
 
+            function hideURLbar() {
+                window.scrollTo(0, 1);
+            }
+        </script>
+        {% block stylesheets %}
+            <link href="{{ asset('base/css/bootstrap.css') }}" rel='stylesheet' type='text/css' />
+            <link rel="stylesheet" href="{{ asset('base/css/component.css') }}" type="text/css" media="all">
+            <link href="{{ asset('base/css/style.cs') }}s" rel='stylesheet' type='text/css' />
+            <link rel="stylesheet" href="{{ asset('base/css/owl.theme.css') }}" type="text/css" media="all">
+            <link rel="stylesheet" href="{{ asset('base/css/owl.carousel.css') }}" type="text/css" media="screen" property="" />
+            <link href="{{ asset('base/css/minimal-slider.css') }}" rel='stylesheet' type='text/css' />
+            <link href="{{ asset('base/css/fontawesome-all.css') }}" rel="stylesheet">
+            <link href="//fonts.googleapis.com/css?family=Josefin+Sans:100,100i,300,300i,400,400i,600,600i,700,700i" rel="stylesheet">
+            <link href="//fonts.googleapis.com/css?family=BenchNine:300,400,700" rel="stylesheet">
         {% endblock %}
-        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-        <link rel="manifest" href="/site.webmanifest">
-        <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
-        <meta name="msapplication-TileColor" content="#da532c">
-        <meta name="theme-color" content="#ffffff">
     {% endblock %}
 </head>
 <body>
 {% block header %}
+    <div class="mian-content">
         {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-            <div class="header">
-                <div class="container">
-                    <div class="header-top">
-                        <div class="logo">
-                            <a href="{{ path('homepage') }}"><img src="{{ asset('Base/images/logo.png') }}" alt="GrandVert" width="430px"></a>
+            <div class="header-top-w3layouts-agile">
+                <div class="top-head-wthree text-left">
+                    <div class="row top-content-info">
+                        <div class="col-lg-6 top-content-left">
+                            <ul class="header-info-w3ls">
+                                <li>
+                                    <i class="far fa-envelope"></i> <a href="mailto:info@example.com">Location</a>
+                                </li>
+                                <li>
+                                    <i class="fas fa-phone"></i> <a href="tel:+02223688199">Weather</a>
+                                </li>
+                                <li>
+                                    <i class="far fa-clock"></i> Date / Time </li>
+                            </ul>
                         </div>
-                        <div class="search-in">
-                            <div class="header-grid">
-                                <ul>
-                                    <li class="in-up" ><a href="{{ path('profile_user')}}" class="scroll"> compte </a> <label>|</label></li>
-                                    <li class="in-up" ><a href="{{ path('fos_user_profile_edit')}}" class="scroll"> edit </a> <label>|</label></li>
-                                    <li class="in-up" ><a href="{{ path('mes_sujets')}}" class="scroll"> Mes Sujets </a> <label>|</label></li>
-                                    <li ><a href="{{ path('fos_user_security_logout')}}" class="scroll">Déconnection</a></li>
-                                </ul>
+                        <div class="col-lg-6 top-content-right">
+                            <div class="land-gd">
+                                <div class="hd-sc-one">
+                                    <div class="land-image text-center">
+                                        <i class="fas fa-map-signs"></i>
+                                    </div>
+                                    <div class="land-content">
+                                        <h4>The Best Landscaping</h4>
+
+                                    </div>
+
+                                </div>
                             </div>
-                            <div class="search-top">
-                                <div class="search">
-                                    <form>
-                                        <input type="text" value="Search" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '';}" >
-                                        <input type="submit"  value="">
+                            <div class="land-gd">
+                                <div class="hd-sc-one">
+                                    <div class="land-image text-center">
+                                        <i class="fas fa-shield-alt"></i>
+                                    </div>
+                                    <div class="land-content">
+                                        <h4>Certified Company</h4>
+
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-3 top-social-icons text-center">
+                            <ul class="social-icons">
+                                <li class="mr-1"><a href="#"><span class="fab fa-facebook-f"></span></a></li>
+                                <li class="mx-1"><a href="#"><span class="fab fa-twitter"></span></a></li>
+                                <li class="mx-1"><a href="#"><span class="fab fa-google-plus-g"></span></a></li>
+                                <li class="mx-1"><a href="#"><span class="fab fa-linkedin-in"></span></a></li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6 logo text-center">
+                            <h1>
+                                <a class="navbar-brand" href="index.html">
+                                    <i class="fas fa-leaf"></i>Grand Vert</a>
+                            </h1>
+                        </div>
+                        <div class="col-md-3 login-right-img text-center">
+                            <a class="request text-uppercase" href="#" data-toggle="modal" data-target="#exampleModalCenter">Sign In</a>
+                            <a class="request text-uppercase" href="#" data-toggle="modal" data-target="#exampleModalCenter2">Sign Up</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="header-bg">
+                    <div class="container">
+                        <header>
+                            <nav class="navbar navbar-expand-lg navbar-light">
+                                <button class="navbar-toggler navbar-toggler-right mx-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                                    <span class="navbar-toggler-icon"></span>
+                                </button>
+
+                                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                                    <ul class="navbar-nav mr-lg-auto text-left">
+                                        <li class="nav-item active">
+                                            <a class="nav-link" href="{{ path('planteaff')}}">Plantes
+                                                <span class="sr-only">(current)</span>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="about.html">Partage d'experience</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="{{ path('afficher_categorie') }}">Forum</a>
+                                        </li>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="gallery.html">Evénement </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="contact.html">Contact</a>
+                                        </li>
+
+                                    </ul>
+                                    <form action="#" method="post" class="form-inline my-2 my-lg-0 header-search">
+                                        <input class="form-control" type="search" placeholder="Search here..." name="Search" required="">
+                                        <button class="btn btn1 my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
                                     </form>
                                 </div>
-                                <div class="cart">
-                                    <a href="#" class="cart-in"> </a>
-                                    <span> 5</span>
-                                </div>
-                                <div class="clearfix"> </div>
-                            </div>
-                        </div>
-                        <div class="clearfix"> </div>
-                    </div>
-                    <div class="header-bottom-bottom">
-                        <div class="top-nav">
-                            <span class="menu"> </span>
-                            <ul>
-                                <li><a href="{{ path('planteaff')}}" > plante</a></li>
-                                <li><a href="services.html" > partage expérience </a></li>
-                                <li><a href="404.html" >boutique</a></li>
-                                <li><a href="{{ path('afficher_categorie') }}" >Forum</a></li>
-                                <li><a href="contact.html" > Evénemenet </a></li>
-                                <li><a href="contact.html" > Contact </a></li>
+                            </nav>
 
-                            </ul>
-                            <script>
-                                $("span.menu").click(function(){
-                                    $(".top-nav ul").slideToggle(500, function(){
-                                    });
-                                });
-                            </script>
-                        </div>
-                        <div class="clearfix"> </div>
+                        </header>
                     </div>
                 </div>
             </div>
         {% else %}
-            <div class="header">
-                <div class="container">
-                    <div class="header-top">
-                        <div class="logo">
-                            <a href="{{ path('homepage') }}"><img src="{{ asset('Base/images/logo.png') }}" alt="GrandVert" width="430px"></a>
+            <div class="header-top-w3layouts-agile">
+                <div class="top-head-wthree text-left">
+                    <div class="row top-content-info">
+                        <div class="col-lg-6 top-content-left">
+                            <ul class="header-info-w3ls">
+                                <li>
+                                    <i class="far fa-envelope"></i> <a href="mailto:info@example.com">mail@example.com</a>
+                                </li>
+                                <li>
+                                    <i class="fas fa-phone"></i> <a href="tel:+02223688199">+0222 3688 199</a>
+                                </li>
+                                <li>
+                                    <i class="far fa-clock"></i> Mon – Fri : 9:00 -17:00 </li>
+                            </ul>
                         </div>
-                        <div class="search-in">
-                            <div class="header-grid">
-                                <ul>
-                                    <li class="in-up" ><a href="{{ path('fos_user_security_login') }}" class="scroll"> Sign in </a> <label>|</label></li>
-                                    <li ><a href="{{ path('fos_user_registration_register') }}" class="scroll">Sign up</a></li>
-                                </ul>
+                        <div class="col-lg-6 top-content-right">
+                            <div class="land-gd">
+                                <div class="hd-sc-one">
+                                    <div class="land-image text-center">
+                                        <i class="fas fa-map-signs"></i>
+                                    </div>
+                                    <div class="land-content">
+                                        <h4>The Best Landscaping</h4>
+
+                                    </div>
+
+                                </div>
                             </div>
-                            <div class="search-top">
-                                <div class="search">
-                                    <form>
-                                        <input type="text" value="Search" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '';}" >
-                                        <input type="submit"  value="">
+                            <div class="land-gd">
+                                <div class="hd-sc-one">
+                                    <div class="land-image text-center">
+                                        <i class="fas fa-shield-alt"></i>
+                                    </div>
+                                    <div class="land-content">
+                                        <h4>Certified Company</h4>
+
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-3 top-social-icons text-center">
+                            <ul class="social-icons">
+                                <li class="mr-1"><a href="#"><span class="fab fa-facebook-f"></span></a></li>
+                                <li class="mx-1"><a href="#"><span class="fab fa-twitter"></span></a></li>
+                                <li class="mx-1"><a href="#"><span class="fab fa-google-plus-g"></span></a></li>
+                                <li class="mx-1"><a href="#"><span class="fab fa-linkedin-in"></span></a></li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6 logo text-center">
+                            <h1>
+                                <a class="navbar-brand" href="index.html">
+                                    <i class="fas fa-leaf"></i>Grand Vert</a>
+                            </h1>
+                        </div>
+                        <div class="col-md-3 login-right-img text-center">
+                            <a class="request text-uppercase" href="#" data-toggle="modal" data-target="#exampleModalCenter">Sign In</a>
+                            <a class="request text-uppercase" href="#" data-toggle="modal" data-target="#exampleModalCenter2">Sign Up</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="header-bg">
+                    <div class="container">
+                        <header>
+                            <nav class="navbar navbar-expand-lg navbar-light">
+                                <button class="navbar-toggler navbar-toggler-right mx-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                                    <span class="navbar-toggler-icon"></span>
+                                </button>
+
+                                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                                    <ul class="navbar-nav mr-lg-auto text-left">
+                                        <li class="nav-item active">
+                                            <a class="nav-link" href="index.html">Home
+                                                <span class="sr-only">(current)</span>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="about.html">About</a>
+                                        </li>
+                                        <li class="nav-item dropdown">
+                                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                Services
+                                                <i class="fas fa-angle-down"></i>
+                                            </a>
+                                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                                <a class="dropdown-item" href="services.html">Services</a>
+                                                <a class="dropdown-item" href="services.html" title="">Services 1</a>
+
+                                                <a class="dropdown-item" href="single.html" title="">Single Page</a>
+                                            </div>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="gallery.html">Gallery</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="blog.html">Blog</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="contact.html">Contact</a>
+                                        </li>
+
+                                    </ul>
+                                    <form action="#" method="post" class="form-inline my-2 my-lg-0 header-search">
+                                        <input class="form-control" type="search" placeholder="Search here..." name="Search" required="">
+                                        <button class="btn btn1 my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
                                     </form>
                                 </div>
-                                <div class="cart">
-                                    <a href="#" class="cart-in"> </a>
-                                    <span> 5</span>
-                                </div>
-                                <div class="clearfix"> </div>
-                            </div>
-                        </div>
-                        <div class="clearfix"> </div>
-                    </div>
-                    <div class="header-bottom-bottom">
-                        <div class="top-nav">
-                            <span class="menu"> </span>
-                            <ul>
-                                <li><a href="{{ path('planteaff')}}" > plante</a></li>
-                                <li><a href="services.html" > partage expérience </a></li>
-                                <li><a href="404.html" >boutique</a></li>
-                                <li><a href="{{ path('afficher_categorie') }}" >Forum</a></li>
-                                <li><a href="contact.html" > Evénemenet </a></li>
-                                <li><a href="contact.html" > Contact </a></li>
-                            </ul>
-                            <script>
-                                $("span.menu").click(function(){
-                                    $(".top-nav ul").slideToggle(500, function(){
-                                    });
-                                });
-                            </script>
-                        </div>
-                        <div class="clearfix"> </div>
+                            </nav>
+
+                        </header>
                     </div>
                 </div>
             </div>
         {% endif %}
-    {% endblock %}
+    </div>
+{% endblock %}
 
-{% block content %}
-
-{% endblock content %}
+{% block content %} {% endblock content %}
 
 {% block footer %}
-
 <div class="footer">
-    <div class="container">
-        <p class="footer-grid">Copyright &copy; 2019 Template by  <a href="#" target="_blank">Behinds The Machines</a> </p>
-    </div>
+    <footer class="footer-emp-wthree bg-dark dotts py-lg-5 py-3">
+        <div class="container">
+            <div class="row footer-top">
+                <div class="col-lg-4 footer-grid-w3ls">
+                    <div class="footer-title">
+                        <h3>About Us</h3>
+                    </div>
+                    <div class="footer-text">
+                        <p>Curabitur non nulla sit amet nislinit tempus convallis quis ac lectus. lac inia eget consectetur sed, convallis at tellus. Nulla porttitor accumsana tincidunt.</p>
+                        <ul class="social-icons">
+                            <li class="mr-1"><a href="#"><span class="fab fa-facebook-f"></span></a></li>
+                            <li class="mx-1"><a href="#"><span class="fab fa-twitter"></span></a></li>
+                            <li class="mx-1"><a href="#"><span class="fab fa-google-plus-g"></span></a></li>
+                            <li class="mx-1"><a href="#"><span class="fab fa-linkedin-in"></span></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-4 footer-grid-w3ls">
+                    <div class="footer-title">
+                        <h3>Get in touch</h3>
+                    </div>
+                    <div class="contact-info">
+                        <h4>Location :</h4>
+                        <p>0926k 4th block building, king Avenue, New York City.</p>
+                        <div class="phone">
+                            <h4>Contact :</h4>
+                            <p>Phone : +121 098 8907 9987</p>
+                            <p>Email :
+                                <a href="mailto:info@example.com">info@example.com</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 footer-grid-w3ls">
+                    <div class="footer-title">
+                        <h3>Quick Links</h3>
+                    </div>
+                    <ul class="links">
+                        <li>
+                            <a href="index.html">Home</a>
+                        </li>
+                        <li>
+                            <a href="about.html">About</a>
+                        </li>
+                        <li>
+                            <a href="gallery.html">Gallery</a>
+                        </li>
+                        <li>
+                            <a href="pricing.html">Services</a>
+                        </li>
+                        <li>
+                            <a href="contact.html">Contact Us</a>
+                        </li>
+                    </ul>
+                    <ul class="links">
+                        <li>
+                            <a href="services.html">Features</a>
+                        </li>
+                        <li>
+                            <a href="contact.html">Support</a>
+                        </li>
+                        <li>
+                            <a href="blog.html">Blog</a>
+                        </li>
+                    </ul>
+
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+            <div class="copyright-w3 mt-4">
+                <p class="copy-right text-center ">&copy; 2018 Arable. All Rights Reserved | Design by
+                    <a href="http://w3layouts.com/"> W3layouts </a>
+                </p>
+            </div>
+        </div>
+    </footer>
 </div>
-
-
 {% endblock footer %}
-
 {% block javascripts %}
-    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
-    <script src="{{ asset('Base/js/jquery.min.js') }}"></script>
-    <script src="{{ asset('Base/js/jquery.easydropdown.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('forum/modelbox/script.js') }}"> </script>
+    <script src="{{ asset('base/js/jquery-2.2.3.min.js') }}"></script>
+    <script src="{{ asset('base/js/minimal-slider.j') }}s"></script>
+    <script src="{{ asset('base/js/toucheffects.j') }}s"></script>
+    <script src="{{ asset('base/js/modernizr.custom.js') }}"></script>
+    <!-- carousel -->
+    <script src="{{ asset('base/js/owl.carousel.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            $('.owl-carousel').owlCarousel({
+                loop: true,
+                margin: 10,
+                responsiveClass: true,
+                responsive: {
+                    0: {
+                        items: 1,
+                        nav: true
+                    },
+                    600: {
+                        items: 1,
+                        nav: false
+                    },
+                    900: {
+                        items: 1,
+                        nav: false
+                    },
+                    1000: {
+                        items: 2,
+                        nav: true,
+                        loop: false,
+                        margin: 20
+                    }
+                }
+            })
+        })
+    </script>
+    <!-- //carousel -->
+    <script>
+        $(document).ready(function() {
+            $(".dropdown").hover(
+                function() {
+                    $('.dropdown-menu', this).stop(true, true).slideDown("fast");
+                    $(this).toggleClass('open');
+                },
+                function() {
+                    $('.dropdown-menu', this).stop(true, true).slideUp("fast");
+                    $(this).toggleClass('open');
+                }
+            );
+        });
+    </script>
+    <!-- //dropdown nav -->
+    <!-- stats -->
+    <script src="{{ asset('base/js/jquery.waypoints.min.js') }}"></script>
+    <script src="{{ asset('base/js/jquery.countup.js') }}"></script>
+    <script>
+        $('.counter').countUp();
+    </script>
+    <!-- //stats -->
+
+    <!--/ start-smoth-scrolling -->
+    <script src="{{ asset('js/move-top.js') }}"></script>
+    <script src="{{ asset('js/easing.js') }}"></script>
+    <script>
+        jQuery(document).ready(function($) {
+            $(".scroll").click(function(event) {
+                event.preventDefault();
+                $('html,body').animate({
+                    scrollTop: $(this.hash).offset().top
+                }, 900);
+            });
+        });
+    </script>
+    <!--// end-smoth-scrolling -->
+    <!-- /js -->
+    <script src="{{ asset('base/js/bootstrap.js') }}"></script>
 {% endblock %}
 </body>
 </html>

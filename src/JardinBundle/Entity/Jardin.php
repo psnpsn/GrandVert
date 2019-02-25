@@ -4,6 +4,8 @@ namespace JardinBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use AppBundle;
+
 /**
  * @ORM\Entity
  * @ORM\Table(name="jardin")
@@ -18,10 +20,9 @@ class Jardin
     private $id;
 
     /**
-     * @ORM\Column(name="fos_user_id", type="integer")
-     * @var int
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\User")
      */
-    private $userId;
+    private $user;
 
     /**
      * @var string
@@ -34,6 +35,16 @@ class Jardin
      * @ORM\Column(name="date_creation", type="date")
      */
     private $dateC;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Plantation", mappedBy="jardinId")
+     */
+    private $plantations;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Note", mappedBy="jardinId")
+     */
+    private $notes;
 
 
     /**
@@ -53,7 +64,7 @@ class Jardin
      *
      * @return Jardin
      */
-    public function setuserId($userId)
+    public function setUserId($userId)
     {
         $this->userId = $userId;
     
@@ -65,7 +76,7 @@ class Jardin
      *
      * @return integer
      */
-    public function getuserId()
+    public function getUserId()
     {
         return $this->userId;
     }
@@ -117,5 +128,39 @@ class Jardin
     {
         return $this->dateC;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getPlantations()
+    {
+        return $this->plantations;
+    }
+
+    /**
+     * @param mixed $plantations
+     */
+    public function setPlantations($plantations)
+    {
+        $this->plantations = $plantations;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getNotes()
+    {
+        return $this->notes;
+    }
+
+    /**
+     * @param mixed $notes
+     */
+    public function setNotes($notes)
+    {
+        $this->notes = $notes;
+    }
+
+
 }
 

@@ -6,7 +6,6 @@ imports:
     - { resource: "@PlanteBundle/Resources/config/services.yml" }
     - { resource: "@AchatBundle/Resources/config/services.yml" }
     - { resource: "@JardinBundle/Resources/config/services.yml" }
-    - { resource: "@PreservationBundle/Resources/config/services.yml" }
 
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
@@ -14,8 +13,6 @@ parameters:
     locale: fr
     image_directory: '%kernel.project_dir%/web/uploads/avatar'
 framework:
-    templating:
-        engines: ['twig']
     #esi: ~
     translator: { fallbacks: ['%locale%'] }
     secret: '%secret%'
@@ -123,3 +120,16 @@ knp_snappy:
         enabled:    true
         binary:     "\"C:\\Program Files\\wkhtmltopdf\\bin\\wkhtmltoimage.exe\""
         options:    []
+
+
+framework:
+    translator: ~
+    validation: { enabled: true }
+    validation: { enable_annotations: true }
+
+# NotificationsBundle configuration
+notifications:
+    app_id:     721623
+    app_key:    cce427075a55d24d16dc
+    app_secret: 342abeaab58c3bcc4d74
+    cluster:    eu

@@ -1,0 +1,73 @@
+{% extends 'base.html.twig' %}
+{% block content %}
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <style>
+        table{
+            font-size:120%;
+        }
+    </style>
+    <div class="container">
+    <div class="product">
+        <table class="table" style="table-layout: fixed">
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col"></th>
+                <th scope="col">nom de plante</th>
+                <th scope="col">prix</th>
+                <th scope="col">contité</th>
+                <th scope="col">total</th>
+                <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody>
+{% for panier in panier %}
+    <tr><td align="center"><a data-toggle="modal" data-target="#{{ panier.id }}"><i class="fa fa-close"></i></a>
+        </td>
+            <td><a href="{{ path('plantedetaile',{'id':panier.id}) }}">{{ panier.nom }}</a></td>
+            <td>{{ panier.prix }}</td>
+            <td ><input style="width: 100px" name="contite{{ panier.id }}" id="contite{{ panier.id }}" type="number" min="1" value="1"></td>
+        <td id="total{{ panier.id }}"></td>
+        <td ><button class="w3-button w3-indigo" onclick="modifier({{ panier.id }})">Acheter</button></td>
+        </tr>
+    <div class="modal fade" id="{{ panier.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="exampleModalLabel">message confirmation</h4>
+                </div>
+                <div class="modal-body">
+                    Voulez-vous supprimer cette plante du panier?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">annuler</button>
+                    <a href="{{ path('delpa',{'id':panier.id}) }}" >   <button type="button" class="btn btn-primary">Supprimer</button></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.4.3.min.js" ></script>
+    <script>
+        var cont=  $("#contite{{ panier.id }}").val();
+        document.getElementById('total{{ panier.id }}').innerHTML=cont*{{ panier.prix }};
+        $(document).ready(function(){
+            $("#contite{{ panier.id }}").on('keyup mouseup',function(){
+                cont= $(this).val();
+                document.getElementById('total{{ panier.id }}').innerHTML=cont*{{ panier.prix }};
+            });
+        });
+        function modifier(id){
+          console.log(cont);
+            console.log(id);
+            var url ="{{ path('achat',{'id':'Id','cont':'Cont'}) }}";
+            url = url.replace("Id", id);
+            url = url.replace("Cont",cont);
+            window.location.replace(url);
+        }
+    </script>
+{% endfor %}
+            </tbody>
+        </table>
+    </div>
+    </div>
+{% endblock %}
+

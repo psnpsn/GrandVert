@@ -52,6 +52,20 @@ class Reponse
     private $dateRedited;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="archive", type="boolean", length=255)
+     */
+    private $archive=false;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="nbsignal", type="integer")
+     */
+    private $nbsignal=0;
+
+    /**
      * @ORM\ManyToOne(targetEntity="ForumBundle\Entity\Sujet")
      * @ORM\JoinColumn(referencedColumnName="id" , onDelete="CASCADE")
      */
