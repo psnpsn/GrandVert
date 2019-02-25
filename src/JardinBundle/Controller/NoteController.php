@@ -15,7 +15,7 @@ class NoteController extends Controller
     {
         $note = new Note();
         $form = $this->createForm(NoteType::class, $note);
-        //if ($request->isXmlHttpRequest()) {
+        if ($request->isXmlHttpRequest()) {
             $jardin = $this->getDoctrine()->getRepository('JardinBundle:Jardin')->find($jardinId);
             $note->setJardinId($jardin);
             $newDate = date_create_from_format("Y-n-d", $date);
@@ -29,7 +29,7 @@ class NoteController extends Controller
                 $em->flush();
                 return new Response("Success");
             }
-        //}
+        }
         return $this->render('@Jardin/Note/add.html.twig', array(
             "Form"=>$form->createView()
         ));
