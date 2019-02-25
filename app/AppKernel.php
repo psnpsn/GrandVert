@@ -25,6 +25,7 @@ class AppKernel extends Kernel
             new JardinBundle\JardinBundle(),
             new PreservationBundle\PreservationBundle(),
             new Knp\Bundle\SnappyBundle\KnpSnappyBundle(),
+            new EvenementBundle\EvenementBundle(),
             new SBC\NotificationsBundle\NotificationsBundle(),
         ];
 
