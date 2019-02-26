@@ -6,9 +6,12 @@
     <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
     <script>
         $(document).ready(function(){
+            var currentRange;
             //init global variables
             var days;
             var URL;
+            var URL_add;
+            var URL_update;
             var newDate = new Date();
             //calendar functions
             $("#setDateBt").click(function () {
@@ -39,8 +42,10 @@
             });
 
             //when dates are changed
-            function rangeChanged(target,range){
+            function rangeChanged(target,range) {
                 console.log(range);
+                currentRange = range;
+                clearDaysElements();
                 var startDay = moment(range.start).format('DD');
                 var startMonth = moment(range.start).format('MMM');
                 var startYear = moment(range.start).format('YY');
@@ -51,59 +56,81 @@
                 $(".calendar-values .start-date .value").html(startDay);
                 $(".calendar-values .start-date .label").html("");
                 $(".calendar-values .start-date .label").append(startMonth);
-                $(".calendar-values .start-date .label").append("<small>"+startYear+"</small>");
+                $(".calendar-values .start-date .label").append("<small>" + startYear + "</small>");
                 $(".calendar-values .end-date .value").html(endDay);
                 $(".calendar-values .end-date .label").html("");
                 $(".calendar-values .end-date .label").append(endMonth);
-                $(".calendar-values .end-date .label").append("<small>"+endYear+"</small>");
+                $(".calendar-values .end-date .label").append("<small>" + endYear + "</small>");
                 $(".calendar-values .days-width .value").html(range.width);
                 $(".calendar-values .from-now .label").html(range.fromNow);
+                onRangeChanged(range);
+            }
 
-                days = range.all.split(',');
-                //get notes
-                $.ajax({
-                    url: '{{ path('note_list') }}',
-                    type: "POST",
-                    data: {
-                        jardin_id: {{ jardin.id }},
-                        days_list: days
-                    },
-                    success: function(data){
-                        if (typeof data.status != "undefined" && data.status != "undefined")
-                        {
-                            if (data.status == "OK")
+                function onRangeChanged(range){
+                    days = range.all.split(',');
+                    //get notes
+                    $.ajax({
+                        url: '{{ path('note_list') }}',
+                        type: "POST",
+                        data: {
+                            jardin_id: {{ jardin.id }},
+                            days_list: days
+                        },
+                        success: function(data){
+                            if (typeof data.status != "undefined" && data.status != "undefined")
                             {
-                                console.log(data.message)
-
-                                if (typeof data.message != "undefined" && data.message != "undefined")
+                                if (data.status == "OK")
                                 {
-                                    // Do whatever you need with data.message
+                                    console.log(data.message)
+                                    for (i=0; i<data.message.length; i++){
+                                        var date_element = data.message[i];
+                                        for (j=0; j<7; j++){
+                                            if (date_element.date == days[j]){
+                                                k=j+1;
+                                                var note = document.createElement('div');
+                                                note.id = 'note-' + date_element.id;
+                                                URL_update = Routing.generate('note_update',{ id: date_element.id });
+                                                note.innerHTML = "<a data-toggle=\"modal\" data-target=\"#updateNoteModal\" id=\"update-note-btn_"+ date_element.id +"\"> <i class=\"far fa-sticky-note\"></i></a>\n" +
+                                                    "                    <a data-toggle=\"modal\" data-target=\"#deleteModal\" id=\"delete-note-btn_" + date_element.id + "\"> <i class=\"far fa-trash-alt\"></i></a>";
+                                                document.getElementById("notes-day" + k ).appendChild(note);
+                                                removeDuplicates($("#notes-day"+k));
+                                            }
+
+                                        }
+                                    }
+                                    if (typeof data.message != "undefined" && data.message != "undefined")
+                                    {
+                                        // Do whatever you need with data.message
+                                    }
                                 }
                             }
+                        },
+                        error: function(){
+                            console.log('Error in Ajax');
                         }
-                    },
-                    error: function(){
-                        console.log('Error in Ajax');
-                    }
-                });
+                    });
 
-                var daysNameList = ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'];
-                for (i=0; i<7;i++){
-                    var d = new Date(days[i]);
-                    var dayName = daysNameList[d.getDay()];
-                    j=i+1;
-                    document.getElementById("day"+ j ).innerHTML= dayName + " " + d.getDate();
+                    var daysNameList = ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'];
+                    for (i=0; i<7;i++){
+                        var d = new Date(days[i]);
+                        var dayName = daysNameList[d.getDay()];
+                        j=i+1;
+                        document.getElementById("day"+ j ).innerHTML= dayName + " " + d.getDate();
+                    }
                 }
-            }
+
 
             //ajax for filling modal with form
             $('#addNoteModal').on('shown.bs.modal', function (event) {
                 console.log(event.relatedTarget.id.split("_").pop());
                 var dayNum = event.relatedTarget.id.split("_").pop();
-                console.log(days[dayNum-1]);
                 var modal = $(this);
-                URL = Routing.generate('note_add',{ jardinId: {{ jardin.id }}, date: days[dayNum-1] })
-                $.ajax(URL, {
+                URL_add = Routing.generate('note_add',{ jardinId: {{ jardin.id }}, date: days[dayNum-1] });
+                URL = URL_add;
+                console.log(URL_add);
+                console.log(URL_update);
+                console.log(URL);
+                $.ajax(URL_add, {
                     date: days[dayNum-1],
                     success: function(data) {
                         modal.find('.modal-body').html(data);
@@ -111,14 +138,25 @@
                 });
             });
 
-            //ajax for submitting form
+            $('#updateNoteModal').on('shown.bs.modal', function (event) {
+                console.log(event.relatedTarget.id.split("_").pop());
+                var note_id = event.relatedTarget.id.split("_").pop();
+                var modal = $(this);
+                URL_update = Routing.generate('note_update',{ id: note_id });
+                URL = URL_update;
+                $.ajax(URL_update, {
+                    success: function(data) {
+                        modal.find('.modal-body').html(data);
+                    }
+                });
+            });
+
+            //ajax for submitting forms
             $(document).on('submit', 'form', function(e){
                 e.preventDefault();
 
                 $form = $(e.target);
-                modal = $('#addNoteModal');
-
-                var title = $('#article_title').val();
+                console.log(e.relatedTarget);
 
                 var $submitButton = $form.find(':submit');
                 $submitButton.html('<i class="fas fa-spinner fa-pulse"></i>');
@@ -130,10 +168,61 @@
                     url:URL,
                     cache: false,
                     success: function( msg ){
+                        $('.modal').modal('hide');
+                        onRangeChanged(currentRange);
                         console.log(msg);
                     }
                 });
             });
+
+            //delete confirmation modal
+            $('#deleteModal').on('shown.bs.modal', function (event) {
+                console.log(event.relatedTarget.id.split("_").pop());
+                var id = event.relatedTarget.id.split("_").pop();
+                var modal = $(this);
+                var URL_delete = Routing.generate('note_delete',{ id: id });
+                btn_supp = modal.find('#btn-supprimer');
+                //btn_supp.attr("href", URL_delete);
+                btn_supp.click(function () {
+                    $.ajax(URL_delete, {
+                        success: function(data) {
+                            console.log(data);
+                            modal.modal('hide');
+                            onRangeChanged(currentRange);
+                        }
+                    });
+                })
+                console.log(btn_supp.href);
+            });
+
+            // util functions:
+            //removing duplicate elements in days div when displaying (calendar bug)
+            function removeDuplicates($elem){
+                var ids = {};
+
+                //go over each element
+                var children = $elem.children();
+                for ( var i = 0, len = children.length; i < len; i++ ) {
+                    var id = children[ i ].id;
+
+                    //was this id previously seen?
+                    if ( ids.hasOwnProperty(id) ) {
+                        $( children[i] ).remove();
+                    }
+                    //a brand new id was discovered!
+                    else {
+                        ids[ id ] = true;
+                    }
+                }
+            }
+            //clearing notes on each rangeChange
+            function clearDaysElements()
+            {
+                for (i=1;i<8;i++){
+                    document.getElementById("notes-day" + i).innerHTML = "";
+                }
+
+            }
         });
 
 
@@ -168,22 +257,20 @@
                         <button id="setDateBt" class="btn btn-primary" type="submit">Add</button>
                     </div>
                 </div>
-                <div>
+                <div id="weather-day{{ dayNumber }}">
                     <h4>Weather lorem posem lolm</h4>
                 </div>
-                <div>
-                    <a href="your link here"> <i class="far fa-sticky-note"></i></a>
-                    <a href="your link here"> <i class="far fa-trash-alt"></i></a>
+                <div id="notes-day{{ dayNumber }}" class="notes-day">
                 </div>
             </div>
         {% endfor %}
         </div>
-        <!-- Modal -->
+        <!-- Add Note Modal -->
         <div class="modal fade" id="addNoteModal" tabindex="-1" role="dialog" aria-labelledby="addNoteModalTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="addNoteModalLongTitle">Modal title</h5>
+                        <h5 class="modal-title" id="addNoteModalLongTitle">Ajouter une Note</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -192,6 +279,44 @@
                         Loading...
                     </div>
                     <div class="modal-footer">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Update Note Modal -->
+        <div class="modal fade" id="updateNoteModal" tabindex="-1" role="dialog" aria-labelledby="updateNoteModalTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="updateNoteModalLongTitle">Note</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div id="modal-form-addnote" class="modal-body">
+                        Loading...
+                    </div>
+                    <div class="modal-footer">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Delete Confirmation Modal -->
+        <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="deleteModalLongTitle">Confirmation de suppression</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        Cette action est irrevesible, ête-vous sure ?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                        <button type="button" class="btn btn-danger"><a id="btn-supprimer">Supprimer</a></button>
                     </div>
                 </div>
             </div>

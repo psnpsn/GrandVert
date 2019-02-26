@@ -16,38 +16,72 @@ class NoteController extends Controller
     {
         $note = new Note();
         $form = $this->createForm(NoteType::class, $note);
-        if ($request->isXmlHttpRequest()) {
+
+        if ($request->isXmlHttpRequest())
+        {
             $jardin = $this->getDoctrine()->getRepository('JardinBundle:Jardin')->find($jardinId);
+
             $note->setJardinId($jardin);
             $newDate = date_create_from_format("Y-n-d", $date);
             $note->setDateN($newDate);
+
             //handling request and saving entity
             $form->handleRequest($request);
-            if ($form->isSubmitted() && $form->isValid()) {
-                // echo 'suite au clic sur le bouton submit ';
+
+            if ($form->isSubmitted() && $form->isValid())
+            {
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($note);
                 $em->flush();
+
                 return new Response("Success");
             }
+
         }
+
         return $this->render('@Jardin/Note/add.html.twig', array(
             "Form"=>$form->createView()
         ));
     }
 
-    public function updateAction()
+    public function updateAction(Request $request)
     {
-        return $this->render('JardinBundle:Note:update.html.twig', array(
-            // ...
+        $em = $this->getDoctrine()->getManager();
+        $id = $request->get('id');
+        $note = $em->getRepository('JardinBundle:Note')->find($id);
+        $form = $this->createForm(NoteType::class, $note);
+
+        if ($request->isXmlHttpRequest())
+        {
+            $form->handleRequest($request);
+
+            if ($form->isSubmitted() && $form->isValid())
+            {
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($note);
+                $em->flush();
+
+                return new Response("Success");
+            }
+
+        }
+
+        return $this->render('@Jardin/Note/update.html.twig', array(
+            "Form"=>$form->createView()
         ));
     }
 
-    public function deleteAction()
+    public function deleteAction(Request $request)
     {
-        return $this->render('JardinBundle:Note:delete.html.twig', array(
-            // ...
-        ));
+        $id = $request->get('id');
+
+        $em = $this->getDoctrine()->getManager();
+
+        $note = $em->getRepository('JardinBundle:Note')->find($id);
+        $em->remove($note);
+        $em->flush();
+
+        return new Response("Note supprimée");
     }
 
     public function viewAction()
@@ -59,9 +93,6 @@ class NoteController extends Controller
 
     public function listAction(Request $request)
     {
-        $entityManager = $this->getDoctrine()->getManager();
-
-
         if(isset($request->request))
         {
             $jardin_id = $request->request->get('jardin_id');

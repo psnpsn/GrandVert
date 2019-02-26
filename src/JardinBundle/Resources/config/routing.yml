@@ -19,10 +19,14 @@ note_add:
 note_update:
     path:     /note/update
     defaults: { _controller: JardinBundle:Note:update }
+    options:
+        expose: true
 
 note_delete:
     path:     /note/delete
     defaults: { _controller: JardinBundle:Note:delete }
+    options:
+        expose: true
 
 note_view:
     path:     /note
