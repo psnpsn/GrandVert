@@ -318,7 +318,7 @@ class SujetController extends Controller
         $plante = null;
 
 
-        return $this->render('@Forum/Sujet/afficher.html.twig' , ["sujets" => $paginationsujets , "plante" => $plante ,"NbReponses" => $NbReponses ,"User" => $user , "message" => "hide"]);
+        return $this->render('@Forum/Sujet/afficher.html.twig' , ["sujets" => $paginationsujets , "plante" => $plante ,"NbReponses" => $NbReponses ,"User" => $user , "message" => "hide" , "errorsString" => "" ]);
     }
 
     public function editAction(Request $request) {
