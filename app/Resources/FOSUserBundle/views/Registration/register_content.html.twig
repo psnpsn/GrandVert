@@ -2,18 +2,21 @@
 {% trans_default_domain 'FOSUserBundle' %}
 {% block content %}
 
-    <div class="container">
-        <div class="sign">
+    <div class="banner-bottom-w3layouts py-lg-5 py-3">
+        <div class="container">
             <h3>SIGNUP</h3>
             {{ form_start(form, {'method': 'post', 'action': path('fos_user_registration_register'), 'attr': {'class': 'fos_user_registration_register'}}) }}
-            {{ form_row(form.avatar) }}
-            {{ form_row(form.nom) }}
-            {{ form_row(form.prenom) }}
-            {{ form_row(form.email, {'attr': {'type': 'text'}}) }}
-            {{ form_row(form.tel) }}
-            {{ form_row(form.plainPassword) }}
+            {{ form_row(form.avatar,{'attr': {'class': 'form-control'}}) }}
+            {{ form_row(form.nom,{'attr': {'class': 'form-control'}}) }}
+            {{ form_row(form.prenom,{'attr': {'class': 'form-control'}}) }}
+            {{ form_row(form.email,{'attr': {'class': 'form-control'}}) }}
+            {{ form_row(form.adresse,{'attr': {'class': 'form-control'}}) }}
+            {{ form_row(form.tel,{'attr': {'class': 'form-control'}}) }}
+            {{ form_row(form.plainPassword.first,{'attr': {'class': 'form-control'}}) }}
+            {{ form_row(form.plainPassword.second,{'attr': {'class': 'form-control'}}) }}
+            <br>
             <div>
-                <input type="submit" value="incription" />
+                <button type="submit" id="_submit" name="_submit"  class="btn btn-primary btn-lg" >inscription</button>
             </div>
             {{ form_end(form) }}
         </div>

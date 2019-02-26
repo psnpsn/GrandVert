@@ -26,7 +26,14 @@ class planteType extends AbstractType
                     'Herbe' => 'Herbe',
                     'Fleur' => 'Fleur',
                 ],
-            ])->add('season');
+            ])->add('season',ChoiceType::class, [
+                'choices'  => [
+                    'Hiver' => 'Hiver',
+                    'Automne ' => 'Automne',
+                    'Printemps' => 'Printemps',
+                    'Été' => 'Été',
+                ],
+            ]);
     }/**
      * {@inheritdoc}
      */
