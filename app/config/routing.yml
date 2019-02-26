@@ -30,6 +30,9 @@ app:
 fos_user:
     resource: "@FOSUserBundle/Resources/config/routing/all.xml"
 
+fos_js_routing:
+    resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
+
 list_user/admin:
     path:     /admin/list_user
     defaults: { _controller: AppBundle:User:list }

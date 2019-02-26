@@ -6,6 +6,7 @@ use JardinBundle\Entity\Jardin;
 use JardinBundle\Entity\Note;
 use JardinBundle\Form\NoteType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -54,6 +55,65 @@ class NoteController extends Controller
         return $this->render('JardinBundle:Note:view.html.twig', array(
             // ...
         ));
+    }
+
+    public function listAction(Request $request)
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+
+
+        if(isset($request->request))
+        {
+            $jardin_id = $request->request->get('jardin_id');
+            $days = $request->request->get('days_list');
+
+            $jardin_id = intval($jardin_id);
+
+            if ($jardin_id == 0)
+            {
+                return new JsonResponse(array(
+                    'status' => 'Error',
+                    'message' => 'Error'),
+                    400);
+            }
+
+            $jardin = $this->getDoctrine()->getRepository('JardinBundle:Jardin')->find($jardin_id);
+
+            if ($jardin === null)
+            {
+                return new JsonResponse(array(
+                    'status' => 'Error',
+                    'message' => 'Error'),
+                    400);
+            }
+
+            $notes = $jardin->getNotes();
+            $notes_array = array();
+            foreach ($notes as $note)
+            {
+                foreach ($days as $day)
+                {
+                    $date = date_create_from_format("Y-n-d", $day);
+                    $noteDate = $note->getDateN();
+                    if ($date->format('Y-n-d') == $noteDate->format('Y-n-d'))
+                    {
+                        array_push($notes_array, array(
+                            'contenu' => $note->getContenu(),
+                            'date' => $day,
+                            'id' => $note->getId()
+                        ));
+                    }
+                }
+            }
+            return new JsonResponse(array(
+                'status' => 'OK',
+                'message' => $notes_array),
+                200);
+        }
+        return new JsonResponse(array(
+            'status' => 'Error',
+            'message' => 'Error'),
+            400);
     }
 
 }

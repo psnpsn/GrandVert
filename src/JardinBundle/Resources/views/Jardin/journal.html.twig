@@ -60,32 +60,7 @@
                 $(".calendar-values .from-now .label").html(range.fromNow);
 
                 days = range.all.split(',');
-                //get notes
-                $.ajax({
-                    url: '{{ path('note_list') }}',
-                    type: "POST",
-                    data: {
-                        jardin_id: {{ jardin.id }},
-                        days_list: days
-                    },
-                    success: function(data){
-                        if (typeof data.status != "undefined" && data.status != "undefined")
-                        {
-                            if (data.status == "OK")
-                            {
-                                console.log(data.message)
 
-                                if (typeof data.message != "undefined" && data.message != "undefined")
-                                {
-                                    // Do whatever you need with data.message
-                                }
-                            }
-                        }
-                    },
-                    error: function(){
-                        console.log('Error in Ajax');
-                    }
-                });
 
                 var daysNameList = ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'];
                 for (i=0; i<7;i++){
@@ -155,28 +130,24 @@
     <div class="container">
         <div id="cal2" class="cal"></div>
         <div class="container">
-        {% for dayNumber in 1..7 %}
-            <div class="day-container" id="day-container{{ dayNumber }}">
-                <div class="dayHeader">
-                    <div class="dayName"><h2 id="day{{ dayNumber }}"></h2></div>
-                    <div class="add-note-btn">
-                        <button id="add-note-btn_{{ dayNumber }}" type="button" class="btn btn-primary" data-toggle="modal" data-target="#addNoteModal">
-                            Add Note
-                        </button>
+            {% for dayNumber in 1..7 %}
+                <div class="day-container" id="day-container{{ dayNumber }}">
+                    <div class="dayHeader">
+                        <div class="dayName"><h2 id="day{{ dayNumber }}"></h2></div>
+                        <div class="add-note-btn">
+                            <button id="add-note-btn_{{ dayNumber }}" type="button" class="btn btn-primary" data-toggle="modal" data-target="#addNoteModal">
+                                Add Note
+                            </button>
+                        </div>
+                        <div class="activity-bar">
+                            <button id="setDateBt" class="btn btn-primary" type="submit">Add</button>
+                        </div>
                     </div>
-                    <div class="activity-bar">
-                        <button id="setDateBt" class="btn btn-primary" type="submit">Add</button>
+                    <div>
+                        <h4>Weather lorem posem lolm</h4>
                     </div>
                 </div>
-                <div>
-                    <h4>Weather lorem posem lolm</h4>
-                </div>
-                <div>
-                    <a href="your link here"> <i class="far fa-sticky-note"></i></a>
-                    <a href="your link here"> <i class="far fa-trash-alt"></i></a>
-                </div>
-            </div>
-        {% endfor %}
+            {% endfor %}
         </div>
         <!-- Modal -->
         <div class="modal fade" id="addNoteModal" tabindex="-1" role="dialog" aria-labelledby="addNoteModalTitle" aria-hidden="true">

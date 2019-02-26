@@ -9,6 +9,22 @@ use Symfony\Component\HttpFoundation\Request;
 
 class JardinController extends Controller
 {
+    public function journalAction(Request $request)
+    {
+        $user = $this->getUser();
+        $jardin = new Jardin();
+        $jardin->setUserId($user);
+        $em = $this->getDoctrine()->getManager();
+        $jardin = $em->getRepository('JardinBundle:Jardin')->findByUser($user);
+        if($request->isXmlHttpRequest()){
+            $i=$request->get('width');
+            return new JsonResponse($i);
+        }
+        return $this->render('@Jardin/index.html.twig', array(
+            "jardin" => $jardin[0]
+        ));
+    }
+
     public function addAction(Request $request)
     {
         //init jardin

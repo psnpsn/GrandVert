@@ -13,6 +13,8 @@ jardin_update:
 note_add:
     path:     /note/add/{jardinId}/{date}
     defaults: { _controller: JardinBundle:Note:add }
+    options:
+        expose: true
 
 note_update:
     path:     /note/update
@@ -25,3 +27,7 @@ note_delete:
 note_view:
     path:     /note
     defaults: { _controller: JardinBundle:Note:view }
+
+note_list:
+    path:   /notelist
+    defaults: {_controller: JardinBundle:Note:list }
