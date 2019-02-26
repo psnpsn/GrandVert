@@ -41,7 +41,7 @@ class CategorieController extends Controller
         //parcourir la liste de plante
         for($i = 0; $i < count($plantes); ++$i) {
             //recuperer tous les sujets de plante
-            $sujets=$em->getRepository("ForumBundle:Sujet")->findBy(['Plante'=> $plantes[$i] ]);
+            $sujets=$em->getRepository("ForumBundle:Sujet")->findBy(['Plante'=> $plantes[$i] , "archive" => false ]);
 
             array_push($nbsujets, array('plante' => $plantes[$i] , 'nbsujetp' => count($sujets)));
         }

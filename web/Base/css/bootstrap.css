@@ -8973,8 +8973,3 @@ a.text-dark:hover, a.text-dark:focus {
   }
 }
 /*# sourceMappingURL=bootstrap.css.map */
-
-
-.dropdown:hover>.dropdown-menu {
-  display: block;
-}
