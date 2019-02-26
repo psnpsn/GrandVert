@@ -7,12 +7,21 @@ ajouterev:
 modifev:
     path:     /modifev
     defaults: { _controller: EvenementBundle:Evenement:modifev }
-afficherev:
-    path: /afficherev
-    defaults: { _controller: EvenementBundle:Evenement:affichierev }
 pageev:
     path:     /page
     defaults: { _controller: EvenementBundle:Evenement:pageev }
 evuser:
     path:     /evuser
     defaults: { _controller: EvenementBundle:Evenement:evuser }
+consulter:
+    path:     /consulter
+    defaults: { _controller: EvenementBundle:Evenement:consulter }
+participer:
+    path:     /participer
+    defaults: { _controller: EvenementBundle:Evenement:participer }
+participerp:
+    path:     /participerp
+    defaults: { _controller: EvenementBundle:Evenement:participerp }
+inviter:
+    path:     /inviter
+    defaults: { _controller: EvenementBundle:Evenement:inviter }

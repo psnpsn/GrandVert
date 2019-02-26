@@ -5,7 +5,6 @@
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/font-awesome.min.css') }}" rel="stylesheet">
     <link href="{{ asset('style.css') }}" rel="stylesheet">
-
     <link rel="stylesheet" href="{{ 'css/navmenu/styles.css' }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ 'css/portfolio.jquery.css' }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ 'css/fonticons.css' }}" rel="stylesheet">
@@ -27,15 +26,6 @@
     {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
 
     <div class="main-nav navbar-collapse collapse">
-        <div class="container">
-            <ul class="nav nav-justified">
-                <li><center><a href="{{ path('afficherev')}}"><h3 style="color:red;">Evénements</h3></a></center></li>
-                <li><center><a href=""><h3 style="color:red;">Mon Calendrier</h3></a></center></li>
-                <li><center><a href="{{ path('evuser')}}"><h3 style="color:red;">Mes Evénements</h3></a></center></li>
-
-            </ul>
-        </div>
-        <center><h4 class="media-object"><a href="{{ path('ajouterev')}}" title="add">Créer un événement</a></h4></center>
         <main class="site-main category-main">
         <div class="container">
         {% for message in app.flashes('notice') %}
@@ -46,7 +36,7 @@
         <div class="row">
             <section class="category-content col-sm-9">
                 <h2 class="category-title">Les évévements</h2>
-                <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Recherche.." title="Type in a name">
+
                 <ul class="media-list" id="myUL">
                     {% for Evenement in Evenements %}
                     <li class="media" >
@@ -66,19 +56,15 @@
                             <br>
                             <aside class="meta category-meta">
                                 <div class="pull-left">
-                                    <div class="arc-comment"><i class="fa fa-comments"></i> 0 vues</div>
-                                    <div class="arc-date"><a href="#">Inviter</a></div>
-                                    <div class="arc-date">|</div>
-                                    <div class="arc-date"><a href="#">Intéressé(e)</a></div>
-                                    <div class="arc-date">|</div>
-                                    <div class="arc-date"><a href="#">Particpe</a></div>
+                                    <div class="arc-comment"><i class="fa fa-comments"></i> 0 Particpants</div>
+                                </div>
+                                <div class="pull-left">
+                                        <a href="{{ path('consulter',{'id':Evenement.id })}}"> <button  >Consulter</button></a>
+
                                 </div>
                                 <div class="pull-right">
                                     <ul class="arc-share">
                                         <li><a href="#" title="Post"><i class="fa fa-facebook"></i></a></li>
-                                        <li><a href="#" title="Post"><i class="fa fa-twitter"></i></a></li>
-                                        <li><a href="#" title="Post"><i class="fa fa-linkedin"></i></a></li>
-                                        <li><a href="#" title="Post"><i class="fa fa-google-plus"></i></a></li>
                                     </ul>
                                 </div>
                             </aside>
@@ -89,16 +75,7 @@
     </div>
 
     {% else %}
-        <div class="main-nav navbar-collapse collapse">
-            <div class="container">
 
-                <ul class="nav nav-justified">
-                    <li><center><a href="{{ path('pageev')}}"><h3 style="color:red;">Evénements</h3></a></center></li>
-                </ul>
-            </div>
-        </div>
-        </div>
-        <center><h4 class="media-object"><a href="{{ path('ajouterev')}}" title="add">Créer un événement</a></h4></center>
         <main class="site-main category-main">
         <div class="container">
         <div class="row">
@@ -125,18 +102,13 @@
                                 <aside class="meta category-meta">
                                     <div class="pull-left">
                                         <div class="arc-comment"><i class="fa fa-comments"></i> 0 Participants</div>
-                                        <div class="arc-date"><a href="#">Inviter</a></div>
+                                        <div class="arc-date"><a href="{{ path('fos_user_security_login')}}">Inviter</a></div>
                                         <div class="arc-date">|</div>
-                                        <div class="arc-date"><a href="#">Intéressé(e)</a></div>
-                                        <div class="arc-date">|</div>
-                                        <div class="arc-date"><a href="#">Participe</a></div>
+                                        <div class="arc-date"><a href="{{ path('fos_user_security_login')}}">Participe</a></div>
                                     </div>
                                     <div class="pull-right">
                                         <ul class="arc-share">
                                             <li><a href="#" title="Post"><i class="fa fa-facebook"></i></a></li>
-                                            <li><a href="#" title="Post"><i class="fa fa-twitter"></i></a></li>
-                                            <li><a href="#" title="Post"><i class="fa fa-linkedin"></i></a></li>
-                                            <li><a href="#" title="Post"><i class="fa fa-google-plus"></i></a></li>
                                         </ul>
                                     </div>
                                 </aside>
@@ -145,22 +117,5 @@
                     {% endfor %}
 
     {% endif %}
-    <script>
-        function myFunction() {
-            var input, filter, ul, li, a, i, txtValue;
-            input = document.getElementById("myInput");
-            filter = input.value.toUpperCase();
-            ul = document.getElementById("myUL");
-            li = ul.getElementsByTagName("li");
-            for (i = 0; i < li.length; i++) {
-                a = li[i].getElementsByTagName("h3")[0];
-                txtValue = a.textContent || a.innerText;
-                if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                    li[i].style.display = "";
-                } else {
-                    li[i].style.display = "none";
-                }
-            }
-        }
-    </script>
+
         {% endblock %}
