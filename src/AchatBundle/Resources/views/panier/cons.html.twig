@@ -25,7 +25,9 @@
                                                 </div>
                                                 <p class="mb-0 ellipsis">quantité: {{ commande.contite }} </p>
                                                 <p class="mb-0 ellipsis">etat: {{ commande.etat }}</p>
+                                                <p class="mb-0 ellipsis">date ajout: {{ commande.date|date("d/m/Y H:i:s", "Europe/Paris" )}}</p>
                                                 <p class="mb-0 ellipsis">commandé par: {{ commande.user.nom }} {{ commande.user.prenom }}</p>
+                                                <p class="mb-0 ellipsis">adresse : {{ commande.user.adresse }}</p>
                                             </div>
                                             {% if commande.etat=="en cour..." %}
                                             <div class="ticket-actions col-md-2">

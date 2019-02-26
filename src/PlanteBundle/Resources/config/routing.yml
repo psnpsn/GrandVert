@@ -37,3 +37,9 @@ addpanier:
 result:
     path: /resultat
     defaults: { _controller: PlanteBundle:Plante:res }
+archive:
+    path: /archive
+    defaults: { _controller: PlanteBundle:Plante:arc }
+archi:
+    path: /archi
+    defaults: { _controller: PlanteBundle:Plante:arch }

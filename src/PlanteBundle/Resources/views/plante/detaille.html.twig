@@ -21,9 +21,7 @@
                         <div class="blog-grid-top">
                             <div class="b-grid-top">
                                 <div class="blog_info_left_grid">
-                                    <a href="single.html">
                                         <img src="{{ asset('uploads/avatar/'~plante.photo) }}" style="height: 250px;width: 300px" alt="">
-                                    </a>
                                 </div>
                             </div>
 
@@ -34,8 +32,8 @@
                             <p>categorie: {{ plante.categorie }}</p>
                             <p>season: {{ plante.season }}</p>
                             <p>Description:</p><p> {{ plante.Description }}</p>
-                            <a href="{{ path('addpanier',{'id':plante.id}) }}"  >
-                                        <button type="submit" class="btn btn-primary  btn-lg"> Ajouer au panier</button></a>
+                            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %} <a href="{{ path('addpanier',{'id':plante.id}) }}"  >
+                                        <button type="submit" class="btn btn-primary  btn-lg"> Ajouer au panier</button></a>{% endif %}
                         </div>
 
                         <div class="comment-top">
