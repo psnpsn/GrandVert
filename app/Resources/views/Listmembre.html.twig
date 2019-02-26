@@ -129,6 +129,7 @@
 
             </ul>
         </nav>
+
         <!-- partial -->
         <div class="main-panel">
             <div class="content-wrapper">
@@ -137,6 +138,10 @@
                         <div class="card">
                             <div class="card-body">
                                 <h5 class="card-title mb-4">Gestion membre</h5>
+                                    <label> Email :</label>
+                                    <input type="text" name="email" id="email">
+                                    <input type="submit" value="Rechercher" onsubmit="getUsers()">
+
                                 <div class="fluid-container">
                                     {% for membre in Membres %}
                                     <div class="row ticket-card mt-3 pb-2 border-bottom pb-3 mb-3">
@@ -236,13 +241,10 @@
             },
             async: true,
             success: function (data) {
-                console.log(data)
                 $('#ajax-results').empty();
-                //$('#nbnotif').data('count', data.count);
-                //$("#nbnotif").attr("data-count" , data.count);
+
                 document.getElementById("nbnotif").textContent= data.count;
                 data.notifications.forEach(function (item) {
-                    console.log(item);
 
                     $('#ajax-results').append("<li style='list-style-type:none;'> <a class='dropdown-item preview-item' > <div class='preview-item-content'><h6 class='preview-subject font-weight-medium text-dark'>"+item.title+"</h6><p class='font-weight-light small-text'>"+item.description+"</p> </div> </a> </li>");
 
@@ -253,6 +255,38 @@
 
         });
         setTimeout('getNotifications()', 5000);
+    }
+</script>
+
+
+<script>
+    $(document).ready(function(){
+    });
+
+    function getUsers() {
+
+        $email= document.getElementById("email").value;
+        //call ajax
+        $.ajax({
+            url: "{{ path('search_Membres' ,{'email': "+$email+" } ) }}",
+            type: "POST",
+            dataType: "json",
+            data: {
+                "some_var_name": "some_var_value"
+            },
+            async: true,
+            success: function (data) {
+                $('#ajax-Users').empty();
+                console.log(data);
+                document.getElementById("nbnotif").textContent= data.count;
+                data.notifications.forEach(function (item) {
+
+                    $('#ajax-Users').append("<li style='list-style-type:none;'> <a class='dropdown-item preview-item' > <div class='preview-item-content'><h6 class='preview-subject font-weight-medium text-dark'>"+item.title+"</h6><p class='font-weight-light small-text'>"+item.description+"</p> </div> </a> </li>");
+
+                });
+            }
+
+        });
     }
 </script>
 </body>

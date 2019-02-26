@@ -80,7 +80,7 @@
 
             //call ajax
             $.ajax({
-                url: '{{ (path('search_Membres')) }}',
+                url: '{{ (path('notification_user')) }}',
                 type: "POST",
                 dataType: "json",
                 data: {
@@ -91,9 +91,7 @@
                     console.log(data)
                     $('#ajax-results').empty();
 
-                    data.Membres.forEach(function (item) {
-                        console.log(item);
-
+                    data.Notifications.forEach(function (item) {
                         $('#ajax-results').append("<li style='border-bottom: 0px; font-size: 8px;' role='presentation'><a style='margin-top: 0px; margin-bottom: 0px; ' role='menuitem' tabindex='-2' href=''> <p style='float: left; font-size: 9px;'>"+item.title+"</p> <br> <p style='float: left; font-size: 7px;'>"+item.description+"</p></a></li>");
                     });
 

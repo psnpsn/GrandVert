@@ -5,7 +5,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Star Admin Free Bootstrap Admin Dashboard Template</title>
+    <title> Moderateur Dashboard</title>
     <!-- plugins:css -->
     <link rel="stylesheet" href="{{ asset('Admin/vendors/iconfonts/mdi/css/materialdesignicons.min.css') }}">
     <link rel="stylesheet" href="{{ asset('Admin/vendors/css/vendor.bundle.base.css') }}">
@@ -149,7 +149,7 @@
                                                 <div class="d-flex">
                                                     <p class="text-dark font-weight-semibold mr-2 mb-0 no-wrap">{{ sujet.User.nom }} {{ sujet.User.prenom }}</p>
                                                 </div>
-                                                <p class="text-gray ellipsis mb-2">téléphone:{{ sujet.sujetOriginal |raw }}</p>
+                                                <p class="text-gray ellipsis mb-2">{{ sujet.sujetOriginal |raw }}</p>
                                                 <p> publié le  : {{ sujet.dateoriginal | date("y/m/d") }}</p>
                                             </div>
                                             <div class="ticket-actions col-md-2">
