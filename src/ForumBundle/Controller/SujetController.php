@@ -23,7 +23,7 @@ class SujetController extends Controller
 
 
         if (($authChecker->isGranted('ROLE_ADMIN')) || ($authChecker->isGranted('ROLE_USER')) ) {
-            //recuperer l'id de sujet pour affecter au reponse
+            //recuperer l'id de plante pour affecter au sujet
             $id = $request->get("id");
             $em = $this->getDoctrine()->getManager();
             $plante = $em->getRepository("PlanteBundle:plante")->find($id);
@@ -145,9 +145,7 @@ class SujetController extends Controller
 
 
         return $this->render('@Forum/Sujet/afficher.html.twig' , ["sujets" => $paginationsujets , "plante" => $plante ,"NbReponses" => $NbReponses ,"User" => $user , "message" => $operation , "errorsString" => $errorsString]);
-
-        //return $this->json(["sujets" => $paginationsujets , "plante" => $plante ,"NbReponses" => $NbReponses ,"User" => $user , "message" => $operation , "errorsString" => $errorsString]);
-    }
+        }
 
     public function consulterAction(Request $request)
     {

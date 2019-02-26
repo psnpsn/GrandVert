@@ -87,14 +87,12 @@ class ReponseController extends Controller
 
     public function supprimerAction(Request $request)
     {
-        $authChecker = $this->container->get('security.authorization_checker');
         $router = $this->container->get('router');
-
 
         //recuperer id du reponse à supprimer
         $id_reponse = $request->get('id_reponse');
 
-        //recuperer le sujet à supprimer à partir de leur id
+        //recuperer le reponse à supprimer à partir de leur id
         $em = $this->getDoctrine()->getManager();
         $reponse = $em->getRepository("ForumBundle:Reponse")->find($id_reponse);
 
