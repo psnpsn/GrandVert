@@ -226,7 +226,7 @@
                                                 <div class="d-flex">
                                                     <p class="text-dark font-weight-semibold mr-2 mb-0 no-wrap">{{ sujet.User.nom }} {{ sujet.User.prenom }}</p>
                                                 </div>
-                                                <p class="text-gray ellipsis mb-2">téléphone:{{ sujet.sujetOriginal |raw }}</p>
+                                                <p class="text-gray ellipsis mb-2">{{ sujet.sujetOriginal |raw }}</p>
                                                 <p> publié le  : {{ sujet.dateoriginal | date("y/m/d") }}</p>
                                             </div>
                                             <div class="ticket-actions col-md-2">

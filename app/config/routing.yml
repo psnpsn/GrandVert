@@ -83,8 +83,11 @@ list_user/moderateur:
     defaults: { _controller: AppBundle:User:listmembre }
 
 Modifier_etat_compte_by_moderateur:
-    path:     /moderateur/Modifier_etat_compte
+    path:     /compte/Modifier_etat_compte
     defaults: { _controller: AppBundle:User:etat }
+
+
+
 
 
 

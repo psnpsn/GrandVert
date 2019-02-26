@@ -18,6 +18,169 @@
     <link rel="stylesheet" href="{{ asset('Admin/css/style.css') }}">
     <!-- endinject -->
     <link rel="icon" type="image/x-icon"  href="{{ asset('favicon.ico') }}">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $("#myInput").on("keyup", function() {
+                var value = $(this).val().toLowerCase();
+                $("#myTable tr").filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+        });
+    </script>
+    <style>
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        tr:nth-child(even) {background-color: #f2f2f2;}
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+        @import url(https://fonts.googleapis.com/css?family=Roboto:400,500,700,300,100);
+
+
+
+        div.table-title {
+            display: block;
+            margin: auto;
+            max-width: 600px;
+            padding:5px;
+            width: 80%;
+        }
+
+        .table-title h3 {
+            color: #fafafa;
+            font-size: 30px;
+            font-weight: 400;
+            font-style:normal;
+            font-family: "Roboto", helvetica, arial, sans-serif;
+            text-shadow: -1px -1px 1px rgba(0, 0, 0, 0.1);
+            text-transform:uppercase;
+        }
+
+
+        /*** Table Styles **/
+
+        .table-fill {
+            background: white;
+            border-radius:3px;
+            border-collapse: collapse;
+            height: 320px;
+            margin: auto;
+            max-width: 600px;
+            padding:5px;
+            width: 80%;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+            animation: float 5s infinite;
+        }
+
+        th {
+            color:#D5DDE5;;
+            background:#42a5f5;
+            border-bottom:4px solid #9ea7af;
+            border-right: 1px solid #343a45;
+            font-size:23px;
+            font-weight: 100;
+            padding:24px;
+            text-align:left;
+            text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+            vertical-align:middle;
+        }
+
+        th:first-child {
+            border-top-left-radius:3px;
+        }
+
+        th:last-child {
+            border-top-right-radius:3px;
+            border-right:none;
+        }
+
+        tr {
+            border-top: 1px solid #C1C3D1;
+            border-bottom-: 1px solid #C1C3D1;
+            color:#666B85;
+            font-size:16px;
+            font-weight:normal;
+            text-shadow: 0 1px 1px rgba(256, 256, 256, 0.1);
+        }
+
+        tr:hover td {
+            background:#4E5066;
+            color:#FFFFFF;
+            border-top: 1px solid #22262e;
+        }
+
+        tr:first-child {
+            border-top:none;
+        }
+
+        tr:last-child {
+            border-bottom:none;
+        }
+
+        tr:nth-child(odd) td {
+            background:#EBEBEB;
+        }
+
+        tr:nth-child(odd):hover td {
+            background:#4E5066;
+        }
+
+        tr:last-child td:first-child {
+            border-bottom-left-radius:3px;
+        }
+
+        tr:last-child td:last-child {
+            border-bottom-right-radius:3px;
+        }
+
+        td {
+            background:#FFFFFF;
+            padding:20px;
+            text-align:left;
+            vertical-align:middle;
+            font-weight:300;
+            font-size:18px;
+            text-shadow: -1px -1px 1px rgba(0, 0, 0, 0.1);
+            border-right: 1px solid #C1C3D1;
+        }
+
+        td:last-child {
+            border-right: 0px;
+        }
+
+        th.text-left {
+            text-align: left;
+        }
+
+        th.text-center {
+            text-align: center;
+        }
+
+        th.text-right {
+            text-align: right;
+        }
+
+        td.text-left {
+            text-align: left;
+        }
+
+        td.text-center {
+            text-align: center;
+        }
+
+        td.text-right {
+            text-align: right;
+        }
+
+    </style>
 </head>
 {% endblock %}
 <body>
@@ -129,7 +292,10 @@
 
             </ul>
         </nav>
+
         <!-- partial -->
+
+
         <div class="main-panel">
             <div class="content-wrapper">
                 <div class="row">
@@ -137,47 +303,50 @@
                         <div class="card">
                             <div class="card-body">
                                 <h5 class="card-title mb-4">Gestion membre</h5>
-                                <div class="fluid-container">
+
+                                <input class="form-control" id="myInput" type="text" placeholder="Search.."  class="col-12 grid-margin">
+
+                                <table  class="col-12 grid-margin"  >
+                                    <th>Image</th>
+                                    <th>Nom</th>
+                                    <th>Prenom</th>
+                                    <th>Email</th>
+                                    <th>Role</th>
+                                    <th>Etat</th>
+                                    <th>Dernier activité</th>
+                                    <th>Action</th>
+                                    <tbody id="myTable">
                                     {% for membre in Membres %}
-                                    <div class="row ticket-card mt-3 pb-2 border-bottom pb-3 mb-3">
-                                        <div class="col-md-1">
-                                            <img class="img-sm rounded-circle mb-4 mb-md-0" src="{{ asset('uploads/avatar/'~membre.avatar) }}" alt="profile image">
-                                        </div>
-                                        <div class="ticket-details col-md-9">
-                                            <div class="d-flex">
-                                                <p class="text-dark font-weight-semibold mr-2 mb-0 no-wrap">{{ membre.nom }} {{ membre.prenom }} :</p>
-                                                <p class="mb-0 ellipsis">{{ membre.email }}</p>
-                                            </div>
-                                            <p class="text-gray ellipsis mb-2">téléphone:{{ membre.tel }}</p>
-                                            <p class="text-gray ellipsis mb-2">level:{{ membre.level }}</p>
-                                            <p class="text-gray ellipsis mb-2">score:{{ membre.score }}</p>
-                                            <p class="text-gray ellipsis mb-2">Role : {% if membre.roles[0] == "ROLE_USER" %}Membre {% elseif membre.roles[0] == "ROLE_ADMIN" %} Moderateur {% else %}Admin{% endif %}</small> </p>
-                                            <div class="row text-gray d-md-flex d-none">
-                                                <div class="col-4 d-flex">
-                                                    <small class="mb-0 mr-2 text-muted text-muted">etat:</small>
-                                                    <small class="Last-responded mr-2 mb-0 text-muted text-muted">
-                                                        {% if membre.enabled==1 %}Active{% else %}Désactivé{% endif %}</small>
+                                        <tr>
+
+                                            <td><img class="img-sm rounded-circle mb-4 mb-md-0" src="{{ asset('uploads/avatar/'~membre.avatar) }}" alt="profile image"></td>
+                                            <td>{{ membre.nom }}</td>
+                                            <td>{{ membre.prenom }}</td>
+                                            <td>{{ membre.email }}</td>
+                                            <td>{% if membre.roles[0] == "ROLE_USER" %}Membre {% elseif membre.roles[0] == "ROLE_ADMIN" %} Moderateur {% else %}Admin{% endif %}</td>
+                                            <td>{% if membre.enabled==1 %}Active{% else %}Désactivé{% endif %}</td>
+                                            <td> {{ membre.lastLogin |date("m/d/Y H:i:s", "Europe/Paris") }}</td>
+                                            <td>
+                                                <div class="btn-group dropdown">
+                                                    <div class="avatar pull-right dropdown" style="background-color: #66bb6a; color: white; width: 100px; height: 20px; border-radius: 20px;">
+                                                        <a data-toggle="dropdown"  href="#" style="color: white; padding-left: 20px; "> Action</b>
+                                                            <ul class="dropdown-menu" role="menu" style="height: auto; width: auto; background-color: white; font-size: 10px; text-decoration: none; ">
+                                                                <li style="border-bottom: 0px; font-size: 13px; margin-top: -12px" role="presentation"><a role="menuitem"  href="{{ path("Modifier_etat_compte_by_moderateur",{'id': membre.id} ) }}">Modifier etat compte</a></li>
+                                                            </ul>
+                                                        </a>
+                                                    </div>
                                                 </div>
-                                                <div class="col-4 d-flex">
-                                                    <small class="mb-0 mr-2 text-muted text-muted">dernière connection:</small>
-                                                    <small class="Last-responded mr-2 mb-0 text-muted text-muted">{{ membre.lastLogin |date("m/d/Y H:i:s", "Europe/Paris") }}</small>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="ticket-actions col-md-2">
-                                            <div class="btn-group dropdown">
-                                                <div class="avatar pull-right dropdown" style="background-color: #66bb6a; color: white; width: 100px; height: 20px; border-radius: 20px;">
-                                                            <a data-toggle="dropdown"  href="#" style="color: white; padding-left: 20px; "> Action</b>
-                                                                <ul class="dropdown-menu" role="menu" style="height: auto; width: auto; background-color: white; font-size: 10px; text-decoration: none; ">
-                                                                    <li style="border-bottom: 0px; font-size: 13px; margin-top: -12px" role="presentation"><a role="menuitem"  href="{{ path("Modifier_etat_compte_by_moderateur",{'id': membre.id} ) }}">Modifier etat compte</a></li>
-                                                                </ul>
-                                                            </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                            </td>
+
+
+                                        </tr>
                                     {% endfor %}
-                                </div>
+                                    </tbody>
+                                </table>
+
+                                <div class="text-center">{{ knp_pagination_render(Membres) }}</div>
+
+
                             </div>
                         </div>
                     </div>
@@ -236,13 +405,10 @@
             },
             async: true,
             success: function (data) {
-                console.log(data)
                 $('#ajax-results').empty();
-                //$('#nbnotif').data('count', data.count);
-                //$("#nbnotif").attr("data-count" , data.count);
+
                 document.getElementById("nbnotif").textContent= data.count;
                 data.notifications.forEach(function (item) {
-                    console.log(item);
 
                     $('#ajax-results').append("<li style='list-style-type:none;'> <a class='dropdown-item preview-item' > <div class='preview-item-content'><h6 class='preview-subject font-weight-medium text-dark'>"+item.title+"</h6><p class='font-weight-light small-text'>"+item.description+"</p> </div> </a> </li>");
 
@@ -255,6 +421,7 @@
         setTimeout('getNotifications()', 5000);
     }
 </script>
+
 </body>
 
 </html>

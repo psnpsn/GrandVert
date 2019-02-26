@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -12,15 +13,7 @@ class UserController extends Controller
     public function listAction(Request $request)
     {  $user = $this->container->get('security.token_storage')->getToken()->getUser();
         $em= $this->getDoctrine()->getManager();
-        //$Membres=$em->getRepository("AppBundle:User")->findBy(['roles'=> 'ROLE_ADMIN' ]);
         $Membres=$em->getRepository("AppBundle:User")->findAll();
-        if($request->isMethod("post")) {
-            $username = $request->get("username");
-            $email = $request->get("email");
-            $em = $this->getDoctrine()->getManager();
-            $Membres = $em->getRepository("AppBundle:User")->findBy(array("username"=>$username , "email"=>$email));
-            return $this->render('User/listuser.html.twig' , ["Membres" => $Membres]);
-        }
 
         return $this->render('membre.html.twig' , ["Membres" => $Membres,"user" => $user]);
     }
@@ -47,7 +40,8 @@ class UserController extends Controller
         //verfier si l'utilisateur connecter est un admin pour acceder à admin dashboard
         if ($authChecker->isGranted('ROLE_SUPER_ADMIN')) {
             $user = $this->container->get('security.token_storage')->getToken()->getUser();
-            return $this->render('admin_dashboard.html.twig' , ["user" => $user]);
+            return new RedirectResponse($router->generate('list_user/admin'), 307);
+
         }
 
         //verfier si l'utilisateur connecter est un moderateur pour acceder à son dashboard
@@ -160,10 +154,15 @@ class UserController extends Controller
 
         $Membres = $query->getResult();
 
-        return $this->render('Listmembre.html.twig' , ["Membres" => $Membres,"user" => $user]);
+        //pagination data
+        $paginationsujets  = $this->get('knp_paginator')->paginate(
+            $Membres,
+            $request->query->get('page', 1)/*le numéro de la page à afficher*/,
+            5/*nbre d'éléments par page*/
+        );
+
+        return $this->render('Listmembre.html.twig' , ["Membres" => $paginationsujets,"user" => $user]);
     }
-
-
 
 
 }
