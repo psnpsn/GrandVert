@@ -154,30 +154,28 @@
                                             </div>
                                             <div class="ticket-actions col-md-2">
                                                 <div class="btn-group dropdown">
-                                                    <div class="avatar pull-right dropdown" style="background-color: #66bb6a; color: white; width: 100px; height: 20px; border-radius: 20px;">
-                                                        <a data-toggle="dropdown"  href="#" style="color: white; padding-left: 20px; "> Action</b>
-                                                            <ul class="dropdown-menu" role="menu" style="height: auto; width: auto; background-color: white; font-size: 10px; text-decoration: none; ">
-                                                                {% if sujet.resolu == "true" %}
-                                                                    <li style="border-bottom: 0px; font-size: 15px; margin-top: -12px; margin-bottom: 5px; text-align: center;" role="presentation"><a role="menuitem" tabindex="-2" href="{{ path("sujet_NonResolut",{'id': sujet.id} ) }}">Non Resolu</a></li>
-                                                                {% else %}
-                                                                    <li style="border-bottom: 0px; font-size: 15px; margin-top: -12px; margin-bottom: 5px; text-align: center;" role="presentation"><a role="menuitem" tabindex="-2" href="{{ path("sujet_Resolut",{'id': sujet.id} ) }}">Resolu</a></li>
-                                                                {% endif %}
-                                                                {% if sujet.open == "true" %}
-                                                                    <li style="border-bottom: 0px; font-size: 15px; margin-top: -12px; margin-bottom: 5px; text-align: center;" role="presentation"><a role="menuitem" tabindex="-2" href="{{ path("Mederateur_sujet_close",{'id': sujet.id} ) }}">Fermer</a></li>
-                                                                {% else %}
-                                                                    <li style="border-bottom: 0px; font-size: 15px; margin-top: -12px; margin-bottom: 5px; text-align: center;" role="presentation"><a role="menuitem" tabindex="-2" href="{{ path("Mederateur_sujet_open",{'id': sujet.id} ) }}">Ouvert</a></li>
-                                                                {% endif %}
-                                                                <li style="border-bottom: 0px; font-size: 15px; margin-top: -12px; margin-bottom: 5px; text-align: center;" role="presentation"><a style="margin-top: 0px; margin-bottom: 0px;" href="#myModal" class="trigger-btn" data-toggle="modal" role="menuitem" tabindex="-3" >Supprimer</a></li>
+                                                    <button type="button" class="btn btn-primary dropdown-toggle btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        Action
+                                                    </button>
+                                                    <div class="dropdown-menu">
+                                                        {% if sujet.resolu == "true" %}
+                                                           <a role="menuitem" tabindex="-2" href="{{ path("sujet_NonResolut",{'id': sujet.id} ) }}" class="dropdown-item">Non Resolu</a>
+                                                        {% else %}
+                                                      <a role="menuitem" tabindex="-2" href="{{ path("sujet_Resolut",{'id': sujet.id} ) }}" class="dropdown-item">Resolu</a>
+                                                        {% endif %}
+                                                        {% if sujet.open == "true" %}
+                                                          <a role="menuitem" tabindex="-2" href="{{ path("Mederateur_sujet_close",{'id': sujet.id} ) }}" class="dropdown-item">Fermer</a>
+                                                        {% else %}
+                                                         <a role="menuitem" tabindex="-2" href="{{ path("Mederateur_sujet_open",{'id': sujet.id} ) }}" class="dropdown-item">Ouvert</a>
+                                                            {% endif %}
+                                                      <a style="margin-top: 0px; margin-bottom: 0px;" href="#myModal"  data-toggle="modal" role="menuitem" tabindex="-3" class="dropdown-item">Supprimer</a>
 
-                                                                <!--           <li style="border-bottom: 0px; font-size: 15px; margin-top: -12px; margin-bottom: 5px; text-align: center;" role="presentation"><a role="menuitem" tabindex="-2" href="{{ path("Mederateur_sujet_delete",{'id': sujet.id} ) }}">Supprimer</a></li> -->
-                                                            </ul>
-                                                        </a>
-                                                    </div>
-                                                </div>
                                             </div>
                                         </div>
+                                    </div>
+                                </div>
 
-                                        <!-- Modal HTML  pour confimrer la suppression du sujet -->
+                                <!-- Modal HTML  pour confimrer la suppression du sujet -->
                                         <div id="myModal" class="modal fade">
                                             <div class="modal-dialog modal-confirm">
                                                 <div class="modal-content" style="width: 500px; height: 350px;">
