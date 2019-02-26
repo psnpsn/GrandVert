@@ -27,13 +27,13 @@ class Plantation
      * @ORM\ManyToOne(targetEntity="PlanteBundle\Entity\plante")
      * @ORM\JoinColumn(name="plante_id", referencedColumnName="id")
      */
-    private $plantId;
+    private $plante;
 
     /**
      * @ORM\ManyToOne(targetEntity="Jardin", inversedBy="plantations")
      * @ORM\JoinColumn(name="jardin_id", referencedColumnName="id")
      */
-    private $jardinId;
+    private $jardin;
 
     /**
      * @var \DateTime
@@ -49,9 +49,9 @@ class Plantation
 
     /**
      * @var string
-     * @ORM\Column(name="days_to_harvest", type="integer")
+     * @ORM\Column(name="quantite", type="integer")
      */
-    private $daysToHarvest;
+    private $quantite;
 
 
     /**
@@ -67,33 +67,33 @@ class Plantation
     /**
      * @return mixed
      */
-    public function getPlantId()
+    public function getPlante()
     {
-        return $this->plantId;
+        return $this->plante;
     }
 
     /**
-     * @param mixed $plantId
+     * @param mixed $plante
      */
-    public function setPlantId($plantId)
+    public function setPlante($plante)
     {
-        $this->plantId = $plantId;
+        $this->plante = $plante;
     }
 
     /**
      * @return mixed
      */
-    public function getJardinId()
+    public function getJardin()
     {
-        return $this->jardinId;
+        return $this->jardin;
     }
 
     /**
-     * @param mixed $jardinId
+     * @param mixed $jardin
      */
-    public function setJardinId($jardinId)
+    public function setJardin($jardin)
     {
-        $this->jardinId = $jardinId;
+        $this->jardin = $jardin;
     }
 
     /**
@@ -131,17 +131,17 @@ class Plantation
     /**
      * @return string
      */
-    public function getDaysToHarvest()
+    public function getQuantite()
     {
-        return $this->daysToHarvest;
+        return $this->quantite;
     }
 
     /**
-     * @param string $daysToHarvest
+     * @param string $quantite
      */
-    public function setDaysToHarvest($daysToHarvest)
+    public function setQuantite($quantite)
     {
-        $this->daysToHarvest = $daysToHarvest;
+        $this->quantite = $quantite;
     }
 
 

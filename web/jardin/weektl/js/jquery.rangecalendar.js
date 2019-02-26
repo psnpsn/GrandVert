@@ -15,7 +15,7 @@ $.fn.rangeCalendar = function(options) {
 			theme: "default-theme",
 			themeContext: this,
 			startDate: moment(),
-			endDate: moment().add('months', 12),
+			endDate: moment().add(12, 'months'),
 			start : "+7",
 			startRangeWidth : 3, 
 			minRangeWidth: 3,
@@ -116,7 +116,7 @@ $.fn.rangeCalendar = function(options) {
 		    
 		    var startDateFormatted = realStart.toString();
 		    var endDateFormatted = realEnd.toString();
-		    var startDate = moment().add('days', startDateIndex.index() + obj.start);
+		    var startDate = moment().add(startDateIndex.index() + obj.start, 'days');
 		       
 		    var range = $.data( obj, "range", {
 						    	start: startDateTime,
@@ -164,7 +164,7 @@ $.fn.rangeCalendar = function(options) {
 		obj.update = function() {
 			
 			//console.log("update");
-			moment.lang(obj.lang);
+			moment.locale(obj.lang);
 			obj.setTheme(obj.theme);
 			obj._generateView();
 		},
@@ -524,8 +524,8 @@ $.fn.rangeCalendar = function(options) {
 
 			var calendarHtml = '';
 			var cell;
-			var date = moment(startDate).add('days', obj.start);
-			var endDate = moment(endDate).add('days', obj.start);
+			var date = moment(startDate).add(obj.start, 'days');
+			var endDate = moment(endDate).add(obj.start, 'days');
 			var rangeWidth = obj.rangeWidth();
 			
 			for (var index = 1; (date.isBefore(endDate) || date.isSame(endDate)) ; index++){
@@ -560,8 +560,8 @@ $.fn.rangeCalendar = function(options) {
 			
 			var monthsHtml = '';
 			var cell;
-			var date = moment(startDate).add('days', obj.start);
-			var endDate = moment(endDate).add('days', obj.start);
+			var date = moment(startDate).add(obj.start, 'days');
+			var endDate = moment(endDate).add(obj.start, 'days');
 			for (var index = 1; (date.isBefore(endDate) || date.isSame(endDate)) ; index++){
 			
 				var year = date.format("YY");

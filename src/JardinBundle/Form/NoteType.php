@@ -4,6 +4,7 @@ namespace JardinBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -15,8 +16,8 @@ class NoteType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('contenu')
-            ->add('add', SubmitType::class, ['label' => 'Ajouter Note']);
+            ->add('contenu',TextareaType::class, ['label' => false])
+            ->add('add', SubmitType::class, ['label' => 'Confirmer']);
     }/**
      * {@inheritdoc}
      */
