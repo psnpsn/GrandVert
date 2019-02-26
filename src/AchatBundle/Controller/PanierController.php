@@ -45,6 +45,7 @@ class PanierController extends Controller
         $commande->setUser($user);
         $commande->setContite($cont);
         $commande->setPlante($plante);
+        $commande->setDate(new \DateTime());
         $commande->setEtat("en cour...");
         $em->persist($commande);
         $em->flush();

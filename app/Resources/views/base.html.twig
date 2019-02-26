@@ -24,7 +24,120 @@
             <link href="{{ asset('base/css/fontawesome-all.css') }}" rel="stylesheet">
             <link href="//fonts.googleapis.com/css?family=Josefin+Sans:100,100i,300,300i,400,400i,600,600i,700,700i" rel="stylesheet">
             <link href="//fonts.googleapis.com/css?family=BenchNine:300,400,700" rel="stylesheet">
-        {% endblock %}
+
+    <style type="text/css">
+
+    </style>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+    <link href="{{ asset('base/css/bootstrap.css') }}" rel='stylesheet' type='text/css' />
+    <link rel="stylesheet" href="{{ asset('base/css/component.css') }}" type="text/css" media="all">
+    <link href="{{ asset('base/css/style.css') }}" rel='stylesheet' type='text/css' />
+    <link rel="stylesheet" href="{{ asset('base/css/owl.theme.css') }}" type="text/css" media="all">
+    <link rel="stylesheet" href="{{ asset('base/css/owl.carousel.css') }}" type="text/css" media="screen" property="" />
+    <link href="{{ asset('base/css/minimal-slider.css') }}" rel='stylesheet' type='text/css' />
+    <link href="{{ asset('base/css/fontawesome-all.css') }}" rel="stylesheet">
+    <link href="//fonts.googleapis.com/css?family=Josefin+Sans:100,100i,300,300i,400,400i,600,600i,700,700i" rel="stylesheet">
+    <link href="//fonts.googleapis.com/css?family=BenchNine:300,400,700" rel="stylesheet">
+        <style>
+            .w3-green {
+                color: #fff!important;
+                background-color: #4CAF50!important;
+            }
+            .w3-red {
+                color: #fff!important;
+                background-color: #af0820 !important;
+            }
+            .w3-panel {
+                margin-top: 26px;
+                margin-bottom: 26px;
+                display: block;
+                font-family: Verdana,sans-serif;
+                font-size: 20px;
+                line-height: 1.5;
+            }
+            .w3-panel {
+                padding: 0.01em 26px;
+            }
+            w3-panel:before,w3-panel:after, w3-green:before,w3-green:after{box-sizing: inherit;}
+        </style>
+<style>#ex4 .p1[data-count]:after{
+        position:absolute;
+        right:10%;
+        top:8%;
+        content: attr(data-count);
+        font-size:40%;
+        padding:.2em;
+        border-radius:50%;
+        line-height:1em;
+        color: white;
+        background:rgba(255,0,0,.85);
+        text-align:center;
+        min-width: 1em;
+    //font-weight:bold;
+    }
+
+
+    #ex3 .fa-stack[data-count]:after{
+        position:absolute;
+        right:0%;
+        top:1%;
+        content: attr(data-count);
+        font-size:30%;
+        padding:.6em;
+        border-radius:50%;
+        line-height:.8em;
+        color: white;
+        background:rgba(255,0,0,.85);
+        text-align:center;
+        min-width: 1em;
+        font-weight:bold;
+    }
+
+
+    /* on ex2 if you include bootstrap v3 css the number is a rounded circle with the .has-badge class */
+    #ex2 .fa-stack[data-count]:after{
+        position:absolute;
+        right:0%;
+        top:1%;
+        content: attr(data-count);
+        font-size:30%;
+        padding:.6em;
+        border-radius:999px;
+        line-height:.75em;
+        color: white;
+        background:rgba(255,0,0,.85);
+        text-align:center;
+        min-width:2em;
+        font-weight:bold;
+    }
+
+
+
+
+    #ex1 .icon-grey {color: grey}
+    #ex1 i {
+        width:100px;
+        text-align:center;
+        vertical-align:middle;
+        position: relative;
+    }
+    #ex1 .badge:after{
+        content:"100";
+        position: absolute;
+        background: rgba(0,0,255,1);
+        height:2rem;
+        top:1rem;
+        right:1.5rem;
+        width:2rem;
+        text-align: center;
+        line-height: 2rem;;
+        font-size: 1rem;
+        border-radius: 50%;
+        color:white;
+        border:1px solid blue;
+    }</style>
+    {% endblock %}
     {% endblock %}
 </head>
 <body>
@@ -77,23 +190,18 @@
                 </div>
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-md-3 top-social-icons text-center">
-                            <ul class="social-icons">
-                                <li class="mr-1"><a href="#"><span class="fab fa-facebook-f"></span></a></li>
-                                <li class="mx-1"><a href="#"><span class="fab fa-twitter"></span></a></li>
-                                <li class="mx-1"><a href="#"><span class="fab fa-google-plus-g"></span></a></li>
-                                <li class="mx-1"><a href="#"><span class="fab fa-linkedin-in"></span></a></li>
-                            </ul>
+                        <div class="col-md-3 login-right-img text-center">
                         </div>
                         <div class="col-md-6 logo text-center">
                             <h1>
-                                <a class="navbar-brand" href="index.html">
+                                <a class="navbar-brand" href="{{ path('homepage') }}">
                                     <i class="fas fa-leaf"></i>Grand Vert</a>
                             </h1>
                         </div>
                         <div class="col-md-3 login-right-img text-center">
-                            <a class="request text-uppercase" href="#" data-toggle="modal" data-target="#exampleModalCenter">Sign In</a>
-                            <a class="request text-uppercase" href="#" data-toggle="modal" data-target="#exampleModalCenter2">Sign Up</a>
+                            <a class="request text-uppercase" href="{{ path('profile_user')}}"  >compte</a>
+                            <a class="request text-uppercase"  href="{{ path('fos_user_profile_edit')}}" >edit</a>
+                            <a class="request text-uppercase"href="{{ path('fos_user_security_logout')}}" >Déconnection</a>
                         </div>
                     </div>
                 </div>
@@ -107,22 +215,24 @@
 
                                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                                     <ul class="navbar-nav mr-lg-auto text-left">
-                                        <li class="nav-item active">
-                                            <a class="nav-link" href="{{ path('planteaff')}}">Plantes
-                                                <span class="sr-only">(current)</span>
-                                            </a>
-                                        </li>
+
                                         <li class="nav-item">
-                                            <a class="nav-link" href="about.html">Partage d'experience</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="{{ path('afficher_categorie') }}">Forum</a>
-                                        </li>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="gallery.html">Evénement </a>
+                                            <a class="nav-link" href="{{ path('planteaff')}}" style="font-size : 15px; margin-right: 5px; color: white; padding-top:20px;" > plante</a>
                                         </li>
 
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="{{ path('commande') }}" style="font-size : 15px; margin-right: 5px; color: white; padding-top:20px;">Commande</a>
+                                        </li>
+
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="{{ path('afficher_categorie') }}" style="font-size : 15px; margin-right: 5px; color: white; padding-top:20px;">Forum</a>
+                                        </li>
+
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="#" style="font-size : 15px; margin-right: 5px; color: white; padding-top:20px;" >Evénement</a>
+                                        </li>
+
+<<<<<<< HEAD
                                         <li class="nav-item dropdown">
                                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                 Réservation
@@ -136,13 +246,38 @@
                                             </div>
                                         </li>
 
+=======
+>>>>>>> 7bd3f6b5ba9041529fdcea0cea3b02eccc8a90b1
                                         <li class="nav-item">
-                                            <a class="nav-link" href="contact.html">Contact</a>
+                                            <a class="nav-link" href="#" style="font-size : 15px; margin-right: 5px; color: white; padding-top:20px;" >Contact</a>
+                                        </li>
+
+                                        <li style="font-size : 15px; margin-right: 5px; color: white;" class="dropdown"><a data-toggle="dropdown" href="#"> <b id ="ex4" >       <p id="nbnotif" class="p1 fa-stack fa-2x has-badge" data-count="">
+                                                        <i class="p3 fa fa-bell-o fa-stack-1x xfa-inverse" data-count="4b" style="color : white; font-size : 15px;"></i>
+                                                    </p></b>
+                                                <ul class="dropdown-menu" role="menu" style="height: auto; width: auto; background-color: white; font-size: 8px; text-decoration: none; float: left;" id="ajax-results">
+                                                    <li style="border-bottom: 0px; font-size: 8px;" role="presentation"><a style="margin-top: 0px; margin-bottom: 0px;" role="menuitem" tabindex="-2" href="{{ path("consulter_sujet" ) }}"><p style="float: left; font-size: 9px; ">  </p> <br> <p style="float: left; font-size: 7px;"> </p></a></li>
+
+                                                </ul>
+                                            </a>
+                                        </li>
+
+
+                                        <li style="font-size : 15px; margin-right: 5px; color: white;"><a href="{{ path('panier')}}" >
+                                                <div id="ex4">
+  <span class="p1 fa-stack fa-2x has-badge" data-count="{{ app.session.get('panier')|length }}">
+    <i class="p3 fa fa-shopping-cart fa-stack-1x xfa-inverse" data-count="4b"></i>
+  </span>
+                                                </div>
+
+                                            </a>
                                         </li>
 
                                     </ul>
-                                    <form action="#" method="post" class="form-inline my-2 my-lg-0 header-search">
-                                        <input class="form-control" type="search" placeholder="Search here..." name="Search" required="">
+                                    <form method="POST" action="{{ path('result') }}" class="form-inline  header-search">
+                                        <input class="form-control" type="search" placeholder="Recherche..." name="nom" list="json-datalist">
+                                        <datalist id="json-datalist">
+                                        </datalist>
                                         <button class="btn btn1 my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
                                     </form>
                                 </div>
@@ -199,23 +334,17 @@
                 </div>
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-md-3 top-social-icons text-center">
-                            <ul class="social-icons">
-                                <li class="mr-1"><a href="#"><span class="fab fa-facebook-f"></span></a></li>
-                                <li class="mx-1"><a href="#"><span class="fab fa-twitter"></span></a></li>
-                                <li class="mx-1"><a href="#"><span class="fab fa-google-plus-g"></span></a></li>
-                                <li class="mx-1"><a href="#"><span class="fab fa-linkedin-in"></span></a></li>
-                            </ul>
+                        <div class="col-md-3 login-right-img text-center">
                         </div>
                         <div class="col-md-6 logo text-center">
                             <h1>
-                                <a class="navbar-brand" href="index.html">
+                                <a class="navbar-brand" href="{{ path('homepage') }}">
                                     <i class="fas fa-leaf"></i>Grand Vert</a>
                             </h1>
                         </div>
                         <div class="col-md-3 login-right-img text-center">
-                            <a class="request text-uppercase" href="#" data-toggle="modal" data-target="#exampleModalCenter">Sign In</a>
-                            <a class="request text-uppercase" href="#" data-toggle="modal" data-target="#exampleModalCenter2">Sign Up</a>
+                            <a class="request text-uppercase" href="{{ path('fos_user_security_login') }}">Sign In</a>
+                            <a class="request text-uppercase" href="{{ path('fos_user_registration_register') }}">Sign Up</a>
                         </div>
                     </div>
                 </div>
@@ -229,41 +358,30 @@
 
                                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                                     <ul class="navbar-nav mr-lg-auto text-left">
-                                        <li class="nav-item active">
-                                            <a class="nav-link" href="index.html">Home
-                                                <span class="sr-only">(current)</span>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="about.html">About</a>
-                                        </li>
-                                        <li class="nav-item dropdown">
-                                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                Services
-                                                <i class="fas fa-angle-down"></i>
-                                            </a>
-                                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                                <a class="dropdown-item" href="services.html">Services</a>
-                                                <a class="dropdown-item" href="services.html" title="">Services 1</a>
 
-                                                <a class="dropdown-item" href="single.html" title="">Single Page</a>
-                                            </div>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="{{ path('planteaff')}}" style="font-size : 15px; margin-right: 5px; color: white; padding-top:20px;" > plante</a>
                                         </li>
 
 
                                         <li class="nav-item">
-                                            <a class="nav-link" href="gallery.html">Gallery</a>
+                                            <a class="nav-link" href="{{ path('afficher_categorie') }}" style="font-size : 15px; margin-right: 5px; color: white; padding-top:20px;">Forum</a>
                                         </li>
+
                                         <li class="nav-item">
-                                            <a class="nav-link" href="blog.html">Blog</a>
+                                            <a class="nav-link" href="#" style="font-size : 15px; margin-right: 5px; color: white; padding-top:20px;" >Evénement</a>
                                         </li>
+
                                         <li class="nav-item">
-                                            <a class="nav-link" href="contact.html">Contact</a>
+                                            <a class="nav-link" href="#" style="font-size : 15px; margin-right: 5px; color: white; padding-top:20px;" >Contact</a>
                                         </li>
+
 
                                     </ul>
-                                    <form action="#" method="post" class="form-inline my-2 my-lg-0 header-search">
-                                        <input class="form-control" type="search" placeholder="Search here..." name="Search" required="">
+                                    <form method="POST" action="{{ path('result') }}" class="form-inline  header-search">
+                                        <input class="form-control" type="search" placeholder="Recherche..." name="nom" list="json-datalist">
+                                        <datalist id="json-datalist">
+                                        </datalist>
                                         <button class="btn btn1 my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
                                     </form>
                                 </div>
@@ -280,25 +398,19 @@
 {% block content %} {% endblock content %}
 
 {% block footer %}
-<div class="footer">
+<div class="footer" style="max-width : 100%; background-color :#343a40 !important;">
     <footer class="footer-emp-wthree bg-dark dotts py-lg-5 py-3">
-        <div class="container">
+        <div class="contain" style="width : 100%; background-color :#343a40 !important;">
             <div class="row footer-top">
-                <div class="col-lg-4 footer-grid-w3ls">
+                <div class="col-lg-6 footer-grid-w3ls" style="padding-left : 40px;">
                     <div class="footer-title">
                         <h3>About Us</h3>
                     </div>
                     <div class="footer-text">
                         <p>Curabitur non nulla sit amet nislinit tempus convallis quis ac lectus. lac inia eget consectetur sed, convallis at tellus. Nulla porttitor accumsana tincidunt.</p>
-                        <ul class="social-icons">
-                            <li class="mr-1"><a href="#"><span class="fab fa-facebook-f"></span></a></li>
-                            <li class="mx-1"><a href="#"><span class="fab fa-twitter"></span></a></li>
-                            <li class="mx-1"><a href="#"><span class="fab fa-google-plus-g"></span></a></li>
-                            <li class="mx-1"><a href="#"><span class="fab fa-linkedin-in"></span></a></li>
-                        </ul>
                     </div>
                 </div>
-                <div class="col-lg-4 footer-grid-w3ls">
+                <div class="col-lg-6 footer-grid-w3ls">
                     <div class="footer-title">
                         <h3>Get in touch</h3>
                     </div>
@@ -314,46 +426,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4 footer-grid-w3ls">
-                    <div class="footer-title">
-                        <h3>Quick Links</h3>
-                    </div>
-                    <ul class="links">
-                        <li>
-                            <a href="index.html">Home</a>
-                        </li>
-                        <li>
-                            <a href="about.html">About</a>
-                        </li>
-                        <li>
-                            <a href="gallery.html">Gallery</a>
-                        </li>
-                        <li>
-                            <a href="pricing.html">Services</a>
-                        </li>
-                        <li>
-                            <a href="contact.html">Contact Us</a>
-                        </li>
-                    </ul>
-                    <ul class="links">
-                        <li>
-                            <a href="services.html">Features</a>
-                        </li>
-                        <li>
-                            <a href="contact.html">Support</a>
-                        </li>
-                        <li>
-                            <a href="blog.html">Blog</a>
-                        </li>
-                    </ul>
-
-                    <div class="clearfix"></div>
-                </div>
-            </div>
-            <div class="copyright-w3 mt-4">
-                <p class="copy-right text-center ">&copy; 2018 Arable. All Rights Reserved | Design by
-                    <a href="http://w3layouts.com/"> W3layouts </a>
-                </p>
+            <div class="copyright-w3 mt-4" style="text-align: center; margin : 0 auto;">
+                <p class="footer-grid" style="text-align: center; margin : 0 auto;">Copyright &copy; {{ "now"|date("Y") }} Template by  <a href="#" target="_blank">Behinds The Machines</a> </p>
+            </div>d
             </div>
         </div>
     </footer>
@@ -365,6 +440,32 @@
     <script src="{{ asset('base/js/toucheffects.j') }}s"></script>
     <script src="{{ asset('base/js/modernizr.custom.js') }}"></script>
     <!-- carousel -->
+    <script>
+        //call ajax
+        var ajax=new XMLHttpRequest();
+        var method="GET";
+        var data;
+        var dataList = document.getElementById('json-datalist');
+        var input = document.getElementById('tags');
+        var url="{{ asset('ajax/data.php') }}";
+        var asynchronous=true;
+        ajax.open(method,url,asynchronous);
+        // sending ajax
+        ajax.send();
+        // receiving response from data.php
+        ajax.onreadystatechange= function () {
+            if(this.readyState ==4 &&this.status==200)
+                data=JSON.parse(this.responseText);
+            data.forEach(function (item) {
+                console.log(item);
+                var option=document.createElement('option')
+                option.value=item.nom;
+                dataList.appendChild(option);
+            });
+            console.log(data);
+        };
+
+    </script>
     <script src="{{ asset('base/js/owl.carousel.js') }}"></script>
     <script>
         $(document).ready(function() {
@@ -435,6 +536,45 @@
     <!--// end-smoth-scrolling -->
     <!-- /js -->
     <script src="{{ asset('base/js/bootstrap.js') }}"></script>
+
+    <script>
+        $(document).ready(function(){
+            getNotifications();
+        });
+
+        function getNotifications() {
+
+            //call ajax
+            $.ajax({
+                url: '{{ (path('notification_user')) }}',
+                type: "POST",
+                dataType: "json",
+                data: {
+                    "some_var_name": "some_var_value"
+                },
+                async: true,
+                success: function (data) {
+                    console.log(data)
+                    $('#ajax-results').empty();
+                    //$('#nbnotif').data('count', data.count);
+                    $("#nbnotif").attr("data-count" , data.count);
+                    data.notifications.forEach(function (item) {
+                        console.log(item);
+
+                        //si notification est en etat seen
+                        //if(item.seen == true)
+                            $('#ajax-results').append("<li style='border-bottom: 0px; font-size: 8px;' role='presentation'><a style='margin-top: 0px; margin-bottom: 0px; ' role='menuitem' tabindex='-2' href=''> <p style='float: left; font-size: 9px;'>"+item.title+"</p> <br> <p style='float: left; font-size: 7px;'>"+item.description+"</p></a></li>");
+                        //else
+                          //  $('#ajax-results').append("<li style='border-bottom: 0px; font-size: 8px; background-color:#eeeeee; ' role='presentation'><a style='margin-top: 0px; margin-bottom: 0px; ' role='menuitem' tabindex='-2' href=''> <p style='float: left; font-size: 9px;'>"+item.title+"</p> <br> <p style='float: left; font-size: 7px;'>"+item.description+"</p></a></li>");
+                    });
+
+
+                }
+
+            });
+            setTimeout('getNotifications()', 5000);
+        }
+    </script>
 {% endblock %}
 </body>
 </html>

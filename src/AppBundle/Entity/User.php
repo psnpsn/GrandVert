@@ -21,14 +21,19 @@ class User extends BaseUser
 
     /**
      * @var string
-     *
+     *@Assert\Regex(pattern="/^[a-zAZ ]*$/", message="seulement des caractére")
      * @ORM\Column(name="nom", type="string", length=255)
      */
     private $nom='';
-
     /**
      * @var string
      *
+     * @ORM\Column(name="adresse", type="string", length=255)
+     */
+    private $adresse='';
+    /**
+     * @var string
+     *@Assert\Regex(pattern="/^[a-zAZ ]*$/", message="seulement des caractére")
      * @ORM\Column(name="prenom", type="string", length=255)
      */
     private $prenom='';
@@ -38,8 +43,25 @@ class User extends BaseUser
      * @var int
      *
      * @ORM\Column(name="tel", type="integer")
+     *  @Assert\Length(min = 8, max = 8)
      */
-    private $tel=0;
+    private $tel;
+
+    /**
+     * @return string
+     */
+    public function getAdresse()
+    {
+        return $this->adresse;
+    }
+
+    /**
+     * @param string $adresse
+     */
+    public function setAdresse($adresse)
+    {
+        $this->adresse = $adresse;
+    }
 
 
     /**
