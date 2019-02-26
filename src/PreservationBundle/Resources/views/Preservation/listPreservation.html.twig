@@ -1,8 +1,12 @@
 {% extends 'base.html.twig' %}
-
 {% block content %}
-    <div class="container">
-    <div class="sign">
+    <div class="banner-bottom-w3layouts py-lg-5 py-3">
+        <div class="container">
+            {% for flashMessage in app.session.flashbag.get('notice') %}
+                <div class="w3-panel w3-green" >
+                    {{ flashMessage }}
+                </div>
+            {% endfor %}
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
@@ -167,7 +171,9 @@
 </style>
 
         <h3>Liste De Votre Réservations</h3>
+            <br>
         <input class="form-control" id="myInput" type="text" placeholder="Search.."  style="width: 1200px">
+        <br>
 
         <table  border="3" width="1200" >
 
@@ -186,7 +192,7 @@
                     <td>{{ Preservartion.NbPlaces }}</td>
                     <td>{{ Preservartion.EspaceDePreservation.lieu }}</td>
                     <td>
-                        <a href="" class="tooltip-test" data-placement="top" title="" data-original-title="Supprimer"  data-toggle="modal" data-target="#deleteModal{{ Preservartion.id }}"><span class="glyphicon glyphicon-trash" aria-hidden="true">Supprimer</span>    </a>
+                        <a href="" class="tooltip-test" data-placement="top" title="" data-original-title="Supprimer"   data-target="#deleteModal{{ Preservartion.id }}"><span class="glyphicon glyphicon-trash" aria-hidden="true">Supprimer</span>    </a>
                         <div class="modal fade" id="deleteModal{{ Preservartion.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                             <div class="modal-dialog">
                                 <br><br><br><br>

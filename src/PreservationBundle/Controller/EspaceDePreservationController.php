@@ -20,7 +20,7 @@ class EspaceDePreservationController extends Controller
     public function listAction(Request $request)
     {
         //Affichage des espaces de preservation + option de supprission et de modification
-
+       $user=$this->getUser();
         $em=$this->getDoctrine()->getManager();
         $Preservartions=$em->getRepository('PreservationBundle:EspaceDePreservation')->findAll();
 
@@ -31,14 +31,14 @@ class EspaceDePreservationController extends Controller
         );
 
         return $this->render('@Preservation/EspaceDePreservation/list.html.twig',array(
-            'EspaceDePreservartions'=>$EspaceDePreservartions
+            'EspaceDePreservartions'=>$EspaceDePreservartions,'user'=>$user
         ));
     }
 
     public function exportAction(Request $request)
     {
         //affichage des listes des espaces de préservation + API d'export To Json,Csv,Excel,Txt,XML
-
+       $user=$this->getUser();
         $em=$this->getDoctrine()->getManager();
         $Preservartions=$em->getRepository('PreservationBundle:EspaceDePreservation')->findAll();
         $EspaceDePreservartions  = $this->get('knp_paginator')->paginate(
@@ -49,7 +49,7 @@ class EspaceDePreservationController extends Controller
 
 
         return $this->render('@Preservation/EspaceDePreservation/export.html.twig',array(
-            'EspaceDePreservartions'=>$EspaceDePreservartions
+            'EspaceDePreservartions'=>$EspaceDePreservartions,"user"=>$user
         ));
     }
 
@@ -86,6 +86,7 @@ class EspaceDePreservationController extends Controller
 
     public function ModifierAction(Request $request )
     {
+        $user=$this->getUser();
         $id=$request->get('id');
         $em=$this->getDoctrine()->getManager();
         $EspaceDePreservartion=$em->getRepository('PreservationBundle:EspaceDePreservation')->find($id);
@@ -99,7 +100,7 @@ class EspaceDePreservationController extends Controller
             return $this->redirectToRoute('list');}
         return $this->render('@Preservation/EspaceDePreservation/modifier.html.twig',array(
 
-            "Form"=>$form->createView()
+            "Form"=>$form->createView(),'user'=>$user
         ));
     }
 

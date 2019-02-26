@@ -18,6 +18,8 @@ use Symfony\Component\HttpFoundation\Request;
 class PreservationController extends Controller
 {
 
+    
+
     public function listPreservationAction(Request $request)
     {
         //Crée une instance del'Entity Manager
@@ -38,16 +40,18 @@ class PreservationController extends Controller
     public function exportPreservationAction()
     {
         //Crée une instance del'Entity Manager
+        $user=$this->getUser();
         $em=$this->getDoctrine()->getManager();
         $Preservartions=$em->getRepository('PreservationBundle:Preservation')->findAll();
         return $this->render('@Preservation/Preservation/exportPreservation.html.twig',array(
-            'Preservartions'=>$Preservartions
+            'Preservartions'=>$Preservartions,'user'=>$user
         ));
     }
 
     public function listPreservationForAdminAction(Request $request)
     {
         //Crée une instance del'Entity Manager
+        $user=$this->getUser();
         $em=$this->getDoctrine()->getManager();
         $reservartions=$em->getRepository('PreservationBundle:Preservation')->findAll();
         $Preservartions  = $this->get('knp_paginator')->paginate(
@@ -56,7 +60,7 @@ class PreservationController extends Controller
             6/*nbre d'éléments par page*/
         );
         return $this->render('@Preservation/Preservation/listPreservationForAdmin.html.twig',array(
-            'Preservartions'=>$Preservartions
+            'Preservartions'=>$Preservartions,'user'=>$user
         ));
     }
 
@@ -89,8 +93,7 @@ class PreservationController extends Controller
     public function SupprimerPreservationAction(Request $request)
     {
         $user=$this->getUser();
-       $a= $user->getRoles();
-
+        $a= $user->getRoles();
         $ghaith=$request->get('id');
         $em=$this->getDoctrine()->getManager();
         $Preservartion=$em->getRepository('PreservationBundle:Preservation')->find($ghaith);
@@ -99,7 +102,7 @@ class PreservationController extends Controller
         foreach ($a as $b) {
             if ($b=='ROLE_USER')
             {return $this->redirectToRoute('listPreservation');}
-            elseif ($b=='ROLE_ADMIN')
+            else
             {return $this->redirectToRoute('listPreservationForAdmin');}
         }
 
@@ -107,6 +110,10 @@ class PreservationController extends Controller
 
     public function modifierPreservationAction(Request $request )
     {
+
+        $user=$this->getUser();
+        $a= $user->getRoles();
+
         $id=$request->get('id');
         $em=$this->getDoctrine()->getManager();
         $Preservartion=$em->getRepository('PreservationBundle:Preservation')->find($id);
@@ -117,7 +124,15 @@ class PreservationController extends Controller
             $em=$this->getDoctrine()->getManager();
             $em->persist($Preservartion);
             $em->flush();
-            return $this->redirectToRoute('listPreservation');}
+
+            foreach ($a as $b) {
+                if ($b=='ROLE_USER')
+                {return $this->redirectToRoute('listPreservation');}
+                else
+                {return $this->redirectToRoute('listPreservationForAdmin');}
+            }
+
+           }
         return $this->render('@Preservation/Preservation/modifierPreservation.html.twig',array(
 
             "Form"=>$form->createView()
@@ -126,13 +141,33 @@ class PreservationController extends Controller
 
     public function findPreservationDQLAction(Request $requete)
     {
+
+        $user=$this->getUser();
         $dateDebut = $requete->get("dateDebut");
         $dateFin = $requete->get("dateFin");
         $em = $this->getDoctrine()->getManager();
         $Preservartions = $em->getRepository("PreservationBundle:Preservation")->findPreservationParametre($dateDebut,$dateFin);
-        return $this->render('@Preservation/Preservation/recherchePreservation.html.twig',array("Preservartions" => $Preservartions));
+        return $this->render('@Preservation/Preservation/recherchePreservation.html.twig',array("Preservartions" => $Preservartions,'user'=>$user));
 
     }
 
+    public function findPreservationDQL2Action(Request $requete)
+    {
+        $user=$this->getUser();
+        $em = $this->getDoctrine()->getManager();
+        $Preservartions = $em->getRepository("PreservationBundle:Preservation")->findPreservationParametre2();
+        return $this->render('@Preservation/Preservation/reservationsExpire.html.twig',array("Preservartions" => $Preservartions,'user'=>$user));
 
+    }
+
+    public function findPreservationDQL3Action(Request $requete)
+    {
+
+        $user=$this->getUser();
+        $lieu = $requete->get("lieu");
+        $em = $this->getDoctrine()->getManager();
+        $Preservartions = $em->getRepository("PreservationBundle:Preservation")->findPreservationParametre3($lieu);
+        return $this->render('@Preservation/Preservation/recherchePresByEspace.html.twig',array("Preservartions" => $Preservartions,'user'=>$user));
+
+    }
 }
