@@ -26,8 +26,13 @@ class Commande
      */
     private $contite;
     /**
+     * @ORM\Column(type="datetime")
+     */
+    private $date;
+    /**
      * @ORM\Column(type="string")
      */
+
     private $etat;
     /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
@@ -54,6 +59,22 @@ class Commande
     public function setEtat($etat)
     {
         $this->etat = $etat;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDate()
+    {
+        return $this->date;
+    }
+
+    /**
+     * @param mixed $date
+     */
+    public function setDate($date)
+    {
+        $this->date = $date;
     }
 
     /**

@@ -9,9 +9,11 @@
 namespace PlanteBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 /**
  * Class plante
  * @ORM\Entity
+ * @UniqueEntity("nom")
  */
 class plante
 {
@@ -24,7 +26,7 @@ class plante
     private $id;
 
     /**
-     * @ORM\Column(type="string",length=40)
+     * @ORM\Column(type="string",length=255,unique=true)
      */
     private $nom;
 
@@ -44,7 +46,7 @@ class plante
     private $prix;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="integer")
      */
     private $hauteur;
 
@@ -64,7 +66,7 @@ class plante
     private $season;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="integer")
      */
     private $proposition;
     /**

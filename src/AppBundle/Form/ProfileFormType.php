@@ -21,7 +21,7 @@ class ProfileFormType extends AbstractType
     {
         $builder ->add('avatar',FileType::class, array('data_class' => null))
             ->add('nom')->
-        add('prenom')->add('tel',TextType::class)->remove('username');
+        add('prenom')->add('tel',TextType::class)->add('adresse')->remove('username');
     }
 
     public function getParent(){
