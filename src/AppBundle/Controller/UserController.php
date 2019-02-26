@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -164,6 +165,31 @@ class UserController extends Controller
     }
 
 
+    public function searchAction(Request $request)
+    {  $user = $this->container->get('security.token_storage')->getToken()->getUser();
+        $em= $this->getDoctrine()->getManager();
 
+        //recuperer tous les moderateurs
+        $query = $this->getDoctrine()->getEntityManager()
+            ->createQuery(
+                'SELECT u FROM AppBundle:User u WHERE u.roles LIKE :role or u.roles LIKE :role '
+            )->setParameter('role', 'a:1:{i:0;s:10:"ROLE_ADMIN";}')->setParameter('role', 'a:0:{}');
+
+        $Membres = $query->getResult();
+
+        if($request->isMethod("post")) {
+            $email = $request->get("email");
+            $query = $this->getDoctrine()->getEntityManager()
+                ->createQuery(
+                    'SELECT u FROM AppBundle:User u WHERE (u.email = :email) and (u.roles LIKE :rolemod or u.roles LIKE :rolemem) '
+                )->setParameter('email', $email)->setParameter('rolemod', 'a:1:{i:0;s:10:"ROLE_ADMIN";}')->setParameter('rolemem', 'a:0:{}');
+
+            $Membres = $query->getResult();
+
+            return new JsonResponse(array( "Membres" , $Membres));
+        }
+
+        return new JsonResponse(array( "Membres" , $Membres));
+    }
 
 }

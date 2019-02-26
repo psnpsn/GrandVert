@@ -70,4 +70,38 @@
                 </div>
             </footer>
         </div>
+
+    <script>
+        $(document).ready(function(){
+            getNotifications();
+        });
+
+        function getNotifications() {
+
+            //call ajax
+            $.ajax({
+                url: '{{ (path('search_Membres')) }}',
+                type: "POST",
+                dataType: "json",
+                data: {
+                    "some_var_name": "some_var_value"
+                },
+                async: true,
+                success: function (data) {
+                    console.log(data)
+                    $('#ajax-results').empty();
+
+                    data.Membres.forEach(function (item) {
+                        console.log(item);
+
+                        $('#ajax-results').append("<li style='border-bottom: 0px; font-size: 8px;' role='presentation'><a style='margin-top: 0px; margin-bottom: 0px; ' role='menuitem' tabindex='-2' href=''> <p style='float: left; font-size: 9px;'>"+item.title+"</p> <br> <p style='float: left; font-size: 7px;'>"+item.description+"</p></a></li>");
+                    });
+
+
+                }
+
+            });
+            setTimeout('getNotifications()', 5000);
+        }
+    </script>
 {% endblock %}
