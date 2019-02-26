@@ -368,6 +368,24 @@ class SujetController extends Controller
         $em->persist($sujet);
         $em->flush();
 
+        $user = $em->getRepository("AppBundle:User")->find($sujet->getUser());
+
+        //notifier user si le moderateur a fermer son sujet
+        if($this->getUser() != $user){
+            $notification = new Notification();
+
+            $notification->setUser($user);
+            $notification->setDate(new \DateTime());
+            $notification->setTitle("Sujet");
+            $notification->setSeen(false);
+            $notification->setDescription("votre sujet à été mettre en etat non resolu par le Moderateur/Admin");
+            $notification->setRoute("consulter_sujet");
+            $notification->setParameters(["id" => $sujet->getId()]);
+
+            $em->persist($notification);
+            $em->flush();
+        }
+
         $router = $this->container->get('router');
         return new RedirectResponse($router->generate('consulter_sujet' ,['id' => $id]), 307);
 
@@ -386,6 +404,24 @@ class SujetController extends Controller
         $em = $this->getDoctrine()->getEntityManager();
         $em->persist($sujet);
         $em->flush();
+
+        $user = $em->getRepository("AppBundle:User")->find($sujet->getUser());
+
+        //notifier user si le moderateur a fermer son sujet
+        if($this->getUser() != $user){
+            $notification = new Notification();
+
+            $notification->setUser($user);
+            $notification->setDate(new \DateTime());
+            $notification->setTitle("Sujet");
+            $notification->setSeen(false);
+            $notification->setDescription("votre sujet à été mettre en etat resolu par le Moderateur/Admin");
+            $notification->setRoute("consulter_sujet");
+            $notification->setParameters(["id" => $sujet->getId()]);
+
+            $em->persist($notification);
+            $em->flush();
+        }
 
         $router = $this->container->get('router');
         return new RedirectResponse($router->generate('consulter_sujet' ,['id' => $id]), 307);
