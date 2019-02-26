@@ -34,6 +34,10 @@ listPreservation:
     path:     /listPreservation
     defaults: { _controller: PreservationBundle:Preservation:listPreservation}
 
+pdfPreservation:
+    path:     /pdfPreservation
+    defaults: { _controller: PreservationBundle:Preservation:pdf}
+
 listPreservationForAdmin:
     path:     /listPreservationForAdmin
     defaults: { _controller: PreservationBundle:Preservation:listPreservationForAdmin}

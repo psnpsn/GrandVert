@@ -184,7 +184,7 @@
                         <th>NbPlaces</th>
                         <th>EspaceDePreservation</th>
 
-                        <th>Modifier</th>
+
                         <tbody id="myTable">
                         {% for Preservartion in Preservartions %}
                             <tr>
@@ -193,9 +193,7 @@
                                 <td>{{ Preservartion.DateFin|date('d-m-Y ') }}</td>
                                 <td>{{ Preservartion.NbPlaces }}</td>
                                 <td>{{ Preservartion.EspaceDePreservation.lieu }}</td>
-
-                                <td><a href="{{ path('modifierPreservation',{'id':Preservartion.id}) }}"><span class="glyphicon glyphicon-edit" aria-hidden="true">Modifier</span></a> </td>
-
+                                
 
                             </tr>
                         {% endfor %}

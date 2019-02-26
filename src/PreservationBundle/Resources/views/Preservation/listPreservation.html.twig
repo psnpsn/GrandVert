@@ -192,7 +192,7 @@
                     <td>{{ Preservartion.NbPlaces }}</td>
                     <td>{{ Preservartion.EspaceDePreservation.lieu }}</td>
                     <td>
-                        <a href="" class="tooltip-test" data-placement="top" title="" data-original-title="Supprimer"   data-target="#deleteModal{{ Preservartion.id }}"><span class="glyphicon glyphicon-trash" aria-hidden="true">Supprimer</span>    </a>
+                        <a href="" class="tooltip-test" data-placement="top" title="Supprimer L'espace {{ Preservartion.id }}" data-original-title="Supprimer"  data-toggle="modal" data-target="#deleteModal{{ Preservartion.id }}"><span class="glyphicon glyphicon-trash" aria-hidden="true">Supprimer</span>    </a>
                         <div class="modal fade" id="deleteModal{{ Preservartion.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                             <div class="modal-dialog">
                                 <br><br><br><br>
@@ -202,12 +202,12 @@
                                         <h4 style="color: black" class="modal-title">Comfirmation de suppression :</h4>
                                     </div>
                                     <div class="modal-body" >
-                                        <p style="color: black"><span>Voulez-vous vraiment supprimer La Réservation <a href="#"></a>  {{ Preservartion.id }}? </span></p>
+                                        <p style="color: black"><span>Voulez-vous vraiment supprimer La Réservation N° <a href="#"></a>  {{ Preservartion.id }}? </span></p>
 
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-default " data-dismiss="modal">Annuler</button>
-                                        <a href="{{ path('supprimerPreservation',{'id':Preservartion.id}) }}" data-toggle="modal" class="btn btn-danger"  id="lien" >Supprimer</a>
+                                        <a href="{{ path('supprimerPreservation',{'id':Preservartion.id}) }}" class="btn btn-danger"  id="lien" >Supprimer</a>
                                     </div>
                                 </div>
                             </div>
