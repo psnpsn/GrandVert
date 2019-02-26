@@ -5,7 +5,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Star Admin Free Bootstrap Admin Dashboard Template</title>
+    <title>Admin dahsboard</title>
     <!-- plugins:css -->
     <link rel="stylesheet" href="{{ asset('Admin/vendors/iconfonts/mdi/css/materialdesignicons.min.css') }}">
     <link rel="stylesheet" href="{{ asset('Admin/vendors/css/vendor.bundle.base.css') }}">
@@ -22,6 +22,8 @@
 </head>
 {% endblock %}
 <body>
+
+
 <div class="container-scroller">
     <!-- partial:partials/_navbar.html -->
     <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
@@ -38,113 +40,23 @@
             </ul>
             <ul class="navbar-nav navbar-nav-right">
                 <li class="nav-item dropdown">
-                    <a class="nav-link count-indicator dropdown-toggle" id="messageDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
-                        <i class="mdi mdi-file-document-box"></i>
-                        <span class="count">7</span>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="messageDropdown">
-                        <div class="dropdown-item">
-                            <p class="mb-0 font-weight-normal float-left">You have 7 unread mails
-                            </p>
-                            <span class="badge badge-info badge-pill float-right">View all</span>
-                        </div>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item preview-item">
-                            <div class="preview-thumbnail">
-                                <img src="{{ asset('Admin/images/faces/face4.jpg') }}" alt="image" class="profile-pic">
-                            </div>
-                            <div class="preview-item-content flex-grow">
-                                <h6 class="preview-subject ellipsis font-weight-medium text-dark">David Grey
-                                    <span class="float-right font-weight-light small-text">1 Minutes ago</span>
-                                </h6>
-                                <p class="font-weight-light small-text">
-                                    The meeting is cancelled
-                                </p>
-                            </div>
-                        </a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item preview-item">
-                            <div class="preview-thumbnail">
-                                <img src="{{ asset('Admin/images/faces/face2.jpg') }}" alt="image" class="profile-pic">
-                            </div>
-                            <div class="preview-item-content flex-grow">
-                                <h6 class="preview-subject ellipsis font-weight-medium text-dark">Tim Cook
-                                    <span class="float-right font-weight-light small-text">15 Minutes ago</span>
-                                </h6>
-                                <p class="font-weight-light small-text">
-                                    New product launch
-                                </p>
-                            </div>
-                        </a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item preview-item">
-                            <div class="preview-thumbnail">
-                                <img src="{{ asset('Admin/images/faces/face3.jpg') }}" alt="image" class="profile-pic">
-                            </div>
-                            <div class="preview-item-content flex-grow">
-                                <h6 class="preview-subject ellipsis font-weight-medium text-dark"> Johnson
-                                    <span class="float-right font-weight-light small-text">18 Minutes ago</span>
-                                </h6>
-                                <p class="font-weight-light small-text">
-                                    Upcoming board meeting
-                                </p>
-                            </div>
-                        </a>
-                    </div>
-                </li>
-                <li class="nav-item dropdown">
                     <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-toggle="dropdown">
                         <i class="mdi mdi-bell"></i>
-                        <span class="count">4</span>
+                        <span id="nbnotif" class="count" data-count=""></span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
-                        <a class="dropdown-item">
-                            <p class="mb-0 font-weight-normal float-left">You have 4 new notifications
-                            </p>
-                            <span class="badge badge-pill badge-warning float-right">View all</span>
-                        </a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item preview-item">
-                            <div class="preview-thumbnail">
-                                <div class="preview-icon bg-success">
-                                    <i class="mdi mdi-alert-circle-outline mx-0"></i>
-                                </div>
-                            </div>
-                            <div class="preview-item-content">
-                                <h6 class="preview-subject font-weight-medium text-dark">Application Error</h6>
-                                <p class="font-weight-light small-text">
-                                    Just now
-                                </p>
-                            </div>
-                        </a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item preview-item">
-                            <div class="preview-thumbnail">
-                                <div class="preview-icon bg-warning">
-                                    <i class="mdi mdi-comment-text-outline mx-0"></i>
-                                </div>
-                            </div>
-                            <div class="preview-item-content">
-                                <h6 class="preview-subject font-weight-medium text-dark">Settings</h6>
-                                <p class="font-weight-light small-text">
-                                    Private message
-                                </p>
-                            </div>
-                        </a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item preview-item">
-                            <div class="preview-thumbnail">
-                                <div class="preview-icon bg-info">
-                                    <i class="mdi mdi-email-outline mx-0"></i>
-                                </div>
-                            </div>
-                            <div class="preview-item-content">
-                                <h6 class="preview-subject font-weight-medium text-dark">New user registration</h6>
-                                <p class="font-weight-light small-text">
-                                    2 days ago
-                                </p>
-                            </div>
-                        </a>
+                        <ul id="ajax-results">
+                            <li>
+                                <a class="dropdown-item preview-item" >
+                                    <div class="preview-item-content">
+                                        <h6 class="preview-subject font-weight-medium text-dark">Application Error</h6>
+                                        <p class="font-weight-light small-text">
+                                            Just now
+                                        </p>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
                     </div>
                 </li>
                 <li class="nav-item dropdown d-none d-xl-inline-block">
@@ -910,6 +822,43 @@
 <!-- Custom js for this page-->
 <script src="{{ asset('Admin/js/dashboard.js') }}"></script>
 <!-- End custom js for this page-->
+
+    <script>
+        $(document).ready(function(){
+            getNotifications();
+        });
+
+        function getNotifications() {
+
+            //call ajax
+            $.ajax({
+                url: '{{ (path('notification_user')) }}',
+                type: "POST",
+                dataType: "json",
+                data: {
+                    "some_var_name": "some_var_value"
+                },
+                async: true,
+                success: function (data) {
+                    console.log(data)
+                    $('#ajax-results').empty();
+                    //$('#nbnotif').data('count', data.count);
+                    //$("#nbnotif").attr("data-count" , data.count);
+                    document.getElementById("nbnotif").textContent= data.count +1;
+                    data.notifications.forEach(function (item) {
+                        console.log(item);
+
+                        $('#ajax-results').append("<li style='list-style-type:none;'> <a class='dropdown-item preview-item' > <div class='preview-item-content'><h6 class='preview-subject font-weight-medium text-dark'>"+item.title+"</h6><p class='font-weight-light small-text'>"+item.description+"</p> </div> </a> </li>");
+
+                    });
+
+
+                }
+
+            });
+            setTimeout('getNotifications()', 5000);
+        }
+    </script>
 {% endblock %}
 </body>
 </html>
