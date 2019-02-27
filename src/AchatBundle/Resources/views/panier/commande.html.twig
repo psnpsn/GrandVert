@@ -22,6 +22,7 @@
                 {% for commande in commandes %}
                     {% if commande.etat=="Rejeter" %} <tr bgcolor="#FF0000">
                     {% elseif commande.etat=="Valider" %} <tr bgcolor="#32CD32">
+                    {% elseif commande.etat=="Annuler" %} <tr bgcolor="#707070">
                         {% else %}    <tr>
                           {% endif %}
 

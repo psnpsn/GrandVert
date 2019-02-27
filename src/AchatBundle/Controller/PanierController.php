@@ -40,6 +40,10 @@ class PanierController extends Controller
         $em=$this->getDoctrine()->getManager();
         $id=$request->get('id');
         $cont=$request->get('amp;cont');
+        $this->get('session')->getFlashBag()->add(
+            'notice',
+            'commande ajouter avec succes '
+        );
         $user = $this->container->get('security.token_storage')->getToken()->getUser();
         $plante=$em->getRepository('PlanteBundle:plante')->find($id);
         $commande=new Commande();
