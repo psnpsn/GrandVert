@@ -154,55 +154,52 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" data-toggle="collapse" href="#ui-basic-depot" aria-expanded="false" aria-controls="ui-basic">
+                    <a class="nav-link" data-toggle="collapse" href="#ui-basic-espace" aria-expanded="false" aria-controls="ui-basic">
                         <i class="menu-icon mdi mdi-content-copy"></i>
-                        <span class="menu-title">Gérer Depôt</span>
+                        <span class="menu-title">Gérer Espaces</span>
                         <i class="menu-arrow"></i>
                     </a>
-                    <div class="collapse" id="ui-basic-depot">
+                    <div class="collapse" id="ui-basic-espace">
                         <ul class="nav flex-column sub-menu">
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ asset('Admin/pages/ui-features/buttons.html') }}">Buttons</a>
+                                <a class="nav-link" href="{{ path('list') }}">Consulter Espaces</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ asset('Admin/pages/ui-features/typography.html') }}">Typography</a>
+                                <a class="nav-link" href="{{ path('export') }}">Exporter Espaces</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ path('Ajout') }}">Ajouter Espace</a>
                             </li>
                         </ul>
                     </div>
                 </li>
-
                 <li class="nav-item">
-                    <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+                    <a class="nav-link" data-toggle="collapse" href="#ui-basic-reservation" aria-expanded="false" aria-controls="ui-basic">
                         <i class="menu-icon mdi mdi-content-copy"></i>
-                        <span class="menu-title">Gérer Avis</span>
+                        <span class="menu-title">Gérer Réservations</span>
                         <i class="menu-arrow"></i>
                     </a>
-                    <div class="collapse" id="ui-basic">
+                    <div class="collapse" id="ui-basic-reservation">
                         <ul class="nav flex-column sub-menu">
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ asset('Admin/pages/ui-features/buttons.html') }}">Buttons</a>
+                                <a class="nav-link" href="{{ path('listPreservationForAdmin') }}">Consulter Réservations</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ asset('Admin/pages/ui-features/typography.html') }}">Typography</a>
+                                <a class="nav-link" href="{{ path('exportPreservation') }}">Exporter Réservations</a>
                             </li>
-                        </ul>
-                    </div>
-                </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ path('findPreservationByDate') }}">Rechercher Avec Période</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ path('findPreservationByLieu') }}">Rechercher Avec Lieu</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ path('findPreservationByDateExpire') }}">Réservations Expirés</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ path('pdfPreservation') }}">Réservations Vers PDF</a>
+                            </li>
 
-                <li class="nav-item">
-                    <a class="nav-link" data-toggle="collapse" href="#ui-basic-" aria-expanded="false" aria-controls="ui-basic">
-                        <i class="menu-icon mdi mdi-content-copy"></i>
-                        <span class="menu-title">Gérer reclamation</span>
-                        <i class="menu-arrow"></i>
-                    </a>
-                    <div class="collapse" id="ui-basic">
-                        <ul class="nav flex-column sub-menu">
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ asset('Admin/pages/ui-features/buttons.html') }}">Buttons</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ asset('Admin/pages/ui-features/typography.html') }}">Typography</a>
-                            </li>
                         </ul>
                     </div>
                 </li>

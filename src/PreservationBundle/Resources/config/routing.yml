@@ -34,6 +34,10 @@ listPreservation:
     path:     /listPreservation
     defaults: { _controller: PreservationBundle:Preservation:listPreservation}
 
+pdfPreservation:
+    path:     /pdfPreservation
+    defaults: { _controller: PreservationBundle:Preservation:pdf}
+
 listPreservationForAdmin:
     path:     /listPreservationForAdmin
     defaults: { _controller: PreservationBundle:Preservation:listPreservationForAdmin}
@@ -46,6 +50,14 @@ modifierPreservation:
     path:     /modifierPreservation
     defaults: { _controller: PreservationBundle:Preservation:modifierPreservation}
 
-FindCarsJoinModeleDQL:
+findPreservationByDate:
     path:     /findPreservationByDate
     defaults: { _controller: PreservationBundle:Preservation:findPreservationDQL }
+
+findPreservationByDateExpire:
+    path:     /findPreservationByDateExpire
+    defaults: { _controller: PreservationBundle:Preservation:findPreservationDQL2 }
+
+findPreservationByLieu:
+    path:     /findPreservationByLieu
+    defaults: { _controller: PreservationBundle:Preservation:findPreservationDQL3 }

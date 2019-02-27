@@ -1,6 +1,6 @@
 <?php
 // getting data from database
-$conn= mysqli_connect("localhost","root","","garden");
+$conn= mysqli_connect("localhost","root","","symfony");
 // getting data from table
 $result= mysqli_query($conn,"SELECT nom FROM plante WHERE plante.proposition=1");
 //storing in array

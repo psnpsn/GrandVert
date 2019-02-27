@@ -1,18 +1,53 @@
-{% extends 'base.html.twig' %}
-
+{% extends 'admin_dashboard.html.twig' %}
 {% block content %}
-    <div class="container">
-        <div class="sign">
-            <h1>Modifier L'Espace De Préservation </h1>
-            <br>
+    <div class="main-panel">
+        <div class="content-wrapper">
+            <div class="card">
+                <div class="card-body">
+                    {% for flashMessage in app.session.flashbag.get('notice') %}
+                        <div class="w3-panel w3-green" >
+                            {{ flashMessage }}
+                        </div>
+                    {% endfor %}
+                    <h3> Modifier L'Espace De Préservation</h3>
 
-            {{ form_start(Form) }}
-            {{ form_widget(Form) }}
-            <input type="submit" value="Modifier" />
-            {{ form_end(Form) }}
+                    {{ form_start(Form ,{'attr': {'class': 'forms-sample'}}) }}
+
+                    {{ form_row(Form.nom, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_row(Form.capacity, {'attr': {'class': 'form-control'}})}}
+                    {{ form_row(Form.lieu, {'attr': {'class': 'form-control'}}) }}
+                    <br>
+
+
+                    <div>
 
 
 
+                        <input type="submit" value="Modifier" />
+
+                    </div>
+
+                    {{ form_end(Form) }}
+                    <br>
+
+
+
+
+                </div>
+            </div>
         </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    <footer class="footer">
+        <div class="container-fluid clearfix">
+            <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © 2018
+              <a href="http://www.bootstrapdash.com/" target="_blank">Bootstrapdash</a>. All rights reserved.</span>
+            <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Hand-crafted & made with
+              <i class="mdi mdi-heart text-danger"></i>
+            </span>
+        </div>
+    </footer>
     </div>
 {% endblock %}

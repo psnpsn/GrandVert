@@ -189,6 +189,8 @@
                             <a class="request text-uppercase" href="{{ path('profile_user')}}"  >compte</a>
                             <a class="request text-uppercase"  href="{{ path('fos_user_profile_edit')}}" >edit</a>
                             <a class="request text-uppercase"href="{{ path('fos_user_security_logout')}}" >Déconnection</a>
+                            <a class="request text-uppercase"href="{{ path('mes_sujets')}}" >Mes Sujet</a>
+
                         </div>
                     </div>
                 </div>
@@ -220,14 +222,22 @@
                                         <li class="nav-item">
                                             <a class="nav-link" href="#" style="font-size : 15px; margin-right: 5px; color: white; padding-top:20px;" >Evénement</a>
                                         </li>
-
+                                        <li class="nav-item dropdown"  style="font-size : 14px; margin-right: 5px; color: white; padding-top:16px;" >
+                                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                Réservation
+                                                <i class="fas fa-angle-down"></i>
+                                            </a>
+                                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                                <a class="dropdown-item" href="{{ path('AjoutPreservation')}}">Réservez Places</a>
+                                                <a class="dropdown-item" href="{{ path('listPreservation')}}">Consulter Réservations</a>
+                                            </div>
+                                        </li>
                                         <li   style="font-size : 15px; margin-right: 5px; color: white;">
                                          <a data-toggle="modal" data-target="#exampleModalCenter">   <div id="ex4">
   <span class="p1 fa-stack fa-2x has-badge" id="bad" data-count="0">
     <i class="p3 fas fa-bell fa-stack-1x xfa-inverse" data-count="4b"></i>
   </span>
                                             </div></a>
-                                        </li>
                                         <li style="font-size : 15px; margin-right: 5px; color: white;"><a href="{{ path('panier')}}" >
                                                 <div id="ex4">
   <span class="p1 fa-stack fa-2x has-badge" data-count="{{ app.session.get('panier')|length }}">
@@ -329,6 +339,8 @@
                                         <li class="nav-item">
                                             <a class="nav-link" href="{{ path('planteaff')}}" style="font-size : 15px; margin-right: 5px; color: white; padding-top:20px;" > plante</a>
                                         </li>
+
+
                                         <li class="nav-item">
                                             <a class="nav-link" href="{{ path('afficher_categorie') }}" style="font-size : 15px; margin-right: 5px; color: white; padding-top:20px;">Forum</a>
                                         </li>
