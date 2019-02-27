@@ -196,6 +196,12 @@
                                                         <a data-toggle="dropdown"  href="#" style="color: white; padding-left: 20px; "> Action</b>
                                                             <ul class="dropdown-menu" role="menu" style="height: auto; width: auto; background-color: white; font-size: 10px; text-decoration: none; ">
                                                                 <li style="border-bottom: 0px; font-size: 13px; margin-top: -12px" role="presentation"><a role="menuitem"  href="{{ path("Modifier_etat_compte_by_moderateur",{'id': membre.id} ) }}">Modifier etat compte</a></li>
+                                                                {% if membre.roles[0] == "ROLE_USER" %}
+                                                                    <li style="border-bottom: 0px; font-size: 13px; margin-top: -12px" role="presentation"><a role="menuitem"  href="{{ path("Role_Moderateur",{'id': membre.id} ) }}">Modifier role</a></li>
+                                                                {% elseif membre.roles[0] == "ROLE_ADMIN" %}
+                                                                    <li style="border-bottom: 0px; font-size: 13px; margin-top: -12px" role="presentation"><a role="menuitem"  href="{{ path("Role_Membre",{'id': membre.id} ) }}">Modifier role</a></li>
+                                                                     {% else %}{% endif %}
+
                                                             </ul>
                                                         </a>
                                                     </div>
