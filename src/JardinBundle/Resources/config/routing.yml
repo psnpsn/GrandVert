@@ -31,7 +31,41 @@ note_delete:
 note_view:
     path:     /note
     defaults: { _controller: JardinBundle:Note:view }
+    options:
+        expose: true
 
 note_list:
     path:   /notelist
     defaults: {_controller: JardinBundle:Note:list }
+    options:
+        expose: true
+
+plantt_add:
+    path:     /plantt/add
+    defaults: { _controller: JardinBundle:Plantation:add }
+    options:
+        expose: true
+
+plantt_update:
+    path:     /plantt/update
+    defaults: { _controller: JardinBundle:Plantation:update }
+    options:
+        expose: true
+
+plantt_delete:
+    path:     /plantt/delete
+    defaults: { _controller: JardinBundle:Plantation:delete }
+    options:
+        expose: true
+
+plantt_list:
+    path:     /plantt/list
+    defaults: { _controller: JardinBundle:Plantation:list }
+    options:
+        expose: true
+
+plantt_view:
+    path:     /plantt/view
+    defaults: { _controller: JardinBundle:Plantation:view }
+    options:
+        expose: true

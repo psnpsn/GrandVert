@@ -122,6 +122,8 @@ knp_snappy:
         binary:     "\"C:\\Program Files\\wkhtmltopdf\\bin\\wkhtmltoimage.exe\""
         options:    []
 
+dwr_open_weather:
+  api_key: eb4a934469d310d05734800da29b79bc
 
 framework:
     translator: ~

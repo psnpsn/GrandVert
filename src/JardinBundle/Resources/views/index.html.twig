@@ -10,8 +10,10 @@
             //init global variables
             var days;
             var URL;
-            var URL_add;
-            var URL_update;
+            var URL_add_note;
+            var URL_update_note;
+            var URL_add_plantt;
+            var URL_update_plantt;
             var newDate = new Date();
             //calendar functions
             $("#setDateBt").click(function () {
@@ -89,7 +91,7 @@
                                                 k=j+1;
                                                 var note = document.createElement('div');
                                                 note.id = 'note-' + date_element.id;
-                                                URL_update = Routing.generate('note_update',{ id: date_element.id });
+                                                URL_update_note = Routing.generate('note_update',{ id: date_element.id });
                                                 note.innerHTML = "<a data-toggle=\"modal\" data-target=\"#updateNoteModal\" id=\"update-note-btn_"+ date_element.id +"\"> <i class=\"far fa-sticky-note\"></i></a>\n" +
                                                     "                    <a data-toggle=\"modal\" data-target=\"#deleteModal\" id=\"delete-note-btn_" + date_element.id + "\"> <i class=\"far fa-trash-alt\"></i></a>";
                                                 document.getElementById("notes-day" + k ).appendChild(note);
@@ -109,6 +111,7 @@
                             console.log('Error in Ajax');
                         }
                     });
+                    //get plants
 
                     var daysNameList = ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'];
                     for (i=0; i<7;i++){
@@ -125,12 +128,9 @@
                 console.log(event.relatedTarget.id.split("_").pop());
                 var dayNum = event.relatedTarget.id.split("_").pop();
                 var modal = $(this);
-                URL_add = Routing.generate('note_add',{ jardinId: {{ jardin.id }}, date: days[dayNum-1] });
-                URL = URL_add;
-                console.log(URL_add);
-                console.log(URL_update);
-                console.log(URL);
-                $.ajax(URL_add, {
+                URL_add_note = Routing.generate('note_add',{ jardinId: {{ jardin.id }}, date: days[dayNum-1] });
+                URL = URL_add_note;
+                $.ajax(URL_add_note, {
                     date: days[dayNum-1],
                     success: function(data) {
                         modal.find('.modal-body').html(data);
@@ -142,9 +142,23 @@
                 console.log(event.relatedTarget.id.split("_").pop());
                 var note_id = event.relatedTarget.id.split("_").pop();
                 var modal = $(this);
-                URL_update = Routing.generate('note_update',{ id: note_id });
-                URL = URL_update;
-                $.ajax(URL_update, {
+                URL_update_note = Routing.generate('note_update',{ id: note_id });
+                URL = URL_update_note;
+                $.ajax(URL_update_note, {
+                    success: function(data) {
+                        modal.find('.modal-body').html(data);
+                    }
+                });
+            });
+
+            $('#addPlanttModal').on('shown.bs.modal', function (event) {
+                console.log(event.relatedTarget.id.split("_").pop());
+                var dayNum = event.relatedTarget.id.split("_").pop();
+                var modal = $(this);
+                URL_add_plantt = Routing.generate('plantt_add',{ jardinId: {{ jardin.id }}, date: days[dayNum-1] });
+                URL = URL_add_plantt;
+                $.ajax(URL_add_plantt, {
+                    date: days[dayNum-1],
                     success: function(data) {
                         modal.find('.modal-body').html(data);
                     }
@@ -236,6 +250,7 @@
 
 {% block stylesheets %}
     {{ parent() }}
+    <style></style>
     <link rel="stylesheet" id="rangecalendar-style-css" href="{{ asset('jardin/weektl/css/rangecalendar.css') }}" type="text/css" media="all">
     <link rel="stylesheet" id="jquery-ui-style-css" href="{{ asset('jardin/weektl/css/jquery-ui-1.10.3.custom.min.css') }}" type="text/css" media="all">
     <link rel="stylesheet" id="jquery-ui-style-css" href="{{ asset('jardin/daymodel.css') }}" type="text/css" media="all">
@@ -249,12 +264,12 @@
                 <div class="dayHeader">
                     <div class="dayName"><h2 id="day{{ dayNumber }}"></h2></div>
                     <div class="add-note-btn">
-                        <button id="add-note-btn_{{ dayNumber }}" type="button" class="btn btn-primary" data-toggle="modal" data-target="#addNoteModal">
-                            Add Note
+                        <button id="add-note-btn_{{ dayNumber }}" type="button" class="btn btn-success" data-toggle="modal" data-target="#addNoteModal">
+                            +Note
                         </button>
                     </div>
                     <div class="activity-bar">
-                        <button id="setDateBt" class="btn btn-primary" type="submit">Add</button>
+                        <button id="add-plantt-btn_{{ dayNumber }}" class="btn btn-success" data-toggle="modal" data-target="#addPlanttModal">+Plantation</button>
                     </div>
                 </div>
                 <div id="weather-day{{ dayNumber }}">
@@ -317,6 +332,24 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
                         <button type="button" class="btn btn-danger"><a id="btn-supprimer">Supprimer</a></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Add Plantation Modal -->
+        <div class="modal fade" id="addPlanttModal" tabindex="-1" role="dialog" aria-labelledby="addPlanttModalTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="addPlanttModalLongTitle">Ajouter une plantation</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div id="modal-form-addplantt" class="modal-body">
+                        Loading...
+                    </div>
+                    <div class="modal-footer">
                     </div>
                 </div>
             </div>
