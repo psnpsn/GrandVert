@@ -69,7 +69,7 @@ class PlanteController extends Controller
         ));
     }
     public function filAction(Request $request)
-    {     $authChecker = $this->container->get('security.authorization_checker');
+    {   $authChecker = $this->container->get('security.authorization_checker');
         $user = $this->container->get('security.token_storage')->getToken()->getUser();
         $cat=$request->get('cat');
         $em=$this->getDoctrine()->getManager();

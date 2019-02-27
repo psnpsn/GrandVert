@@ -424,7 +424,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body" id="mod">
 
                     <div class="login px-4 mx-auto mw-100">
                     </div>
@@ -556,7 +556,7 @@
                 async: true,
                 success: function (data) {
                     console.log(data)
-                    $('.modal-body').empty();
+                    $('#mod').empty();
                     //$('#nbnotif').data('count', data.count);
                     $("#bad").attr("data-count" , data.count);
                     data.notifications.forEach(function (item) {
@@ -564,7 +564,7 @@
 
                         //si notification est en etat seen
                         //if(item.seen == true)
-                            $('.modal-body').append("<div style='border: 2px;border-radius: 25px;border: 2px solid rgba(0,0,0,0.2);padding: 20px'><p>"+item.title+"</p><p>"+item.description+"</p></div></br>");
+                            $('#mod').append("<div style='border: 2px;border-radius: 25px;border: 2px solid rgba(0,0,0,0.2);padding: 20px'><p>"+item.title+"</p><p>"+item.description+"</p></div></br>");
                         //else
                           //  $('#ajax-results').append("<li style='border-bottom: 0px; font-size: 8px; background-color:#eeeeee; ' role='presentation'><a style='margin-top: 0px; margin-bottom: 0px; ' role='menuitem' tabindex='-2' href=''> <p style='float: left; font-size: 9px;'>"+item.title+"</p> <br> <p style='float: left; font-size: 7px;'>"+item.description+"</p></a></li>");
                     });
