@@ -7,6 +7,7 @@
  */
 
 namespace PlanteBundle\Controller;
+use ForumBundle\Entity\Notification;
 use PlanteBundle\Entity\plante;
 use AppBundle\Entity\User;
 use PlanteBundle\Form\planteType;
@@ -136,6 +137,15 @@ class PlanteController extends Controller
         $em=$this->getDoctrine()->getManager();
         $plante=$em->getRepository('PlanteBundle:plante')->find($id);
         $plante->setProposition(1);
+        $user = $em->getRepository("AppBundle:User")->find($plante->getUser());
+        $notification = new Notification();
+        $notification->setUser($user);
+        $notification->setDate(new \DateTime());
+        $notification->setTitle("accepter proposition");
+        $notification->setSeen(false);
+        $notification->setDescription("votre proposition est accepter");
+        $em->persist($notification);
+        $em->flush();
             $em->persist($plante);
             $em->flush();
             $this->get('session')->getFlashBag()->add(
@@ -204,6 +214,15 @@ class PlanteController extends Controller
         $em=$this->getDoctrine()->getManager();
         $plante=$em->getRepository('PlanteBundle:plante')->find($id);
         $plante->setProposition(2);
+        $user = $em->getRepository("AppBundle:User")->find($plante->getUser());
+        $notification = new Notification();
+        $notification->setUser($user);
+        $notification->setDate(new \DateTime());
+        $notification->setTitle("refus proposition");
+        $notification->setSeen(false);
+        $notification->setDescription("votre proposition est refuser");
+        $em->persist($notification);
+        $em->flush();
         $em->persist($plante);
         $em->flush();
         return $this->redirectToRoute('propad');

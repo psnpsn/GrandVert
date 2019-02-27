@@ -86,6 +86,10 @@ Modifier_etat_compte_by_moderateur:
     path:     /moderateur/Modifier_etat_compte
     defaults: { _controller: AppBundle:User:etat }
 
+chart:
+    path:     /chart
+    defaults: { _controller: AppBundle:Chart:chart }
+
 
 
 
