@@ -5,6 +5,7 @@
     <script src="{{ asset('bundles/fosjsrouting/js/router.min.js') }}"></script>
     <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
     <script>
+
         $(document).ready(function(){
             var currentRange;
             //init global variables
@@ -92,8 +93,9 @@
                                                 var note = document.createElement('div');
                                                 note.id = 'note-' + date_element.id;
                                                 URL_update_note = Routing.generate('note_update',{ id: date_element.id });
-                                                note.innerHTML = "<a data-toggle=\"modal\" data-target=\"#updateNoteModal\" id=\"update-note-btn_"+ date_element.id +"\"> <i class=\"far fa-sticky-note\"></i></a>\n" +
-                                                    "                    <a data-toggle=\"modal\" data-target=\"#deleteModal\" id=\"delete-note-btn_" + date_element.id + "\"> <i class=\"far fa-trash-alt\"></i></a>";
+                                                note.innerHTML = "<a data-toggle=\"modal\" data-target=\"#updateNoteModal\" id=\"update-note-btn_"+ date_element.id +"\"> <i class=\"fab fa-wpforms fa-2x blue\"></i></a>\n" +
+                                                    "                    <a data-toggle=\"modal\" data-target=\"#deleteModal\" id=\"delete-note-btn_" + date_element.id + "\"> <i class=\"far fa-trash-alt red\"></i></a>" +
+                                                "<span class=\"note-text\">   " + date_element.contenu + "</span>";
                                                 document.getElementById("notes-day" + k ).appendChild(note);
                                                 removeDuplicates($("#notes-day"+k));
                                             }
@@ -111,7 +113,48 @@
                             console.log('Error in Ajax');
                         }
                     });
-                    //get plants
+                    //get plantations
+                    $.ajax({
+                        url: '{{ path('plantt_list') }}',
+                        type: "POST",
+                        data: {
+                            jardin_id: {{ jardin.id }},
+                            days_list: days
+                        },
+                        success: function(data){
+                            if (typeof data.status != "undefined" && data.status != "undefined")
+                            {
+                                if (data.status == "OK")
+                                {
+                                    console.log(data.message)
+                                    for (i=0; i<data.message.length; i++){
+                                        var date_element = data.message[i];
+                                        for (j=0; j<7; j++){
+                                            if (date_element.date == days[j]){
+                                                k=j+1;
+                                                var plantt = document.createElement('div');
+                                                plantt.id = 'plantt-' + date_element.id;
+                                                URL_update_plantt = Routing.generate('plantt_update',{ id: date_element.id });
+                                                plantt.innerHTML = "<a data-toggle=\"modal\" data-target=\"#viewPlanttModal\" id=\"view-plantt-btn_"+ date_element.id +"\"><i class=\"fab fa-pagelines fa-2x green\"></i></a>\n" +
+                                                    "<a data-toggle=\"modal\" data-target=\"#deleteModal\" id=\"delete-plantt-btn_" + date_element.id + "\"> <i class=\"far fa-trash-alt red\"></i></a>" +
+                                                    "<span class=\"plantt-name\">   " + date_element.plante + "</span>";
+                                                document.getElementById("plantts-day" + k ).appendChild(plantt);
+                                                removeDuplicates($("#plantts-day"+k));
+                                            }
+
+                                        }
+                                    }
+                                    if (typeof data.message != "undefined" && data.message != "undefined")
+                                    {
+                                        // Do whatever you need with data.message
+                                    }
+                                }
+                            }
+                        },
+                        error: function(){
+                            console.log('Error in Ajax (TWIG)');
+                        }
+                    });
 
                     var daysNameList = ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'];
                     for (i=0; i<7;i++){
@@ -165,6 +208,19 @@
                 });
             });
 
+            $('#viewPlanttModal').on('shown.bs.modal', function (event) {
+                console.log(event.relatedTarget.id.split("_").pop());
+                var id = event.relatedTarget.id.split("_").pop();
+                var modal = $(this);
+                URL_update_plantt = Routing.generate('plantt_view',{ id: id });
+                URL = URL_update_plantt;
+                $.ajax(URL_update_plantt, {
+                    success: function(data) {
+                        modal.find('.modal-body').html(data);
+                    }
+                });
+            });
+
             //ajax for submitting forms
             $(document).on('submit', 'form', function(e){
                 e.preventDefault();
@@ -192,14 +248,20 @@
             //delete confirmation modal
             $('#deleteModal').on('shown.bs.modal', function (event) {
                 console.log(event.relatedTarget.id.split("_").pop());
+                console.log(event.relatedTarget.id.split("_").shift());
                 var id = event.relatedTarget.id.split("_").pop();
+                var shift = event.relatedTarget.id.split("_").shift();
                 var modal = $(this);
-                var URL_delete = Routing.generate('note_delete',{ id: id });
+                if (shift.includes('plantt')){
+                    var URL_delete = Routing.generate('plantt_delete',{ id: id });
+                }else var URL_delete = Routing.generate('note_delete',{ id: id });
+
                 btn_supp = modal.find('#btn-supprimer');
                 //btn_supp.attr("href", URL_delete);
                 btn_supp.click(function () {
                     $.ajax(URL_delete, {
                         success: function(data) {
+                            onRangeChanged(currentRange);
                             console.log(data);
                             modal.modal('hide');
                             onRangeChanged(currentRange);
@@ -250,7 +312,52 @@
 
 {% block stylesheets %}
     {{ parent() }}
-    <style></style>
+    <style>
+        .notes-day{
+        }
+
+        .plantt-name{
+            margin: 0;
+            font-size: 1em;
+            color: #8c9398;
+            line-height: 1.9em;
+            letter-spacing: 1px;
+        }
+        .note-text{
+            margin: 0;
+            font-size: 1em;
+            color: #8c9398;
+            line-height: 1.9em;
+            letter-spacing: 1px;
+            text-overflow: ellipsis;
+        }
+        .red {
+            color: 	#8B0000;
+        }
+        .green {
+            color: #00bb00;
+        }
+        .blue {
+            color: #1b6db5;
+        }
+
+        a, a i {
+            cursor: pointer;
+        }
+
+        .plantts-day {
+            grid-area: plantts;
+        }
+
+        .notes-day{
+            grid-area: notes;
+        }
+        .ajax-calls {
+            display: grid;
+            grid-template-columns: 1fr 2fr 1fr;
+            grid-template-areas: 'notes myArea plantts';
+        }
+    </style>
     <link rel="stylesheet" id="rangecalendar-style-css" href="{{ asset('jardin/weektl/css/rangecalendar.css') }}" type="text/css" media="all">
     <link rel="stylesheet" id="jquery-ui-style-css" href="{{ asset('jardin/weektl/css/jquery-ui-1.10.3.custom.min.css') }}" type="text/css" media="all">
     <link rel="stylesheet" id="jquery-ui-style-css" href="{{ asset('jardin/daymodel.css') }}" type="text/css" media="all">
@@ -272,10 +379,13 @@
                         <button id="add-plantt-btn_{{ dayNumber }}" class="btn btn-success" data-toggle="modal" data-target="#addPlanttModal">+Plantation</button>
                     </div>
                 </div>
-                <div id="weather-day{{ dayNumber }}">
-                    <h4>Weather lorem posem lolm</h4>
-                </div>
-                <div id="notes-day{{ dayNumber }}" class="notes-day">
+                    <div id="weather-day{{ dayNumber }}">
+                        <span>{{ wth.cityName() }} ,{{ wth.country() }} - {{ wth.description() }} - Humidité {{ wth.humidity() }}%</span>
+                        <span>Température {{ wth.temp() }}F° - Vent {{ wth.windSpeed() }}%</span>
+                    </div>
+                <div class="ajax-calls">
+                    <div id="notes-day{{ dayNumber }}" class="notes-day"></div>
+                    <div id="plantts-day{{ dayNumber }}" class="plantts-day"></div>
                 </div>
             </div>
         {% endfor %}
@@ -285,7 +395,7 @@
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="addNoteModalLongTitle">Ajouter une Note</h5>
+                        <h5 class="modal-title" id="addNoteModalLongTitle">Ajouter une Note <i class="fas fa-pencil-alt"></i></h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -303,7 +413,7 @@
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="updateNoteModalLongTitle">Note</h5>
+                        <h5 class="modal-title" id="updateNoteModalLongTitle">Note <i class="fas fa-pencil-alt"></i></h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -347,6 +457,24 @@
                         </button>
                     </div>
                     <div id="modal-form-addplantt" class="modal-body">
+                        Loading...
+                    </div>
+                    <div class="modal-footer">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- View Plantation Modal -->
+        <div class="modal fade" id="viewPlanttModal" tabindex="-1" role="dialog" aria-labelledby="viewPlanttModalTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="viewPlanttModalLongTitle">Plantation</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div id="modal-form-viewplantt" class="modal-body">
                         Loading...
                     </div>
                     <div class="modal-footer">

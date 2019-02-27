@@ -69,3 +69,9 @@ plantt_view:
     defaults: { _controller: JardinBundle:Plantation:view }
     options:
         expose: true
+
+get_weather:
+    path:     /weather
+    defaults: { _controller: JardinBundle:Default:wth }
+    options:
+        expose: true

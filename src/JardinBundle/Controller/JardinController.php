@@ -42,7 +42,7 @@ class JardinController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($jardin);
             $em->flush();
-            return $this->redirectToRoute('profile_user');
+            return $this->redirectToRoute('jardin_journal');
         }
         return $this->render('@Jardin/Jardin/add.html.twig', array(
             "Form"=>$form->createView()

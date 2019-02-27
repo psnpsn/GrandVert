@@ -16,6 +16,7 @@ class DefaultController extends Controller
     public function indexAction(Request $request)
     {
 
+
         $authChecker = $this->container->get('security.authorization_checker');
         $router = $this->container->get('router');
 
