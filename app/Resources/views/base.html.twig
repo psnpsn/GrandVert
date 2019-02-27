@@ -15,28 +15,14 @@
             }
         </script>
         {% block stylesheets %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
             <link href="{{ asset('base/css/bootstrap.css') }}" rel='stylesheet' type='text/css' />
             <link rel="stylesheet" href="{{ asset('base/css/component.css') }}" type="text/css" media="all">
-            <link href="{{ asset('base/css/style.cs') }}s" rel='stylesheet' type='text/css' />
+            <link href="{{ asset('base/css/style.css') }}" rel='stylesheet' type='text/css' />
             <link rel="stylesheet" href="{{ asset('base/css/owl.theme.css') }}" type="text/css" media="all">
             <link rel="stylesheet" href="{{ asset('base/css/owl.carousel.css') }}" type="text/css" media="screen" property="" />
             <link href="{{ asset('base/css/minimal-slider.css') }}" rel='stylesheet' type='text/css' />
             <link href="{{ asset('base/css/fontawesome-all.css') }}" rel="stylesheet">
-            <link href="//fonts.googleapis.com/css?family=Josefin+Sans:100,100i,300,300i,400,400i,600,600i,700,700i" rel="stylesheet">
-            <link href="//fonts.googleapis.com/css?family=BenchNine:300,400,700" rel="stylesheet">
-
-    <style type="text/css">
-
-    </style>
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
-    <link href="{{ asset('base/css/bootstrap.css') }}" rel='stylesheet' type='text/css' />
-    <link rel="stylesheet" href="{{ asset('base/css/component.css') }}" type="text/css" media="all">
-    <link href="{{ asset('base/css/style.css') }}" rel='stylesheet' type='text/css' />
-    <link rel="stylesheet" href="{{ asset('base/css/owl.theme.css') }}" type="text/css" media="all">
-    <link rel="stylesheet" href="{{ asset('base/css/owl.carousel.css') }}" type="text/css" media="screen" property="" />
-    <link href="{{ asset('base/css/minimal-slider.css') }}" rel='stylesheet' type='text/css' />
-    <link href="{{ asset('base/css/fontawesome-all.css') }}" rel="stylesheet">
     <link href="//fonts.googleapis.com/css?family=Josefin+Sans:100,100i,300,300i,400,400i,600,600i,700,700i" rel="stylesheet">
     <link href="//fonts.googleapis.com/css?family=BenchNine:300,400,700" rel="stylesheet">
         <style>
@@ -60,6 +46,7 @@
                 padding: 0.01em 26px;
             }
             w3-panel:before,w3-panel:after, w3-green:before,w3-green:after{box-sizing: inherit;}
+
         </style>
 <style>#ex4 .p1[data-count]:after{
         position:absolute;
@@ -191,10 +178,10 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-3 login-right-img text-center">
-                        </div>
+                    </div>
                         <div class="col-md-6 logo text-center">
                             <h1>
-                                <a class="navbar-brand" href="{{ path('homepage') }}">
+                                <a class="navbar-brand" href="{{ path('user_home') }}">
                                     <i class="fas fa-leaf"></i>Grand Vert</a>
                             </h1>
                         </div>
@@ -202,6 +189,8 @@
                             <a class="request text-uppercase" href="{{ path('profile_user')}}"  >compte</a>
                             <a class="request text-uppercase"  href="{{ path('fos_user_profile_edit')}}" >edit</a>
                             <a class="request text-uppercase"href="{{ path('fos_user_security_logout')}}" >Déconnection</a>
+                            <a class="request text-uppercase"href="{{ path('mes_sujets')}}" >Mes Sujet</a>
+
                         </div>
                     </div>
                 </div>
@@ -217,9 +206,11 @@
                                     <ul class="navbar-nav mr-lg-auto text-left">
 
                                         <li class="nav-item">
+                                            <a class="nav-link" href="{{ path('user_home')}}" style="font-size : 15px; margin-right: 5px; color: white; padding-top:20px;" > acceuil</a>
+                                        </li>
+                                        <li class="nav-item">
                                             <a class="nav-link" href="{{ path('planteaff')}}" style="font-size : 15px; margin-right: 5px; color: white; padding-top:20px;" > plante</a>
                                         </li>
-
                                         <li class="nav-item">
                                             <a class="nav-link" href="{{ path('commande') }}" style="font-size : 15px; margin-right: 5px; color: white; padding-top:20px;">Commande</a>
                                         </li>
@@ -231,22 +222,22 @@
                                         <li class="nav-item">
                                             <a class="nav-link" href="#" style="font-size : 15px; margin-right: 5px; color: white; padding-top:20px;" >Evénement</a>
                                         </li>
-
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="#" style="font-size : 15px; margin-right: 5px; color: white; padding-top:20px;" >Contact</a>
-                                        </li>
-
-                                        <li style="font-size : 15px; margin-right: 5px; color: white;" class="dropdown"><a data-toggle="dropdown" href="#"> <b id ="ex4" >       <p id="nbnotif" class="p1 fa-stack fa-2x has-badge" data-count="">
-                                                        <i class="p3 fa fa-bell-o fa-stack-1x xfa-inverse" data-count="4b" style="color : white; font-size : 15px;"></i>
-                                                    </p></b>
-                                                <ul class="dropdown-menu" role="menu" style="height: auto; width: auto; background-color: white; font-size: 8px; text-decoration: none; float: left;" id="ajax-results">
-                                                    <li style="border-bottom: 0px; font-size: 8px;" role="presentation"><a style="margin-top: 0px; margin-bottom: 0px;" role="menuitem" tabindex="-2" href="{{ path("consulter_sujet" ) }}"><p style="float: left; font-size: 9px; ">  </p> <br> <p style="float: left; font-size: 7px;"> </p></a></li>
-
-                                                </ul>
+                                        <li class="nav-item dropdown"  style="font-size : 14px; margin-right: 5px; color: white; padding-top:16px;" >
+                                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                Réservation
+                                                <i class="fas fa-angle-down"></i>
                                             </a>
+                                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                                <a class="dropdown-item" href="{{ path('AjoutPreservation')}}">Réservez Places</a>
+                                                <a class="dropdown-item" href="{{ path('listPreservation')}}">Consulter Réservations</a>
+                                            </div>
                                         </li>
-
-
+                                        <li   style="font-size : 15px; margin-right: 5px; color: white;">
+                                         <a data-toggle="modal" data-target="#exampleModalCenter">   <div id="ex4">
+  <span class="p1 fa-stack fa-2x has-badge" id="bad" data-count="0">
+    <i class="p3 fas fa-bell fa-stack-1x xfa-inverse" data-count="4b"></i>
+  </span>
+                                            </div></a>
                                         <li style="font-size : 15px; margin-right: 5px; color: white;"><a href="{{ path('panier')}}" >
                                                 <div id="ex4">
   <span class="p1 fa-stack fa-2x has-badge" data-count="{{ app.session.get('panier')|length }}">
@@ -322,13 +313,13 @@
                         </div>
                         <div class="col-md-6 logo text-center">
                             <h1>
-                                <a class="navbar-brand" href="{{ path('homepage') }}">
+                                <a class="navbar-brand" href="{{ path('user_home') }}">
                                     <i class="fas fa-leaf"></i>Grand Vert</a>
                             </h1>
                         </div>
                         <div class="col-md-3 login-right-img text-center">
-                            <a class="request text-uppercase" href="{{ path('fos_user_security_login') }}">Sign In</a>
-                            <a class="request text-uppercase" href="{{ path('fos_user_registration_register') }}">Sign Up</a>
+                            <a class="request text-uppercase" href="{{ path('fos_user_security_login') }}">se connecter</a>
+                            <a class="request text-uppercase" href="{{ path('fos_user_registration_register') }}">s'inscrire</a>
                         </div>
                     </div>
                 </div>
@@ -342,20 +333,20 @@
 
                                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                                     <ul class="navbar-nav mr-lg-auto text-left">
-
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="{{ path('user_home')}}" style="font-size : 15px; margin-right: 5px; color: white; padding-top:20px;" > accueil</a>
+                                        </li>
                                         <li class="nav-item">
                                             <a class="nav-link" href="{{ path('planteaff')}}" style="font-size : 15px; margin-right: 5px; color: white; padding-top:20px;" > plante</a>
                                         </li>
+
+
                                         <li class="nav-item">
                                             <a class="nav-link" href="{{ path('afficher_categorie') }}" style="font-size : 15px; margin-right: 5px; color: white; padding-top:20px;">Forum</a>
                                         </li>
 
                                         <li class="nav-item">
                                             <a class="nav-link" href="#" style="font-size : 15px; margin-right: 5px; color: white; padding-top:20px;" >Evénement</a>
-                                        </li>
-
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="#" style="font-size : 15px; margin-right: 5px; color: white; padding-top:20px;" >Contact</a>
                                         </li>
 
 
@@ -377,8 +368,17 @@
     </div>
 {% endblock %}
 
-{% block content %} {% endblock content %}
+{% block content %}
+    <section class="bottom-last">
+        <div class="bottom-bg py-5 bs-slider-overlay text-left">
+            <div class="container">
+                <h3 class="tittle text-left">  {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}Bienvenu {{ user.nom }} {{ user.prenom }}{% else %}Bienvenu{% endif %}</h3>
+                <h4 class="text-white mb-4">Dans notre site GranVert notre objectif est d'offrire un milieu de consultation des plantes avec la possibiliter d'achat et préservation de votre plante chez nous</h4>
+            </div>
 
+        </div>
+    </section>
+{% endblock content %}
 {% block footer %}
 <div class="footer" style="max-width : 100%; background-color :#343a40 !important;">
     <footer class="footer-emp-wthree bg-dark dotts py-lg-5 py-3">
@@ -415,6 +415,24 @@
         </div>
     </footer>
 </div>
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header text-center">
+                    <h5 class="text-center mb-4">notification</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <div class="login px-4 mx-auto mw-100">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
 {% endblock footer %}
 {% block javascripts %}
     <script src="{{ asset('base/js/jquery-2.2.3.min.js') }}"></script>
@@ -504,6 +522,7 @@
 
     <!--/ start-smoth-scrolling -->
     <script src="{{ asset('js/move-top.js') }}"></script>
+    <script class="cssdeck" src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
     <script src="{{ asset('js/easing.js') }}"></script>
     <script>
         jQuery(document).ready(function($) {
@@ -537,15 +556,15 @@
                 async: true,
                 success: function (data) {
                     console.log(data)
-                    $('#ajax-results').empty();
+                    $('.modal-body').empty();
                     //$('#nbnotif').data('count', data.count);
-                    $("#nbnotif").attr("data-count" , data.count);
+                    $("#bad").attr("data-count" , data.count);
                     data.notifications.forEach(function (item) {
                         console.log(item);
 
                         //si notification est en etat seen
                         //if(item.seen == true)
-                            $('#ajax-results').append("<li style='border-bottom: 0px; font-size: 8px;' role='presentation'><a style='margin-top: 0px; margin-bottom: 0px; ' role='menuitem' tabindex='-2' href=''> <p style='float: left; font-size: 9px;'>"+item.title+"</p> <br> <p style='float: left; font-size: 7px;'>"+item.description+"</p></a></li>");
+                            $('.modal-body').append("<div style='border: 2px;border-radius: 25px;border: 2px solid rgba(0,0,0,0.2);padding: 20px'><p>"+item.title+"</p><p>"+item.description+"</p></div></br>");
                         //else
                           //  $('#ajax-results').append("<li style='border-bottom: 0px; font-size: 8px; background-color:#eeeeee; ' role='presentation'><a style='margin-top: 0px; margin-bottom: 0px; ' role='menuitem' tabindex='-2' href=''> <p style='float: left; font-size: 9px;'>"+item.title+"</p> <br> <p style='float: left; font-size: 7px;'>"+item.description+"</p></a></li>");
                     });

@@ -1,6 +1,5 @@
 {% extends 'admin_dashboard.html.twig' %}
 {% block content %}
-
     <div class="main-panel">
         <div class="content-wrapper">
             <div class="card">
@@ -10,19 +9,10 @@
                             {{ flashMessage }}
                         </div>
                     {% endfor %}
-                    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-                    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-                    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-                    <script>
-                        $(document).ready(function(){
-                            $("#myInput").on("keyup", function() {
-                                var value = $(this).val().toLowerCase();
-                                $("#myTable tr").filter(function() {
-                                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-                                });
-                            });
-                        });
-                    </script>
+
+
+
+
                     <style>
                         th {
                             background-color: #4CAF50;
@@ -170,22 +160,24 @@
                         td.text-right {
                             text-align: right;
                         }
-
                     </style>
 
-                    <h3>Liste De Toutes Les Réservations</h3>
-                    <br>
-                    <input class="form-control" id="myInput" type="text" placeholder="Search.."  style="width: 950px">
-                    <br>
-                    <table  border="1" width="950px" >
 
+                    <h3>Réservations Expirés</h3>
+                    <br>
+
+
+
+
+                    <br>
+
+                    <table border="1" width="950">
                         <th>DateDebut</th>
                         <th>DateFin</th>
                         <th>NbPlaces</th>
                         <th>EspaceDePreservation</th>
 
 
-                        <tbody id="myTable">
                         {% for Preservartion in Preservartions %}
                             <tr>
 
@@ -195,11 +187,15 @@
                                 <td>{{ Preservartion.EspaceDePreservation.lieu }}</td>
 
 
+
+
                             </tr>
                         {% endfor %}
-                        </tbody>
                     </table>
-                    <div class="text-center">{{ knp_pagination_render(Preservartions) }}</div>
+
+
+
+
 
 
 

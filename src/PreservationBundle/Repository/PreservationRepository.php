@@ -14,9 +14,29 @@ class PreservationRepository extends \Doctrine\ORM\EntityRepository
 
         $query=$this->getEntityManager()
             ->createQuery("SELECT v FROM PreservationBundle:Preservation v 
-                                where v.dateDebut = :dateDebut and (v.dateFin BETWEEN :dateDebut AND :dateFin)")
+                                where v.dateDebut = :dateDebut and (v.dateFin BETWEEN :dateDebut AND :dateFin) ORDER  BY v.dateDebut")
             ->setParameter('dateDebut',$dateDebut)->setParameter('dateFin',$dateFin);
 
         return $query->getResult();
     }
+
+    public function findPreservationParametre2(){
+
+        $query=$this->getEntityManager()
+            ->createQuery("SELECT v FROM PreservationBundle:Preservation v 
+                                where v.dateFin < CURRENT_DATE() ORDER  BY v.dateDebut");
+
+        return $query->getResult();
+    }
+
+    public function findPreservationParametre3($lieu){
+        $query=$this->getEntityManager()
+            ->createQuery("SELECT v FROM PreservationBundle:Preservation v JOIN  v.EspaceDePreservation m
+                                 WHERE m.lieu = :lieu")
+            ->setParameter('lieu',$lieu);
+
+        return $query->getResult();
+    }
+
+
 }

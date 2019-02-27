@@ -1,60 +1,214 @@
 {% extends 'admin_dashboard.html.twig' %}
 {% block content %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $("#myInput").on("keyup", function() {
+                var value = $(this).val().toLowerCase();
+                $("#myTable tr").filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+        });
+    </script>
+    <style>
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        tr:nth-child(even) {background-color: #f2f2f2;}
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+        @import url(https://fonts.googleapis.com/css?family=Roboto:400,500,700,300,100);
+
+        div.table-title {
+            display: block;
+            margin: auto;
+            max-width: 300px;
+            padding:5px;
+            width: 100%;
+        }
+
+        .table-title h3 {
+            color: #fafafa;
+            font-size: 10px;
+            font-weight: 200;
+            font-style:normal;
+            font-family: "Roboto", helvetica, arial, sans-serif;
+            text-shadow: -1px -1px 1px rgba(0, 0, 0, 0.1);
+            text-transform:uppercase;
+        }
+
+
+        /*** Table Styles **/
+
+        .table-fill {
+            background: white;
+            border-radius:3px;
+            border-collapse: collapse;
+            height: 220px;
+            margin: auto;
+            max-width: 300px;
+            padding:5px;
+            width: 20%;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+            animation: float 5s infinite;
+        }
+
+        th {
+            color:#D5DDE5;;
+            background:#1b1e24;
+            border-bottom:4px solid #9ea7af;
+            border-right: 1px solid #343a45;
+            font-size:23px;
+            font-weight: 50;
+            padding:14px;
+            text-align:left;
+            text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+            vertical-align:middle;
+        }
+
+        th:first-child {
+            border-top-left-radius:3px;
+        }
+
+        th:last-child {
+            border-top-right-radius:3px;
+            border-right:none;
+        }
+
+        tr {
+            border-top: 1px solid #C1C3D1;
+            border-bottom-: 1px solid #C1C3D1;
+            color:#666B85;
+            font-size:16px;
+            font-weight:normal;
+            text-shadow: 0 1px 1px rgba(256, 256, 256, 0.1);
+        }
+
+        tr:hover td {
+            background:#4E5066;
+            color:#FFFFFF;
+            border-top: 1px solid #22262e;
+        }
+
+        tr:first-child {
+            border-top:none;
+        }
+
+        tr:last-child {
+            border-bottom:none;
+        }
+
+        tr:nth-child(odd) td {
+            background:#EBEBEB;
+        }
+
+        tr:nth-child(odd):hover td {
+            background:#4E5066;
+        }
+
+        tr:last-child td:first-child {
+            border-bottom-left-radius:3px;
+        }
+
+        tr:last-child td:last-child {
+            border-bottom-right-radius:3px;
+        }
+
+        td {
+            background:#FFFFFF;
+            padding:20px;
+            text-align:left;
+            vertical-align:middle;
+            font-weight:200;
+            font-size:15px;
+            text-shadow: -1px -1px 1px rgba(0, 0, 0, 0.1);
+            border-right: 1px solid #C1C3D1;
+        }
+
+        td:last-child {
+            border-right: 0px;
+        }
+
+        th.text-left {
+            text-align: left;
+        }
+
+        th.text-center {
+            text-align: center;
+        }
+
+        th.text-right {
+            text-align: right;
+        }
+
+        td.text-left {
+            text-align: left;
+        }
+
+        td.text-center {
+            text-align: center;
+        }
+
+        td.text-right {
+            text-align: right;
+        }
+    </style>
         <div class="main-panel">
             <div class="content-wrapper">
                 <div class="row">
                     <div class="col-12 grid-margin">
                         <div class="card">
                             <div class="card-body">
+
                                 <h5 class="card-title mb-4">Gestion membre</h5>
-                                <div class="fluid-container">
+
+                                <input class="form-control" id="myInput" type="text" placeholder="Search.."  class="col-12 grid-margin">
+<br>
+                                <table class="col-6 grid-margin" style="width: 50px"  >
+                                    <th>Image</th>
+                                    <th>Nom</th>
+                                    <th>Prenom</th>
+                                    <th>Email</th>
+                                    <th>Role</th>
+                                    <th>Etat</th>
+                                    <th>Dernier activité</th>
+                                    <th>Action</th>
+                                    <tbody id="myTable">
                                     {% for membre in Membres %}
-                                    <div class="row ticket-card mt-3 pb-2 border-bottom pb-3 mb-3">
-                                        <div class="col-md-1">
-                                            <img class="img-sm rounded-circle mb-4 mb-md-0" src="{{ asset('uploads/avatar/'~membre.avatar) }}" alt="profile image">
-                                        </div>
-                                        <div class="ticket-details col-md-9">
-                                            <div class="d-flex">
-                                                <p class="text-dark font-weight-semibold mr-2 mb-0 no-wrap">{{ membre.nom }} {{ membre.prenom }} :</p>
-                                                <p class="mb-0 ellipsis">{{ membre.email }}</p>
-                                            </div>
-                                            <p class="text-gray ellipsis mb-2">téléphone:{{ membre.tel }}</p>
-                                            <p class="text-gray ellipsis mb-2">level:{{ membre.level }}</p>
-                                            <p class="text-gray ellipsis mb-2">score:{{ membre.score }}</p>
-                                            <p class="text-gray ellipsis mb-2">Role : {% if membre.roles[0] == "ROLE_USER" %}Membre {% elseif membre.roles[0] == "ROLE_ADMIN" %} Moderateur {% else %}Admin{% endif %}</small> </p>
-                                            <div class="row text-gray d-md-flex d-none">
-                                                <div class="col-4 d-flex">
-                                                    <small class="mb-0 mr-2 text-muted text-muted">etat:</small>
-                                                    <small class="Last-responded mr-2 mb-0 text-muted text-muted">
-                                                        {% if membre.enabled==1 %}Active{% else %}Désactivé{% endif %}</small>
+                                        <tr>
+
+                                            <td><img class="img-sm rounded-circle mb-4 mb-md-0" src="{{ asset('uploads/avatar/'~membre.avatar) }}" alt="profile image"></td>
+                                            <td>{{ membre.nom }}</td>
+                                            <td>{{ membre.prenom }}</td>
+                                            <td>{{ membre.email }}</td>
+                                            <td>{% if membre.roles[0] == "ROLE_USER" %}Membre {% elseif membre.roles[0] == "ROLE_ADMIN" %} Moderateur {% else %}Admin{% endif %}</td>
+                                            <td>{% if membre.enabled==1 %}Active{% else %}Désactivé{% endif %}</td>
+                                            <td> {{ membre.lastLogin |date("m/d/Y H:i:s", "Europe/Paris") }}</td>
+                                            <td>
+                                                <div class="btn-group dropdown">
+                                                    <div class="avatar pull-right dropdown" style="background-color: #66bb6a; color: white; width: 100px; height: 20px; border-radius: 20px;">
+                                                        <a data-toggle="dropdown"  href="#" style="color: white; padding-left: 20px; "> Action</b>
+                                                            <ul class="dropdown-menu" role="menu" style="height: auto; width: auto; background-color: white; font-size: 10px; text-decoration: none; ">
+                                                                <li style="border-bottom: 0px; font-size: 13px; margin-top: -12px" role="presentation"><a role="menuitem"  href="{{ path("Modifier_etat_compte_by_moderateur",{'id': membre.id} ) }}">Modifier etat compte</a></li>
+                                                            </ul>
+                                                        </a>
+                                                    </div>
                                                 </div>
-                                                <div class="col-4 d-flex">
-                                                    <small class="mb-0 mr-2 text-muted text-muted">dernière connection:</small>
-                                                    <small class="Last-responded mr-2 mb-0 text-muted text-muted">{{ membre.lastLogin |date("d/m/Y H:i:s", "Europe/Paris") }}</small>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="ticket-actions col-md-2">
-                                            <div class="btn-group dropdown">
-                                                    <button type="button" class="btn btn-primary dropdown-toggle btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                        Action
-                                                    </button>
-                                                <div class="dropdown-menu">
-                                                                    {% if membre.roles[0] == "ROLE_ADMIN" %}
-                                                                        <a class="dropdown-item"  href="{{ path("Role_Membre",{'id': membre.id} ) }}"> <i class="fa fa-reply fa-fw"></i>Membre</a>
-                                                                        <a class="dropdown-item"  href="{{ path("Modifier_etat_compte",{'id': membre.id} ) }}"> <i class="fa fa-reply fa-fw"></i>Modifier etat compte</a>
-                                                                    {% elseif  membre.roles[0] == "ROLE_USER" %}
-                                                                        <a class="dropdown-item" href="{{ path("Role_Moderateur",{'id': membre.id} ) }}"><i class="fa fa-reply fa-fw"></i>Moderateur</a>
-                                                                        <a class="dropdown-item"  href="{{ path("Modifier_etat_compte",{'id': membre.id} ) }}"> <i class="fa fa-reply fa-fw"></i>Modifier etat compte</a>
-                                                                    {% else %}
-                                                                        <a class="dropdown-item"  href="{{ path("Modifier_etat_compte",{'id': membre.id} ) }}"> <i class="fa fa-reply fa-fw"></i>Modifier etat compte</a>
-                                                                    {% endif %}
-                                                </div >
-                                            </div>
-                                        </div>
-                                    </div>
+                                            </td>
+
+
+                                        </tr>
                                     {% endfor %}
-                                </div>
+                                    </tbody>
+                                </table>
+
+
                             </div>
                         </div>
                     </div>
@@ -70,4 +224,36 @@
                 </div>
             </footer>
         </div>
+
+    <script>
+        $(document).ready(function(){
+            getNotifications();
+        });
+
+        function getNotifications() {
+
+            //call ajax
+            $.ajax({
+                url: '{{ (path('notification_user')) }}',
+                type: "POST",
+                dataType: "json",
+                data: {
+                    "some_var_name": "some_var_value"
+                },
+                async: true,
+                success: function (data) {
+                    console.log(data)
+                    $('#ajax-results').empty();
+
+                    data.Notifications.forEach(function (item) {
+                        $('#ajax-results').append("<li style='border-bottom: 0px; font-size: 8px;' role='presentation'><a style='margin-top: 0px; margin-bottom: 0px; ' role='menuitem' tabindex='-2' href=''> <p style='float: left; font-size: 9px;'>"+item.title+"</p> <br> <p style='float: left; font-size: 7px;'>"+item.description+"</p></a></li>");
+                    });
+
+
+                }
+
+            });
+            setTimeout('getNotifications()', 5000);
+        }
+    </script>
 {% endblock %}

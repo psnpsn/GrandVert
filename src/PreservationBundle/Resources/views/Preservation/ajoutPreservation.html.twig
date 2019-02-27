@@ -1,22 +1,27 @@
 {% extends 'base.html.twig' %}
-
 {% block content %}
-    <div class="container">
-        <div class="sign">
-            <h1> Réservez Vos Places !  </h1>
+    <div class="banner-bottom-w3layouts py-lg-5 py-3">
+        <div class="container">
+            {% for flashMessage in app.session.flashbag.get('notice') %}
+                <div class="w3-panel w3-green" >
+                    {{ flashMessage }}
+                </div>
+            {% endfor %}
+            <h3> Réservez Vos Places ! </h3>
             <br>
-
             {{ form_start(Form) }}
-            {{ form_widget(Form) }}
-            <input type="submit" value="Réservez" />
-            {{ form_end(Form) }}
 
-            <ul>
-                <li>
-                    <h4>  <a href="{{ path('listPreservation') }}">Liste Des Préservations</a> </h4>
-                </li>
-            </ul>
+            {{ form_row(Form.dateDebut,{'attr': {'class': 'form-control'}}) }}
+            {{ form_row(Form.dateFin,{'attr': {'class': 'form-control'}}) }}
+            {{ form_row(Form.nbPlaces,{'attr': {'class': 'form-control'}}) }}
+            {{ form_row(Form.EspaceDePreservation,{'attr': {'class': 'form-control'}}) }}
+    <br>
+            <div>
+                <button type="submit" class="btn btn-primary btn-lg"  >Réservez</button>
+            </div>
+            {{ form_end(Form) }}
         </div>
+        <div class="clearfix"> </div>
 
     </div>
 {% endblock %}
