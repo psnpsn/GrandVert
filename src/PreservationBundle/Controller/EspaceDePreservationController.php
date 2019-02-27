@@ -19,26 +19,27 @@ class EspaceDePreservationController extends Controller
 
     public function listAction(Request $request)
     {
-        //Affichage des espaces de preservation + option de supprission et de modification
+        // Fonction D'Affichage des espaces de preservation + option de supprission et de modification
 
+        $user=$this->getUser();
         $em=$this->getDoctrine()->getManager();
         $Preservartions=$em->getRepository('PreservationBundle:EspaceDePreservation')->findAll();
 
-        $EspaceDePreservartions  = $this->get('knp_paginator')->paginate(
+            $EspaceDePreservartions  = $this->get('knp_paginator')->paginate(
             $Preservartions,
             $request->query->get('page', 1)/*le numéro de la page à afficher*/,
             6/*nbre d'éléments par page*/
-        );
+             );
 
-        return $this->render('@Preservation/EspaceDePreservation/list.html.twig',array(
-            'EspaceDePreservartions'=>$EspaceDePreservartions
+            return $this->render('@Preservation/EspaceDePreservation/list.html.twig',array(
+            'EspaceDePreservartions'=>$EspaceDePreservartions,'user'=>$user
         ));
     }
 
     public function exportAction(Request $request)
     {
-        //affichage des listes des espaces de préservation + API d'export To Json,Csv,Excel,Txt,XML
-
+        //Fonction D'Affichage des listes des espaces de préservation + API <<JavaScript>> d'export To Json,Csv,Excel,Txt,XML
+        $user=$this->getUser();
         $em=$this->getDoctrine()->getManager();
         $Preservartions=$em->getRepository('PreservationBundle:EspaceDePreservation')->findAll();
         $EspaceDePreservartions  = $this->get('knp_paginator')->paginate(
@@ -46,17 +47,15 @@ class EspaceDePreservationController extends Controller
             $request->query->get('page', 1)/*le numéro de la page à afficher*/,
             6/*nbre d'éléments par page*/
         );
-
-
-        return $this->render('@Preservation/EspaceDePreservation/export.html.twig',array(
-            'EspaceDePreservartions'=>$EspaceDePreservartions
+             return $this->render('@Preservation/EspaceDePreservation/export.html.twig',array(
+            'EspaceDePreservartions'=>$EspaceDePreservartions,"user"=>$user
         ));
     }
 
 
-
     public function AjoutAction(Request $request)
     {
+        //Fonction D'ajout des espaces de préservation
 
         $user=$this->getUser();
         $EspaceDePreservartion = new EspaceDePreservation();
@@ -76,6 +75,8 @@ class EspaceDePreservationController extends Controller
 
     public function DeleteAction(Request $request)
     {
+        // Fonction de suppression des espaces de préservation
+        // Variable ghaith pour récuppérer l'id de l'espace à supprimer
         $ghaith=$request->get('id');
         $em=$this->getDoctrine()->getManager();
         $EspaceDePreservartion=$em->getRepository('PreservationBundle:EspaceDePreservation')->find($ghaith);
@@ -86,6 +87,9 @@ class EspaceDePreservationController extends Controller
 
     public function ModifierAction(Request $request )
     {
+        //Fonction de modification des espaces de préservation
+
+        $user=$this->getUser();
         $id=$request->get('id');
         $em=$this->getDoctrine()->getManager();
         $EspaceDePreservartion=$em->getRepository('PreservationBundle:EspaceDePreservation')->find($id);
@@ -99,7 +103,7 @@ class EspaceDePreservationController extends Controller
             return $this->redirectToRoute('list');}
         return $this->render('@Preservation/EspaceDePreservation/modifier.html.twig',array(
 
-            "Form"=>$form->createView()
+            "Form"=>$form->createView(),'user'=>$user
         ));
     }
 

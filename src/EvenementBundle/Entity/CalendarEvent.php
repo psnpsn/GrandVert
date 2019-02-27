@@ -13,7 +13,7 @@ use AncaRebeca\FullCalendarBundle\Model\FullCalendarEvent;
  * Class CalendarEvent
  * @package EvenementBundle\Entity
  */
-class CalendarEvent extends FullCalendarEvent
+abstract class CalendarEvent extends FullCalendarEvent
 {
 
 }

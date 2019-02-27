@@ -8,6 +8,11 @@
     </style>
     <div class="banner-bottom-w3layouts py-lg-5 py-3">
     <div class="container">
+        {% for flashMessage in app.session.flashbag.get('notice') %}
+            <div class="w3-panel w3-green" >
+                {{ flashMessage }}
+            </div>
+        {% endfor %}
         <table class="table" style="table-layout: fixed">
             <thead class="thead-dark">
             <tr>

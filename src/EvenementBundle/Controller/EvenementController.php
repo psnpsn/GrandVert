@@ -11,6 +11,7 @@ namespace EvenementBundle\Controller;
 use EvenementBundle\Entity\Evenement;
 use EvenementBundle\Entity\Participants;
 use EvenementBundle\Form\EvenementType;
+use ForumBundle\Entity\Notification;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
@@ -223,7 +224,6 @@ if($participation != null){
     }
     public function inviterAction(Request $request)
     {
-
         //recuperer l'id de l'événement
         $id_ev = $request->get("id");
         $em = $this->getDoctrine()->getManager();
@@ -231,6 +231,14 @@ if($participation != null){
         $mail = $request->get("mail");
         $em = $this->getDoctrine()->getManager();
         $user = $em->getRepository("AppBundle:User")->findOneBy(["email"=>$mail]);
+        $notification = new Notification();
+        $notification->setUser($user);
+        $notification->setDate(new \DateTime());
+        $notification->setTitle("invitation");
+        $notification->setSeen(false);
+        $notification->setDescription("vous etes invité à ".$event->getTitre());
+        $em->persist($notification);
+        $em->flush();
         $participant1 = $em->getRepository("EvenementBundle:Participants")->findBy(["event" => $event, "user" => $user]);
         if($participant1 != null) {
             $router = $this->container->get('router');

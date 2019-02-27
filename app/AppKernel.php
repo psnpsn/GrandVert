@@ -29,6 +29,8 @@ class AppKernel extends Kernel
             new EvenementBundle\EvenementBundle(),
             new SBC\NotificationsBundle\NotificationsBundle(),
             new AncaRebeca\FullCalendarBundle\FullCalendarBundle(),
+            new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
+            new Dwr\OpenWeatherBundle\DwrOpenWeatherBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

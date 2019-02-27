@@ -1,0 +1,171 @@
+{% extends 'base.html.twig' %}
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ asset('jardin/jquery.form.js') }}"></script>
+    <script src="{{ asset('bundles/fosjsrouting/js/router.min.js') }}"></script>
+    <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
+    <script>
+        $(document).ready(function(){
+            //init global variables
+            var days;
+            var URL;
+            var newDate = new Date();
+            //calendar functions
+            $("#setDateBt").click(function () {
+                var newDate = new Date(2018, 1, 01);
+                myCalendar.setStartDate(newDate);
+                myCalendar.update();
+            });
+
+            $("#addMonthBt").click(function () {
+
+                var newDate = moment().add('months', 1);
+                myCalendar.setStartDate(newDate);
+            });
+
+            var thisdate = new Date();
+            var thisyear = thisdate.getFullYear();
+            var thismonth = thisdate.getMonth();
+            var thisday = thisdate.getDay();
+            var myCalendar = $("#cal2").rangeCalendar({theme:"blue-theme",
+                lang:"fr",
+                startRangeWidth:"7",
+                minRangeWidth: 7,
+                maxRangeWidth: 7,
+                changeRangeCallback: rangeChanged,
+                startDate:new Date(thisyear,thismonth,thisday),
+                endDate: moment().add('months', 12),
+                autoHideMonths:false
+            });
+
+            //when dates are changed
+            function rangeChanged(target,range){
+                console.log(range);
+                var startDay = moment(range.start).format('DD');
+                var startMonth = moment(range.start).format('MMM');
+                var startYear = moment(range.start).format('YY');
+                var endDay = moment(range.end).format('DD');
+                var endMonth = moment(range.end).format('MMM');
+                var endYear = moment(range.end).format('YY');
+
+                $(".calendar-values .start-date .value").html(startDay);
+                $(".calendar-values .start-date .label").html("");
+                $(".calendar-values .start-date .label").append(startMonth);
+                $(".calendar-values .start-date .label").append("<small>"+startYear+"</small>");
+                $(".calendar-values .end-date .value").html(endDay);
+                $(".calendar-values .end-date .label").html("");
+                $(".calendar-values .end-date .label").append(endMonth);
+                $(".calendar-values .end-date .label").append("<small>"+endYear+"</small>");
+                $(".calendar-values .days-width .value").html(range.width);
+                $(".calendar-values .from-now .label").html(range.fromNow);
+
+                days = range.all.split(',');
+
+
+                var daysNameList = ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'];
+                for (i=0; i<7;i++){
+                    var d = new Date(days[i]);
+                    var dayName = daysNameList[d.getDay()];
+                    j=i+1;
+                    document.getElementById("day"+ j ).innerHTML= dayName + " " + d.getDate();
+                }
+            }
+
+            //ajax for filling modal with form
+            $('#addNoteModal').on('shown.bs.modal', function (event) {
+                console.log(event.relatedTarget.id.split("_").pop());
+                var dayNum = event.relatedTarget.id.split("_").pop();
+                console.log(days[dayNum-1]);
+                var modal = $(this);
+                URL = Routing.generate('note_add',{ jardinId: {{ jardin.id }}, date: days[dayNum-1] })
+                $.ajax(URL, {
+                    date: days[dayNum-1],
+                    success: function(data) {
+                        modal.find('.modal-body').html(data);
+                    }
+                });
+            });
+
+            //ajax for submitting form
+            $(document).on('submit', 'form', function(e){
+                e.preventDefault();
+
+                $form = $(e.target);
+                modal = $('#addNoteModal');
+
+                var title = $('#article_title').val();
+
+                var $submitButton = $form.find(':submit');
+                $submitButton.html('<i class="fas fa-spinner fa-pulse"></i>');
+                $submitButton.prop('disabled', true);
+
+                $.ajax({
+                    type:"POST",
+                    data: $(this).serialize(),
+                    url:URL,
+                    cache: false,
+                    success: function( msg ){
+                        console.log(msg);
+                    }
+                });
+            });
+        });
+
+
+
+    </script>
+    <script type="text/javascript" src="{{ asset('jardin/weektl/js/jquery-ui.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('jardin/weektl/js/jquery.ui.touch-punch.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('jardin/weektl/js/moment+langs.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('jardin/weektl/js/jquery.rangecalendar.js') }}"></script>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" id="rangecalendar-style-css" href="{{ asset('jardin/weektl/css/rangecalendar.css') }}" type="text/css" media="all">
+    <link rel="stylesheet" id="jquery-ui-style-css" href="{{ asset('jardin/weektl/css/jquery-ui-1.10.3.custom.min.css') }}" type="text/css" media="all">
+    <link rel="stylesheet" id="jquery-ui-style-css" href="{{ asset('jardin/daymodel.css') }}" type="text/css" media="all">
+{% endblock %}
+{% block content %}
+    <div class="container">
+        <div id="cal2" class="cal"></div>
+        <div class="container">
+            {% for dayNumber in 1..7 %}
+                <div class="day-container" id="day-container{{ dayNumber }}">
+                    <div class="dayHeader">
+                        <div class="dayName"><h2 id="day{{ dayNumber }}"></h2></div>
+                        <div class="add-note-btn">
+                            <button id="add-note-btn_{{ dayNumber }}" type="button" class="btn btn-primary" data-toggle="modal" data-target="#addNoteModal">
+                                Add Note
+                            </button>
+                        </div>
+                        <div class="activity-bar">
+                            <button id="setDateBt" class="btn btn-primary" type="submit">Add</button>
+                        </div>
+                    </div>
+                    <div>
+                        <h4>Weather lorem posem lolm</h4>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <!-- Modal -->
+        <div class="modal fade" id="addNoteModal" tabindex="-1" role="dialog" aria-labelledby="addNoteModalTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="addNoteModalLongTitle">Modal title</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div id="modal-form-addnote" class="modal-body">
+                        Loading...
+                    </div>
+                    <div class="modal-footer">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

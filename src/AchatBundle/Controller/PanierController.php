@@ -9,6 +9,7 @@
 namespace AchatBundle\Controller;
 
 use AchatBundle\Entity\Commande;
+use ForumBundle\Entity\Notification;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
@@ -39,6 +40,10 @@ class PanierController extends Controller
         $em=$this->getDoctrine()->getManager();
         $id=$request->get('id');
         $cont=$request->get('amp;cont');
+        $this->get('session')->getFlashBag()->add(
+            'notice',
+            'commande ajouter avec succes '
+        );
         $user = $this->container->get('security.token_storage')->getToken()->getUser();
         $plante=$em->getRepository('PlanteBundle:plante')->find($id);
         $commande=new Commande();
@@ -88,7 +93,16 @@ class PanierController extends Controller
     {   $id=$request->get('id');
         $em=$this->getDoctrine()->getManager();
         $commande=$em->getRepository('AchatBundle:Commande')->find($id);
+        $user = $em->getRepository("AppBundle:User")->find($commande->getUser());
         $commande->setEtat("Valider");
+        $notification = new Notification();
+        $notification->setUser($user);
+        $notification->setDate(new \DateTime());
+        $notification->setTitle("validation commande");
+        $notification->setSeen(false);
+        $notification->setDescription("votre commande est valider");
+        $em->persist($notification);
+        $em->flush();
         $em->persist($commande);
         $em->flush();
         return $this->redirectToRoute('conscom');
@@ -97,6 +111,15 @@ class PanierController extends Controller
     {   $id=$request->get('id');
         $em=$this->getDoctrine()->getManager();
         $commande=$em->getRepository('AchatBundle:Commande')->find($id);
+        $user = $em->getRepository("AppBundle:User")->find($commande->getUser());
+        $notification = new Notification();
+        $notification->setUser($user);
+        $notification->setDate(new \DateTime());
+        $notification->setTitle("refus de commande");
+        $notification->setSeen(false);
+        $notification->setDescription("votre commande est refuser");
+        $em->persist($notification);
+        $em->flush();
         $commande->setEtat("Rejeter");
         $em->persist($commande);
         $em->flush();

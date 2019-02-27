@@ -16,13 +16,14 @@ class DefaultController extends Controller
     public function indexAction(Request $request)
     {
 
+
         $authChecker = $this->container->get('security.authorization_checker');
         $router = $this->container->get('router');
 
         //verfier si l'utilisateur connecter est un admin pour acceder à admin dashboard
         if ($authChecker->isGranted('ROLE_SUPER_ADMIN')) {
             $user = $this->container->get('security.token_storage')->getToken()->getUser();
-            return $this->render('admin_dashboard.html.twig' , ["user" => $user]);
+            return $this->redirectToRoute('admin_home');
         }
 
         //verfier si l'utilisateur connecter est un moderateur pour acceder à son dashboard

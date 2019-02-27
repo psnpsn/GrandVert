@@ -37,7 +37,7 @@ class Jardin
     private $dateC;
 
     /**
-     * @ORM\OneToMany(targetEntity="Plantation", mappedBy="jardinId")
+     * @ORM\OneToMany(targetEntity="Plantation", mappedBy="jardin")
      */
     private $plantations;
 
@@ -64,9 +64,9 @@ class Jardin
      *
      * @return Jardin
      */
-    public function setUserId($userId)
+    public function setUser($user)
     {
-        $this->userId = $userId;
+        $this->user = $user;
     
         return $this;
     }
@@ -76,9 +76,9 @@ class Jardin
      *
      * @return integer
      */
-    public function getUserId()
+    public function getUser()
     {
-        return $this->userId;
+        return $this->user;
     }
 
     /**
