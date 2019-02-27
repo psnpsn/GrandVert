@@ -1,32 +1,8 @@
 {% extends 'base.html.twig' %}
 {% block content %}
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600&amp;subset=latin-ext" rel="stylesheet">
-
-    <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/font-awesome.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('style.css') }}" rel="stylesheet">
-
-    <link rel="stylesheet" href="{{ 'css/navmenu/styles.css' }}" rel="stylesheet">
-    <link rel="stylesheet" href="{{ 'css/portfolio.jquery.css' }}" rel="stylesheet">
-    <link rel="stylesheet" href="{{ 'css/fonticons.css' }}" rel="stylesheet">
-    <link rel="stylesheet" href="{{ 'css/style.css' }}" rel="stylesheet">
-    <link rel="stylesheet" href="{{ 'css/fonts/stylesheet.css' }}" rel="stylesheet">
-    <link rel="stylesheet" href="{{ 'css/font-awesome.min.css' }}" rel="stylesheet">
-    <link rel="stylesheet" href="{{ 'css/bootstrap.min.css' }}" rel="stylesheet">
-    <!--        <link rel="stylesheet" href="assets/css/bootstrap-theme.min.css">-->
 
 
-    <!--For Plugins external css-->
-    <link rel="stylesheet" href="{{ 'assets/css/plugins.css' }}" rel="stylesheet">
-
-    <!--Theme custom css -->
-    <link rel="stylesheet" href="{{ 'assets/css/style.css' }}" rel="stylesheet">
-
-    <!--Theme Responsive css-->
-    <link rel="stylesheet" href="{{ 'assets/css/responsive.css' }}" rel="stylesheet">
-
-
-        <html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://ogp.me/ns/fb#"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta name="description" content="Activate your leadership by going on an AIESEC experience. Find opportunities to live a shared responsibility for the world and shape it for a better future."><!-- Twitter Card data --><!-- Twitter summary card with large image must be at least 280x150px --><!-- Open Graph data --><title>Helping with Sales of GMIC 2019 - Global Talent | AIESEC</title><!--<script async src="https://www.gstatic.com/charts/loader.js"></script>--><link rel="stylesheet" href="./Helping with Sales of GMIC 2019 - Global Talent _ AIESEC_files/css"><script type="text/javascript" async="" id="inspsync" src="./Helping with Sales of GMIC 2019 - Global Talent _ AIESEC_files/inspectlet.js.téléchargement"></script><script src="./Helping with Sales of GMIC 2019 - Global Talent _ AIESEC_files/2083757008560964" async=""></script><script async="" src="./Helping with Sales of GMIC 2019 - Global Talent _ AIESEC_files/fbevents.js.téléchargement"></script><script type="text/javascript" async="" src="./Helping with Sales of GMIC 2019 - Global Talent _ AIESEC_files/hotjar-1044752.js.téléchargement"></script><script type="text/javascript" async="" src="./Helping with Sales of GMIC 2019 - Global Talent _ AIESEC_files/analytics.js.téléchargement"></script><script async="" src="./Helping with Sales of GMIC 2019 - Global Talent _ AIESEC_files/gtm.js.téléchargement"></script><script async="" src="./Helping with Sales of GMIC 2019 - Global Talent _ AIESEC_files/hammer.js.téléchargement"></script><!--<base href="/">--><base href="."><!-- Address bar color --><link href="./Helping with Sales of GMIC 2019 - Global Talent _ AIESEC_files/styles.4d0fc2f070ce9ff171c5.bundle.css" rel="stylesheet"><style type="text/css">
+        <html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://ogp.me/ns/fb#"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta name="description" content="Activate your leadership by going on an AIESEC experience. Find opportunities to live a shared responsibility for the world and shape it for a better future."><!-- Twitter Card data --><!-- Twitter summary card with large image must be at least 280x150px --><!-- Open Graph data --><title>Helping with Sales of GMIC 2019 - Global Talent | AIESEC</title><!--<script async src="https://www.gstatic.com/charts/loader.js"></script>--><link rel="stylesheet" href="{{ './Helping with Sales of GMIC 2019 - Global Talent _ AIESEC_files/css'}}"><script type="text/javascript" async="" id="inspsync" src="{{ './Helping with Sales of GMIC 2019 - Global Talent _ AIESEC_files/inspectlet.js.téléchargement'}}"></script><script src="{{ './Helping with Sales of GMIC 2019 - Global Talent _ AIESEC_files/2083757008560964'}}" async=""></script><script async="" src="{{ './Helping with Sales of GMIC 2019 - Global Talent _ AIESEC_files/fbevents.js.téléchargement'}}"></script><script type="text/javascript" async="" src="{{ './Helping with Sales of GMIC 2019 - Global Talent _ AIESEC_files/hotjar-1044752.js.téléchargement'}}"></script><script type="text/javascript" async="" src="{{ './Helping with Sales of GMIC 2019 - Global Talent _ AIESEC_files/analytics.js.téléchargement'}}"></script><script async="" src="{{ './Helping with Sales of GMIC 2019 - Global Talent _ AIESEC_files/gtm.js.téléchargement'}}"></script><script async="" src="{{ './Helping with Sales of GMIC 2019 - Global Talent _ AIESEC_files/hammer.js.téléchargement'}}"></script><!--<base href="/">--><base href="."><!-- Address bar color --><link href="{{ './Helping with Sales of GMIC 2019 - Global Talent _ AIESEC_files/styles.4d0fc2f070ce9ff171c5.bundle.css'}}" rel="stylesheet"><style type="text/css">
             @font-face {
                 font-family: 'cm-aiesec';
                 src: url('https://s3-eu-west-1.amazonaws.com/cdn.expa.aiesec.org/fonts/icon_font_24may18/cm-aiesec.eot?x46kn1');
@@ -256,7 +232,7 @@
                 <div _ngcontent-c15="" class="opportunity-details">
                     <div _ngcontent-c15="" class="location">
                         <span _ngcontent-c15="" class="mr10"><i _ngcontent-c15="" class="cm cm-location white"></i></span>
-                        <span _ngcontent-c15="">{{evenement.lieu}}</span>
+                        <span _ngcontent-c15="">{{evenement.gouvernorat}}</span>
                     </div>
 
                     <!----><app-op-apply _ngcontent-c15=""><!----><div>
@@ -324,7 +300,9 @@
                                                 <div _ngcontent-c22="" class="update-profile-section">
                                                     <!---->
                                                     <!----><!---->
-                                                    <div _ngcontent-c22="" class="update-profile-text">inviter</div>
+                                                    <form method="post" action="{{ path('inviter',{'id':evenement.id}) }}">
+                                                    <input type="text" size="40" name="mail" value="Adresse Email" >
+                                               <input type="submit" value="envoyer"> </form>
                                                 </div>
 
                                             </div>
@@ -477,10 +455,7 @@
         <div _ngcontent-c17="" class="flex-1 p0">
         <div _ngcontent-c17="" class="text-center">
             <!----><app-op-apply _ngcontent-c17=""><!----><div>
-                    <div class="custom-padding-button-2">
-                        <!----><a class="btn btn-apply-sec">Participer</a>
-                        <!---->
-                    </div>
+
                 </div>
 
                 <!---->

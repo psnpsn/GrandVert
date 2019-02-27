@@ -24,10 +24,7 @@
 
     <!--Theme Responsive css-->
     <link rel="stylesheet" href="{{ 'assets/css/responsive.css' }}" rel="stylesheet">
-    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-
         <div class="main-nav navbar-collapse collapse">
-
         <main class="site-main category-main">
         <div class="container">
         <div class="row">
@@ -35,6 +32,7 @@
                 <h2 class="category-title">Mes évévements</h2>
                 <ul class="media-list">
                     {% for Evenement in Evenements %}
+                        {% if Evenement.etat==0 %}
                         <li class="media">
                             <div class="media-left">
                                 <a href="#" title="Post">
@@ -72,73 +70,128 @@
                             <div class="pull-left">
                                 <ul class="arc-comment">
                                     <li><a href="{{ path('modifev',{'id':Evenement.id })}}"><h4>Modifier</h4></a></li>
-                                    <li><a href="{{ path('modifev',{'id':Evenement.id })}}"><h4>Supprimer</h4></a></li>
+
+                                    <li><a href="{{ path('annulerev',{'id':Evenement.id })}}" data-toggle="modal" data-target="#{{ Evenement.titre }}" data-whatever="{{ Evenement.titre }}"><h4>Annuler</h4></a></li>
+
                                 </ul>
+                                <div class="modal fade" id="{{ Evenement.titre }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h4 class="modal-title" id="exampleModalLabel">message confirmation</h4>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                Voulez-vous annuler cet évenement?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Non</button>
+                                                <a  href="{{ path('annulerev',{'id':Evenement.id })}}">   <button type="button" class="btn btn-primary">Oui</button></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 </div>
 
-
-
                         </li>
+{% elseif Evenement.etat==2 %}
+    <li class="media">
+        <div class="media-left">
+            <a href="#" title="Post">
+                <img class="media-object" src="{{ asset('uploads/avatar/'~Evenement.image) }}" width="250" alt="Post">
+            </a>
+        </div>
+        <div class="media-body">
+            <h3 class="media-heading"><a href="" title="Post Title">Titre :{{ Evenement.titre }}</a></h3>
+            <h4 class="media-heading">Catégorie :{{ Evenement.categorie }}</h4>
+            <h4 class="media-heading">Organisé par:{{ Evenement.organisation }}</h4>
+            <h4 class="media-heading">Dans :{{ Evenement.Lieu }}</h4>
+            <h4 class="media-heading">Date Début :{{ Evenement.dated | date('d-m-Y à H:i') }}</h4>
+            <h4 class="media-heading">Date fin :{{ Evenement.datef | date('d-m-Y  à H:i') }}</h4>
+            <br>
+            <br>
+            <aside class="meta category-meta">
+                <div class="pull-left">
+                    <div class="arc-comment"><i class="fa fa-comments"></i> </div>
+                </div>
+                <div class="pull-left">
+                    <div class="arc-comment">|</div>
+                </div>
+                <div class="pull-left">
+
+                </div>
+                <div class="pull-right">
+                    <ul class="arc-share">
+                        <li><a href="#" title="Post"><i class="fa fa-facebook"></i></a></li>
+                    </ul>
+                </div>
+            </aside>
+        </div>
+
+        <div class="pull-left">
+            <ul class="arc-comment">
+                <li><h3>Terminé</h3></li>
+
+
+            </ul>
+
+        </div>
+
+    </li>
+                        {% elseif Evenement.etat==1 %}
+                            <li class="media">
+                                <div class="media-left">
+                                    <a href="#" title="Post">
+                                        <img class="media-object" src="{{ asset('uploads/avatar/'~Evenement.image) }}" width="250" alt="Post">
+                                    </a>
+                                </div>
+                                <div class="media-body">
+                                    <h3 class="media-heading"><a href="" title="Post Title">Titre :{{ Evenement.titre }}</a></h3>
+                                    <h4 class="media-heading">Catégorie :{{ Evenement.categorie }}</h4>
+                                    <h4 class="media-heading">Organisé par:{{ Evenement.organisation }}</h4>
+                                    <h4 class="media-heading">Dans :{{ Evenement.Lieu }}</h4>
+                                    <h4 class="media-heading">Date Début :{{ Evenement.dated | date('d-m-Y à H:i') }}</h4>
+                                    <h4 class="media-heading">Date fin :{{ Evenement.datef | date('d-m-Y  à H:i') }}</h4>
+                                    <br>
+                                    <br>
+                                    <aside class="meta category-meta">
+                                        <div class="pull-left">
+                                            <div class="arc-comment"><i class="fa fa-comments"></i></div>
+                                        </div>
+                                        <div class="pull-left">
+                                            <div class="arc-comment">|</div>
+                                        </div>
+                                        <div class="pull-left">
+                                            <a href="{{ path('consulter',{'id':Evenement.id })}}"> <button  >Consulter</button></a>
+
+                                        </div>
+                                        <div class="pull-right">
+                                            <ul class="arc-share">
+                                                <li><a href="#" title="Post"><i class="fa fa-facebook"></i></a></li>
+                                            </ul>
+                                        </div>
+                                    </aside>
+                                </div>
+
+                                <div class="pull-left">
+                                    <ul class="arc-comment">
+                                        <li><h4>Annulé</h4></li>
+
+                                    </ul>
+
+                                </div>
+
+                            </li>
+                            {% endif %}
                     {% endfor %}
-        </div>
-
-    {% else %}
-        <div class="main-nav navbar-collapse collapse">
-            <div class="container">
-
-                <ul class="nav nav-justified">
-                    <li><center><a href="{{ path('pageev')}}"><h3 style="color:red;">Evénements</h3></a></center></li>
-                </ul>
-            </div>
+</ul>
+            </section>
         </div>
         </div>
-        <center><h4 class="media-object"><a href="{{ path('ajouterev')}}" title="add">Créer un événement</a></h4></center>
-        <main class="site-main category-main">
-        <div class="container">
-        <div class="row">
-        <section class="category-content col-sm-9">
-        <h2 class="category-title">Les évévements</h2>
-        <ul class="media-list">
-        {% for Evenement in Evenements %}
-            <li class="media">
+    </main>
+        </div>
 
-                <div class="media-left">
-                    <a href="#" title="Post">
-                        <img class="media-object" src="{{ asset('uploads/avatar/'~Evenement.image) }}" width="250" alt="Post">
-                    </a>
-                </div>
 
-                <div class="media-body">
-                    <h3 class="media-heading"><a href="" title="Post Title">Titre :{{ Evenement.titre }}</a></h3>
-                    <h4 class="media-heading">Catégorie :{{ Evenement.categorie }}</h4>
-                    <h4 class="media-heading">Organisé par:{{ Evenement.organisation }}</h4>
-                    <h4 class="media-heading">Dans :{{ Evenement.Lieu }}</h4>
-                    <h4 class="media-heading">Date Début :{{ Evenement.dated | date('d-m-Y à H:i') }}</h4>
-                    <h4 class="media-heading">Date fin :{{ Evenement.datef | date('d-m-Y  à H:i') }}</h4>
-                    <br>
-                    <br>
-                    <aside class="meta category-meta">
-                        <div class="pull-left">
-                            <div class="arc-comment"><i class="fa fa-comments"></i> 0 vues</div>
-                            <div class="arc-date"><a href="#">Inviter</a></div>
-                            <div class="arc-date">|</div>
-                            <div class="arc-date"><a href="#">Intéressé(e)</a></div>
-                            <div class="arc-date">|</div>
-                            <div class="arc-date"><a href="#">Particpe</a></div>
-                        </div>
-                        <div class="pull-right">
-                            <ul class="arc-share">
-                                <li><a href="#" title="Post"><i class="fa fa-facebook"></i></a></li>
-                                <li><a href="#" title="Post"><i class="fa fa-twitter"></i></a></li>
-                                <li><a href="#" title="Post"><i class="fa fa-linkedin"></i></a></li>
-                                <li><a href="#" title="Post"><i class="fa fa-google-plus"></i></a></li>
-                            </ul>
-                        </div>
-                    </aside>
-                </div>
-            </li>
-        {% endfor %}
 
-    {% endif %}
 
 {% endblock %}

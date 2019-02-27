@@ -125,7 +125,7 @@ class SujetController extends Controller
         //parcourir la liste de sujet
         for($i = 0; $i < count($sujets); ++$i) {
             //recuperer tous les reponses de sujet
-            $reponses=$em->getRepository("ForumBundle:Reponse")->findBy(['Sujet'=> $sujets[$i] ]);
+            $reponses=$em->getRepository("ForumBundle:Reponse")->findBy(['Sujet'=> $sujets[$i] , "archive" => false ]);
 
             array_push($NbReponses, array('sujet' => $sujets[$i] , 'NbReponseC' => count($reponses)));
         }

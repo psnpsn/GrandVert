@@ -29,7 +29,7 @@
                                         </div>
                                     </div>
                                     {% for plante in plantes %}
-                                        {% if plante.proposition %}
+                                        {% if plante.proposition==1 %}
                                         <div class="row ticket-card mt-3 pb-2 border-bottom pb-3 mb-3">
                                             <div class="col-md-1">
                                                 <img class="img-sm rounded-circle mb-4 mb-md-0" src="{{ asset('uploads/avatar/'~plante.photo) }}" alt="profile image">

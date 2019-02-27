@@ -85,6 +85,8 @@ list_user/moderateur:
 Modifier_etat_compte_by_moderateur:
     path:     /moderateur/Modifier_etat_compte
     defaults: { _controller: AppBundle:User:etat }
+ancarebeca_fullcalendar:
+    resource: "@FullCalendarBundle/Resources/config/routing.yml"
 
 
 

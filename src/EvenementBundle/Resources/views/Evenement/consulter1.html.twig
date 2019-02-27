@@ -256,7 +256,7 @@
             <div _ngcontent-c15="" class="opportunity-details">
                 <div _ngcontent-c15="" class="location">
                     <span _ngcontent-c15="" class="mr10"><i _ngcontent-c15="" class="cm cm-location white"></i></span>
-                    <span _ngcontent-c15="">{{evenement.lieu}}</span>
+                    <span _ngcontent-c15="">{{evenement.gouvernorat}}</span>
                 </div>
 
                 <!----><app-op-apply _ngcontent-c15=""><!----><div>
@@ -324,7 +324,9 @@
                                             <div _ngcontent-c22="" class="update-profile-section">
                                                 <!---->
                                                 <!----><!---->
-                                                <div _ngcontent-c22="" class="update-profile-text">inviter</div>
+                                                <form method="post" action="{{ path('inviter',{'id':evenement.id}) }}">
+                                                    <input type="text" size="40" name="mail" value="Adresse Email" >
+                                                    <input type="submit" value="envoyer"> </form>
                                             </div>
 
                                         </div>
@@ -477,10 +479,7 @@
         <div _ngcontent-c17="" class="flex-1 p0">
             <div _ngcontent-c17="" class="text-center">
                 <!----><app-op-apply _ngcontent-c17=""><!----><div>
-                        <div class="custom-padding-button-2">
-                            <!----><a class="btn btn-apply-sec">Participer</a>
-                            <!---->
-                        </div>
+
                     </div>
 
                     <!---->

@@ -25,7 +25,7 @@ class PlanteController extends Controller
         $form->handleRequest($request);
         if($form->isSubmitted()&&$form->isValid()){
             $em=$this->getDoctrine()->getManager();
-            $plante->setProposition(true);
+            $plante->setProposition(1);
             $em->persist($plante);
             $em->flush();
             $this->get('session')->getFlashBag()->add(
@@ -46,7 +46,7 @@ class PlanteController extends Controller
         if($form->isSubmitted()&&$form->isValid()){
             $em=$this->getDoctrine()->getManager();
             $plante->setUser($user);
-            $plante->setProposition(false);
+            $plante->setProposition(0);
             $em->persist($plante);
             $em->flush();
             $this->get('session')->getFlashBag()->add(
@@ -135,7 +135,7 @@ class PlanteController extends Controller
     {  $id=$request->get('id');
         $em=$this->getDoctrine()->getManager();
         $plante=$em->getRepository('PlanteBundle:plante')->find($id);
-        $plante->setProposition(true);
+        $plante->setProposition(1);
             $em->persist($plante);
             $em->flush();
             $this->get('session')->getFlashBag()->add(
@@ -178,9 +178,7 @@ class PlanteController extends Controller
        );}
         $em= $this->getDoctrine()->getManager();
         $sujets=$em->getRepository("ForumBundle:Sujet")->findBy(['Plante'=> $plante ]);
-        return $this->render('@Plante/plante/detaille.html.twig',array(
-            'plante'=>$plante , "sujets" =>$sujets
-        ));
+        return $this->redirectToRoute('plantedetaile',array('id'=>$plante->getId()));
     }
 
     public function resAction(Request $request)
@@ -189,11 +187,25 @@ class PlanteController extends Controller
         //recuperer les informations du  plante à consulter
         $em=$this->getDoctrine()->getManager();
         $plante=$em->getRepository('PlanteBundle:plante')->findOneBy(['nom'=>$nom]);
-        //recuperer tous les sujets de plante à consulter
-        $em= $this->getDoctrine()->getManager();
-        $sujets=$em->getRepository("ForumBundle:Sujet")->findBy(['Plante'=> $plante ]);
-        return $this->render('@Plante/plante/detaille.html.twig',array(
-            'plante'=>$plante , "sujets" =>$sujets
+        if($plante==null)return $this->render('@Plante/plante/notfound.html.twig',array('nom'=>$nom));
+            else
+        return $this->redirectToRoute('plantedetaile',array('id'=>$plante->getId()));
+    }
+    public function arcAction()
+    {   $user = $this->container->get('security.token_storage')->getToken()->getUser();
+        $em=$this->getDoctrine()->getManager();
+        $plante=$em->getRepository('PlanteBundle:plante')->findBy(['proposition'=>2]);
+        return $this->render('@Plante/plante/archive.html.twig',array(
+            'plantes'=>$plante,'user'=>$user
         ));
+    }
+    public function archAction(Request $request)
+    {  $id=$request->get('id');
+        $em=$this->getDoctrine()->getManager();
+        $plante=$em->getRepository('PlanteBundle:plante')->find($id);
+        $plante->setProposition(2);
+        $em->persist($plante);
+        $em->flush();
+        return $this->redirectToRoute('propad');
     }
 }

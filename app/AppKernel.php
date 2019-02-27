@@ -17,6 +17,7 @@ class AppKernel extends Kernel
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new AppBundle\AppBundle(),
+            new CMEN\GoogleChartsBundle\CMENGoogleChartsBundle(),
             new FOS\UserBundle\FOSUserBundle(),
             new ForumBundle\ForumBundle(),
             new PlanteBundle\PlanteBundle(),
@@ -27,6 +28,7 @@ class AppKernel extends Kernel
             new Knp\Bundle\SnappyBundle\KnpSnappyBundle(),
             new EvenementBundle\EvenementBundle(),
             new SBC\NotificationsBundle\NotificationsBundle(),
+            new AncaRebeca\FullCalendarBundle\FullCalendarBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

@@ -7,6 +7,18 @@ ajouterev:
 modifev:
     path:     /modifev
     defaults: { _controller: EvenementBundle:Evenement:modifev }
+annulerev:
+    path:     /annulerev
+    defaults: { _controller: EvenementBundle:Evenement:annulerev }
+confirmerev:
+    path:     /confirmerev
+    defaults: { _controller: EvenementBundle:Evenement:confirmerev }
+propev:
+    path:     /propev
+    defaults: { _controller: EvenementBundle:Evenement:propev }
+listev:
+    path:     /listev
+    defaults: { _controller: EvenementBundle:Evenement:listev }
 pageev:
     path:     /page
     defaults: { _controller: EvenementBundle:Evenement:pageev }
@@ -25,3 +37,6 @@ participerp:
 inviter:
     path:     /inviter
     defaults: { _controller: EvenementBundle:Evenement:inviter }
+cal:
+    path:     /cal
+    defaults: { _controller: EvenementBundle:Evenement:cal }

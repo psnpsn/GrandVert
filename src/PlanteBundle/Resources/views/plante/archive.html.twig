@@ -1,0 +1,102 @@
+{% extends 'admin_dashboard.html.twig' %}
+{% block content %}
+    <div class="main-panel">
+        <div class="content-wrapper">
+            <div class="row">
+                <div class="col-12 grid-margin">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title mb-4">liste des proposition plantes</h5>
+                            <div class="fluid-container">
+                                {% for flashMessage in app.session.flashbag.get('notice') %}
+                                    <div class="w3-panel w3-green" >
+                                        {{ flashMessage }}
+                                    </div>
+                                {% endfor %}
+                                {% for plante in plantes %}
+                                    {% if  plante.proposition==2 %}
+                                        <div class="row ticket-card mt-3 pb-2 border-bottom pb-3 mb-3">
+                                            <div class="col-md-1">
+                                                <img class="img-sm rounded-circle mb-4 mb-md-0" src="{{ asset('uploads/avatar/'~plante.photo) }}" alt="profile image">
+                                            </div>
+                                            <div class="ticket-details col-md-9">
+                                                <div class="d-flex">
+                                                    <p class="text-dark font-weight-semibold mr-2 mb-0 no-wrap">{{ plante.nom }}  :</p>
+                                                    <p class="mb-0 ellipsis">catégorie:{{ plante.categorie }}</p>
+                                                </div>
+                                                <p class="mb-0 ellipsis">season:{{ plante.season }} </p>
+                                                <p class="mb-0 ellipsis">hauteur:{{ plante.hauteur }}</p>
+                                                <p class="mb-0 ellipsis">fertiliseur:{{ plante.fertiliseur }}</p>
+                                                <p class="mb-0 ellipsis">ajouter par : {{ plante.user.nom }} {{ plante.user.prenom }}</p>
+                                                <p class="mb-0 ellipsis">stock:{{ plante.stock }}</p>
+                                                <p class="text-gray ellipsis mb-2">{{ plante.Description }}</p>
+                                            </div>
+                                            <div class="ticket-actions col-md-2">
+                                                <div class="btn-group dropdown">
+                                                    <button type="button" class="btn btn-primary dropdown-toggle btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        Manage
+                                                    </button>
+                                                    <div class="dropdown-menu">
+                                                        <a class="dropdown-item" style="cursor: pointer" data-toggle="modal" data-target="#{{ plante.nom }}AC">
+                                                            <i class="fa fa-reply fa-fw"  ></i>Accepter</a>
+                                                        <a class="dropdown-item" id="supp" style="cursor: pointer" data-toggle="modal" data-target="#{{ plante.nom }}" >
+                                                            <i class="fa fa-history fa-fw" ></i>supprimer</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal fade" id="{{ plante.nom }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h4 class="modal-title" id="exampleModalLabel">message confirmation</h4>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        Voulez-vous supprimer cette proposition?
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-default" data-dismiss="modal">annuler</button>
+                                                        <a  href="{{ path('supprimer',{'id':plante.id })}}"><button type="button" class="btn btn-primary">Supprimer</button></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal fade" id="{{ plante.nom }}AC" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h4 class="modal-title" id="exampleModalLabel">message confirmation</h4>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        Voulez-vous accepter cette proposition?
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-default" data-dismiss="modal">annuler</button>
+                                                        <a  href="{{ path('accepter',{'id':plante.id })}}"><button type="button" class="btn btn-primary">Accepter</button></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                {% endfor %}
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <footer class="footer">
+            <div class="container-fluid clearfix">
+            <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © 2018
+              <a href="http://www.bootstrapdash.com/" target="_blank">Bootstrapdash</a>. All rights reserved.</span>
+                <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Hand-crafted & made with
+              <i class="mdi mdi-heart text-danger"></i>
+            </span>
+            </div>
+        </footer>
+    </div>
+{% endblock %}

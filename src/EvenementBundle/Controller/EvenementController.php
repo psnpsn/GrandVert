@@ -100,26 +100,27 @@ class EvenementController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $evenement = $em->getRepository('EvenementBundle:Evenement')->find($id);
-        $participant = $em->getRepository("EvenementBundle:Participants")->findBy(["event" => $evenement, "user" => $user);
-        if ($participant != null) {
-            if ($participant[0]->getStatut() == 1) {
-                return $this->render('@Evenement/Evenement/consulter1.html.twig',array(
-                    'evenement'=>$evenement, "user" => $user
-                ));
-            }
-         else {
-             return $this->render('@Evenement/Evenement/consulter.html.twig',array(
-                 'evenement'=>$evenement, "user" => $user
-             ));
-        }
-    }else{
-            return $this->render('@Evenement/Evenement/consulter.html.twig',array(
-                'evenement'=>$evenement, "user" => $user
-            ));
-        }
+        $participant = $em->getRepository("EvenementBundle:Participants")->findBy(["event" => $evenement, "user" => $user]);
 
+            if ($participant != null) {
+                if ($participant[0]->getStatut() == 1) {
+                    return $this->render('@Evenement/Evenement/consulter1.html.twig', array(
+                        'evenement' => $evenement, "user" => $user
+                    ));
+                } else {
+                    return $this->render('@Evenement/Evenement/consulter.html.twig', array(
+                        'evenement' => $evenement, "user" => $user
+                    ));
+                }
+            } else {
+                return $this->render('@Evenement/Evenement/consulter.html.twig', array(
+                    'evenement' => $evenement, "user" => $user
+                ));
+
+        }
 
     }
+
     public function participerAction(Request $request)
     {
         //recuperer l'id de l'événement
@@ -128,17 +129,33 @@ class EvenementController extends Controller
         $event = $em->getRepository("EvenementBundle:Evenement")->find($id_ev);
         //recuperer l'id de l'uilisateur
         $user = $this->getUser();
-        $Participant = new Participants();
-        $Participant->setEvent($event);
-        $Participant->setUser($user);
-        $Participant->setStatut(1);
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($Participant);
-        $em->flush();
+        $participation = $em->getRepository("EvenementBundle:Participants")->findBy(["event" => $event, "user" => $user]);
+if($participation != null){
+    $participation[0]->setStatut(1);
+    $em = $this->getDoctrine()->getManager();
+    $em->persist($participation[0]);
+    $em->flush();
 
 
-        $router = $this->container->get('router');
-        return new RedirectResponse($router->generate('consulter' ,['id' => $id_ev]), 307);
+    $router = $this->container->get('router');
+    return new RedirectResponse($router->generate('consulter' ,['id' => $id_ev]), 307);
+
+}else{
+    $Participant = new Participants();
+    $Participant->setEvent($event);
+    $Participant->setUser($user);
+    $Participant->setStatut(1);
+    $em = $this->getDoctrine()->getManager();
+    $em->persist($Participant);
+    $em->flush();
+
+
+    $router = $this->container->get('router');
+    return new RedirectResponse($router->generate('consulter' ,['id' => $id_ev]), 307);
+
+
+}
+
 
     }
     public function participerpAction(Request $request)
@@ -155,11 +172,98 @@ class EvenementController extends Controller
 
         $em->remove($participation[0]);
         $em->flush();
-
-
         $router = $this->container->get('router');
         return new RedirectResponse($router->generate('consulter' ,['id' => $id_ev]), 307);
 
     }
+    public function annulerevAction(Request $request)
+    {
+        $authChecker = $this->container->get('security.authorization_checker');
+        $id=$request->get('id');
+        $em=$this->getDoctrine()->getManager();
+        $event=$em->getRepository('EvenementBundle:Evenement')->find($id);
+        $event->setEtat(1);
+        $em->persist($event);
+        $em->flush();
+        if ($authChecker->isGranted('ROLE_SUPER_ADMIN'))
+        {
+        return $this->redirectToRoute('listev');
+    }else{
+            return $this->redirectToRoute('evuser');
 
+        }
+    }
+    public function confirmerevAction(Request $request)
+    {  $id=$request->get('id');
+        $em=$this->getDoctrine()->getManager();
+        $event=$em->getRepository('EvenementBundle:Evenement')->find($id);
+        $event->setConfa(1);
+        $em->persist($event);
+        $em->flush();
+        return $this->redirectToRoute('propev');
+    }
+    public function propevAction(Request $request)
+    {
+        $user = $this->container->get('security.token_storage')->getToken()->getUser();
+        $em=$this->getDoctrine()->getManager();
+        $Evenement=$em->getRepository('EvenementBundle:Evenement')->findAll();
+        return $this->render('@Evenement/Evenement/propev.html.twig',array(
+            'Evenements'=>$Evenement,"user"=>$user
+
+        ));
+    }
+    public function listevAction(Request $request)
+    {  $user = $this->container->get('security.token_storage')->getToken()->getUser();
+        $em=$this->getDoctrine()->getManager();
+        $Evenement=$em->getRepository('EvenementBundle:Evenement')->findAll();
+        return $this->render('@Evenement/Evenement/listev.html.twig',array(
+            'Evenements'=>$Evenement,"user"=>$user
+
+        ));
+    }
+    public function inviterAction(Request $request)
+    {
+
+        //recuperer l'id de l'événement
+        $id_ev = $request->get("id");
+        $em = $this->getDoctrine()->getManager();
+        $event = $em->getRepository("EvenementBundle:Evenement")->find($id_ev);
+        $mail = $request->get("mail");
+        $em = $this->getDoctrine()->getManager();
+        $user = $em->getRepository("AppBundle:User")->findOneBy(["email"=>$mail]);
+        $participant1 = $em->getRepository("EvenementBundle:Participants")->findBy(["event" => $event, "user" => $user]);
+        if($participant1 != null) {
+            $router = $this->container->get('router');
+            return new RedirectResponse($router->generate('consulter', ['id' => $id_ev]), 307);
+        }
+        else{
+            $Participant = new Participants();
+            $Participant->setEvent($event);
+            $Participant->setUser($user);
+            $Participant->setStatut(0);
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($Participant);
+            $em->flush();
+            $router = $this->container->get('router');
+            return new RedirectResponse($router->generate('consulter', ['id' => $id_ev]), 307);
+        }
+
+    }
+   /* public function calAction()
+    {
+        $em=$this->getDoctrine()->getManager();
+        $ev=$em->getRepository('EvenementBundle:Evenement')->findAll();
+        return $this->render('@Evenement/Evenement/Calendar.html.twig',array(
+            'evs'=>$ev
+        ));
+    }*/
+   public function calAction()
+    {
+        $user = $this->container->get('security.token_storage')->getToken()->getUser();
+        $em=$this->getDoctrine()->getManager();
+        $ev = $em->getRepository("EvenementBundle:Participants")->findBy(["user" => $user, "statut"=>1]);
+        return $this->render('@Evenement/Evenement/Calendar.html.twig',array(
+            'evs'=>$ev,"user"=>$user
+        ));
+    }
     }

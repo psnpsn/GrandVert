@@ -68,3 +68,8 @@ services:
             tags:
                 - { name: doctrine.event_listener, event: prePersist }
                 - { name: doctrine.event_listener, event: preUpdate }
+    Evenement_bundle.service.listener:
+            class: EvenementBundle\Listener\LoadDataListener
+            arguments: ["@doctrine.orm.entity_manager"]
+            tags:
+                - { name: kernel.event_listener, event: fullcalendar.set_data, method: loadData }
