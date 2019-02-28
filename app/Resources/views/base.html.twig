@@ -215,9 +215,19 @@
                                         <li class="nav-item">
                                             <a class="nav-link" href="{{ path('afficher_categorie') }}" style="font-size : 15px; margin-right: 5px; color: white; padding-top:20px;">Forum</a>
                                         </li>
+                                        <li class="nav-item dropdown">
+                                            <a class="nav-link dropdown-toggle"  style="font-size : 15px; margin-right: 5px; color: white; padding-top:20px;" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                Evénements
+                                                <i class="fas fa-angle-down"></i>
+                                            </a>
+                                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                                <a class="dropdown-item" href="{{ path('pageev')}}">Evénement </a>
+                                                <a class="dropdown-item" href="{{ path('cal')}}" title="">Calendrier</a>
 
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="#" style="font-size : 15px; margin-right: 5px; color: white; padding-top:20px;" >Evénement</a>
+                                                <a class="dropdown-item" href="{{ path('evuser')}}" title="">Mes événement</a>
+                                                <a class="dropdown-item" href="{{ path('ajouterev')}}" title="">Créer événement</a>
+
+                                            </div>
                                         </li>
                                         <li class="nav-item dropdown"  style="font-size : 14px; margin-right: 5px; color: white; padding-top:16px;" >
                                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -300,7 +310,7 @@
                                         </li>
 
                                         <li class="nav-item">
-                                            <a class="nav-link" href="#" style="font-size : 15px; margin-right: 5px; color: white; padding-top:20px;" >Evénement</a>
+                                            <a class="nav-link" href="{{ path('pageev')}}" style="font-size : 15px; margin-right: 5px; color: white; padding-top:20px;" >Evénement</a>
                                         </li>
 
 
@@ -411,7 +421,7 @@
             if(this.readyState ==4 &&this.status==200)
                 data=JSON.parse(this.responseText);
             data.forEach(function (item) {
-                console.log(item);
+                console.log("t5dm");
                 var option=document.createElement('option')
                 option.value=item.nom;
                 dataList.appendChild(option);

@@ -59,7 +59,7 @@ class ReponseController extends Controller
 
             $user = $em->getRepository("AppBundle:User")->find($sujet->getUser());
 
-            //notifier user si le moderateur a fermer son sujet
+            //notifier user si il ya quelqua a reponde a son sujet
             if($this->getUser() != $user){
                 //notifier le reponsable de sujet pour de la nouvelle  reponse
                 $notification = new Notification();

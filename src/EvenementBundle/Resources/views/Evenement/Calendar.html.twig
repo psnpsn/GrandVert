@@ -1,0 +1,41 @@
+
+{% block body %}
+
+
+    {% include '@FullCalendar/Calendar/calendar.html.twig' %}
+{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.css">
+{% endblock %}
+
+{% block javascripts %}
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="https://momentjs.com/downloads/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/locale-all.js"></script>
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            $('#calendar-holder').fullCalendar({
+
+                events:[
+                    {% for ev in evs %}
+                    {
+                        id:"{{ ev.event.id }}",
+                        title:"  {{ ev.event.titre }}" ,
+                        start: "{{ ev.event.dated |date('Y-m-d H:i')}}",
+                        end:"{{ ev.event.datef |date('Y-m-d H:i')}}"
+                    },
+                    {% endfor %}
+
+
+                ]
+
+            });
+
+        });
+    </script>
+{% endblock %}
