@@ -255,53 +255,6 @@ class User extends BaseUser
         return $this->prenom;
     }
 
-    /**
-     * Set daten
-     *
-     * @param \DateTime $daten
-     *
-     * @return User
-     */
-    public function setDaten($daten)
-    {
-        $this->daten = $daten;
-
-        return $this;
-    }
-
-    /**
-     * Get daten
-     *
-     * @return \DateTime
-     */
-    public function getDaten()
-    {
-        return $this->daten;
-    }
-
-    /**
-     * Set datenais
-     *
-     * @param \DateTime $datenais
-     *
-     * @return User
-     */
-    public function setDatenais($datenais)
-    {
-        $this->datenais = $datenais;
-
-        return $this;
-    }
-
-    /**
-     * Get datenais
-     *
-     * @return \DateTime
-     */
-    public function getDatenais()
-    {
-        return $this->datenais;
-    }
 
     public function setEmail($email)
     {

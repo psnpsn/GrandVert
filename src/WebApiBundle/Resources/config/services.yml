@@ -1,0 +1,4 @@
+services:
+#    web_api.example:
+#        class: WebApiBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]

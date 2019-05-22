@@ -1,3 +1,7 @@
+web_api:
+    resource: "@WebApiBundle/Resources/config/routing.yml"
+    prefix:   /api
+
 preservation:
     resource: "@PreservationBundle/Resources/config/routing.yml"
     prefix:   /preservation
@@ -92,6 +96,7 @@ list_user/moderateur:
 Modifier_etat_compte_by_moderateur:
     path:     /compte/Modifier_etat_compte
     defaults: { _controller: AppBundle:User:etat }
+
 ancarebeca_fullcalendar:
     resource: "@FullCalendarBundle/Resources/config/routing.yml"
 

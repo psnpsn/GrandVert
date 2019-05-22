@@ -1,0 +1,53 @@
+web_api_homepage:
+    path:     /
+    defaults: { _controller: WebApiBundle:Default:index }
+
+task_get_all:
+    path:   /tasks
+    defaults:   {_controller: WebApiBundle:Default:getAll }
+
+task_add:
+    path:   /tasks/new
+    defaults:   {_controller: WebApiBundle:Default:addTask }
+
+jardin_api_get:
+    path:   /jardin/{id}
+    defaults:   {_controller: WebApiBundle:Jardin:getJardin}
+
+note_api_add:
+    path:   /notes/add
+    defaults:   {_controller: WebApiBundle:Note:addNote }
+
+note_api_findbydate:
+    path:   /notes/find
+    defaults:   {_controller: WebApiBundle:Note:getNote }
+
+note_api_update:
+    path:   /notes/update
+    defaults:   {_controller: WebApiBundle:Note:updateNote }
+
+note_api_delete:
+    path:   /notes/delete
+    defaults:   {_controller: WebApiBundle:Note:deleteNote }
+
+plant_api_add:
+    path:   /notes/add
+    defaults:   {_controller: WebApiBundle:Plantation:addPlantation }
+
+plant_api_findbydate:
+    path:   /notes/find
+    defaults:   {_controller: WebApiBundle:Plantation:getPlantation }
+
+plant_api_update:
+    path:   /notes/update
+    defaults:   {_controller: WebApiBundle:Plantation:updatePlantation }
+
+plant_api_delete:
+    path:   /notes/delete
+    defaults:   {_controller: WebApiBundle:Plantation:updatePlantation }
+
+user_api_checkpw:
+    path:   /checkpassword
+    defaults: {_controller: WebApiBundle:User:checkPassword }
+
+

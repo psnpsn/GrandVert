@@ -10,4 +10,11 @@ namespace JardinBundle\Repository;
  */
 class NoteRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function findOneByDate($date,$jardin)
+    {
+        return $this->findBy([
+            'dateN' => $date,
+            'jardinId' => $jardin
+        ]);
+    }
 }
