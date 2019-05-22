@@ -1,0 +1,21 @@
+api_homepage:
+    path:     /
+    defaults: { _controller: ApiBundle:Default:index }
+allplante:
+    path:     /plante/all
+    defaults: { _controller: ApiBundle:Plante:all }
+findplante:
+    path:     /plante/find/{id}
+    defaults: { _controller: ApiBundle:Plante:find }
+newplante:
+    path:     /plante/new
+    defaults: { _controller: ApiBundle:Plante:new }
+showachat:
+  path:     /achat/all
+  defaults: { _controller: ApiBundle:Achat:all }
+newachat:
+  path:     /achat/new
+  defaults: { _controller: ApiBundle:Achat:new }
+annachat:
+  path:     /achat/update
+  defaults: { _controller: ApiBundle:Achat:ann }

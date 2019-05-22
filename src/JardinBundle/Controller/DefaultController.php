@@ -14,8 +14,8 @@ class DefaultController extends Controller
     public function indexAction(Request $request)
     {
 
-        $openWeather = $this->get('dwr_open_weather');
-        $weather = $openWeather->setType('Weather')->getByCityName('Tunis');
+        //$openWeather = $this->get('dwr_open_weather');
+        //$weather = $openWeather->setType('Weather')->getByCityName('Tunis');
 
         $user = $this->getUser();
         $jardin = new Jardin();
@@ -32,7 +32,7 @@ class DefaultController extends Controller
         }
         return $this->render('@Jardin/index.html.twig', array(
             "jardin" => $jardin[0],
-            "wth" => $weather
+            //"wth" => $weather
         ));
     }
 

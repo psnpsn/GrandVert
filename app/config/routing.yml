@@ -1,3 +1,8 @@
+api:
+    resource: "@ApiBundle/Resources/config/routing.yml"
+    prefix:   /apis
+
+
 preservation:
     resource: "@PreservationBundle/Resources/config/routing.yml"
     prefix:   /preservation
