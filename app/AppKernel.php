@@ -32,6 +32,7 @@ class AppKernel extends Kernel
             new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
             new Dwr\OpenWeatherBundle\DwrOpenWeatherBundle(),
             new WebApiBundle\WebApiBundle(),
+            new ApiBundle\ApiBundle()
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

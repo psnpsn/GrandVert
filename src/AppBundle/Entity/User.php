@@ -255,6 +255,13 @@ class User extends BaseUser
         return $this->prenom;
     }
 
+    /**
+     * Set daten
+     *
+     * @param \DateTime $daten
+     *
+     * @return User
+     */
 
     public function setEmail($email)
     {

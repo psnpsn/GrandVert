@@ -103,11 +103,16 @@ class plante
     }
 
     /**
-     * @param mixed $proposition
+     * Set proposition
+     *
+     * @param integer $proposition
+     *
+     * @return plante
      */
     public function setProposition($proposition)
     {
         $this->proposition = $proposition;
+        return $this;
     }
 
     /**

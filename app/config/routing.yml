@@ -2,6 +2,11 @@ web_api:
     resource: "@WebApiBundle/Resources/config/routing.yml"
     prefix:   /api
 
+api:
+    resource: "@ApiBundle/Resources/config/routing.yml"
+    prefix:   /apis
+
+
 preservation:
     resource: "@PreservationBundle/Resources/config/routing.yml"
     prefix:   /preservation
